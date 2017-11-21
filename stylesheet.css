@@ -29,7 +29,8 @@ h1 {
 
 p {
     padding: 25px;
-    border: 5px ridge #42CC99;
+    border: 5px #42CC99;
+    border-style: groove;
     background-image: url(resources/denim.png);
     
     border-radius: 15px;
