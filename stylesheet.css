@@ -11,6 +11,7 @@ body {
 
 h1 {
     
+    padding-top: 0px;
     /*border: 3px ridge yellow;*/
 }
 
@@ -27,13 +28,18 @@ h1 {
     border-radius: 15px;
 }
 
-p {
+#main {
     padding: 25px;
+    padding-top: 0px;
     border: 5px #42CC99;
-    border-style: groove;
+    border-style: dashed;
     background-image: url(resources/denim.png);
     
     border-radius: 15px;
+}
+
+p {
+    
 }
 
 
@@ -41,6 +47,15 @@ ul {
     
     list-style-type: none;
     
+}
+
+.tittel {
+    
+    font-size: 60px;
+    text-align: center;
+
+    text-decoration: underline;
+    text-decoration-color: #42CC99;
 }
 
 .current_page {
