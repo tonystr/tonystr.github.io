@@ -117,25 +117,17 @@ header .nonlight{
 /* Newsletter */
 
 #newsletter{
-  padding:15px;
   color:#ffffff;
   background:#2d313d;
+  text-align:center;
   border-top:#F14165 4px solid;
+  display: flex;
+  justify-content:space-between;
 }
 
-#newsletter h1{
-  float:left;
-}
-
-#newsletter form{
-  float:right;
-  margin-top:20px;
-}
-
-#newsletter input[type="email"]{
-  padding:4px;
-  height:18px;
-  width:250px;
+#newsletter h2{
+  width:100%;
+  text-align:center;
 }
 
 /* Boxes */
@@ -207,7 +199,7 @@ footer{
   color:#ffffff;
 }
 
-.fa:hover{
+.fa:hover{ /* ==================== HOVER ==================== */
   color:#F14165;
   border-bottom:#F14165 0px solid;
   background: #ffffff;
