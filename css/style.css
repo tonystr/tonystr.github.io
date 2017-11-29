@@ -1,4 +1,9 @@
 
+/*
+blue = #7588FF
+red  = #F14165
+*/
+
 body{
   font: 15px/1.5 Arial, Helvetica, sans-serif;
   padding: 0;
@@ -10,7 +15,7 @@ body{
 .container{
   width:80%;
   margin:auto;
-  overflow: hidden;
+  overflow:hidden;
   display: flex;
   justify-content:space-between;
 }
@@ -89,6 +94,7 @@ header .nonlight{
   background:url('../img/showcase.png') no-repeat 0;
   background-position:center;
   background-position:top;
+
   text-align:center;
   color:#272939;
 }
@@ -104,8 +110,12 @@ header .nonlight{
   font-style:italic;
 }
 
+#showundertitle{
+
+}
+
 #clearblue{
-  background-color:#000000;
+  background-color:#1e2026;
 }
 
 /* Newsletter */
@@ -156,6 +166,13 @@ footer{
   margin-top:20px;
   color:#ffffff;
   background-color:#F14165;
+  display: flex;
+  justify-content:space-between;
+}
+
+#right{
+  float:right;
+  padding-right:16px;
 }
 
 /* Social Media */
@@ -164,15 +181,9 @@ footer{
   padding:9px;
   margin: 6px;
   font-size:10px;
-  width:15px;
+  width:26px;
   text-align:center;
-  border-radius:18px;
-}
-
-.fa:hover{
-  opacity:0.7;
-  color:#1e2026;
-  border-bottom:#F14165 0px solid;
+  border-radius:45%;
 }
 
 .fa-twitter{
@@ -185,7 +196,23 @@ footer{
   color: white;
 }
 
+.fa-github{
+  background: #000000;
+  color: white;
+}
+
 .fa-discord{
+  background:#000000;
+  color:#ffffff;
+}
+
+.fa-envelope-o{
+  background:#D54B3D;
+  color:#ffffff;
+}
+
+.fa:hover{
+  color:#F14165;
+  border-bottom:#F14165 0px solid;
   background: #ffffff;
-  color:#000000;
 }
