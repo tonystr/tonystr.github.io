@@ -1,40 +1,76 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Affortable and professional game design">
+    <meta name="keywords"    content="gamedesign, affortable gamedesign, professional game design">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title>TonyStr GameDesign | About</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
 
-    <head>
-        
-        <link rel="apple-touch-icon" sizes="180x180" href="/icon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="/icon/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/icon/favicon-16x16.png">
-        <link rel="manifest" href="/icon/manifest.json">
-        <link rel="mask-icon" href="/icon/safari-pinned-tab.svg" color="#5bbad5">
-        <link rel="shortcut icon" href="/icon/favicon.ico">
-        <meta name="msapplication-config" content="/icon/browserconfig.xml">
-        <meta name="theme-color" content="#ffffff">
-        
-        <title>Tony Str About</title>
-        
-        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="stylesheet.css">
-    </head>
-    
-    <div id="header">
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1 class="nonlight"><span class="highlight">TonyStr</span>ømsnæs</h1>
+        </div>
+        <div id="icons">
+          <a href="https://twitter.com/TonyStroemsnaes?ref_src=twsrc%5Etfw" target="_blank" class="fa fa-twitter"></a>
+          <a href="https://www.reddit.com/user/TonyStr/" target="_blank" class="fa fa-reddit"></a>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li class="current"><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
 
-        <a href="index.html">Home</a>
-        <a href="about.html" class="current_page">About</a>
-        <a href="mailto:tony.stroemsnaes@gmail.com" target="_blank">Contact</a>
+    <div id="clearblue">
+      <section id="showcase">
+        <div class="container">
+          <h1>Programming from NUL to DEL</h1> <!--Adept Game Developer-->
+        </div>
+      </section>
     </div>
-    
-    <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi a feugiat felis, facilisis dignissim magna. Sed non dolor fringilla leo porta sagittis. Aenean suscipit turpis mauris, non blandit felis consectetur in. Donec vehicula finibus massa, tempus convallis lectus blandit in. Donec in facilisis elit, et porttitor ipsum. Curabitur velit sem, vestibulum vel ornare ac, tempus in mi. Ut ultrices rhoncus justo, eget vestibulum tortor euismod et. Aliquam in facilisis elit, non viverra lorem. Curabitur vel nibh a magna consectetur finibus sed vel nisl.
-        <br><br>
-        Donec sed malesuada nibh. Sed porttitor augue vel massa posuere iaculis. Integer orci elit, facilisis vel quam vulputate, ultricies tristique nisl. Pellentesque malesuada, ante vitae posuere lacinia, erat ante accumsan lacus, aliquam lobortis tellus enim in mauris. Proin mattis felis nec blandit vulputate. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer ac lorem massa. Pellentesque dictum augue elementum magna tristique tempor. Nulla libero ante, finibus non fringilla ut, scelerisque ac justo.
-        <br><br>
-        Vivamus quam nulla, ornare a quam nec, iaculis elementum dolor. Cras et justo ut quam sodales efficitur sodales blandit orci. Donec tempor iaculis dui at gravida. Mauris at purus iaculis, consectetur ante a, pellentesque tortor. Curabitur nisi elit, convallis quis lacinia vitae, malesuada vitae velit. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer diam velit, blandit in felis non, pharetra sodales neque. Duis vel nisi nec ligula vulputate maximus. Proin arcu quam, auctor eu porttitor in, cursus vitae ante. Ut tempor rhoncus nulla quis viverra.
-        <br><br>
-        In pharetra at dui a eleifend. In consectetur rutrum molestie. Pellentesque pulvinar vehicula augue, id eleifend leo vulputate consectetur. Duis tincidunt aliquet scelerisque. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam lacinia libero id eros ultrices, id rhoncus mauris dignissim. Morbi quis dui sit amet massa finibus porta vel sit amet enim. Morbi in dolor vehicula, laoreet diam id, tristique urna. Nunc interdum eros vitae hendrerit finibus. Curabitur ultrices porta pretium.
-        <br><br>
-        Maecenas pharetra tortor sed urna tincidunt commodo. Phasellus ac nisi sit amet quam dapibus porta. Proin malesuada felis tortor, at varius ante dictum eget. Nullam ullamcorper vestibulum dui sit amet auctor. Donec venenatis mauris interdum, gravida nisi id, sagittis sapien. Quisque venenatis mi et odio sodales, vel dictum velit ullamcorper. Sed sit amet rhoncus ipsum. In in auctor dui.
-    </p>
-    
+
+    <section id="newsletter">
+      <div class="container">
+        <h1>Subscribe to our newsletter!</h1>
+        <form> <!-- #action = something.php -->
+          <input type="email" placeholder="example@email.domain">
+          <button type="submit" class="button_1">Subscribe</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="boxes">
+      <div class="container">
+        <div class="box">
+          <img src="./img/gms2.png">
+          <h3>GML Programming</h3>
+          <p>Praesent sodales dignissim eros egestas hendrerit. Etiam vitae nisl quis ligula rutrum tempus. Vivamus rutrum</p>
+        </div>
+        <div class="box">
+          <img src="./img/pxart.png">
+          <h3>Pixelart Design</h3>
+          <p>tortor et velit laoreet, vel aliquet libero aliquam. Donec aliquet urna leo, quis bibendum nibh viverra bibendum.</p>
+        </div>
+        <div class="box">
+          <img src="./img/js.png">
+          <h3>JS Programming</h3>
+          <p>Ut gravida fermentum tortor, id rutrum lorem lobortis a. Sed sit amet elit vitae neque porttitor finibus.</p>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>Tony Strømsnæs v0.0.1</p> <!-- , Copyright &copy; 2017 -->
+    </footer>
+  </body>
 </html>
