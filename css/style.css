@@ -20,6 +20,8 @@ body{
   overflow:hidden;
   display: flex;
   justify-content:space-between;
+  flex-wrap: wrap;
+  /*border: 4px #7588FF solid;*/
 }
 
 .container-inline{
@@ -121,6 +123,7 @@ header .nonlight{
   background:url('../img/showcase.png') no-repeat 0;
   background-position:center;
   background-position:top;
+  width:100%;
 
   text-align:center;
   color:#272939;
@@ -133,7 +136,7 @@ header .nonlight{
   margin-left:10%;
   margin-bottom:10px;
 
-  font-size:97px;
+  font-size:540%;
   font-style:italic;
 }
 
@@ -193,13 +196,14 @@ footer{
 
 /* Social Media */
 
-.fa {
+.fa-intbut {
   padding:9px;
   margin: 6px;
   font-size:10px;
   width:26px;
   text-align:center;
   border-radius:45%;
+  color:#ffffff;
 }
 
 .fa-twitter{
@@ -227,7 +231,9 @@ footer{
   color:#ffffff;
 }
 
-.fa:hover{ /* ==================== HOVER ==================== */
+ /* ==================== HOVER ==================== */
+
+.fa-intbut:hover{
   color:#F14165;
   border-bottom:#F14165 0px solid;
   background: #ffffff;
@@ -263,3 +269,5 @@ article#main-col{
   float:left;
   width:65%;
 }
+
+/* Media Queries */
