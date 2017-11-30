@@ -28,8 +28,18 @@ body{
   overflow:hidden;
 }
 
+.link{
+  text-decoration:none;
+  color:#7588FF;
+}
+
+.link:hover{
+  text-decoration:underline;
+
+}
+
 .dark{
-  padding:15px;
+  padding:20px;
   background:#2d313d;
   color:#ffffff;
 
