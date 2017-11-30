@@ -133,13 +133,14 @@ header .nonlight{
 /* Boxes */
 #boxes{
   margin-top:20px;
+
 }
 
 #boxes .box{
   float:left;
   text-align:center;
   color:#7588FF;
-  width:32%;
+  width:400px;
   padding:10px;
 }
 
@@ -203,4 +204,12 @@ footer{
   color:#F14165;
   border-bottom:#F14165 0px solid;
   background: #ffffff;
+}
+
+
+/* NAVBAR */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 100%;
 }
