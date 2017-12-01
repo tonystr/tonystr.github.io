@@ -4,6 +4,7 @@ blue  = #7588FF
 red   = #F14165
 dark1 = #1e2026
 dark2 = #2d313d
+pink  = #FFC7FF
 */
 
 body{
@@ -37,7 +38,7 @@ body{
 
 .link:hover{
   text-decoration:underline;
-
+  color:#FFC7FF;
 }
 
 .dark{
@@ -177,6 +178,14 @@ header .nonlight{
 #boxes .box img{
   width:100%;
   border-radius: 6px;
+}
+
+#boxes .link{
+  color:#F14165;
+}
+
+#boxes .link:hover{
+  color:#FFC7FF;
 }
 
 footer{
