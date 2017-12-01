@@ -302,8 +302,14 @@ article#main-col{
     padding-bottom: 4px;
   }
 
+  #showcase{
+    min-height:458px;
+    background-position:50% 22%;
+  }
+
   #showcase h1{
+    margin:0;
     padding-top:130px;
-    font-size:261%;
+    font-size:311%;
   }
 }
