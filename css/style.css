@@ -145,15 +145,19 @@ header .nonlight{
   background-color:#1e2026;
 }
 
-/* Newsletter */
+/* sectionhead */
 
 .sectionhead{
   color:#ffffff;
   background:#2d313d;
   text-align:center;
-  border-top:#F14165 4px solid;
+
   display: flex;
   justify-content:space-between;
+}
+
+.shtop{
+  border-top:#F14165 4px solid;
 }
 
 .sectionhead h2{
@@ -309,7 +313,7 @@ article#main-col{
 
   #showcase h1{
     margin:0;
-    padding-top:130px;
+    padding-top:133px;
     font-size:311%;
   }
 }
