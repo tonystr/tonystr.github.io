@@ -119,7 +119,7 @@ header .nonlight{
 
 /* Showcase */
 #showcase{
-  min-height:584px;
+  min-height:594px;
   background:url('../img/showcase.png') no-repeat 0;
   background-position:center;
   background-position:top;
@@ -146,7 +146,7 @@ header .nonlight{
 
 /* Newsletter */
 
-#newsletter{
+.sectionhead{
   color:#ffffff;
   background:#2d313d;
   text-align:center;
@@ -155,7 +155,7 @@ header .nonlight{
   justify-content:space-between;
 }
 
-#newsletter h2{
+.sectionhead h2{
   width:100%;
   text-align:center;
 }
@@ -163,19 +163,19 @@ header .nonlight{
 /* Boxes */
 #boxes{
   margin-top:20px;
-
+  border: 4px #1e2026 solid;
 }
 
 #boxes .box{
   float:left;
   text-align:center;
   color:#7588FF;
-  width:400px;
+  width:350px;
   padding:10px;
 }
 
 #boxes .box img{
-  width:400px;
+  width:100%;
   border-radius: 6px;
 }
 
@@ -235,7 +235,7 @@ footer{
 
 .fa-intbut:hover{
   color:#F14165;
-  border-bottom:#F14165 0px solid;
+  border:#F14165 0px solid;
   background: #ffffff;
 }
 
