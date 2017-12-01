@@ -184,6 +184,11 @@ header .nonlight{
   border-radius: 6px;
 }
 
+#boxes h3{
+  border-top: 4px #F14165 dashed;
+  padding-top:16px;
+}
+
 #boxes .link{
   text-decoration: underline;
   text-decoration-color:#7588FF;
@@ -311,9 +316,14 @@ article#main-col{
     background-position:50% 22%;
   }
 
+  #showcase .container{
+    width:100%;
+  }
+
   #showcase h1{
-    margin:0;
-    padding-top:133px;
-    font-size:311%;
+    margin:24px;
+    padding:0;
+    padding-top:66px;
+    font-size:410%;
   }
 }
