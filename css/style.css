@@ -181,11 +181,13 @@ header .nonlight{
 }
 
 #boxes .link{
-  color:#F14165;
+  text-decoration: underline;
+  text-decoration-color:#7588FF;
 }
 
 #boxes .link:hover{
-  color:#FFC7FF;
+  color:#F14165;
+  text-decoration-color:#F14165;
 }
 
 footer{
