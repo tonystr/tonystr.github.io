@@ -281,4 +281,29 @@ article#main-col{
   width:65%;
 }
 
+
 /* Media Queries */
+
+@media(max-width: 826px){
+  header nav,
+  header nav li,
+  header #icons,
+  header #branding{
+    float:none;
+    text-align:center;
+    width: 100%;
+  }
+
+  header #icons{
+    padding:0;
+  }
+
+  header nav{
+    padding-bottom: 4px;
+  }
+
+  #showcase h1{
+    padding-top:90px;
+    font-size:310%;
+  }
+}
