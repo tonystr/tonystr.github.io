@@ -88,6 +88,7 @@ body{
 .link:hover{
   text-decoration:underline;
   color:#FFC7FF;
+  transition: all 0.3s ease;
 }
 
 .dark{
@@ -164,6 +165,7 @@ header a{
   text-decoration:none;
   font-size:18px;
   font-weight:bold;
+  transition: all 0.3s ease;
 }
 
 header a:hover{
@@ -267,7 +269,12 @@ header .nonlight{
 #boxes .box img{
   width:100%;
   border-radius: 6px;
+  transition: all 0.7s ease;
+}
 
+#boxes .box img:hover{
+  transform: rotate(-360deg);
+  border-radius:50%;
 }
 
 #boxes h3{
