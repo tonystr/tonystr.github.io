@@ -34,6 +34,10 @@ body{
   background: #9a9bcf;
 }
 
+.blue{
+  color:#7588FF;
+}
+
 .container{
   width:80%;
   margin:auto;
@@ -424,6 +428,10 @@ footer{
   background-color:#F14165;
   display: flex;
   justify-content:space-between;
+}
+
+.pointy:hover{
+  cursor:default;
 }
 
 /*
