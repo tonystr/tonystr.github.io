@@ -268,13 +268,12 @@ header .nonlight{
 
 #boxes .box img{
   width:100%;
-  border-radius: 6px;
+  border-radius: 16px;
   transition: all 0.7s ease;
 }
 
 #boxes .box img:hover{
-  transform: rotate(-360deg);
-  border-radius:50%;
+  border-radius:3px;
 }
 
 #boxes h3{
