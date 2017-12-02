@@ -117,8 +117,9 @@ ul{
   text-align: center;
   padding-top: 60px;
   position:absolute;
-  top:-35px;
-  left:-55px;
+  font-size:11px;
+  top:-42px;
+  left:-62px;
   width:120px;
   background: #1e2026;
 }
