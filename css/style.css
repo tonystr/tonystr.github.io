@@ -167,11 +167,10 @@ header .nonlight{
 
 /* Boxes */
 #boxes{
-  margin-top:20px;
-  border: 4px #1e2026 solid;
 }
 
 #boxes .box{
+  margin-top:20px;
   float:left;
   text-align:center;
   color:#7588FF;
