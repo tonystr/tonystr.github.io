@@ -34,14 +34,10 @@ body{
   background: #9a9bcf;
 }
 
-p:hover{
-  cursor:text;
-}
-
 .container{
   width:80%;
   margin:auto;
-  overflow:hidden;
+  overflow:visible;
   display: flex;
   justify-content:space-between;
   flex-wrap: wrap;
@@ -54,9 +50,35 @@ p:hover{
   overflow:hidden;
 }
 
+.dropdown{
+  position:relative;
+  display:inline-block;
+}
+
+.dropdown-content{
+  text-align:center;
+  display:none;
+  position:absolute;
+  background-color:#1e2026;
+  width:186px;
+  box-shadow:0px 8px 16px 0px rgba(0,0,0,0.22);
+  padding:12px 0px;
+  z-index:1;
+  left:calc(-186px/2 + 50%);
+
+  border-top: 3px #7588FF solid;
+  border-bottom: 3px #7588FF solid;
+  line-height: 22px;
+}
+
+.dropdown:hover .dropdown-content{
+  display:block;
+}
+
 .link{
   text-decoration:none;
   color:#7588FF;
+  cursor:pointer;
 }
 
 .link:hover{
@@ -142,7 +164,6 @@ header a{
 
 header a:hover{
   color:#7588FF;
-  border-bottom:#F14165 4px solid;
 }
 
 header li{
@@ -161,7 +182,7 @@ header #branding h1{
 
 header #icons{
   float:left;
-  padding-left: 54px;
+  padding-left: 110px;
 }
 
 header nav{
