@@ -3,7 +3,7 @@
 blue  = #7588FF
 red   = #F14165
 dark1 = #1e2026
-dark2 = #2d313d
+dark2 = #2D313D
 pink  = #FFC7FF
 */
 
@@ -70,8 +70,7 @@ body{
   z-index:1;
   left:calc(-186px/2 + 50%);
 
-  border-top: 3px #7588FF solid;
-  border-bottom: 3px #7588FF solid;
+  border-top: 4px #2D313D dashed;
   line-height: 22px;
 }
 
@@ -188,7 +187,7 @@ header #branding h1{
 
 header #icons{
   float:left;
-  padding-left: 110px;
+  padding-left:143px;
 }
 
 header nav{
@@ -264,16 +263,21 @@ header .nonlight{
   color:#7588FF;
   width:350px;
   padding:10px;
+  transition: all 0.3s ease;
+  border: 0px #FFC7FF00 solid;
+  border-radius:-14px;
 }
 
 #boxes .box img{
   width:100%;
   border-radius: 16px;
-  transition: all 0.7s ease;
+  transition: all 0.3s ease;
 }
 
-#boxes .box img:hover{
-  border-radius:3px;
+#boxes .box:hover{
+  border: 2px #F14165 solid;
+  border-radius:24px;
+  width:346px;
 }
 
 #boxes h3{
@@ -298,13 +302,17 @@ header .nonlight{
 
 /* Social Media */
 
+.fa{
+  border: 0px #000000 dashed;
+}
+
 .fa-intbut {
   padding:9px;
   margin: 6px;
   font-size:10px;
   width:26px;
   text-align:center;
-  border-radius:45%;
+  border-radius:43%;
   color:#ffffff;
 }
 
@@ -339,8 +347,8 @@ header .nonlight{
   color:#F14165;
   border:#F14165 0px solid;
   background: #ffffff;
-  padding:5px;
-  border: 4px #F14165 dashed;
+  padding:6px;
+  border: 3px #F14165 dashed;
 }
 
 
