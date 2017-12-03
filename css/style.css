@@ -82,11 +82,26 @@ body{
   text-decoration:none;
   color:#7588FF;
   cursor:pointer;
+  transition: all 0.3s ease;
+}
+
+.link-nocol{
+  text-decoration:none;
+  color:#ffffff;
+  cursor:pointer;
+  transition: all 0.3s ease;
 }
 
 .link:hover{
   text-decoration:underline;
   color:#FFC7FF;
+  transition: all 0.3s ease;
+}
+
+.link-nocol:hover{
+  text-decoration:none;
+  color:#F14165;
+  cursor:pointer;
   transition: all 0.3s ease;
 }
 
@@ -234,7 +249,7 @@ header .nonlight{
 /* sectionhead */
 
 .sectionhead{
-  color:#ffffff;
+
   background:#2d313d;
   text-align:center;
 
