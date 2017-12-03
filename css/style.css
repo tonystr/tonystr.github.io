@@ -21,8 +21,7 @@ body{
 }
 
 #wrapper{
-  min-height: 100%;
-  margin-bottom: -54px;
+  min-height: calc(100% - 54px);
 }
 
 /* Global */
@@ -112,6 +111,14 @@ body{
 
   margin-top:10px;
   margin-bottom:10px;
+}
+
+.price-tag{
+  color:#F14165;
+}
+
+.downloads{
+  font-size:16px;
 }
 
 #about-sidebar{
@@ -392,9 +399,8 @@ aside{
 
 #main-col{
   padding-left:10%;
-  /* padding-right:1749389%; */
   color:#ffffff;
-  font-size:15px;
+  font-size:18px;
 }
 
 aside#sidebar{
@@ -421,6 +427,38 @@ article#main-col{
     float:none;
     text-align:center;
     width: 100%;
+  }
+
+  #about-sidebar{
+    display: flex;
+    padding:12%;
+    width:76%;
+  }
+
+  .downloads{
+    font-size:13px;
+  }
+
+  header li{
+    padding-left:13px;
+    padding-right:13px;
+  }
+
+  header a{
+    font-size:94%;
+  }
+
+  header nav{
+    padding:0;
+    margin:0;
+    padding-top:10px;
+  }
+
+  article#main-col{
+    float:left;
+    width:88%;
+    padding:20px;
+    margin:0px;
   }
 
   header #icons{
