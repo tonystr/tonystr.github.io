@@ -67,9 +67,10 @@ body{
   box-shadow:0px 8px 16px 0px rgba(0,0,0,0.22);
   padding:12px 0px;
   z-index:1;
+  top:103%;
   left:calc(-186px/2 + 50%);
 
-  border-top: 4px #2D313D dashed;
+  border-top: 4px #2D313D double;
   line-height: 22px;
 }
 
@@ -241,12 +242,25 @@ header .nonlight{
 #showcase h1{
   width:100%;
   margin-top:100px;
-  margin-right:10%;
-  margin-left:10%;
+  margin-right:5%;
+  margin-left:5%;
   margin-bottom:10px;
 
-  font-size:540%;
+  color:#ffffff;
+
+  background-color: #1e2026eb;
+  border-radius:2px;
+
+  border: 4px #7588FF dashed;
+  border-top: 4px #F14165 dashed;
+  border-bottom: 4px #F14165 dashed;
+
+  font-size:410%;
   font-style:italic;
+}
+
+.blue{
+  color:#7588FF;
 }
 
 #clearblue{
@@ -481,7 +495,8 @@ article#main-col{
   #showcase h1{
     margin:24px;
     padding:0;
-    padding-top:76px;
+    padding-top:10px;
+    padding-bottom:10px;
     font-size:350%;
   }
 }
