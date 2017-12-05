@@ -247,7 +247,7 @@ header .nonlight{
   margin-bottom:10px;
 
   color:#1e2026;
-  text-shadow:  0 2px 5px #1e2026da;
+  text-shadow: 0 2px 4px #1e2026fb;
 
   font-size:540%;
   font-style:italic;
@@ -309,13 +309,15 @@ header .nonlight{
   border: 2px #F14165 solid;
   border-radius:24px;
   width:346px;
-  font-size:14.85px;
+  font-size:14.86px;
 }
 
 #boxes h3{
   border-top: 4px #F14165 dashed;
   padding-top:16px;
+  font-size:17.5px;
 }
+
 
 #boxes .link{
   text-decoration: underline;
