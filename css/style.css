@@ -78,6 +78,10 @@ body{
   display:block;
 }
 
+.dropdown-content .link{
+  color:#7588FF;
+}
+
 .link{
   text-decoration:none;
   color:#7588FF;
@@ -93,7 +97,6 @@ body{
 }
 
 .link:hover{
-  text-decoration:underline;
   color:#FFC7FF;
   transition: all 0.3s ease;
 }
@@ -119,7 +122,6 @@ body{
 }
 
 .downloads{
-  font-size:16px;
 }
 
 #about-sidebar{
@@ -320,13 +322,16 @@ header .nonlight{
 
 
 #boxes .link{
-  text-decoration: underline;
   text-decoration-color:#7588FF;
 }
 
 #boxes .link:hover{
   color:#F14165;
   text-decoration-color:#F14165;
+}
+
+#boxes .box p .link{
+  text-decoration:underline;
 }
 
 #right{
@@ -448,7 +453,7 @@ article#main-col{
   }
 
   .downloads{
-    font-size:13px;
+    font-size:15px;
   }
 
   header li{
