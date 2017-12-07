@@ -249,7 +249,7 @@ header .nonlight{
   margin-bottom:10px;
 
   color:#1e2026;
-  text-shadow: 0 2px 3px #1e2026df;
+  text-shadow: 0 1.8px 2px #0000009f;
 
   font-size:540%;
   font-style:italic;
@@ -436,10 +436,6 @@ article#main-col{
 #main-col .img-box{
   /* background-color:#2D313D; */
   width:100%;
-
-  border: 2px #F14165 dashed;
-  border-top: 0px;
-  border-bottom: 0px;
   margin-bottom:8%;
 }
 
@@ -447,7 +443,8 @@ article#main-col{
   width:90%;
   margin-left:5%;
   margin-bottom:5%;
-  border:2px #7588FF solid;
+  /* border:2px #1c1d21 solid; */
+  border-radius: .8%;
 }
 
 /* Media Queries */
