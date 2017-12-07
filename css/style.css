@@ -433,6 +433,20 @@ article#main-col{
   width:50%;
 }
 
+#main-col .img-box{
+  /* background-color:#2D313D; */
+  width:100%;
+
+  border: 2px #F14165 dashed;
+  border-top: 0px;
+  border-bottom: 0px;
+}
+
+#main-col .img-box img{
+  width:90%;
+  margin-left:5%;
+  padding-bottom:5%;
+}
 
 /* Media Queries */
 
@@ -478,6 +492,10 @@ article#main-col{
     margin:0px;
   }
 
+  article#main-col img{
+    width:10%;
+  }
+
   header #icons{
     padding:0;
   }
@@ -517,6 +535,11 @@ footer{
 
 .pointy:hover{
   cursor:default;
+}
+
+/*
+.fa{
+  background-color: #1e2026;
 }
 
 /*
