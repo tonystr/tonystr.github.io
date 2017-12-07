@@ -440,6 +440,7 @@ article#main-col{
   border: 2px #F14165 dashed;
   border-top: 0px;
   border-bottom: 0px;
+  margin-bottom:8%;
 }
 
 #main-col .img-box img{
