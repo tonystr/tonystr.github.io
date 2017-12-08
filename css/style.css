@@ -43,7 +43,7 @@ body{
   overflow:visible;
   display: flex;
   justify-content:space-between;
-  flex-wrap: wrap;
+
   /*border: 4px #7588FF solid;*/
 }
 
@@ -315,7 +315,7 @@ header .nonlight{
   opacity:0;
   transition:.21s ease color;
   position:absolute;
-  width:350px;
+  width:24.5%;
   color:#00000000;
   top:-2345px;
 }
@@ -464,7 +464,7 @@ article#main-col{
 
 /* Media Queries */
 
-@media(max-width: 826px){
+@media(max-width: 860px){
   header nav,
   header nav li,
   header #icons,
@@ -472,6 +472,25 @@ article#main-col{
     float:none;
     text-align:center;
     width: 100%;
+  }
+
+  header .container,
+  #boxes .container {
+    flex-direction: column;
+  }
+
+  #boxes {
+    width:100%;
+    align-content:center;
+  }
+
+  #boxes .container{
+    /* border: 2px #ffffff solid; */
+    align-content:center;
+  }
+
+  #boxes .box p{
+    width:41%;
   }
 
   #about-sidebar{
