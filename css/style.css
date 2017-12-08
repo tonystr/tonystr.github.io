@@ -315,7 +315,7 @@ header .nonlight{
   opacity:0;
   transition:.21s ease color;
   position:absolute;
-  width:24.5%;
+  width:inherit;
   color:#00000000;
   top:-2345px;
 }
@@ -463,6 +463,22 @@ article#main-col{
 }
 
 /* Media Queries */
+
+@media(max-width: 1350px){
+  #boxes .box{
+    width:45.95%;
+    height:130%;
+  }
+
+  #boxes .box:hover{
+    width:45.95%;
+    height:130%;
+  }
+
+  #boxes .box p{
+    width:24.5%;
+  }
+}
 
 @media(max-width: 860px){
   header nav,
