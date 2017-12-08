@@ -269,7 +269,7 @@ header .nonlight{
 
   background:#2d313d;
   text-align:center;
-
+  box-shadow: 0px 3px 13px #000000af;
   display: flex;
   justify-content:space-between;
 }
@@ -345,6 +345,7 @@ header .nonlight{
 
 .fa{
   border: 0px #000000 dashed;
+
 }
 
 .fa-intbut {
@@ -353,33 +354,9 @@ header .nonlight{
   font-size:10px;
   width:26px;
   text-align:center;
-  border-radius:43%;
+  border-radius:42%;
   color:#ffffff;
-}
-
-.fa-twitter{
-  background:#55ACEE;
-  color:white;
-}
-
-.fa-reddit {
-  background: #ff5700;
-  color: white;
-}
-
-.fa-github{
-  background:#000000;
-  color: white;
-}
-
-.fa-discord{
-  background:#000000;
-  color:#ffffff;
-}
-
-.fa-envelope-o{
-  background:#D54B3D;
-  color:#ffffff;
+  background:#F14165;
 }
 
  /* ==================== HOVER ==================== */
@@ -446,7 +423,22 @@ article#main-col{
   margin-left:5%;
   margin-bottom:5%;
   /* border:2px #1c1d21 solid; */
-  border-radius: .8%;
+  border-radius: .5%;
+
+}
+
+#main-col label:checked{
+  margin-left:5%;
+  margin-bottom:105%;
+  /* border:2px #1c1d21 solid; */
+
+  position:fixed;
+  display:inline-block;
+  z-index: 3;
+  top:0;
+  left:0;
+  transition: 5s ease all;
+  border: 5px #ffffff solid;
 }
 
 /* Media Queries */
