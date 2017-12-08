@@ -183,6 +183,7 @@ header{
   min-height:70px;
   border-bottom:#F14165 4px solid;
   box-shadow: 0 1px 13px #000000ff;
+  width:100%;
 }
 
 header a{
