@@ -380,6 +380,11 @@ header .nonlight{
   background:#F14165;
 }
 
+.fa-angle-down {
+  font-size:20px;
+  font-weight: bold;
+}
+
  /* ==================== HOVER ==================== */
 
 .fa-intbut:hover{
