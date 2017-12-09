@@ -410,6 +410,12 @@ aside{
   font-size:30px;
 }
 
+#main-title{
+  font-size:50px;
+  text-align: center;
+  color:#7588FF;
+}
+
 #main{
   padding-top:20px;
 }
