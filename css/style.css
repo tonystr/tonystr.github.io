@@ -419,6 +419,26 @@ aside{
   font-size:50px;
   text-align: center;
   color:#7588FF;
+  margin-bottom:0px;
+  margin-top:0px;
+}
+
+#main-undertitle{
+  font-size:22px;
+  text-align: center;
+
+  color:#ffffff;
+}
+
+#shrug{
+
+}
+
+#fof{
+  font-size:2100%;
+  text-align:center;
+  color:#2D313D;
+  text-shadow: 0px 6px 20px #0000008a;
 }
 
 #main{
