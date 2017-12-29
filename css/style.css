@@ -357,6 +357,11 @@ header .nonlight{
   text-decoration-color:#FFC7FF; /* P FFC7FF   R F14165*/
 }
 
+#boxes .box a .date{
+  text-decoration:none;
+  color:#F14165;
+}
+
 #right{
   float:right;
   padding-right:16px;
