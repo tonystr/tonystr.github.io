@@ -81,7 +81,7 @@
 
           <div class="code_box">
             <h1 class="title">
-              Title1
+              arm_initialize
             </h1>
             <div class="code-wrapper">
               <div class="button_1" id="arm_initialize_btn">
@@ -109,14 +109,45 @@
                 </script>
               </pre>
             </div>
-            <div class="description">
-              description1
-            </div>
+            <pre class="description">
+<a class="sub-title">
+Description:</a>
+	This function initializes all the necessary variables and arrays
+	that all the other functions require to work. This function turns
+	the object into an "Inverse Kinematic Object", and MUST be called
+	in an object before it utilizes any of the other functions.
+<a class="sub-title">
+Arguments:</a><a class="title">
+	length</a>
+	(real) The length of the whole arm. if the arm is fully stretched out, it
+	will be this length, if you add together the length of every
+	segment, you will get this length. It's length can be changed later
+	with the function arm_set_length();
+	WARNING values less than or equal to zero will yield unexpected
+	results!
+<a class="title">
+        segments</a>
+	(integer) The amount of segments the arm will be split into. A segment
+	is the line/sprite between one joint and another.
+	WARNING values less than or equal to zero will yield unexpected
+	results!
+<a class="title">
+	sprite   (OPTIONAL)</a>
+	You can optionally specify a sprite to assign every segment, or you
+	could pass in an array containing all the sprites to use (if the array
+	is shorter than the amount of segments, you will get an error). If you
+	do not pass in a sprite or array, it will set all the segment sprites to
+	the sprite_index. If you do not wish for the arm to have any sprites, but
+	instead draw lines, pass in noone.
+<a class="sub-title">
+Returns:</a>
+	real | segment lengths
+            </pre>
           </div>
 
           <div class="code_box">
             <h1 class="title">
-              Title2
+              arm_initialize_seg
             </h1>
             <div class="code-wrapper">
               <div class="button_1" id="arm_initialize_seg_btn">
@@ -144,9 +175,32 @@
                 </script>
               </pre>
             </div>
-            <div class="description">
-              description2
-            </div>
+            <pre class="description"><a class="sub-title">
+Description:</a>
+	This function is the same as arm_initialize();, but it takes
+	segment length (length of individual segments) as an argument
+	instead of arm length. It initializes all the necessary variables
+	and arrays that all the other functions require to work. This
+	function turns the object into an "Inverse Kinematic Object", and
+	MUST be called in an object before it utilizes any of the other
+	functions included with this extension.
+<a class="sub-title">
+Arguments:</a><a class="title">
+	length;</a>
+	(real) The length of the segments. All the segments will be initialized
+	with the same length, and this variable dictates that length.<a class="title">
+        WARNING</a>values less than or equal to zero will yield unexpected
+	results!
+<a class="title">
+	segments;</a>
+	(integer) The amount of segments the arm will be split into. A segment
+	is the line/sprite between one joint and another.
+	WARNING values less than or equal to zero will yield unexpected
+	results!
+<a class="sub-title">
+Returns:</a>
+	real | length of the whole arm
+</pre>
           </div>
 
       </section>
