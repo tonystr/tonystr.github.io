@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
+    <link rel="manifest" href="../icon/manifest.json">
+    <link rel="mask-icon" href="../icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <meta name="msapplication-config" content="../icon/browserconfig.xml">
+
+    <meta charset="utf-8">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Affortable and professional game design">
+    <meta name="keywords"    content="gamedesign, affortable gamedesign, professional game design">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title>TonyStr - Scripts</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/source-code-pro.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+      // jQuery
+      $.get("arm_initialize.gml", function(data) {
+        $(".code").text(data);
+      });
+    </script>
+    <script src="https://use.fontawesome.com/e05df35da4.js"></script>
+  </head>
+
+  <body>
+    <div id="wrapper">
+      <header>
+        <div class="ribbon">
+          - - - - <i class="fa fa-scissors" aria-hidden="true"></i> - - - - - - -
+        </div>
+        <div class="container">
+          <div id="branding">
+            <h1 class="nonlight"><span class="highlight">TonyStr</span>ømsnæs</h1>
+          </div>
+          <div id="icons">
+            <a href="https://twitter.com/TonyStroemsnaes?ref_src=twsrc%5Etfw" target="_blank" class="fa fa-twitter fa-intbut" style="font-size:26px"></a>
+            <a href="https://www.reddit.com/user/TonyStr/" target="_blank" class="fa fa-reddit fa-intbut" style="font-size:26px"></a>
+            <a href="https://github.com/tonystr" target="_blank" class="fa fa-github fa-intbut" style="font-size:26px"></a>
+            <a href="mailto:Tony.Stroemsnaes@gmail.com" target="_top" class="fa fa-envelope-o fa-intbut" style="font-size:26px"></a>
+          </div>
+          <nav>
+            <ul>
+              <li><a href="../">Home</a></li>
+              <li>
+                <div class="dropdown">
+                  <a href="../#skills">Skills</a> <i class="fa fa-angle-down fa-static" aria-hidden="true"></i>
+                  <div class="dropdown-content blue">
+                    <p><a href="../skills/gml" target="_top" class="link" style="font-size:13px">
+                      GML Programming
+                    </a></p>
+                    <p><a href="../skills/pixelart" target="_top" class="link" style="font-size:13px">
+                      Pixelart Design
+                    </a></p>
+                    <p><a href="../skills/js" target="_top" class="link" style="font-size:13px">
+                      JS Programming
+                    </a></p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="dropdown">
+                  <a href="../#games_and_tools">Games & Tools</a> <i class="fa fa-angle-down fa-static" aria-hidden="true"></i>
+                  <div class="dropdown-content blue">
+                    <p><a href="../games_and_tools/gml_ik_ext" target="_top" class="link" style="font-size:13px">
+                      IK Extension (GM)
+                    </a></p>
+                    <p><a href="../games_and_tools/udda" target="_top" class="link" style="font-size:13px">
+                      UpDownDuckAround
+                    </a></p>
+                    <p><a href="../games_and_tools/gml_ik_tut" target="_top" class="link" style="font-size:13px">
+                      IK Tutorial (GM)
+                    </a></p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <section>
+        <div id="code_window">
+          <div class="code_box">
+            <h1 class="title">
+              Title1
+            </h1>
+            <pre class="code">
+            </pre>
+            <div class="description">
+              description1
+            </div>
+          </div>
+
+          <div class="code_box">
+            <h1 class="title">
+              Title2
+            </h1>
+            <div class="code">
+              Code2
+            </div>
+            <div class="description">
+              description2
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer>
+      <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
+      <p id="right">v1.0.1</p>
+    </footer>
+  </body>
+</html>

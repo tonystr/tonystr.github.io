@@ -367,6 +367,52 @@ header .nonlight{
   padding-right:16px;
 }
 
+/* code */
+
+#code_window{
+  align-items:center;
+  display: flex;
+  flex-direction:column;
+}
+
+.code_box{
+  border-top: 4px dashed #7588FF;
+  margin-top:16px;
+
+  padding:20px;
+  padding-top:10px;
+
+  width:70%;
+  height:10%;
+  background-color: #2d313d;
+}
+
+.code_box .title{
+  color:#F14165;
+  padding-left:11%;
+  padding-right:11%;
+}
+
+.code_box .code{
+  width:78%;
+  margin-left:11%;
+  padding:8px;
+  align-content:center;
+  background-color:#1e2026;
+  color:white;
+  border-radius:4px;
+  font-family: 'Source Code Pro', monospace;
+}
+
+.code_box .code .cmnt{
+  color:#7588FF;
+}
+
+.code_box .description{
+  padding-left:11%;
+  padding-right:11%;
+}
+
 /* Social Media */
 
 .fa{
