@@ -9,7 +9,7 @@
 /////////////////////////////////////////////////////////////////
 
 var _sprite = sprite_index, _setspr = true;
-	
+
 if (argument_count > 2) {
 	_sprite = argument[2];
 }
@@ -33,11 +33,11 @@ if (is_array(_sprite)) {
 
 var _default_length = arm_length div seg_amount;
 for (var _i = 0; _i <= seg_amount; _i++) {
-	
+
 	seg_x[_i]	= x + _i * _default_length;
 	seg_y[_i]	= y;
 	seg_len[_i]	= _default_length;
-	
+
 	if (_setspr) seg_spr[_i] = _sprite;
 }
 

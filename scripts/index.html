@@ -18,12 +18,6 @@
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/source-code-pro.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
-      // jQuery
-      $.get("arm_initialize.gml", function(data) {
-        $(".code").text(data);
-      });
-    </script>
     <script src="https://use.fontawesome.com/e05df35da4.js"></script>
   </head>
 
@@ -83,14 +77,38 @@
         </div>
       </header>
 
-      <section>
-        <div id="code_window">
+      <section id="code_window">
+
           <div class="code_box">
             <h1 class="title">
               Title1
             </h1>
-            <pre class="code">
-            </pre>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_initialize_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_initialize_btn").click(function(){
+                      $('#arm_initialize').toggleClass("code_expand");
+                      $('#arm_initialize_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_initialize">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "arm_initialize.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_initialize").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
             <div class="description">
               description1
             </div>
@@ -100,14 +118,37 @@
             <h1 class="title">
               Title2
             </h1>
-            <div class="code">
-              Code2
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_initialize_seg_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_initialize_seg_btn").click(function(){
+                      $('#arm_initialize_seg').toggleClass("code_expand");
+                      $('#arm_initialize_seg_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_initialize_seg">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_initialize_seg/arm_initialize_seg.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_initialize_seg").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
             </div>
             <div class="description">
               description2
             </div>
           </div>
-        </div>
+
       </section>
     </div>
     <footer>
