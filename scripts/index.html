@@ -99,7 +99,7 @@
                 <script>
                   $(document).ready(function(){
                     $.ajax({
-                        url : "arm_initialize.gml",
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_initialize/arm_initialize.gml",
                         dataType: "text",
                         success : function (data) {
                             $("#arm_initialize").html(data);
@@ -200,6 +200,69 @@ Arguments:</a><a class="title">
 <a class="sub-title">
 Returns:</a>
 	real | length of the whole arm
+</pre>
+          </div>
+
+          <div class="code_box">
+            <h1 class="title">
+              arm_initialize_seg
+            </h1>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_move_to_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_move_to_btn").click(function(){
+                      $('#arm_move_to').toggleClass("code_expand");
+                      $('#arm_move_to_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_move_to">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_move_to/arm_move_to.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_move_to").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
+            <pre class="description"><a class="sub-title">
+Description:</a>
+	This function instantly moves the arm to a location. This function
+	essentially does the Inverse Kinematics. You can optionally "pin"
+	the arm to a location, so that it will not move freely.
+<a class="sub-title">
+Arguments:</a><a class="title">
+	x</a>
+	(real) The x location to move the tip of the arm towards.
+<a class="title">
+	y</a>
+	(real) The y location to move the tip of the arm towards.
+<a class="title">
+	pin OPTIONAL</a>
+	(bool) whether to pin (true) or not (false). if you do not fill in
+	the two next arguments, it will pin itself to the object's x and y
+	location. pinning and object means holding it back, "pinning" it to
+	a location. alternatively, you can leave this argument blank, and
+	the arm will instead look at arm_pinned to see whether it should
+	be pinned or not. This argument overrides that variable, however it
+	does not change it.
+<a class="title">
+	px	OPTIONAL</a>
+	(real) custom x location to pin arm to
+<a class="title">
+	py	OPTIONAL</a>
+	(real) custom y location to pin arm to
+<a class="sub-title">
+Returns:</a>
+	N/A
 </pre>
           </div>
 
