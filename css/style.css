@@ -33,6 +33,12 @@ body{
   background: #9a9bcf;
 }
 
+pre {
+    -moz-tab-size:    4; /* Firefox 4+ */
+    -o-tab-size:      4; /* Opera 11.5 & 12.1 only */
+    tab-size:         4; /* Chrome 21+, Safari 6.1+, Opera 15+ */
+}
+
 .blue{
   color:#7588FF;
 }
@@ -422,8 +428,13 @@ header .nonlight{
   transition:max-height .4s ease-in-out;
 }
 
+.code_box p{
+    margin-left:6%;
+}
+
 .sub-title{
   color:#7588FF;
+  font-weight:bold;
 }
 
 .code_box .button_1{
@@ -458,12 +469,13 @@ header .nonlight{
 
 .code_box .code:hover{
   max-height:600px;
-  overflow-y:scroll;
-
+  overflow:auto;
+  -webkit-overflow:auto;
 }
 
 .code_box .code_expand{
-  overflow-y:scroll;
+  overflow:auto;
+  -webkit-overflow:auto;
   max-height:600px;
   -webkit-transition:all .29s ease-in-out;
   transition:all .29s ease-in-out;

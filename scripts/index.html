@@ -79,7 +79,7 @@
 
       <section id="code_window">
 
-          <div class="code_box">
+          <div class="code_box"> <!-- arm_initialize -->
             <h1 class="title">
               arm_initialize
             </h1>
@@ -109,43 +109,49 @@
                 </script>
               </pre>
             </div>
-            <pre class="description">
-<a class="sub-title">
-Description:</a>
-	This function initializes all the necessary variables and arrays
-	that all the other functions require to work. This function turns
-	the object into an "Inverse Kinematic Object", and MUST be called
-	in an object before it utilizes any of the other functions.
-<a class="sub-title">
-Arguments:</a><a class="title">
-	length</a>
-	(real) The length of the whole arm. if the arm is fully stretched out, it
-	will be this length, if you add together the length of every
-	segment, you will get this length. It's length can be changed later
-	with the function arm_set_length();
-	WARNING values less than or equal to zero will yield unexpected
-	results!
-<a class="title">
-        segments</a>
-	(integer) The amount of segments the arm will be split into. A segment
-	is the line/sprite between one joint and another.
-	WARNING values less than or equal to zero will yield unexpected
-	results!
-<a class="title">
-	sprite   (OPTIONAL)</a>
-	You can optionally specify a sprite to assign every segment, or you
-	could pass in an array containing all the sprites to use (if the array
-	is shorter than the amount of segments, you will get an error). If you
-	do not pass in a sprite or array, it will set all the segment sprites to
-	the sprite_index. If you do not wish for the arm to have any sprites, but
-	instead draw lines, pass in noone.
-<a class="sub-title">
-Returns:</a>
-	real | segment lengths
-            </pre>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+              	This function initializes all the necessary variables and arrays
+              	that all the other functions require to work. This function turns
+              	the object into an "Inverse Kinematic Object", and MUST be called
+              	in an object before it utilizes any of the other functions.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	length
+              </a><p>
+              	(real) The length of the whole arm. if the arm is fully stretched out, it
+              	will be this length, if you add together the length of every
+              	segment, you will get this length. It's length can be changed later
+              	with the function arm_set_length();
+              	WARNING values less than or equal to zero will yield unexpected
+              	results!
+              </p><a class="title">
+                segments
+              </a><p>
+              	(integer) The amount of segments the arm will be split into. A segment
+              	is the line/sprite between one joint and another.
+              	WARNING values less than or equal to zero will yield unexpected
+              	results!
+              </p><a class="title">
+              	sprite   (OPTIONAL)
+              </a><p>
+              	You can optionally specify a sprite to assign every segment, or you
+              	could pass in an array containing all the sprites to use (if the array
+              	is shorter than the amount of segments, you will get an error). If you
+              	do not pass in a sprite or array, it will set all the segment sprites to
+              	the sprite_index. If you do not wish for the arm to have any sprites, but
+              	instead draw lines, pass in noone.
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	real | segment lengths
+              </p></div>
           </div>
 
-          <div class="code_box">
+          <div class="code_box"> <!-- arm_initialize_seg -->
             <h1 class="title">
               arm_initialize_seg
             </h1>
@@ -175,37 +181,55 @@ Returns:</a>
                 </script>
               </pre>
             </div>
-            <pre class="description"><a class="sub-title">
-Description:</a>
-	This function is the same as arm_initialize();, but it takes
-	segment length (length of individual segments) as an argument
-	instead of arm length. It initializes all the necessary variables
-	and arrays that all the other functions require to work. This
-	function turns the object into an "Inverse Kinematic Object", and
-	MUST be called in an object before it utilizes any of the other
-	functions included with this extension.
-<a class="sub-title">
-Arguments:</a><a class="title">
-	length;</a>
-	(real) The length of the segments. All the segments will be initialized
-	with the same length, and this variable dictates that length.<a class="title">
-        WARNING</a>values less than or equal to zero will yield unexpected
-	results!
-<a class="title">
-	segments;</a>
-	(integer) The amount of segments the arm will be split into. A segment
-	is the line/sprite between one joint and another.
-	WARNING values less than or equal to zero will yield unexpected
-	results!
-<a class="sub-title">
-Returns:</a>
-	real | length of the whole arm
-</pre>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                This function is the same as arm_initialize(), but it takes
+              	segment length (length of individual segments) as an argument
+              	instead of arm length. It initializes all the necessary variables
+              	and arrays that all the other functions require to work. This
+              	function turns the object into an "Inverse Kinematic Object", and
+              	MUST be called in an object before it utilizes any of the other
+              	functions included with this extension.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	length
+              </a><p>
+              	(real) The length of the whole arm. if the arm is fully stretched out, it
+              	will be this length, if you add together the length of every
+              	segment, you will get this length. It's length can be changed later
+              	with the function arm_set_length();
+              	WARNING values less than or equal to zero will yield unexpected
+              	results!
+              </p><a class="title">
+                segments
+              </a><p>
+              	(integer) The amount of segments the arm will be split into. A segment
+              	is the line/sprite between one joint and another.
+              	WARNING values less than or equal to zero will yield unexpected
+              	results!
+              </p><a class="title">
+              	sprite   (OPTIONAL)
+              </a><p>
+              	You can optionally specify a sprite to assign every segment, or you
+              	could pass in an array containing all the sprites to use (if the array
+              	is shorter than the amount of segments, you will get an error). If you
+              	do not pass in a sprite or array, it will set all the segment sprites to
+              	the sprite_index. If you do not wish for the arm to have any sprites, but
+              	instead draw lines, pass in noone.
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	real | segment lengths
+              </p>
+            </div>
           </div>
 
-          <div class="code_box">
+          <div class="code_box"> <!-- arm_move_to -->
             <h1 class="title">
-              arm_initialize_seg
+              arm_move_to
             </h1>
             <div class="code-wrapper">
               <div class="button_1" id="arm_move_to_btn">
@@ -233,39 +257,304 @@ Returns:</a>
                 </script>
               </pre>
             </div>
-            <pre class="description"><a class="sub-title">
-Description:</a>
-	This function instantly moves the arm to a location. This function
-	essentially does the Inverse Kinematics. You can optionally "pin"
-	the arm to a location, so that it will not move freely.
-<a class="sub-title">
-Arguments:</a><a class="title">
-	x</a>
-	(real) The x location to move the tip of the arm towards.
-<a class="title">
-	y</a>
-	(real) The y location to move the tip of the arm towards.
-<a class="title">
-	pin OPTIONAL</a>
-	(bool) whether to pin (true) or not (false). if you do not fill in
-	the two next arguments, it will pin itself to the object's x and y
-	location. pinning and object means holding it back, "pinning" it to
-	a location. alternatively, you can leave this argument blank, and
-	the arm will instead look at arm_pinned to see whether it should
-	be pinned or not. This argument overrides that variable, however it
-	does not change it.
-<a class="title">
-	px	OPTIONAL</a>
-	(real) custom x location to pin arm to
-<a class="title">
-	py	OPTIONAL</a>
-	(real) custom y location to pin arm to
-<a class="sub-title">
-Returns:</a>
-	N/A
-</pre>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                This function instantly moves the arm to a location. This function
+                essentially does the Inverse Kinematics. You can optionally "pin"
+                the arm to a location, so that it will not move freely.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	x
+              </a><p>
+              	(real) The x location to move the tip of the arm towards.
+              </p><a class="title">
+                y
+              </a><p>
+              	(real) The y location to move the tip of the arm towards.
+              </p><a class="title">
+              	pin   (OPTIONAL)
+              </a><p>
+                (bool) whether to pin (true) or not (false). if you do not fill in
+              	the two next arguments, it will pin itself to the object's x and y
+              	location. Pinning and object means it will be held back when moving, thus locking, or "pinning", it to
+              	a location. alternatively, you can leave this argument blank, and
+              	the arm will instead look at the instance variable, arm_pinned, to see whether it should
+              	be pinned or not. This argument overrides that variable, however it
+              	does not change it.
+              </p><a class="title">
+                px  (OPTIONAL)
+              </a><p>
+                (real) custom x location to pin arm to
+              </p><a class="title">
+                py  (OPTIONAL)
+              </a><p>
+                (real) custom y location to pin arm to
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+                bool | whether the arm has reached the target location (true) or not (false)
+              </p>
+            </div>
           </div>
 
+          <div class="code_box"> <!-- arm_move_dir -->
+            <h1 class="title">
+              arm_move_dir
+            </h1>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_move_dir_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_move_dir_btn").click(function(){
+                      $('#arm_move_dir').toggleClass("code_expand");
+                      $('#arm_move_dir_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_move_dir">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_move_dir/arm_move_dir.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_move_dir").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                This function moves the arm towards a direction. This function
+          			essentially does the Inverse Kinematics. You can optionally "pin"
+          			the arm to a location, so that it will not move freely.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	dir
+              </a><p>
+              	(real) The direction location to move the tip of the arm towards.
+              </p><a class="title">
+                len
+              </a><p>
+              	(real) the length to move the tip of the arm each step.
+              </p><a class="title">
+                pin  (OPTIONAL)
+              </a><p>
+                (bool) whether to pin (true) or not (false). if you do not fill in
+              	the two next arguments, it will pin itself to the object's x and y
+              	location. Pinning and object means it will be held back when moving, thus locking, or "pinning", it to
+              	a location. alternatively, you can leave this argument blank, and
+              	the arm will instead look at the instance variable, arm_pinned, to see whether it should
+              	be pinned or not. This argument overrides that variable, however it
+              	does not change it.
+              </p><a class="title">
+                px  (OPTIONAL)
+              </a><p>
+                (real) custom x location to pin arm to
+              </p><a class="title">
+                py  (OPTIONAL)
+              </a><p>
+                (real) custom y location to pin arm to
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	N/A
+              </p>
+            </div>
+          </div>
+
+          <div class="code_box"> <!-- arm_move_towards -->
+            <h1 class="title">
+              arm_move_towards
+            </h1>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_move_towards_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_move_towards_btn").click(function(){
+                      $('#arm_move_towards').toggleClass("code_expand");
+                      $('#arm_move_towards_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_move_towards">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_move_towards/arm_move_towards.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_move_towards").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                This function moves the arm towards a location. This function
+			          essentially does the Inverse Kinematics. You can optionally "pin"
+			          the arm to a location, so that it will not move freely.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	x
+              </a><p>
+              	(real) The x location to move the tip of the arm towards.
+              </p><a class="title">
+                y
+              </a><p>
+              	(real) The y location to move the tip of the arm towards.
+              </p><a class="title">
+              	len
+              </a><p>
+                (real) the length to move the tip of the arm each step.
+              </p><a class="title">
+                pin  (OPTIONAL)
+              </a><p>
+                (bool) whether to pin (true) or not (false). if you do not fill in
+              	the two next arguments, it will pin itself to the object's x and y
+              	location. Pinning and object means it will be held back when moving, thus locking, or "pinning", it to
+              	a location. alternatively, you can leave this argument blank, and
+              	the arm will instead look at the instance variable, arm_pinned, to see whether it should
+              	be pinned or not. This argument overrides that variable, however it
+              	does not change it.
+              </p><a class="title">
+                px  (OPTIONAL)
+              </a><p>
+                (real) custom x location to pin arm to
+              </p><a class="title">
+                py  (OPTIONAL)
+              </a><p>
+                (real) custom y location to pin arm to
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	N/A
+              </p>
+            </div>
+          </div>
+
+          <div class="code_box"> <!-- arm_relocate -->
+            <h1 class="title">
+              arm_relocate
+            </h1>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_relocate_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_relocate_btn").click(function(){
+                      $('#arm_relocate').toggleClass("code_expand");
+                      $('#arm_relocate_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_relocate">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_relocate/arm_relocate.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_relocate").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                This function moves the WHOLE ARM to a given location, preserving the angles and relative joint positions.
+              </p><div class="sub-title">
+                Arguments:
+              </div><a class="title">
+              	x
+              </a><p>
+              	(real) the x position to move to.
+              </p><a class="title">
+                y
+              </a><p>
+              	(real) the y position to move to.
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	N/A
+              </p>
+            </div>
+          </div>
+
+          <div class="code_box"> <!-- arm_draw -->
+            <h1 class="title">
+              arm_draw
+            </h1>
+            <div class="code-wrapper">
+              <div class="button_1" id="arm_draw_btn">
+                <span>Expand</span>
+                <script>
+                  $(document).ready(function(){
+                    $("#arm_draw_btn").click(function(){
+                      $('#arm_draw').toggleClass("code_expand");
+                      $('#arm_draw_btn').toggleClass("btn_pressed");
+                    });
+                  });
+                </script>
+              </div>
+              <pre class="code" id="arm_draw">
+                <script>
+                  $(document).ready(function(){
+                    $.ajax({
+                        url : "https://raw.githubusercontent.com/GameMakerDiscord/inverse-kinematics/master/ik%20ext%20GMS2/scripts/arm_draw/arm_draw.gml",
+                        dataType: "text",
+                        success : function (data) {
+                            $("#arm_draw").html(data);
+                        }
+                    });
+                  });
+                </script>
+              </pre>
+            </div>
+            <div class="description">
+              <div class="sub-title">
+                Description:
+              </div><p>
+                Draws the arm. If a segment has a sprite assigned to it, then it
+          			draws the arm with sprites, rotated correctly, using the instance draw
+                variables such as image_xscale, image_blend, etc.
+
+              </p><div class="sub-title">
+                Arguments:
+              </div><p>
+              	N/A
+              </p><a class="sub-title">
+                Returns:
+              </a><p>
+              	N/A
+              </p>
+            </div>
+          </div>
+
+          </div>
+        </div>
       </section>
     </div>
     <footer>
