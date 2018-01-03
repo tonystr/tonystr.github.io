@@ -13,7 +13,7 @@ html{
 }
 
 body{
-  font: 15px/1.5 Arial, Helvetica, sans-serif;
+  font: 1rem/1.5 Arial, Helvetica, sans-serif;
   padding: 0;
   margin: 0;
   background-color:#1e2026;
@@ -640,8 +640,8 @@ article#main-col{
 }
 
 .img-box a{
-  margin-left:2%;
-  margin-right:2%;
+  margin-left:.7%;
+  margin-right:.7%;
   margin-top:1%;
   margin-bottom:20px;
 }
@@ -663,6 +663,15 @@ article#main-col{
 .img_desc p{
   padding-left:16px;
   width:90%;
+  color: #F14165;
+  font-weight: bold;
+}
+
+.img_desc p::after{
+  font-weight:normal;
+  padding-left:3px;
+  color: #7588FF;
+  content:"©️ Tony Strømsnæs 2017";
 }
 
 .dscrp {
@@ -671,25 +680,34 @@ article#main-col{
 
 .img_desc i{
   padding-top:18px;
+  color:#2d313d8f;
+  -webkit-transition:all .16s ease-in-out;
+  transition:all .16s ease-in-out;
+}
+
+.img_desc:hover i{
+  color:#ffffffff;
+  -webkit-transition:all .16s ease-in-out;
+  transition:all .16s ease-in-out;
 }
 
 .img_desc:hover{
   background-color: #1e2026ff;
   box-shadow: 0px 2px 10px #000000fa;
-}
-
-.img_desc:hover img{
-  box-shadow: 0px 5px 21px #000000fa;
 
 }
 
 .img-box img{
   width:498px;
   /* border-top: 4px #F14165 dashed; */
-  box-shadow: 0px 5px 13px #0000008f;
+  box-shadow: 0px 2px 13px #0000008f;
   /* border: 3px solid #1e2026; */
   -webkit-transition:all .1s ease-in-out;
   transition:all .1s ease-in-out;
+}
+
+.img_desc:hover img{
+  box-shadow: 0px 3px 22px #0000008f;
 }
 
 #main-col label:checked{
@@ -743,10 +761,6 @@ article#main-col{
     display: flex;
     padding:12%;
     width:76%;
-  }
-
-  .downloads{
-    font-size:15px;
   }
 
   header li{
