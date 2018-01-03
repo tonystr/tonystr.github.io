@@ -429,7 +429,7 @@ header .nonlight{
 }
 
 .code_box p{
-    margin-left:6%;
+  margin-left:6%;
 }
 
 .sub-title{
@@ -638,7 +638,7 @@ article#main-col{
   /* background-color:#2D313D; */
   width:90%;
   margin-left: 5%;
-  margin-bottom:8%;
+  margin-bottom:17px;
   display:flex;
   flex-wrap:wrap;
   justify-content:center;
@@ -650,17 +650,22 @@ article#main-col{
   margin-left:2%;
   margin-right:2%;
   margin-top:1%;
+  margin-bottom:20px;
 }
 
 .img_desc{
   background-color: #00000000;\
   -webkit-transition:all .1s ease-in-out;
   transition:all .1s ease-in-out;
+  background-color: #1e2026ff;
+}
+
+.img_desc p{
+  padding-left:16px;
 }
 
 .img_desc:hover{
   background-color: #1e2026ff;
-  padding:4px;
 }
 
 .img_desc:hover img{
