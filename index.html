@@ -26,10 +26,32 @@
     <meta name="author"      content="Tony Strømsnæs">
     <title>Tony Strømsnæs</title>
     <link rel="stylesheet" href="../css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+    $(document).ready(function() {
+
+      setTimeout(function(){
+          $('body').addClass('loaded');
+      }, 1500);
+
+    });
+  </script>
   </head>
 
   <body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div class="loader-section section-left"></div>
+        <div class="loader-section section-right"></div>
+
+        <div id="loader-title">
+          <h2>Tony Strømsnæs</h2>
+          <p>Loading portfolio . . .</p>
+        </div>
+    </div>
+
     <div id="wrapper">
       <header>
         <div class="ribbon">
@@ -37,7 +59,7 @@
         </div>
         <div class="container">
           <div id="branding">
-            <h1><span class="highlight">TonyStr</span>ømsnæs</h1>
+            <h1 class="nonlight"><span class="highlight">TonyStr</span>ømsnæs</h1>
           </div>
           <div id="icons">
             <a href="https://twitter.com/TonyStroemsnaes?ref_src=twsrc%5Etfw" target="_blank" class="fa fa-twitter fa-intbut" style="font-size:26px"></a>
