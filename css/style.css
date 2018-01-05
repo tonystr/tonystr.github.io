@@ -258,6 +258,8 @@ header .nonlight{
 
   color:#1e2026;
   text-shadow: 0.7px 2.8px 3px #000000af;
+  -ms-text-shadow: 0.7px 2.8px 3px #000000af;
+  -webkit-text-shadow: 0.7px 2.8px 3px #000000af;
 
   font-size:540%;
   font-style:italic;
@@ -766,6 +768,8 @@ aside{
   text-align:center;
   color:#2D313D;
   text-shadow: 0px 6px 20px #0000008a;
+  -ms-text-shadow: 0px 6px 20px #0000008a;
+  -webkit-text-shadow: 0px 6px 20px #0000008a;
 }
 
 #main{
