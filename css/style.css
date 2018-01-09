@@ -925,6 +925,10 @@ article#main-col{
     width: 100%;
   }
 
+  #loader-wrapper {
+      display: none;
+  }
+
   .img-box{
     font-size: 0.8rem;
     width:90%;
@@ -1000,7 +1004,7 @@ article#main-col{
     padding:0;
     padding-top:10px;
     padding-bottom:10px;
-    font-size:350%;
+    font-size:3rem;
   }
 }
 
