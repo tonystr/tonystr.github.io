@@ -671,7 +671,7 @@ header .nonlight{
 .loaded #loader-wrapper{
   visibility: hidden;
 
-  height:9%;
+  height:70px;
   /*-webkit-transform: translatey(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
   /*    -ms-transform: translatey(-100%);  /* IE 9 */
   /*        transform: translatey(-100%);  /* Firefox 16+, IE 10+, Opera */
