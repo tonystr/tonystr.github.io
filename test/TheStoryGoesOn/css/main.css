@@ -214,44 +214,62 @@ ul {
   .gall_ry{
     margin-top:30%;
   }
-  .customButton {
-    margin: 0%;
+ /*********************/
+
+ #footerImageContainer {
+   padding: 0 !important;
+   margin-left: 4% !important;
+   width:86%;
+ }
+ #footerContainer {
+   padding: 0 !important;
+ }
+ #firstInLine {
+   margin-left: 7.4%;
+ }
+ .customButton {
+   margin: 7%;
+   margin-bottom: 0 !important;
+   margin-top: 0 !important;
+ }
+ #lastInLine {
+   margin: 7% !important;
+   margin-bottom: 0 !important;
+   margin-top: 0 !important;
+ }
+ #imgSteam {
+   order: 1;
+ }
+ #imgXbox {
+   order: 3;
+ }
+ #imgKiss {
+   order: 2;
+ }
+  #firstInLine {
+    padding:0;
+    margin:0;
+    width:20.8%;
   }
+
+  #lastInLine,
+  #imgKiss{
+    padding:0 !important;
+    margin:0 !important;
+  }
+
+  .customButton {
+    margin:0 !important;
+    padding:0;
+    width:10%;
+  }
+    .fbtn a{
+  }
+ /*********************/
   #scarecrowContainer {
     margin-left: 7%;
   }
-  #footerImageContainer {
-    display:block !important;
-    padding: 0 !important;
-    margin-left: 4% !important;
-    width:86%;
-  }
-  #footerContainer {
-    padding: 0 !important;
-    display: block !important;
-  }
-  #firstInLine {
-    margin-left: 7.4%;
-  }
-  .customButton {
-    margin: 7%;
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-  }
-  #lastInLine {
-    margin: 7% !important;
-    margin-bottom: 0 !important;
-    margin-top: 0 !important;
-  }
-  #imgSteam {
-    order: 1;
-  }
-  #imgXbox {
-    order: 3;
-  }
-  #imgKiss {
-    order: 2;
-  }
+
   .pressContainer {
     margin: 0;
     padding:0;
@@ -300,7 +318,7 @@ ul {
   }
 }
 
-@media screen an
+@media screen and
  (min-width: 750px) and (max-width: 850px) {
 
   .container {
