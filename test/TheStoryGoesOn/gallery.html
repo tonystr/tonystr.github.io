@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta name="description" content="Insert description">
+  <meta name="keywords" content="insert, keywords, here">
+  <meta name="author" content="Alexander Carlsson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="canonical" href="https://storygoeson.com/">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="favicons/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicons/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicons/favicon-16x16.png">
+  <link rel="manifest" href="favicons/manifest.json">
+  <link rel="mask-icon" href="favicons/safari-pinned-tab.svg" color="#5bbad5">
+  <meta name="theme-color" content="#ffffff">
+
+  <link href="https://fonts.googleapis.com/css?family=Oswald:300" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="css/mobileMenu.css">
+
+  <script
+  src="https://code.jquery.com/jquery-3.2.1.min.js"
+  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+  crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://use.fontawesome.com/f9fc5e29a3.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/videoplayer.js"></script>
+  <script src="js/mobileMenu.js"></script>
+  <script src="js/gallery.js"></script>
+  <meta charset="utf-8">
+
+  <title>The Story Goes On :: Gallery</title>
+
+  </head>
+  <body>
+
+    <!-- Mobile menu -->
+    <div class="menuContainer col-xs-12 hidden-md hidden-lg hidden-sm">
+      <div class="col-sm-2 col-xs-2"></div>
+      <a href="/">
+        <img class="col-md-3 col-lg-3 col-sm-8 col-xs-8" src="img/logoSmall.png" alt="Game logo">
+      </a>
+      <a href="features.html">
+        <p id="mobileMenuButton" class="menuButtons"> Features </p>
+      </a>
+      <a href="gallery.html">
+        <p class="menuButtons"> Gallery </p>
+      </a>
+      <a href="presskit.html">
+        <p class="menuButtons"> Presskit </p>
+      </a>
+      <a href="http://blog.storygoeson.com/">
+        <p class="menuButtons"> Blog </p>
+      </a>
+    </div>
+    <!-- End of mobile menu -->
+    <!-- Menu toggle button -->
+    <div class="menuButtonContainer col-xs-12 hidden-md hidden-lg hidden-sm" style="position: absolute">
+      <i class="fa fa-bars fa-2x menuToggle" aria-hidden="true"></i>
+    </div>
+<!-- Enlarged galleryimage. Default state hidden -->
+    <div id="imageEnlargedContainer" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+      <i class="fa fa-chevron-left fa-4x col-md-1 col-lg-1 hidden-sm hidden-xs" aria-hidden="true"></i>
+      <img id="imageEnlarged"class="imageEnlarged col-md-8 col-lg-8 col-sm-12 col-xs-12" src="screenshots/00.jpg" alt="enlarged image">
+      <i class="fa fa-chevron-right fa-4x col-md-1 col-lg-1 hidden-sm hidden-xs" aria-hidden="true"></i>
+    </div>
+
+<!-- Start of landing screen -->
+    <div class="container">
+      <div class="row">
+        <a href="index.html">
+          <img class="headerLogo" style="margin-bottom:20px" src="img/logoOriginal.png" alt="Game logo">
+        </a>
+      </div>
+<!-- Main content section -->
+
+<!-- Gallery selection -->
+      <div class="row">
+        <div class="gall_ry col-md-12 col-lg-12 col-sm-12 col-xs-12" style="margin-bottom:20px;">
+          <div class="galleryRow col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <img src="screenshots/00.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/01.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/02.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/03.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+          </div>
+          <div class="galleryRow col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <img src="screenshots/04.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/05.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/06.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/07.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+          </div>
+          <div class="galleryRow col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <img src="screenshots/08.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/09.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/10.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/11.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+          </div>
+          <div class="galleryRow col-md-8 col-lg-8 col-sm-12 col-xs-12">
+            <img src="screenshots/12.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/13.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/14.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+            <img src="screenshots/15.jpg" alt="gallery image 1" class="galleryImage col-md-3 col-lg-3 col-sm-3 col-xs-6">
+          </div>
+        </div>
+      </div>
+
+<!-- Navbar -->
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 hidden-xs">
+          <a href="features.html">
+            <p class="navBarTextItem col-md-3 col-lg-3 col-sm-3 col-xs-3">
+              FEATURES
+            </p>
+          </a>
+          <a href="gallery.html">
+            <p class="navBarTextItem col-md-3 col-lg-3 col-sm-3 col-xs-3">
+              GALLERY
+            </p>
+          </a>
+          <a href="presskit.html">
+            <p class="navBarTextItem col-md-3 col-lg-3 col-sm-3 col-xs-3">
+              PRESSKIT
+            </p>
+          </a>
+          <a href="http://blog.storygoeson.com/">
+            <p class="navBarTextItem col-md-3 col-lg-3 col-sm-3 col-xs-3">
+              BLOG
+            </p>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <div class="row">
+        <div id="footerContainer" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+
+          <div id="footerImageContainer" class="">
+            <a id="imgScarecrow" href="http://www.scarecrowarts.com/">
+              <img id="firstInLine" class="customButton footButton orangeHoverButton" src="img/scarecrowWhite.png" alt="Scarecrow Arts Logo">
+            </a>
+            <a id="imgSteam" href="http://store.steampowered.com/app/369560/The_Story_Goes_On/">
+              <img id="imageSteam" class="customButton footButton orangeHoverButton" src="img/steamWhite.png" alt="Steam Logo">
+            </a>
+            <a id="imgXbox" href="http://store.xbox.com">
+              <img id="imageXbox" class="customButton footButton orangeHoverButton" src="img/xboxWhite.png" alt="Xbox Logo">
+            </a>
+            <a id="imgKiss" href="http://www.kiss-ltd.co.uk/">
+              <img id="lastInLine" class="customButton footButton orangeHoverButton" src="img/kissWhite.png" alt="Kiss Logo">
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12 copyright">
+          <p>Copyright © Scarecrow Arts 2017</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
