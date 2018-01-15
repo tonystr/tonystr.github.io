@@ -30,7 +30,8 @@ footer {
   margin-left: 12.5%;
   opacity: 0.3;
   cursor: pointer;
-  margin-bottom:2.96%;
+  margin-top:1.96%;
+  margin-bottom:1%;
 }
 .headerLogo {
   margin-left: 27.6%;
@@ -200,6 +201,16 @@ ul {
   margin-bottom:7.6% !important;
 }
 
+@media screen and (min-width: 900px) {
+  body {
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url(../img/background.png);
+	height: 100%;
+  }
+}
+
 /* Mobile configurations */
 @media (max-width: 850px) {
 
@@ -223,14 +234,10 @@ ul {
  }
  #footerContainer {
    padding: 0 !important;
+
  }
  #firstInLine {
    margin-left: 7.4%;
- }
- .customButton {
-   margin: 7%;
-   margin-bottom: 0 !important;
-   margin-top: 0 !important;
  }
  #lastInLine {
    margin: 7% !important;
@@ -248,19 +255,20 @@ ul {
  }
   #firstInLine {
     padding:0;
+    margin-right:16%;
     margin:0;
     width:20.8%;
+    margin-left:13%;
   }
 
   #lastInLine,
   #imgKiss{
     padding:0 !important;
-    margin:0 !important;
   }
-
   .customButton {
-    margin:0 !important;
-    padding:0;
+    margin:0;
+    margin-left:8%;
+
     width:10%;
   }
     .fbtn a{
@@ -342,9 +350,16 @@ ul {
     margin-top:20% !important;
   }
 }
-
+.coolfoot{
+  margin:0 !important;
+  padding:0 !important;
+  margin-top:2.5% !important;
+}
 @media screen and (min-width: 850px) and (max-width: 992px) {
 
+  .coolfoot{
+    margin-top:29% !important;
+  }
   .container {
     min-height: 0;
   }
@@ -388,10 +403,6 @@ ul {
     display: none;
   }
 }
-
-
-
-
 
 
 
