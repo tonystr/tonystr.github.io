@@ -1,28 +1,187 @@
 <!DOCTYPE html>
-<html lang="en">
+
+<html>
   <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-110751878-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-110751878-1');
+    </script>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="icon/favicon-16x16.png">
+    <link rel="manifest" href="icon/manifest.json">
+    <link rel="mask-icon" href="icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="icon/favicon.ico">
+    <meta name="msapplication-config" content="icon/browserconfig.xml">
+
     <meta charset="utf-8">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>/r/GameMaker Discord Github</title>
-    <meta name="description" content="/r/GameMaker Discord Github">
-
-    <link rel="stylesheet" type="text/css" href="/test/style.css">
-    <link href="https://use.fontawesome.com/releases/v5.0.3/css/all.css" rel="stylesheet">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Young, but adept game developer for hire. GML: 5+yrs. Pixelart: 4+yrs. JS: 2+yrs">
+    <meta name="keywords"    content="gml, programmer, portfolio, tony, strømsnæs, game developer, hire, inverse, kinematics, inverse kinematics">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title>Tony Strømsnæs</title>
+    <link rel="stylesheet" href="./style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script>
+      $(document).ready(function() {
+        setTimeout(function(){
+            $('body').addClass('loaded');
+        }, 1500);
+      });
+    </script>
   </head>
-  <body>
-    <div id="navbar">
-      <a id="reddit" target="_blank" href="https://www.reddit.com/r/gamemaker/">Reddit <i class="fab fa-reddit"></i></a>
-      <a id="discord" target="_blank" href="https://discord.gg/By6u9pC">Discord <i class="fab fa-discord"></i></a>
-      <a id="github" target="_blank" href="https://github.com/GameMakerDiscord">Github <i class="fab fa-github"></i></a>
-    </div>
-    <div id="title_wrapper">
-      <h1 class="text-center title"><a target="_blank" href="https://github.com/GameMakerDiscord">
-      /r/GameMaker Discord Github</a><img id="title_logo" src="/test/img/logo.png"></img></h1>
 
+  <body>
+    <div id="loader-wrapper">
+        <div id="loader"></div>
+
+        <div id="loader-title">
+          <h2>Tony Strømsnæs</h2>
+          <p>Loading portfolio . . .</p>
+        </div>
     </div>
-    <div class="container">
+
+    <div id="wrapper">
+      <header>
+        <div class="ribbon">
+          - - - - <i class="fa fa-scissors" aria-hidden="true"></i> - - - - - - -
+        </div>
+        <div class="container">
+          <div id="branding">
+            <h1 class="nonlight"><span class="highlight">TonyStr</span>ømsnæs</h1>
+          </div>
+          <div id="icons">
+            <a href="https://twitter.com/TonyStroemsnaes?ref_src=twsrc%5Etfw" target="_blank" class="fa fa-twitter fa-intbut" style="font-size:26px"></a>
+            <a href="https://www.reddit.com/user/TonyStr/" target="_blank" class="fa fa-reddit fa-intbut" style="font-size:26px"></a>
+            <a href="https://github.com/tonystr" target="_blank" class="fa fa-github fa-intbut" style="font-size:26px"></a>
+            <a href="mailto:Tony.Stroemsnaes@gmail.com" target="_top" class="fa fa-envelope-o fa-intbut" style="font-size:26px"></a>
+          </div>
+          <nav>
+            <ul>
+              <li><a class="current" href="/">Home</a></li>
+              <li>
+                <div class="dropdown">
+                  <a href="/#skills">Skills <i class="fa fa-angle-down fa-static" aria-hidden="true"></i></a>
+                  <div class="dropdown-content">
+                    <p><a href="./skills/gml" target="_top" class="link" style="font-size:13px">
+                      GML Programming
+                    </a></p>
+                    <p><a href="./skills/pixelart" target="_top" class="link" style="font-size:13px">
+                      Pixelart Design
+                    </a></p>
+                    <p><a href="./skills/js" target="_top" class="link" style="font-size:13px">
+                      JS Programming
+                    </a></p>
+                  </div>
+                </div>
+              </li>
+              <li>
+                <div class="dropdown">
+                  <a href="/#games_and_tools">Games & Tools <i class="fa fa-angle-down fa-static" aria-hidden="true"></i></a>
+                  <div class="dropdown-content">
+                    <p><a href="../games_and_tools/gml_ik_ext" target="_top" class="link" style="font-size:13px">
+                      IK Extension (GM)
+                    </a></p>
+                    <p><a href="../games_and_tools/udda" target="_top" class="link" style="font-size:13px">
+                      UpDownDuckAround
+                    </a></p>
+                    <p><a href="../games_and_tools/gml_ik_tut" target="_top" class="link" style="font-size:13px">
+                      IK Tutorial (GM)
+                    </a></p>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <section id="showcase">
+        <div class="container">
+          <h1>Programming from <br> NUL to DEL</h1>
+        </div>
+      </section>
+
+      <section id="boxes">
+        <a class="link-nocol" href="/#skills" target="_top">
+          <section class="sectionhead shtop" id="skills">
+              <h2><i class="fa fa-chevron-down fa-static" aria-hidden="true"></i>
+                Skills
+              <i class="fa fa-chevron-down fa-static" aria-hidden="true"></i></h2>
+          </section>
+        </a>
+
+        <div class="container">
+          <div class="box">
+            <a href="./skills/gml" target="_top" class="link">
+              <img src="../img/gms2.png">
+              <h3>GML Programming</h3>
+            </a>
+            <p>Gamemaker language has remained my full-time hobby since <a class="date">2013</a></p>
+          </div>
+          <div class="box">
+            <a href="./skills/pixelart" target="_top" class="link">
+              <img src="../img/pxart.png">
+              <h3>Pixelart Design</h3>
+            </a>
+            <p>Pixelart has been a vital asset for my game development, ever since <a class="date">2014</a></p>
+          </div>
+          <div class="box">
+            <a href="./skills/js" target="_top" class="link">
+              <img src="../img/js.png">
+              <h3>JS Programming</h3>
+            </a>
+            <p>JavaScript's simple yet flexible language has kept me using it since <a class="date">2015</a></p>
+          </div>
+        </div>
+      </section>
+
+      <section id="boxes">
+        <a class="link-nocol" href="/#games_and_tools" target="_top">
+          <div class="sectionhead" id="games_and_tools">
+              <h2><i class="fa fa-chevron-down fa-static" aria-hidden="true"></i>
+                Games & Tools
+              <i class="fa fa-chevron-down fa-static" aria-hidden="true"></i></h2>
+          </div>
+        </a>
+
+        <div class="container">
+          <div class="box">
+            <a href="./games_and_tools/gml_ik_ext" target="_top" class="link">
+              <img src="../img/ikext.png">
+              <h3>IK extension for Gamemaker</h3>
+            </a>
+            <p>This Gamemaker extension contains 27 adpative functions for easily operating and visualizing
+              <a href="https://en.wikipedia.org/wiki/Inverse_kinematics" target="_top" class="link">Inverse Kinematics</a></p>
+          </div>
+          <div class="box">
+            <a href="./games_and_tools/udda" target="_top" class="link">
+              <img src="../img/uddaimg.png">
+              <h3>UpDownDuckAround</h3>
+            </a>
+            <p>This brutal game, made for the 4th GMC gamejam, forces you to controll two characters heading in opposite directions</p>
+          </div>
+          <div class="box">
+            <a href="./games_and_tools/gml_ik_tut" target="_top" class="link">
+              <img src="../img/iktut.png">
+              <h3>IK Tutorial for gamemaker</h3>
+            </a>
+            <p>This tutorial project, made for and in GameMaker, teaches the user how to use
+              <a href="https://en.wikipedia.org/wiki/Inverse_kinematics" target="_top" class="link">Inverse Kinematics</a></p>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
+        <p id="right">v1.0.0</p>
+      </footer>
     </div>
-    <script src="/test/7c0fa44dfa4159b731c266db43352933.js"></script>
   </body>
 </html>
