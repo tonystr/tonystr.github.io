@@ -540,23 +540,6 @@ header .nonlight{
     }
 }
 
-#loader-wrapper .loader-section{
-  position: fixed;
-  top:0;
-  width:50.3%;
-  height:100%;
-  background:#1e2026;
-  z-index: 1000;
-}
-
-#loader-wrapper .loader-section.section-left{
-  left:0;
-}
-
-#loader-wrapper .loader-section.section-right{
-  right:0;
-}
-
 #loader-wrapper{
   height:100%;
 }
