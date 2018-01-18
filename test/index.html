@@ -30,21 +30,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
       $(document).ready(function() {
-        setTimeout(function(){
-            $('body').addClass('loaded');
-        }, 10500);
+        $('body').addClass('loaded');
       });
     </script>
   </head>
 
   <body>
     <div id="loader-wrapper">
-        <div id="loader"></div>
-
-        <div id="loader-title">
-          <h2>Tony Strømsnæs</h2>
-          <p>Loading portfolio . . .</p>
-        </div>
+      <div class="loader lod-right" id="lod-1" style="left:90%"></div>
+      <div class="loader lod-left"  id="lod-2" style="left:60%"></div>
+      <div class="loader lod-right" id="lod-3" style="left:30%"></div>
+      <div class="loader lod-left"  id="lod-4" style="left:10%"></div>
+      <div class="loader lod-right" id="lod-5" style="left:50%"></div>
     </div>
 
     <div id="wrapper">

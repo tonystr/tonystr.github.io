@@ -257,12 +257,12 @@ header .nonlight{
   margin-bottom:10px;
 
   color:#1e2026;
-  text-shadow: 0.7px 2.8px 3px #000000af;
-  -ms-text-shadow: 0.7px 2.8px 3px #000000af;
-  -webkit-text-shadow: 0.7px 2.8px 3px #000000af;
+  text-shadow: 0.2px 2.4px 5px #000000bf;
+  -ms-text-shadow: 0.2px 2.4px 5px #000000bf;
+  -webkit-text-shadow: 0.2px 2.4px 5px #000000bf;
 
   font-size:540%;
-  font-style:italic;
+  font-style:bolder;
 }
 
 .blue{
@@ -541,122 +541,72 @@ header .nonlight{
 }
 
 #loader-wrapper{
-  height:107.6%;
-}
-
-#loader{
-  z-index:1002;
-
-  display: block;
-  position: relative;
-  left: 50%;
-  top: 50%;
-  width: 150px;
-  height: 150px;
-  margin: -75px 0 0 -75px;
-  border-radius: 50%;
-
-  box-shadow: 0px 0px 12px #000000c8;
-
-  content:"";
-
-  border: 3px solid transparent;
-  border-top-color: #7588FF;
-  border-bottom-color: #7588FF;
-
-    -webkit-animation: spin 2s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-            animation: spin 2s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-
-#loader::before{
-  z-index:1002;
-visibility: hidden;
-  content: "";
-         position: absolute;
-         top: 5px;
-         left: 5px;
-         right: 5px;
-         bottom: 5px;
-         border-radius: 50%;
-         border: 3px solid transparent;
-         border-top-color: #FFC7FF;
-         border-bottom-color:#FFC7FF;
-
-  content:"";
-
-
-  -webkit-animation: spin 3s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-          animation: spin 3s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
-  }
-
-#loader::after{
-  z-index:1002;
-
-  content: "";
-         position: absolute;
-         top: 15px;
-         left: 15px;
-         right: 15px;
-         bottom: 15px;
-         border-radius: 50%;
-         border: 3px solid transparent;
-         border-top-color: #F14165;
-         border-bottom-color:#F14165;
-  content:"";
-
-
-  -webkit-animation: spin 1.5s linear infinite; /* Chrome, Opera 15+, Safari 5+ */
-          animation: spin 1.5s linear infinite; /* Chrome, Firefox 16+, IE 10+, Opera */
-}
-
-#loader-title{
-  position:fixed;
-  z-index:1001;
+  height:100%;
   width:100%;
-  padding-left:11%;
-  padding-top:5%;
-
-}
-
-#loader-title h2{
-  color:#F14165;
-  font-size:3rem;
-}
-
-#loader-title p{
-  color:#7588FF;
-  font-size:2rem;
-}
-
-/* loaded */
-
-.loaded #loader{
-  opacity:0;
-  -webkit-transition: all 0.3s 1s ease;
-          transition: all 0.3s 1s ease;
 }
 
 .loaded #loader-wrapper{
-
-  height:75px;
   /*-webkit-transform: translatey(-100%);  /* Chrome, Opera 15+, Safari 3.1+ */
   /*    -ms-transform: translatey(-100%);  /* IE 9 */
   /*        transform: translatey(-100%);  /* Firefox 16+, IE 10+, Opera */
 
-  -webkit-transition: all 0.5s 1s ease;
-          transition: all 0.5s 1s ease;
+  -webkit-transition: all 1s 0.6s ease;
+          transition: all 1s 0.6s ease;
+  pointer-events: none;
+  height:0%;
 }
 
-.loaded #loader-title{
-  opacity:0;
-  -webkit-transition: all 0.3s 0s ease;
-          transition: all 0.3s 0s ease;
+.loader{
+  height:150%;
+  width:2%;
+  position:absolute;
+  top:-5%;
+  display: block;
+  z-index:-1;
+  box-shadow: 0 0 18px #000000af;
 }
 
+.lod-right{
+background-color:#7588FF
+}
+
+.lod-left{
+background-color:#F14165
+}
+
+#lod-1{
+  -webkit-transform: rotate(5deg);
+  -moz-transform:    rotate(5deg);
+  -ms-transform:     rotate(5deg);
+  -o-transform:      rotate(5deg);
+}
+#lod-2{
+  -webkit-transform: rotate(-3deg);
+  -moz-transform:    rotate(-3deg);
+  -ms-transform:     rotate(-3deg);
+  -o-transform:      rotate(-3deg);
+}
+#lod-3{
+  -webkit-transform: rotate(2deg);
+  -moz-transform:    rotate(2deg);
+  -ms-transform:     rotate(2deg);
+  -o-transform:      rotate(2deg);
+}
+#lod-4{
+  -webkit-transform: rotate(-10deg);
+  -moz-transform:    rotate(-10deg);
+  -ms-transform:     rotate(-10deg);
+  -o-transform:      rotate(-10deg);
+}
 
 .no-js #loader-wrapper {
     display: none;
-    height:75px;
+}
+
+.loaded .loader{
+  -webkit-transition: all 1s 0.6s ease;
+          transition: all 1s 0.6s ease;
+  top:-100%;
 }
 
 /* Social Media */
