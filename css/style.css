@@ -762,20 +762,25 @@ article#main-col{
 
 .img_desc p{
   padding-left:16px;
-  width:90%;
+
   color: #F14165;
   font-weight: bold;
 }
 
-.img_desc p::after{
-  font-weight:normal;
-  padding-left:3px;
-  color: #7588FF;
-  content:"©️ Tony Strømsnæs 2017";
+.img_desc .qqe{
+    font-weight:normal;
+    padding-left:2px;
+    color: #7588FF;
+    text-align: left;
+}
+.img_desc .qqe::before{
+  content:"©️ Tony Strømsnæs ";
 }
 
 .dscrp {
   display:flex;
+  width:95%;
+  justify-content: space-between;
 }
 
 .img_desc i{
