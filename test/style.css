@@ -220,7 +220,7 @@ header #branding h1{
 
 header #icons{
   float:left;
-  padding-left:143px;
+  padding-left:0px;
 }
 
 header nav{
@@ -235,6 +235,12 @@ header .highlight, header .current{
 
 header .nonlight{
   color:#f6faff;
+}
+
+.header-box{
+  display:flex;
+  justify-content: center;
+  background:#fff;
 }
 
 /* Showcase */
