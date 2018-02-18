@@ -26,6 +26,10 @@ body{
 
 /* Global */
 
+.invisible{
+  visibility: hidden;
+}
+
 ::selection {
   background: #9a9bcf;
 }
