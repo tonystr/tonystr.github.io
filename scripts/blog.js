@@ -28,7 +28,7 @@ function update_links($) { /// next/previous links
             let load_holder = $('<div>Failed to load content</div>');
 
             load_holder.load(nxt_link + '.html .page-title', function() {
-                $("#link-next").prop("href", nxt_link).html('<h2>' + $("#link-next>h2").text() + ': <a id="prev-title">' + $(load_holder).text() + '</a></h2>');
+                $("#link-next").prop("href", nxt_link).html('<h2 class="link-nexprev link">' + $("#link-next>h2").text() + ': <a id="next-title">' + $(load_holder).text() + '</a></h2>');
                 $("#link-next").removeClass("invisible");
             });
 
@@ -47,7 +47,7 @@ function update_links($) { /// next/previous links
         let load_holder = $('<div>Failed to load content</div>');
 
         load_holder.load(bck_link + '.html .page-title', function() {
-            $("#link-prev").prop("href", bck_link).html('<h2>' + $("#link-prev>h2").text() + ': <a id="next-title">' + $(load_holder).text() + '</a></h2>');
+            $("#link-prev").prop("href", bck_link).html('<h2 class="link-nexprev link">' + $("#link-prev>h2").text() + ': <a id="prev-title">' + $(load_holder).text() + '</a></h2>');
             $("#link-prev").removeClass("invisible");
         });
     } else {
