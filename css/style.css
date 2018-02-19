@@ -694,6 +694,40 @@ aside{
   -webkit-text-shadow: 0px 6px 20px #0000008a;
 }
 
+#full-col{
+    padding-left:10%;
+    color:#ffffff;
+    font-size:18px;
+    width:80%;
+}
+
+.post-p{
+    margin-bottom:0;
+    margin-top:12px;
+}
+.post-link{
+    color:#F14165;
+    /*color:#7588FF;*/
+}
+.post-num{
+    color:#7588FF;
+    /*color:#F14165;*/
+}
+.post-title{
+    color:#ffffff;
+}
+#blog-content{
+    padding-top:16px;
+}
+
+/*
+blue  = #7588FF
+red   = #F14165
+dark1 = #1e2026
+dark2 = #2D313D
+pink  = #FFC7FF
+*/
+
 #main{
   padding-top:20px;
 }
@@ -947,7 +981,7 @@ article#main-col{
   }
 }
 
-footer{
+footer {
   padding:1px;
   padding-left:16px;
   padding-right:16px;

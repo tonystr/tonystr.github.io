@@ -78,7 +78,7 @@ function include_links($, page_count) { /// Create divs with content from subpag
                load_holder.load(page + ' .page-title', function() {
                    /*window.alert("here");
                    $('.page-title').load_holder.find('.page-title').html());*/
-                   $("#blog-content").append( '<a class="link" id="post-' + url + '" href="' + url + '"><p> post ' + url + ': ' + $(load_holder).text() + '</p></a>');
+                   $("#blog-content").append( '<p class="post-p"><a class="link post-link" id="post-' + url + '" href="' + url + '">Post <span class="post-num">' + url + '</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="post-title link">' + $(load_holder).text() + '</span></a></p>');
                });
            }
         });
