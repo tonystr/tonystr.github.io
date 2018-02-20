@@ -21,10 +21,10 @@ body{
 }
 
 #wrapper{
-  height: calc(100% - 54px);
+  min-height: calc(100% - 54px);
 }
 #wrapper-blog{
-  height: calc(100% - 150px);
+  min-height: calc(100% - 150px);
 }
 
 /* Global */
