@@ -753,11 +753,24 @@ article#blog-content{
     width:100%;
 }
 #blog-title .page-title{
-    height:16px;
+    margin: 0px auto;
+    width:auto;
+    display:inline-block;
+    text-align:center;
+    position:relative;
+
+    left:50%;
+    transform: translateX(-50%);
 }
-#blog-title>#blogpost-date{
-    margin-left:auto;
-    text-align:right;
+.center-me{
+    text-align:left;
+}
+#blog-title #blogpost-date{
+    margin-top:9px;
+    margin-bottom:0;
+    margin-left:30%;
+
+    float:right;
 }
 
 /*
