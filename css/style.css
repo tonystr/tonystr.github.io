@@ -772,6 +772,17 @@ article#blog-content{
 
     float:right;
 }
+#blog-content #image-container{
+    width:100%;
+    display:flex;
+    justify-content: space-between;
+    margin-top:48px;
+}
+#blog-content #image-container img{
+    width:49%;
+    height:49%;
+    box-shadow: 0 2px 16px #000000af;
+}
 
 /*
 blue  = #7588FF
