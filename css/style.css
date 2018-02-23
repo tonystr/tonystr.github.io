@@ -727,10 +727,13 @@ aside{
     display:flex;
     justify-content: space-between;
     margin-left:10%;
+    margin-top:18px;
     width:80%;
 }
 .link-nexprev{
     color:#F14165;
+    margin:0px;
+    margin-top:23px;
 }
 #next-title,
 #prev-title{
@@ -740,10 +743,6 @@ aside{
 .link-nexprev:hover #next-title,
 .link-nexprev:hover #prev-title{
     color:#FFC7FF;
-}
-.link-nexprev{
-    margin:0px;
-    margin-top:23px;
 }
 article#blog-content{
     min-height:70%;
@@ -978,6 +977,17 @@ article#main-col{
   #boxes .box p{
     width:24.5%;
   }
+}
+
+@media(max-width: 1350px){
+
+    #blog-links{
+        margin-bottom:16px;
+        text-overflow: ellipsis;
+    }
+    #link-prev{
+        margin-right:10px;
+    }
 }
 
 @media(max-width: 860px){
