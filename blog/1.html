@@ -87,26 +87,75 @@
         <div id="full-col">
           <article id="blog-content">
             <div id="blog-title">
-                <div class="center-me"><h1 class="page-title">Welcome <span style="">/ hello & ATIRAG<span></h1> <!--Welcome / hello & ATIRAG-->
-                <h3 id="blogpost-date">Feb 19: 2018</h3> <!--Feb 19: 2018--></div>
+                <h1 class="page-title">Welcome <span style="">/ hello & ATIRAG<span></h1> <!--Welcome / hello & ATIRAG-->
+                <h3 id="blogpost-date">Feb 19: 2018</h3> <!--Feb 19: 2018-->
                 <br>
             </div>
             <p>
-                Hello everyone! (get it? every <i>one</i>, 'cus there's likely only going to be one person who reads this (me) (heh. will be fun reading these in a couple years /s)
-                (and this is likely why no one is going to read this)). So this is a blog. I made it to force myself to work. I will be posting weekly updates on whatever I'm working on,
-                and hopefully some technical details. Each post will have atleast one image attached, even if unrelated.
+                Hello, everyone! This is the start of a devlog, which is practically the same as a blog, but focused on game/software development. The purpose of this devlog is to force myself to work.
+                I will be posting weekly updates on whatever I'm working on, and hopefully some technical details. Each post will have atleast one image attached, even if unrelated.
             </p>
             <p>
-                This weekend, I've been working on this subpage (the devlog), and I've been working on a simple 2d bullethell shooter, because after 5 years of programming, I've still not actually
-                released anything. My goal is to get this done within a month (Release date: 15th april 2018), so it'll be faily simplistic. I do however have to spend some of that time on school
+                This week, I've been working on this subpage (the devlog), and I've started working on a simple 2d bullethell shoot 'em up. After 5 years of programming, I've still not actually
+                released any games. My goal is to get this done within a month (Release date: 15th march 2018), so it'll be faily simplistic. I do however have to spend some of that time on school
                 and in other languages, but with a solid goal, I can't go wrong.
             </p>
-            <div id="image-container">
-                <img src="../img/devlog/dl_atirag0.gif"></img>
-                <img src="../img/devlog/dl_atirag1.gif"></img>
+            <p>
+                Here are some gifs of a very crude prototype
+            </p>
+            <div class="img-box">
+                <div class="img-box-box">
+                    <a target="_blank" alt="ATIRAG crude prototype 0" class="img_img">
+                        <img src="../img/devlog/dl_atirag0.gif" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            ATIRAG <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="../img/devlog/dl_atirag0.gif"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="img-box-box">
+                    <a target="_blank" alt="ATIRAG crude prototype 1" class="img_img">
+                        <img src="../img/devlog/dl_atirag1.gif"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            ATIRAG <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="../img/devlog/dl_atirag1.gif"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
             </div>
             <p>
-                Here are some gifs of a very crude prototype. This enemy type uses a "dna" variable, which decides what bahaviours
+                This enemy type uses a "dna" variable which decides what behaviours the enemy has. Such as: does it move horizontally? How many bullets does it shoot? How fast is it? - and more to come.
+            </p>
+            <p>
+                The stars in the background move at different speeds, and have their color adjusted accordingly, that way it shows depth and looks 3d. This doesn't show very
+                well in the gif, but maybe I'll post an mp4 later, when I eventually change it to look even better. Another trick with the stars, is that I'm actually looping the same stars over and over again.
+                The amount of stars on screen is <i>allways</i> the same because of this. This works quite well, because the stars move at different speeds, so the player won't ever notice the pattern is looping,
+                however, because I can, whenever a star hits the bottom of the screen, it changes it's x coordinate and speed, to appear as a different star next time.
+            </p>
+            <p>
+                Right now, this game looks boring, plays boring, and lacks both polish and content. Therefore, I've compiled a list of features I'm thinking of adding or changing.
+            </p>
+            <ul class="feature-list">
+                     <li> Colored stars
+                </li><li> Larger bullets
+                </li><li> More challenging and smarter AI
+                </li><li> Bullet formations
+                </li><li> Bullet upgrades
+                </li><li> Visual effects upon death (animation/particles)
+                </li><li> Sounds
+                </li>
+            </ul>
+            <p>
+                There are of course more things I want to add, but these are my priority right now. I need a solid skeleton before I start adding the flesh. Hopefully some of these changes will be present
+                in the next post.
             </p>
           </article>
         </div>

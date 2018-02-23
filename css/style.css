@@ -828,12 +828,12 @@ article#main-col{
 }
 
 #img-wrapper h1 #artworks{
+    width:90%;
+    margin-left: 5%;
 }
 
 .img-box{
   /* background-color:#2D313D; */
-  width:90%;
-  margin-left: 5%;
   padding-bottom: 15px;
   display:flex;
   flex-wrap:wrap;
@@ -842,25 +842,43 @@ article#main-col{
   /* background-color:#1e2026; */
 }
 
-.img-box a{
+#blog-content .img-box{
+    justify-content:space-around;
+    padding-bottom:0;
+    margin-top:28px;
+}
+
+#blog-content .img-box-box{
+
+}
+
+.feature-list{
+    padding-left:16px;
+}
+
+.img-box-box{
   margin-left:.7%;
   margin-right:.7%;
   margin-top:1%;
   margin-bottom:20px;
+  box-shadow: 0px 3px 7px #0000009a;
+  -webkit-transition:all .16s ease-in-out;
+  transition:all .16s ease-in-out;
+  background-color: #1e2026ff;
 }
-
+.img_img{
+    display:flex;
+    flex-direction:column;
+}
 .img_desc{
   color:#ffffff;
   display:flex;
-  flex-direction:column;
+  flex-direction:row;
   text-decoration:none;
+  justify-content: space-between;
 
-  background-color: #00000000;\
   -webkit-transition:all .1s ease-in-out;
   transition:all .1s ease-in-out;
-  background-color: #1e2026ff;
-
-  box-shadow: 0px 2px 7px #0000009a;
 }
 
 .img_desc p{
@@ -880,41 +898,62 @@ article#main-col{
   content:"©️ Tony Strømsnæs ";
 }
 
-.dscrp {
-  display:flex;
-  width:95%;
-  justify-content: space-between;
+.img_desc .img-button{
+    float:right;
+    padding:10px;
+    margin-top:8px;
+}
+.img_desc .img-button:hover i{
+  color:#7588FF;
+  -webkit-transition:all .16s ease-in-out;
+  transition:all .16s ease-in-out;
+}
+.img-box-box:hover i{
+  color:#ffffffff;
+  -webkit-transition:all .16s ease-in-out;
+  transition:all .16s ease-in-out;
+}
+.img-button-container{
+    margin-right:8px;
+    margin-top:3px;
+}
+.img_desc i{
+    float:right;
 }
 
 .img_desc i{
-  padding-top:18px;
   color:#2d313d8f;
   -webkit-transition:all .16s ease-in-out;
   transition:all .16s ease-in-out;
 }
 
-.img_desc:hover i{
-  color:#ffffffff;
-  -webkit-transition:all .16s ease-in-out;
-  transition:all .16s ease-in-out;
-}
-
-.img_desc:hover{
+.img-box-box:hover{
   background-color: #1e2026ff;
   box-shadow: 0px 2px 10px #000000fa;
 }
 
 .img-box img{
   width:498px;
-  /* border-top: 4px #F14165 dashed; */
-  box-shadow: 0px 2px 13px #0000008f;
-  /* border: 3px solid #1e2026; */
   -webkit-transition:all .1s ease-in-out;
   transition:all .1s ease-in-out;
+  box-shadow: 0px 0px 6px #0000008f;
+
+
+
+  animation: gif steps(28) 1s infinite both;
 }
 
-.img_desc:hover img{
-  box-shadow: 0px 3px 22px #0000008f;
+.pause {
+    animation-play-state: paused;
+}
+
+@keyframes gif {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 100%;
+  }
 }
 
 #main-col label:checked{
