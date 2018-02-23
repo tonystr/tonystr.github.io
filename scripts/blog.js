@@ -54,8 +54,7 @@ function update_links($) { /// next/previous links
         $("#link-prev").remove();
     }
 
-    let load_holder = $('<div>Failed to load content</div>');
-
+    let load_holder = $('<title>Devlog</title>');
     load_holder.load(url_root + cur_page_num + '.html .page-title', function() {
         $("#blog-titlebar").html($("#blog-titlebar").text() + $(load_holder).text())
     });

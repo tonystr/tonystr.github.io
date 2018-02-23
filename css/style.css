@@ -750,6 +750,8 @@ article#blog-content{
 
 #blog-title{
     width:100%;
+    margin-top:20px;
+    margin-bottom:50px;
 }
 #blog-title .page-title{
     margin: 0px auto;
