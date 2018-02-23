@@ -16,8 +16,12 @@ function update_links($) { /// next/previous links
     // initialize variables
     var url_arr = window.location.href.replace(".html", "").split('/'),
         cur_page_num = parseInt(url_arr[url_arr.length - 1]),
-        url_root = window.location.href.replace(cur_page_num + ".html", ""),
+        url_root = "",
         nxt_page = new String(cur_page_num + 1);
+
+    for (var i = 0; i < url_arr.length - 1; i++) {
+        url_root += url_arr[i] + "/";
+    }
 
     var bck_link, nxt_link = false;
 
