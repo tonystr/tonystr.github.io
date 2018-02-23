@@ -82,12 +82,25 @@ function include_links($, page_count) { /// Create divs with content from subpag
                    }
                });*/
 
-               let load_holder = $('<div>Failed to load content</div>');
+               let date = $('<div></div>');
+               date.load(page + ' #blogpost-date', function() {
 
-               load_holder.load(page + ' .page-title', function() {
-                   /*window.alert("here");
-                   $('.page-title').load_holder.find('.page-title').html());*/
-                   $("#blog-content").append( '<p class="post-p"><a class="link post-link" id="post-' + url + '" href="' + url + '">Post <span class="post-num">' + url + '</span> &nbsp;&nbsp;-&nbsp;&nbsp; <span class="post-title link">' + $(load_holder).text() + '</span></a></p>');
+                   let load_holder = $('<div>Failed to load content</div>');
+                   load_holder.load(page + ' .page-title', function() {
+                       /*window.alert("here");
+                       $('.page-title').load_holder.find('.page-title').html());*/
+                       $("#blog-content").prepend( '<p class="post-p"><a class="link post-link" id="post-'
+                                                + url
+                                                + '" href="'
+                                                + url
+                                                + '">Post <span class="post-num">'
+                                                + url
+                                                + '</span> &nbsp;[&nbsp;<span class="post-num">'
+                                                + $(date).text()
+                                                + '</span>&nbsp;]&nbsp;&nbsp; <span class="post-title link">'
+                                                + $(load_holder).text()
+                                                + '</span></a></p>');
+                   });
                });
            }
         });
