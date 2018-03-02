@@ -885,7 +885,7 @@ article#main-col{
     color:#43ef7f;
     list-style: none;
     margin-left: 0;
-    text-indent: -1.20em;
+    text-indent: -1.2em;
 }
 .feature-list>.completed::before{
     content:" \f00c";
@@ -894,7 +894,7 @@ article#main-col{
 .feature-list>.scrapped{
     color:#F14165;
     list-style: none;
-    text-indent: -1.12em;
+    text-indent: -1.1em;
 }
 .feature-list>.scrapped::before{
     content:" \f00d";
