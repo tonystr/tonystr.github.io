@@ -881,6 +881,27 @@ article#main-col{
 .feature-list{
     padding-left:16px;
 }
+.feature-list>.completed{
+    color:#43ef7f;
+    list-style: none;
+    margin-left: 0;
+    text-indent: -1.20em;
+}
+.feature-list>.completed::before{
+    content:" \f00c";
+    font-family: FontAwesome;
+}
+.feature-list>.scrapped{
+    color:#F14165;
+    list-style: none;
+    text-indent: -1.12em;
+}
+.feature-list>.scrapped::before{
+    content:" \f00d";
+    font-family: FontAwesome;
+}
+
+
 
 .img-box-box{
   margin-left:.7%;
