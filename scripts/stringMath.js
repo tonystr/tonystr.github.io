@@ -18,7 +18,7 @@ stringMath = function() {
         switch (string.charAt(i)) {
 
             // Operator
-            case (string.charAt(i).match(`[+\\-*/^]`) || false).input:
+            case (string.charAt(i).match(`[+\\-*/^%]`) || false).input:
                 let numset = false;
                 if (number.length > 0) {
                     variables.push(Number(number) * sign);
@@ -28,7 +28,7 @@ stringMath = function() {
                 }
 
                 let tertiary = string.charAt(i).match(`\\^`) && true;
-                let secondary = string.charAt(i).match(`[*/]`) && true;
+                let secondary = string.charAt(i).match(`[*/%]`) && true;
                 let stg = stage*3 + Number(secondary) + Number(tertiary) * 2;
                 let operator = string.charAt(i);
 
@@ -68,9 +68,9 @@ stringMath = function() {
             if (callStack.length < 1) break;
             for (let i = 0; i < callStack.length; i++) {
                 switch (callStack[i]) {
-
                     case stage + "*": variables[i] = (variables[i] * Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
                     case stage + "/": variables[i] = (variables[i] / Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
+                    case stage + "%": variables[i] = (variables[i] % Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
                     case stage + "+": variables[i] = (variables[i] + Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
                     case stage + "-": variables[i] = (variables[i] - Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
                     case stage + "^": variables[i] = Math.pow(variables[i], Number(variables[i+1])); callStack.splice(i, 1); variables.splice(i--+1, 1); break;
