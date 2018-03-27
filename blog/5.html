@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
+    <link rel="manifest" href="../icon/manifest.json">
+    <link rel="mask-icon" href="../icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <meta name="msapplication-config" content="../icon/browserconfig.xml">
+    <meta charset="utf-8">
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@TonyStr_">
+    <meta name="twitter:title" content="Motherlode begins">
+    <meta name="twitter:description" content="27. Mar 2018">
+    <meta name="twitter:image" content="https://imgur.com/amIEHN6.gif">
+    <meta name="twitter:image:src" content="https://imgur.com/amIEHN6.gif">
+    <meta name="twitter:url" content="/">
+    <meta name="theme-color" content="#F14165">
+    <meta property="og:title" content="Motherlode begins">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="https://imgur.com/amIEHN6.gif">
+    <meta property="og:description" content="TonyStr : Programming from NUL to DEL"><!--nonimp-->
+
+    <meta name="copyright" content="Copyright 2018 TonyStr">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Programming from NUL to DEL">
+    <meta name="keywords"    content="gamedesign, programming, gml, gml programming">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title id="blog-titlebar">TonyStr - </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="//twemoji.maxcdn.com/twemoji.min.js"></script>
+    <script src="../scripts/blog.js"></script>
+    <script src="../scripts/asyncload.js"></script>
+    <script src="../scripts/includeHTML.js"></script>
+    <script> jQuery(document).ready(()=>{update_links($); includeHTML();}); </script>
+  </head>
+
+  <body>
+    <div id="wrapper-blog">
+      <div w3-include-html="../scripts/header.html"></div>
+
+      <section id="main">
+        <div id="full-col">
+          <article id="blog-content">
+            <div id="blog-title">
+                <h1 class="page-title">Motherlode begins</h1>
+                <h3 id="blogpost-date">27. Mar 2018</h3>
+                <br>
+            </div>
+            <p>
+                I've done two interesting things this week after releasing <a class="link" target="_blank" href="../games_and_tools/atirag">ATIRAG</a>. First of all, I wrote a script in javascript that takes either a number or name as input, and outputs a link, image,
+                title and some more information from a list of pixelart tutorials hosted by <a class="link" href="http://studiominiboss.com/" target="_blank">studio-miniboss</a>. Basically, it's a script for embeding pixelart tutorials by pedro/saint11 with a Discord bot.
+                The script sends a http request to <a class="link" href="http://blog.studiominiboss.com/pixelart" target="_blank">blog.studiominiboss.com/pixelart</a>, retrieves the whole html document as a string, then uses the power of
+                <a class="link" target="_blank" href="https://en.wikipedia.org/wiki/Regular_expression">RegEx</a> to search the website against the input. It then uses some more regex to find the rest of the information, then some more, and just a little bit more RegEx to
+                hold it all together. I'd love to embed a live demo of it right here, however it's built in node.js and requires the http package, and I'm not comfortable with XMLHttpRequests yet.
+            </p>
+            <div class="img-box">
+                <script>loadImage("#loadimage-1", "https://i.imgur.com/6DWKwcY.gif", $)</script>
+                <div class="img-box-box img-box-full" id="loadimage-1">
+                    <a target="_blank" alt="Motherlode prototype 0" class="img_img">
+                        <img src="" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            Motherlode <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                About 8 years ago, I played a game called <a class="link" target="_blank" href="http://www.xgenstudios.com/play/motherload">Motherload</a>. I played the game again, a couple days ago, and was fascinated by how well balanced it was.
+                Out of love for the game, I decided to try to recreate it, maybe with some of my own features.
+            </p>
+            <p>
+                Currently, I've got the basic movement down and the level generates a grid of blocks, some of which hold ore. The blocks autotile and can be mined through in a similar fashion to the original Motherload. The background linearly interpolates between a set of
+                colors as you traverse the world vertically.
+            </p>
+            <p>
+                Here are some gifs illustrating the current state of the game
+            </p>
+            <div class="img-box">
+                <script>loadImage("#loadimage-2", "https://imgur.com/Egu3RNo.gif", $)</script>
+                <div class="img-box-box" id="loadimage-2">
+                    <a target="_blank" alt="Motherlode prototype 1" class="img_img">
+                        <img src="" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            ATIRAG <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <script>loadImage("#loadimage-3", "https://imgur.com/amIEHN6.gif", $)</script>
+                <div class="img-box-box" id="loadimage-3">
+                    <a target="_blank" alt="Motherlode prototype 2" class="img_img">
+                        <img src="" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            ATIRAG <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                Right now, I'm working on adding an inventory to the game, and some sprites for the explosions (dynamite and plastics). <br> Here's the planned-features list for Motherlode:
+            </p>
+            <ul class="feature-list">
+                     <li>                   Item Sprites
+                </li><li>                   Grid-based inventory
+                </li><li>                   Gas station + fuel system
+                </li><li>                   Junk shop + upgrade system
+                </li><li>                   Mineral processing + money/points system
+                </li><li>                   Emendation station + hull system
+                </li><li>                   Terrain breaking while mining
+                </li><li>                   Saving / loading
+                </li><li>                   Main Menu
+                </li><li>                   Satan?
+                </li><li>                   GUI
+                </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+    <div id="blog-links">
+        <a id="link-prev" class="link invisible"><h3 class="link-nexprev">previous post</h3></a>
+        <a id="link-next" class="link invisible"><h3 class="link-nexprev">next post</h3></a>
+    </div>
+    <footer>
+      <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
+      <p id="right">v1.0.3</p>
+    </footer>
+  </body>
+</html>
