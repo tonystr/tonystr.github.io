@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
+    <link rel="manifest" href="../icon/manifest.json">
+    <link rel="mask-icon" href="../icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <meta name="msapplication-config" content="../icon/browserconfig.xml">
+    <meta charset="utf-8">
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@TonyStr_">
+    <meta name="twitter:title" content="Progress Over Easters">
+    <meta name="twitter:description" content="4. Apr 2018">
+    <meta name="twitter:image" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta name="twitter:image:src" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta name="twitter:url" content="/">
+    <meta name="theme-color" content="#F14165">
+    <meta property="og:title" content="Progress Over Easter">
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta property="og:description" content="TonyStr : Programming from NUL to DEL"><!--nonimp-->
+
+    <meta name="copyright" content="Copyright 2018 TonyStr">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Programming from NUL to DEL">
+    <meta name="keywords"    content="gamedesign, programming, gml, gml programming">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title id="blog-titlebar">TonyStr - </title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="../scripts/blog.js"></script>
+    <script src="../scripts/asyncload.js"></script>
+    <script src="../scripts/includeHTML.js"></script>
+    <script> jQuery(document).ready(()=>{update_links($); includeHTML();}); </script>
+  </head>
+
+  <body>
+    <div id="wrapper-blog">
+      <div w3-include-html="../scripts/header.html"></div>
+
+      <section id="main">
+        <div id="full-col">
+          <article id="blog-content">
+            <div id="blog-title">
+                <h1 class="page-title">Progress Over Easter</h1>
+                <h3 id="blogpost-date">4. Apr 2018</h3>
+                <br>
+            </div>
+            <p>
+                Easter has concluded, but Motherlode has not been left untouched. Over the Easter break, I've spent a lot of time fixing and adding to Motherlode. I finished the Grid-based inventory from last week, and made some sprites for the different items
+                aquireable in the game. A list on the right of your inventory now shows all your items, and how many you have.
+            </p>
+            <p>
+                Currently, the only items that work are Dynamites and Plastic explosives. Neither of the teleporters have been programmed yet. The Auto Repair Nanobots are currently
+                useless, because I've not implemented a health (hull) system yet, and the same goes for the Reserve Fuel Tanks, as you don't have a fuel dependency yet.
+            </p>
+            <p> I'm planning to add the gas station and fuel system last (of the stores & stations), because when a fuel dependency is present, the game will immediately need balancing, and all the other aspects must be taken into account when balancing.
+                I have instead made the Mining Deposit, and started working on the Emendation Station, as you can see in the gif below.
+            </p>
+            <p>
+                The ores are now mineable, collectable, destroyable and sellable, and there's a money system to justify your drilling efforts.
+                The Emendation station currently only lets you buy items (such as explosives, teleporters, fuel/health), but should offer Hull repairs in the future. The explosives were actually already useable in the game since last week, however they did
+                not have any sprites for the explosion, which looked really bad, so I chose not to mention them. They now have animations for exploding, and have been tweaked to feel better in addition to sorting out some explosive bugs.
+            </p>
+            <p>
+                The previous level grid has been tweaked to support a surface based solution, which allows me to modify the visuals of the terrain by simply drawing (or subtracting) images on/from it. This was my way of tackling the constant visual terrain
+                modification while drilling that was apparent in the original Motherload. Consulting a play-tester (my brother) revealed that this effect was vital to the charm of the original Motherload, and a huge part of what I wanted to capture. More visual effects
+                are needed, and will hopefully come soon. Additionally, The World generation has been tweaked ever so slightly.
+            </p>
+            <div class="img-box">
+                <script>loadImage("#loadimage-1", "https://i.imgur.com/fHZvOEv.gif", $)</script>
+                <div class="img-box-box" id="loadimage-1">
+                    <a target="_blank" alt="Motherlode prototype 3" class="img_img">
+                        <img src="" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            Motherlode <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+                <script>loadImage("#loadimage-2", "https://i.imgur.com/Evsz1oN.gif", $)</script>
+                <div class="img-box-box" id="loadimage-2">
+                    <a target="_blank" alt="Motherlode prototype 4" class="img_img">
+                        <img src="" class="pause"></img>
+                    </a>
+                    <div class="img_desc">
+                        <p>
+                            Motherlode <span class="qqe">2018</span>
+                        </p>
+                        <div class="img-button-container">
+                            <a class="img-button" href="" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p>
+                Maybe you've seen them already, but I ask you direct your attention toward the buttons in the menus. notice how they're outlined by a glow from the mouse. This effect was inspired by the awesome design in Windows 10's stock applications, such as
+                the alarms & clock, calculator and calendar. I understand that this effect does not fit too well with the game I'm making, however the complete designs of the menus are completely inharminus and cluttered at the moment, so I figured experimenting
+                with some technical ideas to relieve the pain of menu creation might be justifiable. You might've guessed that this effect was achieved with a shader, and, I wish you were right, but I shamefully admit that I am not good enough at shaders to make
+                what would be a fairly simple shader to achieve this effect. I instead opted for surfaces (canvases). I'm basically drawing a glow image relative to the mouse, to a surface separate from the default one, then subtracting the alpha (reverse transparency)
+                from everywhere other than around the text, then drawing the text on top of that.
+            </p>
+            <p>
+                I'm very happy with the progress I've made this week, although I suppose it is to be expected, considering
+                how much time has been at my disposal. I've learnt to ignore the mental barrier of "I could've done better", or "someone else does twice what you do in a week, in a day". I've been reading (or rather listening to)
+                <a href="https://www.amazon.com/12-Rules-Life-Antidote-Chaos/dp/0345816021" class="link" target="_blank">a book</a> by Jordan Peterson that has helped me overcome these mental obstacles that hinder productive progress.
+            </p>
+            <p>
+                The feature list now has a new color! Yellow - features that have been worked on significantly, but not completed nor scrapped. No new items have been added to the list, as I want to focus on completing most of these first.
+            </p>
+            <ul class="feature-list">
+                     <li class="completed"> Item Sprites
+                </li><li class="completed"> Grid-based inventory
+                </li><li>                   Gas station + fuel system
+                </li><li>                   Junk shop + upgrade system
+                </li><li class="completed"> Mineral processing + money/points system
+                </li><li class="progress" > Emendation station + hull system
+                </li><li class="completed"> Terrain breaking while mining
+                </li><li>                   Saving / loading
+                </li><li>                   Main Menu
+                </li><li>                   Satan?
+                </li><li>                   GUI
+                </li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </div>
+    <div id="blog-links">
+        <a id="link-prev" class="link invisible"><h3 class="link-nexprev">previous post</h3></a>
+        <a id="link-next" class="link invisible"><h3 class="link-nexprev">next post</h3></a>
+    </div>
+    <footer>
+      <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
+      <p id="right">v1.0.3</p>
+    </footer>
+  </body>
+</html>

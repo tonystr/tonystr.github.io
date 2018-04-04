@@ -859,6 +859,15 @@ article#main-col{
     content:" \f00d";
     font-family: FontAwesome;
 }
+.feature-list>.progress{
+    color:#FFF23D;
+    list-style: none;
+    text-indent: -1.1em;
+}
+.feature-list>.progress::before{
+    content:" \f067";
+    font-family: FontAwesome;
+}
 
 
 
