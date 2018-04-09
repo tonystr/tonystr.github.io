@@ -51,6 +51,7 @@ body{
     width: 100%;
     height: 100%;
     box-shadow: 0 2px 12px #000000a7;
+    border-radius:2px;
 }
 #showcase a .img-container:hover .img-desc{
     cursor:pointer;
@@ -114,7 +115,7 @@ body{
     font-size:1.5rem;
     text-align:center;
     margin:0;
-    margin-bottom:30px;
+    margin-bottom:60px;
     padding-right:12%;
     padding-left:12%;
 }
@@ -142,12 +143,15 @@ body{
     text-align:center;
     box-shadow: 0 1px 6px #0000009a;
     color:#ffffff;
+    border: 1.6px solid #ffffff;
     text-decoration: none;
     transition: 0.2s all;
 }
 
 #social-media a:hover{
     background-color:#ffffff !important;
+    border-color:#FF6A00 !important;
+    box-shadow: 0 0px 6px #00000000;
     color:#FF6A00;
 }
 
