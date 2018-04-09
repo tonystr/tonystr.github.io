@@ -129,7 +129,7 @@ body{
 
     padding-top:14px;
 
-    font-size:0.9rem;
+    font-size:1.2rem;
 }
 
 #social-media a{
@@ -158,5 +158,13 @@ body{
     }
     #social-media{
         font-size:0.8rem;
+    }
+    #signature img{
+        /*margin-top:50px;
+        margin-left:50%;
+        transform:translateX(-56%);
+
+        margin-bottom:8px;*/
+        width:48%;
     }
 }
