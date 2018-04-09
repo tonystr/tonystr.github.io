@@ -10,7 +10,7 @@ body{
   font-family: 'Lato', sans-serif;
   padding: 0;
   margin: 0;
-  background-color: #fffffc;
+  background-color: #ffffff;
   color: #000000;
   height: 100%;
 }
@@ -33,14 +33,14 @@ body{
     padding-right: 8%;
     padding-left: 8%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
 #showcase a{
     width: 48%;
     height: 48%;
-    margin-bottom: 34px;
+    margin-bottom: 20px;
 
     color:#ffffff;
     background-color: #1a192600;
@@ -102,9 +102,6 @@ body{
     text-align:center;
 }
 
-#signature{
-
-}
 #signature img{
     margin-top:50px;
     margin-left:50%;
@@ -116,7 +113,10 @@ body{
 #description{
     font-size:1.5rem;
     text-align:center;
-    margin-top:0;
+    margin:0;
+    margin-bottom:30px;
+    padding-right:12%;
+    padding-left:12%;
 }
 
 #social-media{
@@ -148,14 +148,21 @@ body{
 
 #social-media a:hover{
     background-color:#ffffff !important;
-    color:#fa1346;
+    color:#FF6A00;
 }
 
 @media(max-width:900px) {
-    #showcase img{
+    #showcase a{
         width: 100%;
         height: 100%;
     }
+    #showcase .img-desc h1{
+        font-size:3.4vw;
+    }
+    #showcase .img-desc p{
+        font-size:2.4vw;
+    }
+
     #social-media{
         font-size:0.8rem;
     }
@@ -166,5 +173,10 @@ body{
 
         margin-bottom:8px;*/
         width:48%;
+    }
+
+    #description{
+        font-size:1.1rem;
+        padding:0;
     }
 }
