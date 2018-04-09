@@ -6,8 +6,8 @@ html{
 body{
   font: 1rem/1.5 Arial, Helvetica, sans-serif;
   font-family: 'Open Sans', sans-serif;
-  font-family: 'Roboto', sans-serif;
   font-family: 'Lato', sans-serif;
+  font-family: 'Roboto', sans-serif;
   padding: 0;
   margin: 0;
   background-color: #ffffff;
@@ -112,12 +112,16 @@ body{
 }
 
 #description{
-    font-size:1.5rem;
-    text-align:center;
+    font-size:1.24rem;
+    text-align:left;
     margin:0;
     margin-bottom:60px;
-    padding-right:12%;
-    padding-left:12%;
+    padding-right:15%;
+    padding-left:15%;
+}
+#description p{
+    margin-top:0.8rem;
+    margin-bottom:0.8rem;
 }
 
 #social-media{
