@@ -18,13 +18,15 @@ body{
 #main{
     width: 84%;
     margin-left: 8%;
-
 }
 
 .line{
     width:100%;
 
-    box-shadow: 0 -14px 14px -14px #0000005f;
+    -webkit-box-shadow: 0 -14px 14px -14px rgba(0,0,0,37109375);
+    -moz-box-shadow: 0 -14px 14px -14px rgba(0,0,0,37109375);
+    -ms-box-shadow: 0 -14px 14px -14px rgba(0,0,0,37109375);
+    box-shadow: 0 -14px 14px -14px rgba(0,0,0,37109375);
     width: 90%;
     margin-left:5%;
 }
@@ -43,20 +45,23 @@ body{
     margin-bottom: 20px;
 
     color:#ffffff;
-    background-color: #1a192600;
+    background-color: rgba(26,25,38,0);
     text-decoration: none;
     transition: 0.8s all;
 }
 #showcase img{
     width: 100%;
     height: 100%;
-    box-shadow: 0 2px 12px #000000a7;
+    -webkit-box-shadow: 0 2px 12px rgba(0,0,0,.65234375);
+    -moz-box-shadow: 0 2px 12px rgba(0,0,0,.65234375);
+    -ms-box-shadow: 0 2px 12px rgba(0,0,0,.65234375);
+    box-shadow: 0 2px 12px rgba(0,0,0,.65234375);
     border-radius:2px;
 }
 #showcase a .img-container:hover .img-desc{
     cursor:pointer;
-    background-color: #ffffffbf;
-    color:#000000ff;
+    background-color:rgba(255, 255, 255, .7);
+    color:rgba(0, 0, 0, 1);
 }
 
 #showcase a.wide-img{
@@ -76,8 +81,8 @@ body{
     width: 100%;
     height: calc(100% - 5.6px);
     transition: .3s ease;
-    background-color:#00000000;
-    color:#ffffff00;
+    background-color:rgba(0, 0, 0, 0);
+    color:rgba(0, 0, 0, 0);
 }
 
 #showcase .img-container h1{
@@ -145,7 +150,10 @@ body{
     border-radius:10px;
     min-width:28%;
     text-align:center;
-    box-shadow: 0 1px 6px #0000009a;
+    -webkit-box-shadow: 0 1px 6px rgba(0,0,0,.65234375);
+    -moz-box-shadow: 0 1px 6px rgba(0,0,0,.65234375);
+    -ms-box-shadow: 0 1px 6px rgba(0,0,0,.65234375);
+    box-shadow: 0 1px 6px rgba(0,0,0,.65234375);
     color:#ffffff;
     border: 1.6px solid #ffffff;
     text-decoration: none;
@@ -155,7 +163,10 @@ body{
 #social-media a:hover{
     background-color:#ffffff !important;
     border-color:#FF6A00 !important;
-    box-shadow: 0 0px 6px #00000000;
+    -webkit-box-shadow: 0 0px 6px rgba(0,0,0,0);
+    -moz-box-shadow: 0 0px 6px rgba(0,0,0,0);
+    -ms-box-shadow: 0 0px 6px rgba(0,0,0,0);
+    box-shadow: 0 0px 6px rgba(0,0,0,0);
     color:#FF6A00;
 }
 
