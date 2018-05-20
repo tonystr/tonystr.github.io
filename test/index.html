@@ -1,212 +1,125 @@
 
 <!DOCTYPE html>
-<html>
-  <head>
 
-    <link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
-    <link rel="manifest" href="../icon/manifest.json">
-    <link rel="mask-icon" href="../icon/safari-pinned-tab.svg" color="#5bbad5">
-    <link rel="shortcut icon" href="../icon/favicon.ico">
-    <meta name="msapplication-config" content="../icon/browserconfig.xml">
-    <meta charset="utf-8">
-    <!-- twitter -->
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@TonyStr_">
-    <meta name="twitter:title" content="Welcome / hello & ATIRAG">
-    <meta name="twitter:description" content="TonyStr - Programming from NUL to DEL">
-    <meta name="twitter:image" content="https://tonystr.net/img/devlog/dl_atirag1.gif">
-    <meta name="twitter:url" content="/">
-    <meta name="theme-color" content="#F14165">
-    <meta property="og:title" content="Welcome / hello & ATIRAG">
-    <meta property="og:url" content="/">
-    <meta property="og:image" content="https://tonystr.net/img/devlog/dl_atirag1.gif">
-    <meta property="og:description" content="TonyStr : Programming from NUL to DEL">
+<head>
+<title>Word cube generator</title>
+</head><body>
+<style>
+body {
+	margin: 0;
+	background: #eff0f1;
+}
+#app {
+	width: 640px;
+	margin: 0 auto;
+	background: white;
+	min-height: 100%;
+	padding: 4px;
+	box-sizing: border-box;
+	font: 10pt sans-serif;
+}
+input[type="text"], textarea {
+	width: 100%;
+	box-sizing: border-box;
+	font: 10pt monospace;
+}
+</style>
+<div id="app">
+<h1>
+	Word Cube Generator
+</h1><p>
+	Input text (length: <span id="length">0</span>):
+</p>
+<!--А КАК ЖЕ ПРАВИЛА-->
+<input type="text" id="input" value="0123456789ABCDEFGHIJ">
+<p>
+	<input type="button" id="proc1" value="One-side">
+	Must start and end with the same character.
+</p><p>
+	<input type="button" id="proc2" value="Two-side">
+	Must have odd length (3, 5, 7, 9, etc.)
+</p><!--<p>
+	<input type="button" id="proc4" value="Four-side">
+	Preferably a multiplier-of-four length.
+</p>-->
+<textarea rows="15" id="output"></textarea>
 
-    <meta name="viewport"    content="width=device-width">
-    <meta name="description" content="Programming from NUL to DEL">
-    <meta name="keywords"    content="gamedesign, programming, gml, gml programming">
-    <meta name="author"      content="Tony Strømsnæs">
-    <title id="blog-titlebar">TonyStr - </title>
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="../scripts/blog.js"></script>
-    <script>
-        jQuery(document).ready(function($) {
-            let imgBox = document.getElementsByClassName('img_img');
+<script>
+    var input = document.getElementById("input");
+    var inputLen = document.getElementById("length");
+    function updateLen() {
+    	setTimeout(function() {
+    		inputLen.innerHTML = "" + input.value.length;
+    	});
+    }
+    input.onkeydown = updateLen;
+    input.onkeyup = updateLen;
+    input.onchange = updateLen;
+    var output = document.getElementById("output");
+    function proc(s, m) {
+    	var r = "";
+    	var n = s.length;
+    	if (m == 2) n = Math.ceil(n / 2);
+    	if (m == 4) n = Math.ceil(n / 4) + 1;
+    	var l = n - 1;
+    	var h = Math.floor(n / 2);
+    	var w = h + n;
+    	var r = [];
+    	function set(x, y, v) {
+    		r[y][x] = v;
+    	}
+    	function seti(x, y, i) {
+    		if (i >= 0 && i < s.length) r[y][x] = s[i];
+    	}
+    	for (var i = 0; i < w; i++) {
+    		r[i] = [];
+    		for (var k = 0; k < w; k++) r[i][k] = " ";
+    	}
+    	for (var i = 0; i <= h; i++) {
+    		r[h-i][i] = "/";
+    		r[h-i][i+l] = "/";
+    		r[h+l-i][i] = "/";
+    		r[h+l-i][i+l] = "/";
+    	}
+    	for (var i = 0; i < n; i++) {
+    		var it = i, ir = i, ib = i, il = i;
+    		if (m == 2) {
+    			ir = l + i;
+    			ib = l + i;
+    		} else if (m == 4) {
+    			ir = l + i;
+    			ib = l * 3 - i;
+    			il = l * 4 - i;
+    		}
 
-            imgBox[0].onclick = function() {
-                console.log(imgBox);
-                imgBox[0].parentNode.parentNode.removeChild(imgBox[0].parentNode);
-            }
+    		// back side:
+    		seti(h + i, 0, it); // top
+    		seti(h, i, il); // left
+    		seti(h + l, i, ir); // right
+    		seti(h + i, l, ib); // bottom
 
-              var as = document.getElementsByTagName('a');
-              for (var i = 0; i < as.length; i++) {
-                as[i].onclick = function() {
-                  alert(i);
-                  return false;
-                }
-              }
-            // for (var i = 0; i < allDivs.length; i++) {
-            //   console.log(i);
-            //   console.log(allDivs[i]);
-            //
-            //   var newDiv = document.createElement("div");
-            //   //decorateDivFunction(newDiv);
-            //   allDivs[i].appendChild(newDiv);
-            // }
-        });
-    </script>
-    <script>
-        jQuery(document).ready(function($) {
-            update_links($);
-        });
-    </script>
-  </head>
+    		//
+    		if (m == 4) {
+    			ib = i;
+    			ir = l * 2 - i;
+    			il = -1;
+    			it = -1;
+    			//ib = l * 3 - i;
+    			//il = l * 4 - i;
+    		}
 
-  <body>
-    <div id="wrapper-blog">
-      <header>
-        <div class="ribbon">
-          - - - - <i class="fa fa-scissors" aria-hidden="true"></i> - - - - - - -
-        </div>
-        <div class="container">
-          <div id="branding">
-            <h1 class="nonlight"><span class="highlight">TonyStr</span>ømsnæs</h1>
-          </div>
-          <div id="icons">
-            <a href="https://twitter.com/TonyStroemsnaes?ref_src=twsrc%5Etfw" target="_blank" class="fa fa-twitter fa-intbut" style="font-size:26px"></a>
-            <a href="https://www.reddit.com/user/TonyStr/" target="_blank" class="fa fa-reddit fa-intbut" style="font-size:26px"></a>
-            <a href="https://github.com/tonystr" target="_blank" class="fa fa-github fa-intbut" style="font-size:26px"></a>
-            <a href="mailto:Tony.Stroemsnaes@gmail.com" target="_top" class="fa fa-envelope-o fa-intbut" style="font-size:26px"></a>
-          </div>
-          <nav>
-            <ul>
-              <li><a href="../">Home</a></li>
-              <li>
-                <div class="dropdown">
-                  <a href="../#skills">Skills</a> <i class="fa fa-angle-down fa-static" aria-hidden="true"></i>
-                  <div class="dropdown-content blue">
-                    <p><a href="../skills/gml" target="_top" class="link" style="font-size:13px">
-                      GML Programming
-                    </a></p>
-                    <p><a href="../skills/pixelart" target="_top" class="link" style="font-size:13px">
-                      Pixelart Design
-                    </a></p>
-                    <p><a href="../skills/js" target="_top" class="link" style="font-size:13px">
-                      JS Programming
-                    </a></p>
-                  </div>
-                </div>
-              </li>
-              <li>
-                <div class="dropdown">
-                  <a href="../#games_and_tools">Games & Tools</a> <i class="fa fa-angle-down fa-static" aria-hidden="true"></i>
-                  <div class="dropdown-content blue">
-                    <p><a href="../games_and_tools/gml_ik_ext" target="_top" class="link" style="font-size:13px">
-                      IK Extension (GM)
-                    </a></p>
-                    <p><a href="../games_and_tools/udda" target="_top" class="link" style="font-size:13px">
-                      UpDownDuckAround
-                    </a></p>
-                    <p><a href="../games_and_tools/gml_ik_tut" target="_top" class="link" style="font-size:13px">
-                      IK Tutorial (GM)
-                    </a></p>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-
-      <section id="main">
-        <div id="full-col">
-          <article id="blog-content">
-            <div id="blog-title">
-                <h1 class="page-title">Welcome / hello & ATIRAG</h1> <!--Welcome / hello & ATIRAG-->
-                <h3 id="blogpost-date">23. Feb 2018</h3> <!--Feb 19: 2018-->
-                <br>
-            </div>
-            <p>
-                Hello, everyone! This is the start of a devlog, which is practically the same as a blog, but focused on game/software development. The purpose of this devlog is to force myself to work.
-                I will be posting weekly updates on whatever I'm working on, and hopefully some technical details. Each post will have atleast one image attached, even if unrelated.
-            </p>
-            <p>
-                This week, I've been working on this subpage (the devlog), and I've started working on a simple 2d bullethell shoot 'em up. After 5 years of programming, I've still not actually
-                released any games. My goal is to get this done within a month (Release date: 20th March 2018), so it'll be faily simplistic. I do however have to spend some of that time on school
-                and in other languages, but with a solid goal, I can't go wrong.
-            </p>
-            <p>
-                Here are some gifs of a very crude prototype
-            </p>
-            <div class="img-box">
-                <div class="img-box-box">
-                    <a target="_blank" alt="ATIRAG crude prototype 0" class="img_img">
-                        <img src="../img/devlog/dl_atirag0.gif" class="pause"></img>
-                    </a>
-                    <div class="img_desc">
-                        <p>
-                            ATIRAG <span class="qqe">2018</span>
-                        </p>
-                        <div class="img-button-container">
-                            <a class="img-button" href="../img/devlog/dl_atirag0.gif" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="img-box-box">
-                    <a target="_blank" alt="ATIRAG crude prototype 1" class="img_img">
-                        <img src="../img/devlog/dl_atirag1.gif"></img>
-                    </a>
-                    <div class="img_desc">
-                        <p>
-                            ATIRAG <span class="qqe">2018</span>
-                        </p>
-                        <div class="img-button-container">
-                            <a class="img-button" href="../img/devlog/dl_atirag1.gif" target="_blank"><i class="fa fa-expand" aria-hidden="true"></i></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <p>
-                This enemy type uses a "dna" variable which decides what behaviours the enemy has. Such as: does it move horizontally? How many bullets does it shoot? How fast is it? - and more to come.
-            </p>
-            <p>
-                The stars in the background move at different speeds, and have their color adjusted accordingly, that way it shows depth and looks 3d. This doesn't show very
-                well in the gif, but maybe I'll post an mp4 later, when I eventually change it to look even better. Another trick with the stars, is that I'm actually looping the same stars over and over again.
-                The amount of stars on screen is <i>always</i> the same because of this. This works quite well, because the stars move at different speeds, so the player won't ever notice the pattern is looping,
-                however, because I can, whenever a star hits the bottom of the screen, it changes it's x coordinate and speed, to appear as a different star next time.
-            </p>
-            <p>
-                Right now, this game looks boring, plays boring, and lacks both polish and content. Therefore, I've compiled a list of features I'm thinking of adding or changing.
-            </p>
-            <ul class="feature-list">
-                     <li> Colored stars
-                </li><li> Larger bullets
-                </li><li> More challenging and smarter AI
-                </li><li> Bullet formations
-                </li><li> Bullet upgrades
-                </li><li> Visual effects upon death (animation/particles)
-                </li><li> Sounds
-                </li>
-            </ul>
-            <p>
-                There are of course more things I want to add, but these are my priority right now. I need a solid skeleton before I start adding the flesh. Hopefully some of these changes will be present
-                in the next post.
-            </p>
-          </article>
-        </div>
-      </section>
-    </div>
-    <div id="blog-links">
-        <a id="link-prev" class="link invisible"><h3 class="link-nexprev">previous post</h3></a>
-        <a id="link-next" class="link invisible"><h3 class="link-nexprev">next post</h3></a>
-    </div>
-    <footer>
-      <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
-      <p id="right">v1.0.3</p>
-    </footer>
-  </body>
-</html>
+    		// front side:
+    		seti(i, h, it); // top
+    		seti(0, h + i, il); // left
+    		seti(l, h + i, ir); // right
+    		seti(i, h + l, ib); // bottom
+    	}
+    	for (var i = 0; i < r.length; i++) r[i] = r[i].join(" ");
+    	output.value = r.join("\n");
+    }
+    document.getElementById("proc1").onclick = function(_) { proc(input.value, 1) };
+    document.getElementById("proc2").onclick = function(_) { proc(input.value, 2) };
+    document.getElementById("proc4").onclick = function(_) { proc(input.value, 4) };
+</script>
+</div>
+</body>
