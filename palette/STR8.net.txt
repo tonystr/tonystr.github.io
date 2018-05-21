@@ -1,0 +1,13 @@
+;paint.net Palette File
+;Downloaded from Lospec.com/palette-list
+;Palette Name: STR8
+;Description: "STR8 is a compilation of colors commonly found in TonyStr products." Created by <a target="_blank" href="https://TonyStr.net">TonyStr</a>. #STR8
+;Colors: 8
+FFF14165
+FFFFC7FF
+FF7588FF
+FF43EF7F
+FFFFF23D
+FF1E2026
+FF2D313D
+FFFFFFFF

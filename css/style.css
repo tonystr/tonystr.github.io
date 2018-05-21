@@ -141,6 +141,90 @@ pre {
 .downloads{
 }
 
+#palette{
+    border-spacing: 0;
+    max-width: 80%;
+    margin:auto;
+    margin-top:5rem;
+    color:#ffffff;
+    max-width:100%;
+}
+#palette>.title{
+    font-size: 3rem;
+    text-align:center;
+}
+#palette>.description{
+    font-size: 2rem;
+    text-align:center;
+    padding-top:3rem;
+}
+#palette-colors{
+    display:flex;
+    width:auto;
+    justify-content: center;
+    flex-wrap:wrap;
+}
+#palette li{
+    list-style: none;
+}
+#palette li .name{
+    font-size: 2rem;
+    padding-bottom: 13px;
+    padding-top:6px;
+    text-align: center;
+}
+#palette li .hex{
+    background-color:#afbc71;
+    padding:9px;
+    font-size:1.6rem;
+    border-top: 2px solid rgba(0,0,0,0);
+}
+
+#palette li.color-dark .hex:hover{
+    border-color:#43EF7F;
+}
+#palette li.color-bright .hex:hover{
+    border-color: #F14165;
+}
+#palette li.color-neutral .hex:hover{
+    border-color: #FFF23D;
+}
+
+#palette li.color-bright .hex{
+    color:#2D313D;
+}
+#palette li.color-dark .name{
+    color:#ffffff !important;
+}
+#palette-downloads{
+    display:flex;
+    color:#ffffff;
+    justify-content:center;
+}
+#palette-wrapper{
+    min-height:calc(100% - 174px);
+}
+#palette-downloads .download{
+    background-color:#2D313D;
+    padding-top:1.7rem;
+    font-size:150%;
+    width:25%;
+    text-align: center;
+}
+
+.illustration{
+    max-width:700px;
+    display:block;
+    margin:auto;
+    padding:1rem;
+}
+.illustration img{
+    width:100%;
+    display:block;
+    margin:auto;
+    object-fit: contain;
+}
+
 #about-sidebar{
   float:right;
   color:#ffffff;
@@ -446,6 +530,15 @@ header .nonlight{
   transition:max-height .4s ease-in-out;
 }
 
+code{
+    padding:2px;
+    background-color:#2d313d;
+    border-radius:3px;
+    font-family: 'Source Code Pro', monospace;
+    box-shadow: 0px 2px 5px #0000004f;
+    font-size:1rem;
+}
+
 .code_box p{
   margin-left:6%;
 }
@@ -619,9 +712,31 @@ aside{
 }
 
 .page-title{
-  color:#7588FF;
+  color:#ffffff; /* 7588FF */
   text-align: center;
-  font-size:30px;
+  font-size:2.3em;
+}
+
+.note{
+    padding:.4rem;
+    padding-left:2rem;
+    font-style:italic;
+    font-size:1rem;
+    border-left:2px solid #F14165;
+    background-color:#2D313D;
+    box-shadow: 0 2px 9px #00000066;
+
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+.note::before{
+    content:"NOTE:\00a0\00a0";
+    font-weight: bold;
+}
+
+.ptitle{
+    position:relative;
+    top:.8rem;
 }
 
 #boxes #main-title{
