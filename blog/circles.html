@@ -73,32 +73,53 @@
                         <img src="../img/blog/lengthdir.svg"></img>
                     </div>
                     <p>
-                        Now that we have a method of finding any point around the edge of a circle, we can do just that:
+                        Now that we have a method of finding the coordinates of any point based on the distance and direction to that point, we can use that method to find all the points around a circle.
                     </p>
-                    <div class="code-box">
-                        <div class="code-wrapper">
-                            <pre class="code">
-<code>// Distance between each point (in degrees)
+                    <div class="code-illustration">
+<pre class="code"><code>// Distance between each point (in degrees)
 var _interval = 6;
 // Distance from center to edge
 var _radius = 16;
 
 for (var i = 0; i < 360; i += _interval) {
-    // i is a degree of the circle
+    // Find the coordinates of point "i"
     var _x = lengthdir_x(_radius, i);
     var _y = lengthdir_y(_radius, i);
     // Remember that _x and _y are just offsets,
     // you still need to add them to the center coordinates of the circle
     draw_point(x + _x, y + _y);
-}</code>                    </pre>
+}</code></pre>
+                        <div class="image">
+                            <img src="../img/blog/circles_ex1.png"></img>
                         </div>
                     </div>
                     <p>
-                        The code above should draw a circle similar to this:
+                        Now we can simply use <code><a href="http://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/drawing/forms/draw_line.html" class="link" target="_blank">draw_line</a>()</code> to fill in the gaps between point <code>i</code> and the next point:
                     </p>
-                    <div class="illustration">
-                        <img src="../img/blog/circles_ex1.png"></img>
+                    <div class="code-illustration">
+<pre class="code"><code>// Distance between each point (in degrees)
+var _interval = 6;
+// Distance from center to edge
+var _radius = 16;
+
+for (var i = 0; i < 360; i += _interval) {
+    // Find the coordinates of point "i"
+    var _x = lengthdir_x(_radius, i);
+    var _y = lengthdir_y(_radius, i);
+    // Find the coordinates of the next point
+    var _nextx = lengthdir_x(_radius, i + _interval);
+    var _nexty = lengthdir_y(_radius, i + _interval);
+    // Remember that _x and _y are just offsets,
+    // you still need to add them to the center coordinates of the circle
+    draw_line(x + _x, y + _y, x + _nextx, y + _nexty);
+}</code></pre>
+                        <div class="image">
+                            <img src="../img/blog/circles_ex1.png"></img>
+                        </div>
                     </div>
+                    <p>
+                        Finale
+                    </p>
                 </article>
             </div>
         </section>

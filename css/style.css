@@ -141,6 +141,39 @@ pre {
 .downloads{
 }
 
+.code-illustration{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    padding-bottom:1rem;
+    margin-bottom:1rem;
+    border-bottom: 2px solid #2D313D;
+
+}
+.code-illustration code{
+    background:none;
+    box-shadow:none;
+    background-color:#2D313D;
+    border-radius:4px;
+    padding-right:.8rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .6);
+}
+.code-illustration pre{
+    max-width:50rem;
+    margin:0;
+    overflow-x:hidden;
+}
+.code-illustration img{
+    display:block;
+    width:auto;
+    height:auto;
+    max-width:550px;
+    padding:0;
+}
+.code-illustration .image{
+
+}
+
 #palette{
     border-spacing: 0;
     max-width: 80%;
