@@ -1,0 +1,123 @@
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="apple-touch-icon" sizes="180x180" href="../icon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../icon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../icon/favicon-16x16.png">
+    <link rel="manifest" href="../icon/manifest.json">
+    <link rel="mask-icon" href="../icon/safari-pinned-tab.svg" color="#5bbad5">
+    <link rel="shortcut icon" href="../icon/favicon.ico">
+    <meta name="msapplication-config" content="../icon/browserconfig.xml">
+    <meta charset="utf-8">
+    <!-- twitter -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@TonyStr_">
+    <meta name="twitter:title" content="STR8 Palette">
+    <meta name="twitter:description" content="features multiple colors">
+    <meta name="twitter:image" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta name="twitter:image:src" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta name="twitter:url" content="/">
+    <meta name="theme-color" content="#F14165">
+    <meta property="og:title" content="STR8 Palette"><!--nonimp-->
+    <meta property="og:url" content="/">
+    <meta property="og:image" content="https://i.imgur.com/Evsz1oN.gif">
+    <meta property="og:description" content="TonyStr : Programming from NUL to DEL"><!--nonimp-->
+
+    <meta name="copyright" content="Copyright 2018 TonyStr">
+    <meta name="viewport"    content="width=device-width">
+    <meta name="description" content="Programming from NUL to DEL">
+    <meta name="keywords"    content="gamedesign, programming, gml, gml programming">
+    <meta name="author"      content="Tony Strømsnæs">
+    <title>STR8 Palette</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="../scripts/includeHTML.js"></script>
+    <script>
+        function copyText(element) {
+            if (document.selection) {
+                let range = document.body.createTextRange();
+                range.moveToElementText(element);
+                range.select();
+            } else if (window.getSelection) {
+                let range = document.createRange();
+                range.selectNode(element);
+                window.getSelection().removeAllRanges();
+                window.getSelection().addRange(range);
+            } else return console.error('could not copy text to clipboard');
+
+            document.execCommand('copy');
+            console.log(`Copied ${element.innerHTML} to clipboard`);
+        }
+
+        loaded = false;
+        function readyDoc() {
+            if (loaded) return;
+            includeHTML();
+            // Load Palette
+            let tds = document.querySelectorAll('#palette ul li');
+            for (let td of tds) {
+                let colorHex = td.getAttribute('value');
+                let rgb = parseInt(colorHex.replace('#', '0x'));
+                let val = ((rgb & 0xff) + ((rgb >> 8) & 0xff) + ((rgb >> 16) & 0xff)) / (3 * 255);
+                let name = document.createElement('div');
+                let hex = document.createElement('div');
+                name.setAttribute('class', 'name');
+                name.setAttribute('style', `color:${colorHex}`);
+                name.innerHTML = td.getAttribute('id');
+                hex.setAttribute('class', 'hex');
+                hex.setAttribute('onclick', 'copyText(this)');
+                hex.setAttribute('style', `background-color:${colorHex}`);
+                hex.innerHTML = colorHex;
+                td.classList.add(val > .7 ? 'color-bright' : (val < .21 ? 'color-dark' : 'color-neutral'));
+                td.appendChild(name);
+                td.appendChild(hex);
+            }
+            loaded = true;
+        }
+        addEventListener('DOMContentLoaded', readyDoc, false);
+        addEventListener('load', readyDoc, false);
+    </script>
+</head>
+
+<body>
+    <div id="palette-wrapper">
+        <div w3-include-html="../scripts/header.html"></div>
+        <div id="palette">
+            <h1 class="title">STR8 Palette</h1>
+            <ul id="palette-colors">
+                <li id="red" value="#F14165"></li>
+                <li id="pink" value="#FFC7FF"></li>
+                <li id="blue" value="#7588FF"></li>
+                <li id="green" value="#43EF7F"></li>
+                <li id="yellow" value="#FFF23D"></li>
+                <li id="black" value="#1E2026"></li>
+                <li id="gray" value="#2D313D"></li>
+                <li id="white" value="#FFFFFF"></li>
+            </ul>
+            <p class="description">STR8 is a compilation of colors commonly found in TonyStr products.</p>
+        </div>
+    </div>
+    <div id="palette-downloads">
+        <div class="download">
+            <a class="link" target="_blank" href="./STR8.hex">HEX&nbsp;&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+            <p class="description"></p>
+        </div><div class="download">
+            <a class="link" target="_blank" href="./STR8.gpl">GIMP GPL&nbsp;&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+            <p class="description"></p>
+        </div><div class="download">
+            <a class="link" target="_blank" href="./STR8.net.txt">Paint.NET TXT&nbsp;&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+            <p class="description"></p>
+        </div><div class="download">
+            <a class="link" target="_blank" href="./STR8.pal">PAL&nbsp;&nbsp;<i class="fa fa-download" aria-hidden="true"></i></a>
+            <p class="description"></p>
+        </div>
+    </div>
+    <footer>
+      <p>Tony Strømsnæs, Copyright &copy; 2017</p> <!-- , Copyright &copy; 2017 -->
+      <p id="right">v1.0.3</p>
+    </footer>
+</body>
+
+</html>
