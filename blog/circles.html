@@ -54,10 +54,11 @@
                     </div>
                     <p>
                         I often handle questions regarding complex shapes. "How do I draw a pizza slice" or "how can I draw a spiral" are examples of common questions. The details of these questions vary widely, however I find that most of these could be solved (or helped)
-                        by understanding how a circle works. This post will explain just that, along with multiple examples and serve as an introduction to <a href="https://en.wikipedia.org/wiki/Geometric_primitive" class="link" target="_blank">2d primitive drawing</a>.
+                        by understanding how a circle works. This post will explain that through detailed examples, and serve as an introduction to <a href="https://en.wikipedia.org/wiki/Geometric_primitive" class="link" target="_blank">2d primitive drawing</a>.
                     </p>
                     <p class="note">
                         The examples of this tutorial are grounded in the <a href="https://en.wikipedia.org/wiki/GameMaker_Studio" target="_blank" class="link">GameMaker engine</a> and it's scripting language, <a href="https://en.wikipedia.org/wiki/GameMaker_Studio#GameMaker_Language" target="_blank" class="link">GML</a>.
+                        Examples work in both GMS2 and GMS1.4
                     </p>
                     <h2 id="full_circle" class="ptitle"><a href="#full_circle" class="link"> Full circle </a></h2>
                     <p>
@@ -76,19 +77,19 @@
                         Now that we have a method of finding the coordinates of any point based on the distance and direction to that point, we can use that method to find all the points around a circle.
                     </p>
                     <div class="code-illustration">
-<pre class="code"><code>// Distance between each point (in degrees)
-var _interval = 6;
-// Distance from center to edge
-var _radius = 16;
+<pre class="code"><code><span class="new-code">// Distance between each point (in degrees)</span>
+<span class="new-code">var _interval = 7;</span>
+<span class="new-code">// Distance from center to edge</span>
+<span class="new-code">var _radius = 16;</span>
 
-for (var i = 0; i < 360; i += _interval) {
-    // Find the coordinates of point "i"
-    var _x = lengthdir_x(_radius, i);
-    var _y = lengthdir_y(_radius, i);
-    // Remember that _x and _y are just offsets,
-    // you still need to add them to the center coordinates of the circle
-    draw_point(x + _x, y + _y);
-}</code></pre>
+<span class="new-code">for (var i = 0; i < 360; i += _interval) {</span>
+<span class="new-code">    // Find the coordinates of point "i"</span>
+<span class="new-code">    var _x = lengthdir_x(_radius, i);</span>
+<span class="new-code">    var _y = lengthdir_y(_radius, i);</span>
+<span class="new-code">    // Remember that _x and _y are just offsets,</span>
+<span class="new-code">    // you still need to add them to the center coordinates of the circle</span>
+<span class="new-code">    draw_point(x + _x, y + _y);</span>
+<span class="new-code">}</span></code></pre>
                         <div class="image">
                             <img src="../img/blog/circles_ex1.png"></img>
                         </div>
@@ -98,11 +99,39 @@ for (var i = 0; i < 360; i += _interval) {
                     </p>
                     <div class="code-illustration">
 <pre class="code"><code>// Distance between each point (in degrees)
-var _interval = 6;
+var _interval = 7;
 // Distance from center to edge
 var _radius = 16;
 
 for (var i = 0; i < 360; i += _interval) {
+    // Find the coordinates of point "i"
+    var _x = lengthdir_x(_radius, i);
+    var _y = lengthdir_y(_radius, i);
+<span class="new-code">    // Find the coordinates of the next point</span>
+<span class="new-code">    var _nextx = lengthdir_x(_radius, i + _interval);</span>
+<span class="new-code">    var _nexty = lengthdir_y(_radius, i + _interval);</span>
+    // Remember that _x and _y are just offsets,
+    // you still need to add them to the center coordinates of the circle
+<span class="new-code">    draw_line(x + _x, y + _y, x + _nextx, y + _nexty);</span>
+}</code></pre>
+                        <div class="image">
+                            <img src="../img/blog/circles_ex2.png"></img>
+                        </div>
+                    </div>
+                    <p>
+                        We've now drawn a basic circle. The smaller <code>_interval</code> you use, the smoother the circle will appear.
+                    </p>
+                    <p>
+                        There is one important issue on the right side of the circle. Two lines cross at the very right, specifically at 360&deg; (which is the same as 0&deg;). This is because adding <code>_interval</code> continuously might never reach
+                        360. This can be solved by using a number that can reach 360, such as 6, 5.37, 10, etc. or you could use percentages instead. Neither of these are neccesarily ideal solutions &mdash; it might instead be desirable to simply make sure it reaches the end no matter what interval is used:
+                    </p>
+                    <div class="code-illustration">
+<pre class="code"><code>// Distance between each point (in degrees)
+var _interval = 7;
+// Distance from center to edge
+var _radius = 16;
+
+<span class="new-code">for (var i = 0; i <= 360 - _interval; i += _interval) {</span>
     // Find the coordinates of point "i"
     var _x = lengthdir_x(_radius, i);
     var _y = lengthdir_y(_radius, i);
@@ -112,13 +141,29 @@ for (var i = 0; i < 360; i += _interval) {
     // Remember that _x and _y are just offsets,
     // you still need to add them to the center coordinates of the circle
     draw_line(x + _x, y + _y, x + _nextx, y + _nexty);
-}</code></pre>
+}
+
+<span class="new-code">// Find the coordinates of the last point drawn</span>
+<span class="new-code">var _x = lengthdir_x(_radius, i);</span>
+<span class="new-code">var _y = lengthdir_y(_radius, i);</span>
+<span class="new-code">// Find the coordinates of the point at 360&deg; (or 0&deg;)</span>
+<span class="new-code">var _nextx = lengthdir_x(_radius, 360);</span>
+<span class="new-code">var _nexty = lengthdir_y(_radius, 360);</span>
+<span class="new-code">// Draw a last line to fill the gap left by the for loop</span>
+<span class="new-code">draw_line(x + _x, y + _y, x + _nextx, y + _nexty);</span></code></pre>
                         <div class="image">
-                            <img src="../img/blog/circles_ex1.png"></img>
+                            <img src="../img/blog/circles_ex3.png"></img>
                         </div>
                     </div>
                     <p>
-                        Finale
+                        This code will sucessfully draw a circle without holes or overlapping segments.
+                    </p>
+                    <h2 id="reinventing_the_wheel" class="ptitle"><a href="#full_circle" class="link"> Reinventing the wheel </a></h2>
+                    <p>
+                        You've now seen one way to draw an outline of a circle, let's draw a filled one with a texture.
+                    </p>
+                    <p>
+                        To draw a custom shape, Gamemaker comes with
                     </p>
                 </article>
             </div>

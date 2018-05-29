@@ -147,8 +147,7 @@ pre {
     justify-content:space-between;
     padding-bottom:1rem;
     margin-bottom:1rem;
-    border-bottom: 2px solid #2D313D;
-
+    position:relative
 }
 .code-illustration code{
     background:none;
@@ -157,6 +156,14 @@ pre {
     border-radius:4px;
     padding-right:.8rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, .6);
+}
+.code-illustration .new-code::before{
+    content:"+\00a0";
+    position:absolute;
+    overflow-x:visible;
+    left:-1.1rem;
+    border-right:2px solid #43EF7F;
+    color:#43EF7F;
 }
 .code-illustration pre{
     max-width:50rem;
