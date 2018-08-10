@@ -37,9 +37,33 @@ a:hover{
 
 #showcase{
     border-top: 2px solid var(--main);
-    background-color:var(--bg);
-    padding:3rem;
+    overflow-y: hidden;
+}
 
+.bg-code{
+    padding-top:.64rem;
+    margin:0;
+    position:absolute;
+    overflow: hidden;
+    height:120%;
+    color:var(--gray);
+    word-wrap:break-word;
+    word-break:break-all;
+    font-family: 'Source Code Pro', monospace;
+    z-index: -10;
+    background-color:var(--bg);
+    filter: blur(1px);
+}
+
+.front{
+    z-index: 10;
+}
+
+.section-title{
+    text-align:center;
+    font-size:2.6rem;
+    margin-bottom:0;
+    margin-top:2rem;
 }
 
 #audio{
@@ -65,19 +89,34 @@ a:hover{
 .audioplayer {
     margin-left:6%;
     margin-right:12%;
+    padding-bottom:4rem;
     display:flex;
+}
+.audioplayer .fade img{
+    height:100%;
+    width:100%;
+}
+.audioplayer .fade{
+    height:100%;
+    flex-shrink:0;
+    display:flex;
+}
+.audioplayer .main{
+    display:flex;
+    flex-direction:row;
+    width:100%;
+    background-color: var(--gray);
+    margin-left:1rem;
+    border-bottom-right-radius: 8px;
+    border-top-right-radius: 8px;
+    box-shadow: 0 3px 18px 1px #000000;
 }
 .audioplayer .content{
     display:flex;
     flex-direction: column;
-    border-left:3px solid var(--main);
-    background-color: var(--gray);
-    margin-left:1rem;
     padding:1rem;
-    border-bottom-right-radius: 8px;
-    border-top-right-radius: 8px;
     width:100%;
-    box-shadow: 0 3px 18px 1px #000000;
+    border-left:3px solid var(--main);
 }
 .audioplayer .content .aprog{
     min-height:8rem;
@@ -92,9 +131,26 @@ a:hover{
 }
 .audioplayer .tools{
     width:20rem;
-    height:2rem;
+    height:100%;
+    flex-grow:0;
     display:flex;
     flex-direction: column;
+}
+.audioplayer .tools .section-header{
+    padding-right:.5rem;
+    padding-left:.5rem;
+    margin:auto;
+    z-index:11;
+    background-color:var(--gray);
+    color:#5b657f;
+}
+.audioplayer .tools>div{
+    padding-top:.5rem;
+    border-top: 2px solid #272b35;
+    transform:translateY(-.7rem);
+    display:flex;
+    justify-content: space-around;
+    flex-wrap:wrap;
 }
 
 .audioplayer .desc .title {
@@ -125,19 +181,26 @@ a:hover{
     cursor:pointer;
 }
 
+.audioplayer .progress-content{
+    display:flex;
+    flex-wrap: nowrap;
+}
+
 .audioplayer .progressbar{
-    height:3px;
+    margin-left:1rem;
+    margin-right:1rem;
+    height:.2rem;
     width:100%;
     display:flex;
-    padding-top:4px;
-    padding-bottom:4px;
+    padding-top:.65rem;
+    padding-bottom:.65rem;
     transition: .2s all;
 }
 
 .audioplayer .progressbar:hover{
-    padding-top:2px;
-    padding-bottom:2px;
-    height:7px;
+    padding-top:.5rem;
+    padding-bottom:.5rem;
+    height:.5rem;
     cursor:pointer;
 }
 
@@ -151,16 +214,26 @@ a:hover{
     transform:translateX(-50%) translateY(-28%);
     pointer-events: none;
 }
+.audioplayer .progressbar .hovertime{
+    position: absolute;
+    transform:translateX(-30%) translateY(-1.5rem);
+    color:transparent;
+    transition: .2s all;
+}
+.audioplayer .progressbar:hover .hovertime{
+
+    color:var(--main);
+}
 .audioplayer .progressbar .hoverbar{
     background-color: transparent;
     position:absolute;
-    height:4px;
+    height:.2rem;
     transition: height .2s, background-color .2s, color .2s;
     pointer-events: none;
 }
 .audioplayer .progressbar:hover .hoverbar{
     background-color: rgba(3,157,91,.3); /*purple:rgba(138,110,229,.3);*/
-    height:7px;
+    height:.5rem;
 }
 .audioplayer .progressbar:hover .scrubber{
     background-color:var(--main);
@@ -178,27 +251,18 @@ a:hover{
 .audioplayer .progressbar progress[value]::-webkit-progress-bar{
     background-color:var(--bg);
     color:var(--main);
-    box-shadow: inset 0 0 5px #000000;
 }
 .audioplayer .progressbar progress::-webkit-progress-value {
     background-color:var(--main);
 }
 
-.section-title{
-    text-align:center;
-    font-size:3rem;
-    margin:0;
-}
-
 #episodes{
-    margin-top:3rem;
+    padding-top:3rem;
+    margin-left: 3rem;
+    margin-right: 3rem;
     display:flex;
     flex-direction: column;
     flex-wrap:wrap;
-}
-
-#episodes>div{
-    margin-bottom:4rem;
 }
 
 .center{
