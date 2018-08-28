@@ -144,19 +144,21 @@ function audioplayerInit(jsonList) {
         audioPlayerDiv.append(audioTag);
         progressbarupdate(audioTag);
 
-        let metaDesc = `Latest episode hosted at objpodacst: ${json.title}  \n\n${json.content}`
+        let metaDesc = `Latest episode hosted at obj_podacst: ${json.title}  \n\n${json.content}`
             .replace(/<\s*\/?\s*[a-zA-Z]\w*\b.*?>/g, '');
         if (metaDesc.length > 256) metaDesc = metaDesc.slice(0, 253) + '...';
         let metas = document.getElementsByTagName('meta');//.item(tag => tag.getAttribute('name') && tag.getAttribute('name') === 'description');
         for (let i = 0; i < metas.length; i++) {
             let meta = metas[i];
-            if (!meta.getAttribute('name') || (meta.getAttribute('name') !== 'description' && meta.getAttribute('name') !== 'twitter:description')) continue;
-            let parent = meta.parentElement;
-            let newMeta = document.createElement('meta');
-            newMeta.setAttribute('name', meta.getAttribute('name'));
-            newMeta.setAttribute('content', metaDesc);
-            parent.removeChild(meta);
-            parent.append(newMeta);
+            let name = meta.getAttribute('name');
+            if (name && (name === 'description' || name === 'twitter:description')) {
+                let parent = meta.parentElement;
+                parent.removeChild(meta);
+                let newMeta = document.createElement('meta');
+                newMeta.setAttribute('name', name);
+                newMeta.setAttribute('content', metaDesc);
+                parent.append(newMeta);
+            }
         }
 
         if (false && desc.offsetHeight > tools.offsetHeight) {
