@@ -1,37 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-124280068-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-124280068-1');
+        </script>
+        <title>obj_podcast</title>
+        <meta name="description" content="obj_podcast">
+        <meta name="keywords" content="Podcast,GameMaker,GM,Gamedev">
+        <meta author="Tony Strømsnæs">
+        <meta name="copyright" content="Copyright 2018 obj_podcast">
+        <!-- Twitter -->
+        <meta name="twitter:site" content="@obj_podcast">
+        <meta name="twitter:title" content="obj_podcast">
+        <meta name="twitter:description" content="A gamemaker-centered gamedev podcast!">
+        <meta name="twitter:image" content="./assets/logo.png">
+        <meta name="twitter:image:src" content="./assets/logo.png">
+        <meta name="twitter:url" content="/">
+        <meta name="theme-color" content="#039D5B">
+        <!-- Things that do stuff -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1.0">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
         <link href="./style.css" type="text/css" rel="stylesheet">
-        <title>obj_podcast</title>
+        <script src="./javascript/audioplayer.js"></script>
+        <script src="./javascript/loadRSS.js"></script>
     </head>
     <body>
     <noscript>
-        <strong>We're sorry but obj_podcast doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+        <strong>We're sorry but <span class="objpodcast">obj_podcast</span> doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <nav id="header-buttons">
-      <a class="button" target="_new" href="https://twitter.com/obj_podcast"><i class="fab fa-twitter"></i>&nbsp;&nbsp;Twitter</a>
-      <a class="button" target="_new" href="https://www.twitch.tv/obj_podcast"><i class="fab fa-twitch"></i>&nbsp;&nbsp;Twitch</a>
-      <a class="button" target="_new" href="https://discord.gg/By6u9pC"><i class="fab fa-discord"></i>&nbsp;&nbsp;Discord</a>
-      <a class="button" target="_new" href="https://reddit.com/r/gamemaker"><i class="fab fa-reddit-alien"></i>&nbsp;&nbsp;Reddit</a>
+      <a class="button" target="_blank" href="https://twitter.com/obj_podcast"><i class="fab fa-twitter"></i><span class="text">Twitter</span></a>
+      <a class="button" target="_blank" href="https://discord.gg/By6u9pC"><i class="fab fa-discord"></i><span class="text">Discord</span></a>
+      <a class="button" target="_blank" href="https://reddit.com/r/gamemaker"><i class="fab fa-reddit-alien"></i><span class="text">Reddit</span></a>
+      <a class="button" target="_blank" href="https://objpodcast.libsyn.com/rss"><i class="fas fa-rss-square"></i></i><span class="text">RSS</span></a>
     </nav>
     <div id="image_bg">
-        <img id="background" src="../src/assets/BG_Image.png"></img>
+        <img id="background" src="./assets/BG_Image.png">
         <div class="center">
-            <img id="logo" src="../src/assets/logo.png"></img>
+            <img id="logo" src="./assets/logo.png" alt="Failed to load image: obj_podcast logo">
         </div>
         <div id="about">
-            <p>
-                Since its beginnings, the majority of content for <a href="https://www.yoyogames.com/gamemaker" target="_new">GameMaker</a> has revolved around teaching and sharing. In this spirit, we continue the trend;
-                this is a gamedev-centered podcast featuring members of the <a href="https://www.yoyogames.com/gamemaker" target="_new">GameMaker</a> community, both professional and hobbyists. Topics range from the path
-                to an indie dev's sucess, to the intricacies of <a href="https://www.yoyogames.com/gamemaker" target="_new">GameMaker</a>, to their favorite foods.
-            </p>
-            <p>
-                The expansive <a href="https://www.yoyogames.com/gamemaker" target="_new">GameMaker</a> community is known for its inclusive, close-knit relationships, and attracts people from many different backgrounds, each with unique stories to tell. This podcast is your one-stop-shop to find them all.
-            </p>
+            <div class="card">
+                <p>
+                    Since its beginnings, the majority of content for <a href="https://www.yoyogames.com/gamemaker" target="_blank">GameMaker</a> has revolved around teaching and sharing. In this spirit, we continue the trend; <span class="objpodcast">obj_podcast</span> is a gamedev-centered podcast
+                    featuring members of the <a href="https://www.yoyogames.com/gamemaker" target="_blank">GameMaker</a> community, both professional and hobbyists. Topics range from the path to an indie dev's success, to the intricacies of <a href="https://www.yoyogames.com/gamemaker" target="_blank">GameMaker</a>, to developers' favorite foods.
+                </p><p>
+                    The expansive <a href="https://www.yoyogames.com/gamemaker" target="_blank">GameMaker</a> community is known for its inclusive, close-knit relationships, and attracts people from many different backgrounds, each with unique stories to tell.
+                    This podcast is your one-stop-shop to find them all.
+                </p><p>
+                    <span class="objpodcast">obj_podcast</span> is hosted by some of the most proficient members of the community; <a target="_blank" href="https://twitter.com/imlazyeye">lazyeye</a>, <a target="_blank" href="https://twitter.com/mantissagames">meseta</a> and <a target="_blank" href="https://twitter.com/seabass_n">Seabass</a>.
+                </p>
+            </div>
+            <div class="card">
+                <p>
+                    <span class="objpodcast">obj_podcast</span> is currently holding a contest to design it's logo! For more information, please view the announcements channel on the <a href="https://discord.gg/By6u9pC">/r/GameMaker discord server</a>.
+                </p>
+            </div>
         </div>
     </div>
     <div id="showcase">
@@ -40,12 +72,16 @@
         <div class="front">
             <h1 class="section-title"><i class="fas fa-angle-down"></i> Episodes <i class="fas fa-angle-down"></i></h1>
             <div id="episodes">
-                <div id="dubstep_bird"><audio src="../src/audio/dubstep_bird.mp3" type="audio/mp3"></audio></div>
+                <div class="loader" id="loader-rss"><i class="fas fa-cog fa-spin"></i></div>
+                <!--div id="dubstep_bird"><audio src="../src/audio/dubstep_bird.mp3" type="audio/mp3"></audio></div>
                 <div id="ureh"><audio src="../src/audio/ureh.mp3" type="audio/mp3"></audio></div>
-                <div id="jazz"><audio src="../src/audio/jazz.m4a" type="audio/m4a"></audio></div>
+                <div id="jazz"><audio src="../src/audio/jazz.m4a" type="audio/m4a"></audio></div-->
             </div>
         </div>
     </div>
-    <script src="../src/javascript/audioplayer.js"></script>
+    <div id="footer">
+        <i class="far fa-copyright"></i> <span class="objpodcast">obj_podcast</span> 2018
+        <span class="right">Designed by <a target="_blank" href="https://TonyStr.net/">TonyStr</a></span>
+    </div>
   </body>
 </html>
