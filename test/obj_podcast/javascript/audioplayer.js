@@ -1,4 +1,81 @@
 
+windowResizeEvents = [checkAboutResizeCapability];
+
+window.onresize = function() {
+    for (let eve of windowResizeEvents) {
+        eve();
+    }
+}
+
+function showless(thisElement) {
+    let moreButton = thisElement.parentElement.parentElement.getElementsByClassName('show-more-btn')[0];
+    let clas = moreButton.getAttribute('class');
+    if (clas) moreButton.setAttribute('class', clas.replace(/\s*\bclicked\b/, ''));
+
+    thisElement.parentElement.parentElement.parentElement.setAttribute('class', '');
+    thisElement.parentElement.parentElement.parentElement.setAttribute('style', '');
+
+    thisElement.parentElement.removeChild(thisElement);
+}
+
+function showmore(thisElement) {
+    thisElement.setAttribute('class', thisElement.getAttribute('class').replace(/\s*\bclicked\b/, '') + ' clicked');
+    thisElement.parentElement.parentElement.setAttribute('class', 'expand');
+    windowResizeEvents.push(resizeAbout);
+    resizeAbout();
+
+    let shrink = document.createElement('div');
+        shrink.setAttribute('class', 'center');
+        shrink.innerHTML = `
+            <div class="shrink" onclick="showless(this)">
+                <i class="fas fa-angle-up"></i> &nbsp; Click to show less &nbsp; <i class="fas fa-angle-up"></i>
+            </div>
+        `;
+    let about = thisElement.parentElement;
+        about.append(shrink);
+}
+
+function checkAboutResizeCapability() {
+    let about = document.getElementById('about');
+    let clas = about.getAttribute('class');
+    if (clas && clas.match(/\bexpand\b/)) return;
+    let info = about.getElementsByClassName('info')[0];
+
+    if (info.getElementsByClassName('content')[0].offsetHeight > about.offsetHeight) {
+        if (info.getElementsByClassName('show-more-btn')[0]) return;
+        let btn = document.createElement('div');
+            btn.setAttribute('onclick', 'showmore(this)');
+            btn.setAttribute('class', 'show-more-btn');
+            btn.innerHTML = `
+                <div class="fade-down"></div>
+                <div class="fade-down"><div class="text">Read more</div></div>`;
+        info.append(btn);
+    } else {
+        let btn = info.getElementsByClassName('show-more-btn');
+        if (!btn[0]) return;
+        btn[0].parentElement.removeChild(btn[0]);
+    }
+}
+
+function resizeAbout() {
+    let about = document.getElementById('about');
+    let clas = about.getAttribute('class');
+    if (clas && clas.match(/\bexpand\b/)) {
+        let content = about.getElementsByClassName('content')[0];
+        about.setAttribute('style', `height:${content.offsetHeight + 40}px`);
+    }
+}
+
+function querysrctime() {
+    let elms = document.getElementsByClassName('querysrctime');
+    for (let i = 0; i < elms.length; i++) {
+        let elm = elms[i];
+        let src = elm.getAttribute('src');
+
+        elm.setAttribute('src', `${window.location.href.match(/\?.*?\bwawwwli\b/i) ? src.replace('gif', 'png') : src}?${new Date()}`);
+    }
+}
+
 function playAudio(thisElement) {
     let attrib = thisElement.getAttribute('class');
     let audio = thisElement.parentElement.parentElement.getElementsByTagName('audio')[0];
@@ -24,6 +101,35 @@ function parseTime(time) {
     if (hours && hours.length === 1) hours = `0${hours}`;
 
     return hours ? `${hours}:${minutes}:${seconds}` : `${minutes}:${seconds}`;
+}
+
+function copyText(text, evt) {
+    let textArea = document.createElement('textarea');
+        textArea.value = text;
+    document.body.append(textArea);
+    textArea.select();
+    document.execCommand('copy');
+    textArea.parentElement.removeChild(textArea);
+    let doc = document.documentElement;
+    let top = (window.pageYOffset || doc.scrollTop) - (doc.clientTop || 0);
+    let div = document.createElement('div');
+        div.setAttribute('class', 'cheese');
+        div.setAttribute('style', `top:${Math.floor(evt.clientY + top + 16)}px;left:${Math.floor(evt.clientX)}px;`);
+        div.innerHTML = `Copied link to clipboard`;
+    document.body.append(div);
+    loadunload(div, 60, 3000);
+}
+
+function loadunload(div, startTime, endTime) {
+    let clas = div.getAttribute('class');
+    if (clas.match(/\bload\b/)) {
+        div.setAttribute('class', clas.replace(/\s*\bload\b\s*/, ' '));
+        setTimeout(() => { div.parentElement.removeChild(div); }, endTime / 2);
+
+    } else setTimeout(() => {
+        div.setAttribute('class', clas + ' load');
+        setTimeout(() => { loadunload(div, startTime, endTime); }, endTime);
+    }, '', startTime);
 }
 
 function progressbarupdate(audioTag) {
@@ -59,10 +165,15 @@ function scrubbermove(progress, ev) { // div
 
 function audioplayerInit(jsonList) {
     const dlpath = 'http://traffic.libsyn.com/forcedn/objpodcast/';
+    let scrollTo = undefined;
+    const loc = window.location;
     let audioTags = document.getElementsByTagName('audio');
-    let i = 0;
-    for (let audioTag of audioTags) {
+    for (let i = 0; i < audioTags.length; i++) {
+        let audioTag = audioTags[i];
         let json = jsonList[i++];
+        let thisId = audioTag.parentElement.getAttribute('id');
+        let podURL = `${loc.protocol}//${loc.hostname + loc.pathname}#${thisId}`;
+
         let link = audioTag.src;
         let filename = link.match(/[^\/]\/[\w-]+\.\w+/)[0].slice(2);
         audioTag.setAttribute('ontimeupdate', 'progressbarupdate(this)');
@@ -95,7 +206,7 @@ function audioplayerInit(jsonList) {
             descr.setAttribute('class', 'description');
             descr.innerHTML = json.content;
         desc.append(descr);
-        let titleURI = encodeURIComponent(desc.getElementsByClassName('title')[0].innerHTML.match(/.+?(?=<)/)[0].trim());
+        let titleURI = encodeURIComponent(`Listen to episode "${desc.getElementsByClassName('title')[0].innerHTML.match(/>.+?(?=<)/)[0].slice(1).trim()}" on `);
         let tools = document.createElement('div');
             tools.setAttribute('class', 'tools');
             tools.innerHTML =  `<span class="section-header">download</span>
@@ -105,8 +216,9 @@ function audioplayerInit(jsonList) {
                                 </div>
                                 <span class="section-header">share</span>
                                 <div class="share">
-                                    <a target="_blank" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fobjpodcast.com%2F&ref_src=twsrc%5Etfw&text=${titleURI}&tw_p=tweetbutton&url=https%3A%2F%2Fobjpodcast.com%2F">Twitter <i class="fab fa-twitter"></i></a>
-                                    <a target="_blank" href="https://www.facebook.com/sharer.php?t=${titleURI}&u=${encodeURI(audioTag.src)}">Facebook <i class="fab fa-facebook"></i></a>
+                                    <a target="_blank" href="https://twitter.com/intent/tweet?original_referer=https%3A%2F%2Fobjpodcast.com%2F&ref_src=twsrc%5Etfw&text=${titleURI}&tw_p=tweetbutton&url=${encodeURIComponent(podURL)}">Twitter <i class="fab fa-twitter"></i></a>
+                                    <a target="_blank" href="https://www.facebook.com/sharer.php?t=${titleURI}&u=${encodeURIComponent(podURL)}">Facebook <i class="fab fa-facebook"></i></a>
+                                    <span class="fake-link" href="${podURL}" onclick="copyText('${podURL}',event)">Copy link <i class="fas fa-link"></i></span>
                                 </div>`;
 
         let currentTime = document.createElement('span');
@@ -144,30 +256,32 @@ function audioplayerInit(jsonList) {
         audioPlayerDiv.append(audioTag);
         progressbarupdate(audioTag);
 
-        let metaDesc = `Latest episode hosted at obj_podacst: ${json.title}  \n\n${json.content}`
-            .replace(/<\s*\/?\s*[a-zA-Z]\w*\b.*?>/g, '');
-        if (metaDesc.length > 256) metaDesc = metaDesc.slice(0, 253) + '...';
-        let metas = document.getElementsByTagName('meta');//.item(tag => tag.getAttribute('name') && tag.getAttribute('name') === 'description');
-        for (let i = 0; i < metas.length; i++) {
-            let meta = metas[i];
-            let name = meta.getAttribute('name');
-            if (name && (name === 'description' || name === 'twitter:description')) {
-                let parent = meta.parentElement;
-                parent.removeChild(meta);
-                let newMeta = document.createElement('meta');
-                newMeta.setAttribute('name', name);
-                newMeta.setAttribute('content', metaDesc);
-                parent.append(newMeta);
-            }
-        }
+        /*  //////////////////////////////////////////////////////////////////////////////////
+            //////////// This does not work as JS is not executed before metadata ////////////
+            //////////// is retrieved. Could be done with PHP, or serverside JS   ////////////
+            //////////////////////////////////////////////////////////////////////////////////
 
-        if (false && desc.offsetHeight > tools.offsetHeight) {
-            let description = desc.getElementsByClassName('description')[0];
-                description.style = `height:${description.offsetHeight + tools.offsetHeight - desc.offsetHeight}px;overflow-y:hidden`;
-            let bar = document.createElement('div');
-                bar.setAttribute('class', 'showmorebar');
-                bar.innerHTML = '<a>Show More</a>'
-            desc.append(bar);
-        }
+            // Also, this'll run for every podcast, only the latest podcast needs to do this
+
+            let metaDesc = `Latest episode hosted at obj_podacst: ${json.title}  \n\n${json.content}`
+                .replace(/<\s*\/?\s*[a-zA-Z]\w*\b.*?>/g, '');
+            if (metaDesc.length > 256) metaDesc = metaDesc.slice(0, 253) + '...';
+            let metas = document.getElementsByTagName('meta');//.item(tag => tag.getAttribute('name') && tag.getAttribute('name') === 'description');
+            for (let i = 0; i < metas.length; i++) {
+                let meta = metas[i];
+                let name = meta.getAttribute('name');
+                if (name && (name === 'description' || name === 'twitter:description')) {
+                    let parent = meta.parentElement;
+                    parent.removeChild(meta);
+                    let newMeta = document.createElement('meta');
+                    newMeta.setAttribute('name', name);
+                    newMeta.setAttribute('content', metaDesc);
+                    parent.append(newMeta);
+                }
+            }
+        */
+
+        //if (thisId && !!~window.location.href.indexOf(`#${thisId}`)) scrollTo = audioTag;
     }
+    //if (scrollTo) scrollTo.scrollIntoView({ behavior: 'smooth' });
 }
