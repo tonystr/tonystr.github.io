@@ -51,26 +51,8 @@ function getCurrentHeadline(func = undefined) {
     return current;
 }
 
-function alignpagecontent() {
-    let right = window.innerWidth - pgpagecontent.getBoundingClientRect().right;
-    let left = pgpagecontent.getBoundingClientRect().left;
-    let cond = left - 1 < pgheader.offsetWidth;
-    if (cond && right < left) {
-        pgheader.classList.add('inline');
-        pgpagecontent.classList.add('left');
-    } else {
-        pgheader.classList.remove('inline');
-        pgpagecontent.classList.remove('left');
-    }
-}
-
-alignpagecontent();
-setTimeout(alignpagecontent, 32);
-
-console.log('loop of tags');
 let lis = pgheaderul.getElementsByTagName('li');
 for (let delm of lis) {
-    console.log(delm);
     delm.addEventListener('click', evt => {
         console.log('click!');
         let posel = document.querySelector(`#${evt.target.getAttribute('value')}`);
@@ -79,9 +61,7 @@ for (let delm of lis) {
             behavior: 'smooth'
         });
     });
-    console.log('after add evt listener');
 };
-console.log('end loop');
 
 /*
 <div class="button up"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg></div>
@@ -139,6 +119,24 @@ function windowScrollBy(x, y) {
     let size = (window.innerHeight / document.body.scrollHeight) * window.innerHeight;
     pgtracker.style = `top:${Math.round((window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * (pgtracker.parentElement.offsetHeight - size))}px;height:${size}px`;
 }
+
+function alignpagecontent() {
+    let right = window.innerWidth - pgpagecontent.getBoundingClientRect().right;
+    let left = pgpagecontent.getBoundingClientRect().left;
+    let cond = left - 1 < pgheader.offsetWidth;
+    if (cond && right < left) {
+        pgheader.classList.add('inline');
+        pgpagecontent.classList.add('left');
+    } else {
+        pgheader.classList.remove('inline');
+        pgpagecontent.classList.remove('left');
+    }
+
+    windowScrollBy(0, 0);
+}
+
+alignpagecontent();
+setTimeout(alignpagecontent, 32);
 
 //window.scrollTo(isFirefox ? { top: window.pageYOffset + evt.deltaY * 40 } : { top: window.pageYOffset + evt.deltaY });
 //*/
