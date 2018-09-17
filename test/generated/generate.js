@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const template = fs.readFileSync('../templates/article.html').toString();
 const json = parsetart(fs.readFileSync('../json/digitocracy.tart'));
-const scoredTitle = json.title.trim().toLowerCase().replace('\s+', '_');
+const scoredTitle = json.title.trim().toLowerCase().replace(/\s+/g, '_');
 
 let text = template.replace('<title></title>', `<title>${json.title}</title>`)
     .replace('<div class="title"></div>', `<div class="title">${json.title}</div>`)
@@ -25,8 +25,8 @@ while (true) {
     sliced += text.slice(0, match.index);
     text = text.slice(match.index + match[0].length);
 
-    let id = match[2].trim().toLowerCase().replace(/\s+/g, '_');
-    let elmtype = match[1] && match[1].trim() || 'span'
+    let id = match[2].trim().toLowerCase().replace(/\s+/g, '_').match(/\w+/g).join('');
+    let elmtype = match[1] && match[1].trim() || 'span';
 
     sliced += `<${elmtype} class="headline" id="${id}">${match[2]}</${elmtype}>`;
     header += `<li value="${id}">${match[2]}</li>`;

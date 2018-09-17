@@ -2,6 +2,8 @@
 document.onscroll = fixHeader;
 window.onresize = alignpagecontent;
 
+let isFirefox = typeof InstallTrigger !== 'undefined';
+
 let pgheader = document.getElementById('header');
 let pgheaderul = header.getElementsByTagName('ul')[0];
 let pgheadlines = document.getElementsByClassName('headline');
@@ -9,6 +11,7 @@ let pgpagecontent = document.getElementById('pagecontent');
 let pgcurrentHeadline = undefined;
 
 function fixHeader() {
+    console.log('fixing header')
     let headerOff = header.getBoundingClientRect();
     if (headerOff.top <= 0) {
         pgheaderul.setAttribute('class', 'fixed');
@@ -49,7 +52,6 @@ function getCurrentHeadline(func = undefined) {
 }
 
 function alignpagecontent() {
-    console.log('aligning');
     let right = window.innerWidth - pgpagecontent.getBoundingClientRect().right;
     let left = pgpagecontent.getBoundingClientRect().left;
     let cond = left - 1 < pgheader.offsetWidth;
@@ -65,12 +67,78 @@ function alignpagecontent() {
 alignpagecontent();
 setTimeout(alignpagecontent, 32);
 
-for (let delm of pgheaderul.getElementsByTagName('li')) {
-    delm.addEventListener('click', () => {
-        let posel = document.querySelector(`#${delm.getAttribute('value')}`);
+console.log('loop of tags');
+let lis = pgheaderul.getElementsByTagName('li');
+for (let delm of lis) {
+    console.log(delm);
+    delm.addEventListener('click', evt => {
+        console.log('click!');
+        let posel = document.querySelector(`#${evt.target.getAttribute('value')}`);
         window.scrollTo({
             top: posel.getBoundingClientRect().top + window.pageYOffset - 36,
             behavior: 'smooth'
         });
     });
+    console.log('after add evt listener');
 };
+console.log('end loop');
+
+/*
+<div class="button up"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg></div>
+<slider>
+<div class="button down"><svg aria-hidden="true" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><path fill="currentColor" d="M143 352.3L7 216.3c-9.4-9.4-9.4-24.6 0-33.9l22.6-22.6c9.4-9.4 24.6-9.4 33.9 0l96.4 96.4 96.4-96.4c9.4-9.4 24.6-9.4 33.9 0l22.6 22.6c9.4 9.4 9.4 24.6 0 33.9l-136 136c-9.2 9.4-24.4 9.4-33.8 0z"></path></svg></div>
+*/
+
+let scrollbar = document.createElement('div');
+    scrollbar.setAttribute('class', 'scrollbar');
+    scrollbar.innerHTML = `<div class="relative">
+        <div class="slider">
+            <div class="tracker"></div>
+        </div>
+    </div>`;
+document.body.append(scrollbar);
+
+let pgscrollbar = document.getElementsByClassName('scrollbar')[0];
+let pgtracker = pgscrollbar.getElementsByClassName('tracker')[0];
+let pgscrollMult = 29 * isFirefox + 1;
+let mouseGrabPos = 0;
+
+pgtracker.addEventListener('mousedown', initiateScrollHold);
+
+function initiateScrollHold(evt) {
+    let size = (window.innerHeight / document.body.scrollHeight) * window.innerHeight;
+    let top = Math.round((window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * (pgtracker.parentElement.offsetHeight - size));
+    mouseGrabPos = evt.clientY - top;
+    document.body.classList.add('selectPrevention');
+    pgtracker.classList.add('drag');
+    document.addEventListener('mousemove', scrollMouseMove);
+    document.addEventListener('mouseup', scrollRemoveEvents);
+}
+
+function scrollMouseMove(evt) {
+    let size = (window.innerHeight / document.body.scrollHeight) * window.innerHeight;
+    let top = Math.round((window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * (pgtracker.parentElement.offsetHeight - size));
+
+    windowScrollBy(0, ((evt.clientY - top - mouseGrabPos) / (pgtracker.parentElement.offsetHeight - size)) * document.body.scrollHeight);
+}
+
+function scrollRemoveEvents(evt) {
+    document.removeEventListener('mousemove', scrollMouseMove);
+    document.removeEventListener('mouseup', scrollRemoveEvents);
+    pgtracker.classList.remove('drag');
+    document.body.classList.remove('selectPrevention');
+}
+
+document.addEventListener('wheel', evt => {
+    windowScrollBy(evt.deltaX * pgscrollMult, evt.deltaY * pgscrollMult);
+
+});
+
+function windowScrollBy(x, y) {
+    window.scrollBy(x, y);
+    let size = (window.innerHeight / document.body.scrollHeight) * window.innerHeight;
+    pgtracker.style = `top:${Math.round((window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * (pgtracker.parentElement.offsetHeight - size))}px;height:${size}px`;
+}
+
+//window.scrollTo(isFirefox ? { top: window.pageYOffset + evt.deltaY * 40 } : { top: window.pageYOffset + evt.deltaY });
+//*/
