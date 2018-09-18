@@ -32,7 +32,7 @@ while (true) {
     header += `<li value="${id}">${match[2]}</li>`;
 }
 
-sliced = sliced.replace('<div id="header"></div>', `<div id="header"><ul>${header}</ul></div>`);
+sliced = sliced.replace(/<(div\b[^>]*?\bid="header"[^>]*)><\/div>/i, `<$1><ul>${header}</ul></div>`);
 
 fs.writeFile(`./${scoredTitle}.html`, sliced, (err) => { console.log(err ? err : 'success') });
 

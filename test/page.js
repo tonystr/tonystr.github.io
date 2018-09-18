@@ -56,7 +56,7 @@ for (let delm of lis) {
     delm.addEventListener('click', evt => {
         console.log('click!');
         let posel = document.querySelector(`#${evt.target.getAttribute('value')}`);
-        window.scrollTo({
+        windowScrollTo({
             top: posel.getBoundingClientRect().top + window.pageYOffset - 36,
             behavior: 'smooth'
         });
@@ -111,11 +111,37 @@ function scrollRemoveEvents(evt) {
 
 document.addEventListener('wheel', evt => {
     windowScrollBy(evt.deltaX * pgscrollMult, evt.deltaY * pgscrollMult);
-
 });
+
+// <!-- begin wwww.htmlcommentbox.com -->
+setTimeout(() => {
+    let hcbCommentBox = document.querySelector('#HCB_comment_box');
+    for (let stl of hcbCommentBox.getElementsByTagName('style')) {
+        stl.parentElement.removeChild(stl);
+    };
+
+    /*
+    let desc = document.querySelector('#HCB_comment_box #hcb_submit');
+    let granpa = desc.parentElement.parentElement;
+        granpa.removeChild(desc.parentElement);
+        granpa.append(desc);*/
+}, 1000);
 
 function windowScrollBy(x, y) {
     window.scrollBy(x, y);
+    moveScrollbar();
+}
+
+function windowScrollTo(obj) {
+    window.scrollTo(obj);
+    pgtracker.classList.add('fadeout');
+    setTimeout(() => {
+        moveScrollbar();
+        pgtracker.classList.remove('fadeout');
+    }, 500);
+}
+
+function moveScrollbar() {
     let size = (window.innerHeight / document.body.scrollHeight) * window.innerHeight;
     pgtracker.style = `top:${Math.round((window.pageYOffset / (document.body.scrollHeight - window.innerHeight)) * (pgtracker.parentElement.offsetHeight - size))}px;height:${size}px`;
 }
