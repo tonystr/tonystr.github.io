@@ -145,5 +145,8 @@ function restartGame(evt) {
 
     document.getElementById('playfield').classList.remove('gameover');
     document.querySelector('#gameovermenu').classList.remove('visible');
-
+    document.querySelector('#player .score').innerHTML = 0;
+    document.querySelector('#opponent .score').innerHTML = 0;
+    document.querySelector('#opponent .score').innerHTML = 0;
+    document.querySelector('#opponent i').setAttribute('class', `fas fa-question`);
 }
