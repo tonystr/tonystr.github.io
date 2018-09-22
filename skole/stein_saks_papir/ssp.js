@@ -35,7 +35,7 @@ lang = {
         retry: 'Spill igjen?'
     },
     spn: {
-        title: 'Bienvinidos a <span class="highlight-extreme">&lt;¡Piedra Papel Tijeras!&gt;</span>',
+        title: 'Bienvenidos a <span class="highlight-extreme">&lt;¡Piedra Papel Tijeras!&gt;</span>',
         description: `Presione uno de los íconos para elegir. El mejor de ${htmlroundCount} triunfos.`,
         moves: ['Piedra', 'Tijeras', 'Papel'],
         opponent: 'Adversario',
@@ -43,8 +43,8 @@ lang = {
         tiemessage: '¡Empataste!',
         winmessage: '¡Ganaste!',
         losemessage: '¡Perdiste!',
-        scoremessage: 'El resultado final fue',
-        retry: '¿Inténtalo de nuevo?'
+        scoremessage: 'El resultado final es',
+        retry: '¿Juega de nuevo?'
     }
 }
 
