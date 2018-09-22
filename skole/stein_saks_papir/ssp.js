@@ -2,15 +2,17 @@
 opponentWins = 0;
 playerWins = 0;
 roundIndex = 0;
-roundCount = 8;
+roundCount = 5;
 moveCount = 3;
 
 language = 'nor';
 
+let htmlroundCount = `<input class="round-count" value="5"></input>`;
+
 lang = {
     eng: {
         title: 'Welcome to <span class="highlight-extreme">&lt;Rock Paper Scissors!&gt;</span>',
-        description: 'Click on one of the icons to chose. Best of <input class="round-count" value="8"></input> wins.</p>',
+        description: `Click on one of the icons to chose. Best of ${htmlroundCount} wins.`,
         moves: ['Rock', 'Scissors', 'Paper'],
         opponent: 'Opponent',
         you: 'You',
@@ -22,7 +24,7 @@ lang = {
     },
     nor: {
         title: 'Velkommen til <span class="highlight-extreme">&lt;Stein Saks Papir!&gt;</span>',
-        description: 'Trykk på én av ikonene for å velge. Beste av <input class="round-count" value="8"></input> vinner.</p>',
+        description: `Trykk på én av ikonene for å velge. Beste av ${htmlroundCount} vinner.`,
         moves: ['Stein', 'Saks', 'Papir'],
         opponent: 'Motstander',
         you: 'Du',
@@ -34,7 +36,7 @@ lang = {
     },
     spn: {
         title: 'Bienvinidos a <span class="highlight-extreme">&lt;¡Piedra Papel Tijeras!&gt;</span>',
-        description: 'Presione uno de los íconos para elegir. El mejor de <input class="round-count" value="8"></input> triunfos.</p>',
+        description: `Presione uno de los íconos para elegir. El mejor de ${htmlroundCount} triunfos.`,
         moves: ['Piedra', 'Tijeras', 'Papel'],
         opponent: 'Adversario',
         you: 'Tú',
@@ -49,18 +51,20 @@ lang = {
 function initialize() {
 
     let query = window.location.href.match(/\?(\w*[=&]\w+)+$/);
-    let queryParams = query[0].match(/\w+=\w+/g);
+    if (query) {
+        let queryParams = query[0].match(/\w+=\w+/g);
 
-    let queryLang = queryParams.find(par => par.match(/^lang=/i)).match(/=(.+)$/)[1];
-    if (lang.hasOwnProperty(queryLang)) {
-        language = queryLang;
+        let queryLang = queryParams.find(par => par.match(/^lang=/i)).match(/=(.+)$/)[1];
+        if (lang.hasOwnProperty(queryLang)) {
+            language = queryLang;
 
-        document.getElementById('pagetitle').innerHTML = lang[language].title;
-        document.getElementById('pagesubtitle').innerHTML = lang[language].description;
-        document.querySelector('#opponent .name').innerHTML = lang[language].opponent;
-        document.querySelector('#player .name').innerHTML = lang[language].you;
-        document.querySelector('#gameovermenu .score').innerHTML = `${lang[language].scoremessage} <span class="value"></span>`;
-        document.querySelector('#gameovermenu .retry').innerHTML = lang[language].retry;
+            document.getElementById('pagetitle').innerHTML = lang[language].title;
+            document.getElementById('pagesubtitle').innerHTML = lang[language].description;
+            document.querySelector('#opponent .name').innerHTML = lang[language].opponent;
+            document.querySelector('#player .name').innerHTML = lang[language].you;
+            document.querySelector('#gameovermenu .score').innerHTML = `${lang[language].scoremessage} <span class="value"></span>`;
+            document.querySelector('#gameovermenu .retry').innerHTML = lang[language].retry;
+        }
     }
 
     document.querySelector('#gameovermenu .retry').addEventListener('click', restartGame);
@@ -118,7 +122,7 @@ function clickMove() {
             this.classList.remove('clicked');
         }, 140);
 
-        if (roundIndex >= roundCount) {
+        if (playerWins >= roundCount || opponentWins >= roundCount) {
             document.getElementById('playfield').classList.add('gameover');
             let gmovermenu = document.querySelector('#gameovermenu');
             gmovermenu.classList.add('visible');
