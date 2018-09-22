@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Guess The Keycode!</title>
+        <link rel="stylesheet" href="./style.css"></link>
+        <script src="./ssp.js"></script>
+        <link href="https://fonts.googleapis.com/css?family=Space+Mono" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="notfooter">
+            <h1 class="title" id="pagetitle">Velkommen til <span class="highlight-extreme">&lt;Stein Saks Papir!&gt;</span></h1>
+            <p class="subtitle" id="pagesubtitle">Trykk på én av ikonene for å velge. Beste av <input class="round-count" value="8"></input> vinner.</p>
+            <div class="relative">
+                <div id="playfield">
+                    <div id="opponent">
+                        <div class="userinfo">
+                            <div class="name">Motstander</div>
+                            <div class="score">0</div>
+                        </div>
+                        <i class="fas fa-question"></i>
+                    </div>
+                    <div id="player">
+                        <div class="buttons">
+                            <i class="far fa-hand-rock"></i>
+                            <i class="far fa-hand-scissors"></i>
+                            <i class="far fa-hand-paper"></i>
+                        </div>
+                        <div class="userinfo">
+                            <div class="name">Du</div>
+                            <div class="score">0</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="gameovermenu">
+                    <div class="center">
+                        <div class="message">You won!</div>
+                        <div class="score">The final score was <span class="value"></span></div>
+                    </div>
+                    <div class="retry">Play again?</div>
+                </div>
+            </div>
+        </div>
+        <footer>
+            <div>&copy; Tony Strømsnæs 2018</div>
+            <div>Language: <a href="./?lang=nor">Norwegian</a> | <a href="./?lang=eng">English</a> | <a href="./?lang=spn">Spanish</a></div>
+        </footer>
+        <script>initialize();</script>
+    </body>
+</html>

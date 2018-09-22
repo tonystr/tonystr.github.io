@@ -34,8 +34,26 @@ while (true) {
 
 sliced = sliced.replace(/<(div\b[^>]*?\bid="header"[^>]*)><\/div>/i, `<$1><ul>${header}</ul></div>`);
 
-fs.writeFile(`./${scoredTitle}.html`, sliced, (err) => { console.log(err ? err : 'success') });
+fs.writeFile(`./${scoredTitle}.html`, sliced, (err) => { console.log(err ? err : 'success writing html document') });
+fs.readFile('./generated.json', (err, file) => {
+    if (err) return console.log(err);
 
+    let genson = JSON.parse(file);
+    let match = genson.articles.findIndex(art => art.filename === scoredTitle);
+
+    let obj = {
+        title: json.title,
+        filename: scoredTitle,
+        description: json.description,
+        image: json.image
+    };
+
+    if (!!~match) {
+        genson.articles[match] = obj;
+    } else genson.articles.push(obj);
+
+    fs.writeFile(`./generated.json`, JSON.stringify(genson), (err) => { console.log(err ? err : 'success updating generated.json') });
+});
 function parsetart(tart) {
     if (typeof tart !== 'string') tart = tart.toString();
 

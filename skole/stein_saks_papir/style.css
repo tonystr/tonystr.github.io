@@ -1,0 +1,252 @@
+
+html{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+}
+
+body{
+    margin:0;
+    padding:0;
+    width:100%;
+    min-height:100%;
+
+    --black: #1e2026;
+    --blright: #25282f;
+    --bg: #2D313D;
+    --text: #bd93f9;
+    --pink: #ff79c6;
+    --dink: #d14a88;
+    --green: #43EF7F;
+
+    background-color:var(--bg);
+    color:var(--text);
+
+    font: 1rem/1.5 Arial, Helvetica, sans-serif;
+    text-align:center;
+}
+
+a{
+    color:var(--pink);
+    text-decoration: none;
+}
+
+a:hover{
+    color:var(--green);
+}
+
+p{
+    margin-top:0;
+    margin-bottom:.4rem;
+}
+
+.notfooter{
+    height:calc(100% - 2.2rem);
+}
+
+footer{
+    position:absolute;
+    bottom:0;
+    font-size:1rem;
+    width:calc(100% - 2rem);
+    padding: .6rem 1rem;
+    background-color:var(--black);
+    display:flex;
+    justify-content: space-between;
+}
+
+#playfield i{
+    font-size:6rem;
+}
+
+#playfield{
+    margin-top:2rem;
+    margin: 2rem auto;
+    padding: 0 1rem;
+    max-width:42rem;
+    transition: 2s transform, 2s opacity;
+    background-color: var(--bg);
+    transform:scale(1);
+}
+
+#playfield.gameover{
+    pointer-events: none;
+    transition: 4s transform, 1s opacity;
+    opacity:0;
+    transform:scale(.1);
+}
+
+#playfield .userinfo{
+    display:flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+}
+
+#playfield .userinfo .score{
+    transition: .5s all;
+}
+
+#playfield .userinfo .score.update{
+    transition: .2s all;
+    transform:scale(2);
+    color:var(--green);
+}
+
+#playfield #opponent{
+    padding:2rem 0;
+    background-color:var(--black);
+    border-radius:2rem;
+    cursor:not-allowed;
+    transition: .4s all;
+    position:relative;
+}
+
+#playfield #opponent .userinfo{
+    position:absolute;
+    left:0;
+    right:0;
+    top:1rem;
+}
+
+#playfield #opponent.game-event{
+    transition: .1s all;
+}
+
+#playfield #opponent.game-event-0{
+    background-color:var(--bg);
+}
+
+#playfield #opponent.game-event-1{
+    background-color:var(--green);
+    color:var(--pink);
+    transform:translateY(-1.4rem);
+    box-shadow: 0 1.4rem 24px var(--black);
+}
+
+#playfield #opponent.game-event-2{
+    background-color:var(--pink);
+    color:var(--green);
+    transform:translateY(1rem);
+}
+
+#playfield #player .userinfo{
+    padding-top:.5rem;
+    padding-bottom:.5rem;
+    border-radius:1rem;
+    background-color:var(--black);
+}
+
+#playfield #player .buttons{
+    padding:1.6rem 2rem;
+    display:flex;
+    justify-content: space-around;
+}
+
+#playfield #player i{
+    background-color:transparent;
+}
+
+#playfield #player i,
+#playfield #player i::before{
+    padding:1rem;
+    transition: .3s all;
+    border-radius:50%;
+    width:6rem;
+    height:6rem;
+}
+
+#playfield #player i::before{
+    position:absolute;
+    transform:translateX(-50%) translateY(-1rem);
+    background-color:var(--bg);
+}
+
+#playfield #player i:hover{
+    cursor:pointer;
+    background-color:var(--black);
+    box-shadow: 0 0 24px var(--black);
+}
+
+#playfield #player i:hover::before{
+    color:var(--pink);
+    transform:translateX(-50%) translateY(-2rem);
+    background-color:var(--blright);
+}
+
+.highlight-extreme{
+    font-family: 'Space Mono', monospace;
+    color:var(--pink);
+}
+
+#playfield #player i.clicked{
+    background-color:var(--dink);
+}
+#playfield #player i.clicked::before{
+    background-color:var(--pink);
+    color:var(--bg);
+}
+
+#playfield #player i.clicked::before{
+    transform:translateX(-50%) translateY(-1rem);
+}
+
+.round-count{
+    background-color:transparent;
+    border:none;
+    width:2rem;
+    color:var(--pink);
+    text-align:center;
+    font-size:1rem;
+    background-color:var(--black);
+    border-radius:1rem;
+}
+
+.relative{
+    position:relative;
+}
+
+#gameovermenu{
+    position:absolute;
+    top:0;
+    font-size: 1.6rem;
+    width:100%;
+    padding-top:2rem;
+    padding-bottom:3rem;
+    background-color:var(--black);
+    opacity:0;
+    pointer-events: none;
+    z-index: 1000;
+    transform:translateX(-120%);
+}
+
+#gameovermenu.visible{
+    pointer-events: all;
+    transition: .6s opacity, 2s transform;
+    opacity:1;
+    transform:translateX(0);
+}
+
+#gameovermenu .message{
+    font-size:3rem;
+    font-weight: bold;
+}
+
+#gameovermenu .retry{
+    padding: .4rem .6rem;
+    border: 3px solid var(--pink);
+    color: var(--pink);
+    border-radius: 2rem;
+    width:12rem;
+    margin: 0 auto;
+    margin-top:1rem;
+    transition: .2s all;
+}
+
+#gameovermenu .retry:hover{
+    cursor:pointer;
+    background-color:var(--pink);
+    color:var(--bg);
+    box-shadow: 0 1px 12px rgba(0,0,0,.5);
+    width:13rem;
+}

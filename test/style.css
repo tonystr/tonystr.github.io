@@ -114,6 +114,8 @@ a:hover{
 
 #HCB_comment_box{
     padding: 1rem 12rem;
+    background-color:var(--bg);
+    z-index:9;
 }
 
 #comments_list{
@@ -309,6 +311,14 @@ a:hover{
     color:var(--text);
 }
 
+#info .content.center{
+    width:80%;
+}
+
+#info .content.center *{
+    text-align:center;
+}
+
 #info .illustration{
     width:46%;
 }
@@ -319,8 +329,9 @@ a:hover{
 }
 
 #display{
-    padding-top:4rem;
+    padding-top:2rem;
     min-height:100%;
+    position:relative;
     display:flex;
     flex-direction:row;
 }
@@ -330,11 +341,11 @@ a:hover{
 }
 
 #header{
-    padding-top:4rem;
     width:20rem;
     margin:0;
  	flex-shrink: 0;
     position:absolute;
+    transition: .6s opacity;
 }
 
 #header ul{
@@ -382,14 +393,18 @@ a:hover{
 }
 
 #header .current::before{
-    transition: .6s all;
+    transition: .4s all;
     border-color:var(--pink);
     background-color:transparent;
 }
 
 #header .fixed{
-    top:4rem;
     position: fixed;
+    top:0;
+}
+
+#header.fixed-bottom{
+    opacity:0;
 }
 
 #pagecontent{

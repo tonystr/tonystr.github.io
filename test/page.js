@@ -11,12 +11,18 @@ let pgpagecontent = document.getElementById('pagecontent');
 let pgcurrentHeadline = undefined;
 
 function fixHeader() {
-    console.log('fixing header')
-    let headerOff = header.getBoundingClientRect();
-    if (headerOff.top <= 0) {
-        pgheaderul.setAttribute('class', 'fixed');
+    let headerOff = pgheader.getBoundingClientRect();
+
+    console.log(`pgheader.parentElement.getBoundingClientRect().bottom: ${pgheader.parentElement.getBoundingClientRect().bottom}, pgheaderul.offsetHeight: ${pgheaderul.offsetHeight}`);
+    if (pgheader.parentElement.getBoundingClientRect().bottom < pgheaderul.offsetHeight * 2) {
+        pgheader.classList.add('fixed-bottom');
     } else {
-        pgheaderul.setAttribute('class', '');
+        if (headerOff.top <= 0) {
+            pgheaderul.classList.add('fixed');
+        } else {
+            pgheaderul.classList.remove('fixed');
+        }
+        pgheader.classList.remove('fixed-bottom');
     }
 
     let headline = getCurrentHeadline(hl => {
