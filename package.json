@@ -2,10 +2,11 @@
   "name": "tonystr.github.io",
   "version": "0.1.0",
   "private": true,
-  "homepage": "http://tonystr.github.io/",
+  "homepage": "https://tonystr.net",
   "dependencies": {
     "highlight.js": "^9.15.6",
     "node-sass": "^4.11.0",
+    "prismjs": "^1.15.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",

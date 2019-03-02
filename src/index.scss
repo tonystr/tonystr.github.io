@@ -1,12 +1,22 @@
 
 $c_bg: #21252B;
 $c_txt: #fcfdfe;
+$c_green: #73C990;
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|ZCOOL+KuaiLe');
 // font-family: 'Josefin Sans', sans-serif;
 
 @mixin background-color-alpha($color, $alpha) {
   background-color: rgba(red($color), green($color), blue($color), $alpha);
+}
+
+@keyframes roll-vertical {
+    0% {
+        transform: translateY(0);
+    }
+    100% {
+        transform: translateY(-70%);
+    }
 }
 
 body {
@@ -43,7 +53,7 @@ code {
     }
 
     .title {
-        color: #73C990;
+        color: $c_green;
         font-family: 'ZCOOL KuaiLe', cursive;
         font-size: 3rem;
         padding-bottom: .8rem;
@@ -57,29 +67,62 @@ code {
     background-color: $c_gray;
     display: flex;
 
-    .hljs {
-        font-size: .8rem;
-        overflow: hidden;
-    }
-
     .left {
         width: 28%;
         flex-shrink: 0;
+        margin: 1rem 0;
 
         position: relative;
         z-index: 2;
+
+        font-size: .8rem;
+        overflow: hidden;
+
         &::after {
             position: absolute;
             content: '';
+            left: 0;
             right: 0;
             top: 0;
-            bottom: 0;
-            width: 3rem;
-            background: linear-gradient(to right,
+            height: 2rem;
+            background: linear-gradient(to top,
                 rgba(red($c_gray), green($c_gray), blue($c_gray), 0) 0%,
-                rgba(red($c_gray), green($c_gray), blue($c_gray), 1) 80%,
-                rgba(red($c_gray), green($c_gray), blue($c_gray), 1) 100%
+                $c_gray 100%
             );
+        }
+
+        &::before {
+            position: absolute;
+            content: '';
+            left: 0;
+            z-index: 2;
+            right: 0;
+            bottom: 0;
+            height: 2rem;
+            background: linear-gradient(to bottom,
+                rgba(red($c_gray), green($c_gray), blue($c_gray), 0) 0%,
+                $c_gray 100%
+            );
+        }
+
+        pre {
+            padding-top: 0;
+            animation: roll-vertical 40s linear infinite;
+            overflow-x: hidden;
+
+            &::after {
+                position: absolute;
+                content: '';
+                right: 0;
+                top: 0;
+                bottom: 0;
+                width: 2rem;
+                background: linear-gradient(to right,
+                    rgba(red($c_gray), green($c_gray), blue($c_gray), 0) 0%,
+                    $c_gray 80%,
+                    $c_gray 100%
+                );
+            }
         }
     }
 
@@ -87,5 +130,145 @@ code {
         flex-shrink: 1;
         background-color: #ffffff;
         width: 100%;
+        position: relative;
+        margin: 1rem;
+        margin-left: 0;
+
+        .title {
+            font-family: 'Josefin Sans', sans-serif;
+            font-size: 2.4rem;
+            margin-top: 2.4rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .showcase {
+
+            $gray: #e6e7ea;
+            $padx: .3rem;
+
+            background-color: $gray;
+            position: relative;
+            margin-top: 2rem;
+            padding: .7rem $padx;
+
+            .slidebar {
+                margin-top: .3rem;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+
+                .button {
+                    width: .5rem;
+                    height: .5rem;
+                    border: .2rem solid $gray;
+                    background-color: $c_green;
+                    margin: 0 .1rem;
+                    border-radius: 50%;
+                    transition: .1s all;
+
+                    &.selected {
+                        border-color: $c_green;
+                        background-color: $gray;
+                    }
+
+                    &:hover {
+                        background-color: $c_green;
+                        border-color: $c_green;
+                        cursor: pointer;
+                    }
+                }
+            }
+
+            .slideshow {
+                display: flex;
+                overflow-x: hidden;
+                flex-direction: row;
+                justify-content: center;
+
+                .website {
+                    position: relative;
+                    max-width: 80%;
+                    width: 32rem;
+                    flex-shrink: 0;
+                    margin: 0 1rem;
+
+                    .name {
+                        font-family: 'Josefin Sans', sans-serif;
+                        text-align: center;
+                        font-size: 1.2rem;
+                        padding: .1rem .4rem;
+                    }
+
+                    .role {
+                        opacity: 0;
+                        color: #ffffff;
+                        position: absolute;
+                        top: 50%;
+                        left: 1rem;
+                        right: 1rem;
+                        text-align: center;
+                        transition: .2s all;
+                    }
+
+                    img {
+                        width: 100%;
+                        transition: .2s all;
+                        display: relative;
+
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            background-color: $c_gray;
+                            left: 0;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                        }
+                    }
+
+                    &:hover {
+                        img {
+                            filter: brightness(60%) saturate(30%);
+                        }
+
+                        .role {
+                            opacity: 1;
+                        }
+                    }
+                }
+            }
+
+            &::before, &::after {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom:0;
+                width: .7rem;
+                z-index: 3;
+            }
+
+            &::before {
+                left: $padx;
+                background: linear-gradient(to right, $gray, rgba(255, 255, 255, 0));
+            }
+
+            &::after {
+                right: $padx;
+                background: linear-gradient(to left, $gray, rgba(255, 255, 255, 0));
+            }
+
+        }
+
+        .wrapper {
+            $margin: 1rem;
+            position: absolute;
+            top: $margin;
+            left: $margin;
+            right: $margin;
+            bottom: $margin;
+            border: 2px solid #9ee2c3;
+            color: #346574;
+        }
     }
 }

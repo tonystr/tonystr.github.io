@@ -1,0 +1,26 @@
+[{
+    "name": "Periodic Table Builder",
+    "url": "#",
+    "role": "Webdesign & programming",
+    "image": "/images/periodic_table_maker.png"
+},{
+    "name": "GMShaders",
+    "url": "https://GMShaders.com",
+    "role": "Webdesign & programming",
+    "image": "/images/GMShaders.png"
+},{
+    "name": "obj_podcast",
+    "url": "https://objpodcast.com/",
+    "role": "Webdesign & programming",
+    "image": "/images/obj_podcast.png"
+},{
+    "name": "JujuAdams.com",
+    "url": "https://www.jujuadams.com/",
+    "role": "Webdesign",
+    "image": "/images/juju_adams.png"
+},{
+    "name": "The Story Goes On official website",
+    "url": "http://tsgogame.com",
+    "role": "Mobile support & other resolutions",
+    "image": "/images/tsgowebsite.jpg"
+}]
