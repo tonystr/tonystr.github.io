@@ -7,7 +7,10 @@ console.log(websites);
 export default function Home() {
 
     const [codePreview, setCodePreview] = useState('loading...');
-    const [slideButtonSelected, setSlideButtonSelected] = useState(3);
+    const [slideBar, setSlideBar] = useState({
+        buttonIndex: 2,
+        slideFrom: null
+    });
 
     useEffect(() => {
         requestRawText(process.env.PUBLIC_URL + 'code.txt', res => {
@@ -16,13 +19,27 @@ export default function Home() {
         Prism.highlightAll();
     });
 
+    const clickSlideButton = i => {
+        const index = Number(i);
+        if (index === slideBar.buttonIndex) return;
+        console.log({
+            buttonIndex: index,
+            slideFrom: index > slideBar.buttonIndex ? 'right' : 'left'
+        });
+        setSlideBar({
+            buttonIndex: index,
+            slideFrom: index > slideBar.buttonIndex ? 'right' : 'left'
+        });
+    }
+
     const renderWebsites = () => {
         const list = [];
 
-        for (let i = 0; i < websites.length; i++) {
-            const site = websites[i];
+        for (let i = 0; i < 5; i++) {
+            const index = (i + 3 + slideBar.buttonIndex) % 5;
+            const site = websites[index];
             list.push(
-                <div className='website' key={i}>
+                <div className={'website ' + (slideBar.slideFrom ? 'slide-from-' + slideBar.slideFrom : '')} key={index}>
                     <div className='name'>{site.name}</div>
                     <img alt={'image: ' + site.name} src={site.image} />
                     <div className='role'>{site.role}</div>
@@ -39,7 +56,8 @@ export default function Home() {
         for (let i = 0; i < websites.length; i++) {
             list.push(
                 <div
-                    className={'button' + (i === slideButtonSelected ? ' selected' : '')}
+                    className={'button' + (i === slideBar.buttonIndex ? ' selected' : '')}
+                    onClick={() => clickSlideButton(i)}
                     key={i}
                 />
             );
@@ -52,15 +70,21 @@ export default function Home() {
         <>
             <div className='page' id='webdev'>
                 <div className='left'>
-                    {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
+                    <div className='codeWrapper'>
+                        {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
+                    </div>
                 </div>
                 <div className='right'>
                     <div className='wrapper'>
                         <div className='title'> Webdesign </div>
-                        <div className='description'> I've worked on a number of websites, some listed below: </div>
                         <div className='showcase'>
-                            <div className='slideshow'>{renderWebsites()}</div>
+                            <div className='slideshow '>{renderWebsites()}</div>
                             {renderSlideButtons()}
+                        </div>
+                        <div className='description'>
+                            <div className='inner'>
+                                I mostly use React.js with TypeScript and SCSS for front-end webdevelopment, however I intend to also pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
+                            </div>
                         </div>
                     </div>
                 </div>

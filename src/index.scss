@@ -2,8 +2,10 @@
 $c_bg: #21252B;
 $c_txt: #fcfdfe;
 $c_green: #73C990;
+$c_lightgreen: #9ee2c3;
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|ZCOOL+KuaiLe');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Varela');
 // font-family: 'Josefin Sans', sans-serif;
 
 @mixin background-color-alpha($color, $alpha) {
@@ -20,25 +22,26 @@ $c_green: #73C990;
 }
 
 body {
-  margin: 0;
-  padding: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
-  background-color: $c_bg;
-  color: $c_txt;
+    background-color: $c_bg;
+    color: $c_txt;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+        monospace;
 }
 
 .page {
-    height: 100vh;
+    min-height: 100vh;
     width: 100%;
 }
 
@@ -57,6 +60,24 @@ code {
         font-family: 'ZCOOL KuaiLe', cursive;
         font-size: 3rem;
         padding-bottom: .8rem;
+    }
+}
+
+@keyframes slide-from-right {
+    0% {
+        transform: translateX(100%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+@keyframes slide-from-left {
+    0% {
+        transform: translateX(-100%);
+    }
+    100% {
+        transform: translateX(0%);
     }
 }
 
@@ -105,6 +126,14 @@ code {
             );
         }
 
+        .codeWrapper {
+            position: absolute;
+            top:0;
+            left:0;
+            right:0;
+            bottom:0;
+        }
+
         pre {
             padding-top: 0;
             animation: roll-vertical 40s linear infinite;
@@ -127,19 +156,47 @@ code {
     }
 
     .right {
-        flex-shrink: 1;
+        flex-shrink: 10;
         background-color: #ffffff;
-        width: 100%;
-        position: relative;
         margin: 1rem;
         margin-left: 0;
+        box-shadow: 0 1px 6px #000000;
+        border-radius: .1rem;
+        overflow: hidden;
+
+        .wrapper {
+            border-radius: .2rem;
+            $margin: 1rem;
+            margin: $margin;
+            min-height: calc(100% - #{$margin * 2});
+            border: 2px solid $c_lightgreen;
+            color: #346574;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
 
         .title {
             font-family: 'Josefin Sans', sans-serif;
             font-size: 2.4rem;
-            margin-top: 2.4rem;
-            margin-bottom: 1rem;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
             text-align: center;
+        }
+
+        .description {
+            margin: 2rem 4rem;
+            text-align: center;
+            background-color: $c_lightgreen;
+            padding: 3px;
+            border-radius: .1rem;
+
+            .inner {
+                padding: 1rem;
+                border: 2px solid #ffffff;
+                border-radius: .1rem;
+            }
         }
 
         .showcase {
@@ -149,7 +206,6 @@ code {
 
             background-color: $gray;
             position: relative;
-            margin-top: 2rem;
             padding: .7rem $padx;
 
             .slidebar {
@@ -189,9 +245,16 @@ code {
                 .website {
                     position: relative;
                     max-width: 80%;
-                    width: 32rem;
                     flex-shrink: 0;
                     margin: 0 1rem;
+
+                    &.slide-from-right {
+                        animation: slide-from-right 1s;
+                    }
+
+                    &.slide-from-left {
+                        animation: slide-from-left 1s;
+                    }
 
                     .name {
                         font-family: 'Josefin Sans', sans-serif;
@@ -258,17 +321,6 @@ code {
                 background: linear-gradient(to left, $gray, rgba(255, 255, 255, 0));
             }
 
-        }
-
-        .wrapper {
-            $margin: 1rem;
-            position: absolute;
-            top: $margin;
-            left: $margin;
-            right: $margin;
-            bottom: $margin;
-            border: 2px solid #9ee2c3;
-            color: #346574;
         }
     }
 }
