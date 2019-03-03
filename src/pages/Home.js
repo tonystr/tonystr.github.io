@@ -68,6 +68,12 @@ export default function Home() {
 
     return (
         <>
+            <div className='page' id='frontpage'>
+                <div className='center'>
+                    <div className='title'> Tony Strømsnæs </div>
+                    <div className='notice'> Undergoing redesign </div>
+                </div>
+            </div>
             <div className='page' id='webdev'>
                 <div className='left'>
                     <div className='codeWrapper'>
@@ -87,12 +93,6 @@ export default function Home() {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className='page' id='frontpage'>
-                <div className='center'>
-                    <div className='title'> Tony Strømsnæs </div>
-                    <div className='notice'> Undergoing redesign </div>
                 </div>
             </div>
         </>
