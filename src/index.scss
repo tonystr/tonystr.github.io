@@ -3,6 +3,7 @@ $c_bg: #21252B;
 $c_txt: #fcfdfe;
 $c_green: #73C990;
 $c_lightgreen: #9ee2c3;
+$c_gray: #282C34;
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|ZCOOL+KuaiLe');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Varela');
@@ -31,7 +32,7 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    background-color: $c_bg;
+    background-color: $c_gray;
     color: $c_txt;
 }
 
@@ -82,8 +83,6 @@ code {
 }
 
 #webdev {
-
-    $c_gray: #282C34;
 
     background-color: $c_gray;
     display: flex;
