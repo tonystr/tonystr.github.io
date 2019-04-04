@@ -121,6 +121,7 @@ a {
             margin: 0 1rem;
             position: relative;
             border: $border solid $br;
+            border-radius: .2rem;
             border-bottom: none;
             transition: .1s border-color;
 
@@ -155,12 +156,13 @@ a {
                 transition: .1s border-color;
                 width: 100% * 0.709;
                 height: 3.2vw * 0.709;
-                bottom: -1.28vw;
+                bottom: -1.26vw;
                 left: 0.37vw;
                 transform: rotate(-45deg);
                 border-bottom: $border solid $br;
                 border-left: $border solid $br;
                 box-shadow: -2px 2px 2px rgba(0,0,0,.18);
+                border-radius: .1rem;
             }
 
             &:hover {
@@ -198,7 +200,7 @@ a {
         transform: rotate(-30deg);
         width: 141vw;
         height: 4vw;
-        left: -27vw;
+        left: -27.1vw;
 
         .line {
             margin: 4vw * (1 / 5);
@@ -252,6 +254,8 @@ a {
 #webdev {
     display: flex;
     $gray: #56576a;
+
+    $dkgray: darken($gray, 6%);
 
     .left {
         width: 28%;
@@ -334,8 +338,8 @@ a {
             $margin: 1rem;
             margin: $margin;
             min-height: calc(100% - #{$margin * 2});
-            border: 2px solid $c_lightgreen;
-            color: $c_lightgreen;
+            border: 2px solid $dkgray;
+            color: desaturate(darken($c_lightgreen, 14%), 8%);
             max-width: 100%;
             display: flex;
             flex-direction: column;
@@ -344,8 +348,8 @@ a {
 
         .title {
             font-family: 'Josefin Sans', sans-serif;
-            font-size: 2.4rem;
-            margin-top: 3rem;
+            font-size: 3rem;
+            margin-top: 2.6rem;
             margin-bottom: 2rem;
             text-align: center;
         }
@@ -354,15 +358,14 @@ a {
             margin: 2rem auto;
             max-width: 42rem;
             text-align: center;
-            background-color: $c_lightgreen;
-            color: #346574;
+            background-color: $dkgray;
             font-size: 1.1rem;
             padding: 3px;
             border-radius: .1rem;
 
             .inner {
                 padding: 1rem;
-                border: 2px solid #ffffff;
+                border: 2px solid $gray;
                 border-radius: .1rem;
             }
         }
@@ -418,7 +421,7 @@ a {
                         transition: .2s all;
                         display: relative;
                         border-radius: 4px;
-                        box-shadow: 0 1px 3px rgba(0,0,0,.2);
+                        box-shadow: 0 1px 3px rgba(0,0,0,.4);
 
                         &::before {
                             content: '';

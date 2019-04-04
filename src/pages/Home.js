@@ -6,68 +6,6 @@ console.log(websites);
 
 export default function Home() {
 
-    const [codePreview, setCodePreview] = useState('loading...');
-    const [slideBar, setSlideBar] = useState({
-        buttonIndex: 2,
-        slideFrom: null
-    });
-
-    useEffect(() => {
-        requestRawText(process.env.PUBLIC_URL + 'code.txt', res => {
-            setCodePreview(`${res}\n${res}`);
-        });
-        Prism.highlightAll();
-    });
-
-    const clickSlideButton = i => {
-        const index = Number(i);
-        if (index === slideBar.buttonIndex) return;
-        console.log({
-            buttonIndex: index,
-            slideFrom: index > slideBar.buttonIndex ? 'right' : 'left'
-        });
-        setSlideBar({
-            buttonIndex: index,
-            slideFrom: index > slideBar.buttonIndex ? 'right' : 'left'
-        });
-    }
-
-    const renderWebsites = () => {
-        const list = [];
-
-        for (let i = 0; i < websites.length; i++) {
-            const index = (i - 2 + slideBar.buttonIndex) % websites.length;
-            const site = websites[index];
-            list.push(
-                <div className={'website ' + (slideBar.slideFrom ? 'slide-from-' + slideBar.slideFrom : '')} key={index}>
-                    <a target='_blank' href={site.url}>
-                        <div className='name'>{site.name}</div>
-                        <img alt={'image: ' + site.name} src={site.image} />
-                        <div className='role'>{site.role}</div>
-                    </a>
-                </div>
-            );
-        }
-
-        return list;
-    }
-
-    const renderSlideButtons = () => {
-        const list = [];
-
-        for (let i = 0; i < websites.length; i++) {
-            list.push(
-                <div
-                    className={'button' + (i === slideBar.buttonIndex ? ' selected' : '')}
-                    onClick={() => clickSlideButton(i)}
-                    key={i}
-                />
-            );
-        }
-
-        return <div className='slidebar'>{list}</div>;
-    }
-
     const renderLines = (num = 5) => {
         const list = [];
         for (let i = 0; i < num; i++) {
@@ -91,32 +29,73 @@ export default function Home() {
                     <li className='l0'><i className="fas fa-id-card" /></li>
                     <li className='l1'><i className="fas fa-lightbulb" /></li>
                     <li className='l2'><i className="fas fa-code" /></li>
+                    <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank'>
+                        <li className='l3'><i className="far fa-envelope" /></li>
+                    </a>
+                    <a href='https://twitter.com/TonyStr_' target='_blank'>
+                        <li className='l4'><i className="fab fa-twitter" /></li>
+                    </a>
                 </ul>
             </div>
             {/* About section goes here */}
-            <div className='page' id='webdev'>
-                <div className='left'>
-                    <div className='codeWrapper'>
-                        {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
-                    </div>
+            <Page />
+        </>
+    );
+}
+
+function Page() {
+
+    const [codePreview, setCodePreview] = useState('loading...');
+
+    useEffect(() => {
+        requestRawText(process.env.PUBLIC_URL + 'code.txt', res => {
+            setCodePreview(`${res}\n${res}`);
+            Prism.highlightAll();
+        });
+    }, []);
+
+    const renderWebsites = () => {
+        const list = [];
+
+        for (let i = 0; i < websites.length; i++) {
+            const site = websites[i];
+            list.push(
+                <div className='website' key={i}>
+                    <a target='_blank' href={site.url}>
+                        <div className='name'>{site.name}</div>
+                        <img alt={'image: ' + site.name} src={site.image} />
+                        <div className='role'>{site.role}</div>
+                    </a>
                 </div>
-                <div className='right'>
-                    <div className='wrapper'>
-                        <div className='title'> Web development </div>
-                        <div className='showcase'>
-                            <div className='gridview'>
-                                {renderWebsites()}
-                            </div>
+            );
+        }
+
+        return list;
+    }
+
+    return (
+        <div className='page' id='webdev'>
+            <div className='left'>
+                <div className='codeWrapper'>
+                    {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
+                </div>
+            </div>
+            <div className='right'>
+                <div className='wrapper'>
+                    <div className='title'> Web development </div>
+                    <div className='showcase'>
+                        <div className='gridview'>
+                            {renderWebsites()}
                         </div>
-                        <div className='description'>
-                            <div className='inner'>
-                                I mostly use React.js and SCSS for front-end webdevelopment, however I intend to pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
-                            </div>
+                    </div>
+                    <div className='description'>
+                        <div className='inner'>
+                            I mostly use React.js and SCSS for front-end webdevelopment, however I intend to pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
                         </div>
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 
