@@ -19,8 +19,13 @@
     "role": "Webdesign",
     "image": "/images/juju_adams.png"
 },{
-    "name": "The Story Goes On official website",
+    "name": "The Story Goes On",
     "url": "http://tsgogame.com",
     "role": "Mobile support & other resolutions",
     "image": "/images/tsgowebsite.jpg"
+},{
+    "name": "TonyStr.net",
+    "url": "https://TonyStr.net",
+    "role": "Webdesign & programming",
+    "image": "/images/tonystrnet.png"
 }]

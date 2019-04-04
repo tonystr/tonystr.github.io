@@ -53,6 +53,15 @@ code {
         monospace;
 }
 
+a {
+    text-decoration: none;
+    color: $c_gold;
+
+    &:hover {
+        color: $c_green;
+    }
+}
+
 .page:not(#frontpage) {
     min-height: 100vh;
     width: 100%;
@@ -241,9 +250,8 @@ code {
 }
 
 #webdev {
-
-    background-color: $c_gray;
     display: flex;
+    $gray: #56576a;
 
     .left {
         width: 28%;
@@ -314,7 +322,7 @@ code {
 
     .right {
         flex-shrink: 10;
-        background-color: #ffffff;
+        background-color: $gray;
         margin: 1rem;
         margin-left: 0;
         box-shadow: 0 1px 6px #000000;
@@ -327,7 +335,7 @@ code {
             margin: $margin;
             min-height: calc(100% - #{$margin * 2});
             border: 2px solid $c_lightgreen;
-            color: #346574;
+            color: $c_lightgreen;
             max-width: 100%;
             display: flex;
             flex-direction: column;
@@ -347,6 +355,8 @@ code {
             max-width: 42rem;
             text-align: center;
             background-color: $c_lightgreen;
+            color: #346574;
+            font-size: 1.1rem;
             padding: 3px;
             border-radius: .1rem;
 
@@ -358,11 +368,9 @@ code {
         }
 
         .showcase {
-
-            $gray: #e6e7ea;
             $padx: .3rem;
 
-            background-color: $gray;
+            background-color: darken($gray, 6%);
             position: relative;
             padding: .7rem $padx;
 
@@ -394,24 +402,33 @@ code {
                 }
             }
 
-            .slideshow {
+            .gridview {
                 display: flex;
-                overflow-x: hidden;
-                flex-direction: row;
-                justify-content: center;
+                flex-wrap: wrap;
+                margin: 0 1rem;
+                position: relative;
 
                 .website {
+                    width: 30%;
+                    margin: 1.5%;
                     position: relative;
-                    max-width: 80%;
-                    flex-shrink: 0;
-                    margin: 0 1rem;
 
-                    &.slide-from-right {
-                        animation: slide-from-right 1s;
-                    }
+                    img {
+                        width: 100%;
+                        transition: .2s all;
+                        display: relative;
+                        border-radius: 4px;
+                        box-shadow: 0 1px 3px rgba(0,0,0,.2);
 
-                    &.slide-from-left {
-                        animation: slide-from-left 1s;
+                        &::before {
+                            content: '';
+                            position: absolute;
+                            background-color: $c_gray;
+                            left: 0;
+                            top: 0;
+                            right: 0;
+                            bottom: 0;
+                        }
                     }
 
                     .name {
@@ -432,25 +449,11 @@ code {
                         transition: .2s all;
                     }
 
-                    img {
-                        width: 100%;
-                        transition: .2s all;
-                        display: relative;
-
-                        &::before {
-                            content: '';
-                            position: absolute;
-                            background-color: $c_gray;
-                            left: 0;
-                            top: 0;
-                            right: 0;
-                            bottom: 0;
-                        }
-                    }
-
                     &:hover {
+                        cursor: pointer;
                         img {
                             filter: brightness(60%) saturate(30%);
+                            box-shadow: 0 0 0px 3px #ddccff;
                         }
 
                         .role {
@@ -460,24 +463,24 @@ code {
                 }
             }
 
-            &::before, &::after {
-                content: '';
-                position: absolute;
-                top: 0;
-                bottom:0;
-                width: .7rem;
-                z-index: 3;
-            }
-
-            &::before {
-                left: $padx;
-                background: linear-gradient(to right, $gray, rgba(255, 255, 255, 0));
-            }
-
-            &::after {
-                right: $padx;
-                background: linear-gradient(to left, $gray, rgba(255, 255, 255, 0));
-            }
+            // &::before, &::after {
+            //     content: '';
+            //     position: absolute;
+            //     top: 0;
+            //     bottom:0;
+            //     width: .7rem;
+            //     z-index: 3;
+            // }
+            //
+            // &::before {
+            //     left: $padx;
+            //     background: linear-gradient(to right, $gray, rgba(255, 255, 255, 0));
+            // }
+            //
+            // &::after {
+            //     right: $padx;
+            //     background: linear-gradient(to left, $gray, rgba(255, 255, 255, 0));
+            // }
 
         }
     }

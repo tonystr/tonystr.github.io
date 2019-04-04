@@ -35,14 +35,16 @@ export default function Home() {
     const renderWebsites = () => {
         const list = [];
 
-        for (let i = 0; i < 5; i++) {
-            const index = (i + 3 + slideBar.buttonIndex) % 5;
+        for (let i = 0; i < websites.length; i++) {
+            const index = (i - 2 + slideBar.buttonIndex) % websites.length;
             const site = websites[index];
             list.push(
                 <div className={'website ' + (slideBar.slideFrom ? 'slide-from-' + slideBar.slideFrom : '')} key={index}>
-                    <div className='name'>{site.name}</div>
-                    <img alt={'image: ' + site.name} src={site.image} />
-                    <div className='role'>{site.role}</div>
+                    <a target='_blank' href={site.url}>
+                        <div className='name'>{site.name}</div>
+                        <img alt={'image: ' + site.name} src={site.image} />
+                        <div className='role'>{site.role}</div>
+                    </a>
                 </div>
             );
         }
@@ -100,10 +102,11 @@ export default function Home() {
                 </div>
                 <div className='right'>
                     <div className='wrapper'>
-                        <div className='title'> Webdesign </div>
+                        <div className='title'> Web development </div>
                         <div className='showcase'>
-                            <div className='slideshow '>{renderWebsites()}</div>
-                            {renderSlideButtons()}
+                            <div className='gridview'>
+                                {renderWebsites()}
+                            </div>
                         </div>
                         <div className='description'>
                             <div className='inner'>
