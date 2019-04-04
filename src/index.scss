@@ -116,10 +116,10 @@ code {
             transition: .1s border-color;
 
             i {
-                font-size: 1.5rem;
+                font-size: 1.6vw;
                 width: 100%;
                 text-align: center;
-                margin-top: 1.5rem;
+                margin-top: 2vw;
             }
 
             // &.l0 { color: $c_gold; }
@@ -337,13 +337,14 @@ code {
         .title {
             font-family: 'Josefin Sans', sans-serif;
             font-size: 2.4rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
             margin-bottom: 2rem;
             text-align: center;
         }
 
         .description {
-            margin: 2rem 4rem;
+            margin: 2rem auto;
+            max-width: 42rem;
             text-align: center;
             background-color: $c_lightgreen;
             padding: 3px;

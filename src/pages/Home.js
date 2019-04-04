@@ -107,7 +107,7 @@ export default function Home() {
                         </div>
                         <div className='description'>
                             <div className='inner'>
-                                I mostly use React.js with TypeScript and SCSS for front-end webdevelopment, however I intend to also pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
+                                I mostly use React.js and SCSS for front-end webdevelopment, however I intend to pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
                             </div>
                         </div>
                     </div>
