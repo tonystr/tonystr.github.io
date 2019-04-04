@@ -5,7 +5,27 @@ import Prism from './../prism.js';
 console.log(websites);
 
 export default function Home() {
+    return (
+        <>
+            <FrontPage />
+            <AboutSection />
+            <WebDevPage />
+        </>
+    );
+}
 
+function AboutSection() {
+    return (
+        <section className='about'>
+            <div id='title'> About </div>
+            <div className='description'>
+                I am a Norwegian game and web developer
+            </div>
+        </section>
+    );
+}
+
+function FrontPage() {
     const renderLines = (num = 5) => {
         const list = [];
         for (let i = 0; i < num; i++) {
@@ -15,35 +35,31 @@ export default function Home() {
     }
 
     return (
-        <>
-            <div className='page' id='frontpage'>
-                {renderLines()}
-                <div className='center'>
-                    <div className='title'> Tony Strømsnæs </div>
-                </div>
-                <ul className='attributes'>
-                    <li>GameDev</li>
-                    <li>WebDev</li>
-                </ul>
-                <ul className='ribbons'>
-                    <li className='l0'><i className="fas fa-id-card" /></li>
-                    <li className='l1'><i className="fas fa-lightbulb" /></li>
-                    <li className='l2'><i className="fas fa-code" /></li>
-                    <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank'>
-                        <li className='l3'><i className="far fa-envelope" /></li>
-                    </a>
-                    <a href='https://twitter.com/TonyStr_' target='_blank'>
-                        <li className='l4'><i className="fab fa-twitter" /></li>
-                    </a>
-                </ul>
+        <section className='page' id='frontpage'>
+            {renderLines()}
+            <div className='center'>
+                <div className='title'> Tony Strømsnæs </div>
             </div>
-            {/* About section goes here */}
-            <Page />
-        </>
+            <ul className='attributes'>
+                <li>GameDev</li>
+                <li>WebDev</li>
+            </ul>
+            <ul className='ribbons'>
+                <li className='l0'><i className="fas fa-id-card" /></li>
+                <li className='l1'><i className="fas fa-lightbulb" /></li>
+                <li className='l2'><i className="fas fa-code" /></li>
+                <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank'>
+                    <li className='l3'><i className="far fa-envelope" /></li>
+                </a>
+                <a href='https://twitter.com/TonyStr_' target='_blank'>
+                    <li className='l4'><i className="fab fa-twitter" /></li>
+                </a>
+            </ul>
+        </section>
     );
 }
 
-function Page() {
+function WebDevPage() {
 
     const [codePreview, setCodePreview] = useState('loading...');
 
@@ -74,7 +90,7 @@ function Page() {
     }
 
     return (
-        <div className='page' id='webdev'>
+        <section className='page' id='webdev'>
             <div className='left'>
                 <div className='codeWrapper'>
                     {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
@@ -95,7 +111,7 @@ function Page() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
