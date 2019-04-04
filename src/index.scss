@@ -1,9 +1,19 @@
 
 $c_bg: #21252B;
 $c_txt: #fcfdfe;
-$c_green: #73C990;
+$c_green: #55ed85;
 $c_lightgreen: #9ee2c3;
-$c_gray: #282C34;
+$c_gray: #282a36;
+$c_gold: #ddc239;
+$c_red: #ea277c;
+$c_orange: #ef941c;
+$c_blue: #4c6aef;
+$c_purple: #b333dd;
+$c_atombg: #282C34;
+$c_dark: #181c21;
+$rainbow: ($c_gold, $c_orange, $c_red, $c_purple, $c_blue);
+
+//background-color: $c_atombg;
 
 @import url('https://fonts.googleapis.com/css?family=Josefin+Sans|ZCOOL+KuaiLe');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro|Varela');
@@ -18,9 +28,11 @@ $c_gray: #282C34;
         transform: translateY(0);
     }
     100% {
-        transform: translateY(-70%);
+        transform: translateY(-50%);
     }
 }
+
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400');
 
 body {
     margin: 0;
@@ -41,7 +53,7 @@ code {
         monospace;
 }
 
-.page {
+.page:not(#frontpage) {
     min-height: 100vh;
     width: 100%;
 }
@@ -50,6 +62,147 @@ code {
     display: flex;
     justify-content: center;
     flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    min-height: 92vh;
+    width: 92%;
+    margin: 4vh 4%;
+    font-family: 'Josefin Sans', sans-serif;
+
+    $border: .24vw;
+
+    &::before {
+        position: absolute;
+        content: '';
+        right: 0;
+        bottom: 0;
+        left: 0;
+        top: 0;
+        border: $border solid $c_dark;
+    }
+
+    .attributes, .ribbons {
+        list-style: none;
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        padding: 0;
+        font-size: 1.2rem;
+
+        @media(min-width:1400px) {
+            font-size: 1.5rem;
+        }
+    }
+
+    .ribbons {
+        top: $border;
+        left: $border;
+        margin: 0;
+        padding: 0;
+        margin-left: 3vw;
+        margin-top: -$border;
+        $bg: transparent;
+
+        li {
+            $br: $c_dark;
+
+            background-color: $bg;
+            width: 3.2vw;
+            height: 5vw;
+            margin: 0 1rem;
+            position: relative;
+            border: $border solid $br;
+            border-bottom: none;
+            transition: .1s border-color;
+
+            i {
+                font-size: 1.5rem;
+                width: 100%;
+                text-align: center;
+                margin-top: 1.5rem;
+            }
+
+            // &.l0 { color: $c_gold; }
+            // &.l1 { color: $c_orange; }
+            // &.l2 { color: $c_red; }
+
+            @for $i from 0 through 4 {
+                &.l#{$i} {
+                    $c: nth($rainbow, $i + 1);
+                    color: $c;
+                    &:hover {
+                        border-color: $c;
+                        &::after {
+                            border-color: $c;
+                        }
+                    }
+                }
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                background-color: $bg;
+                transition: .1s border-color;
+                width: 100% * 0.709;
+                height: 3.2vw * 0.709;
+                bottom: -1.28vw;
+                left: 0.37vw;
+                transform: rotate(-45deg);
+                border-bottom: $border solid $br;
+                border-left: $border solid $br;
+                box-shadow: -2px 2px 2px rgba(0,0,0,.18);
+            }
+
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .attributes {
+        bottom: 0;
+        right: $border;
+        bottom: $border;
+        margin: .9rem;
+
+        li {
+            margin: 0 .5rem;
+            color: $c_gold;
+
+            &::before {
+                content: '#';
+                color: $c_orange;
+                margin-right: 2px;
+            }
+
+            &:hover {
+                color: $c_green;
+                text-shadow: 0 0 4px $c_blue;
+                cursor: pointer;
+            }
+        }
+    }
+
+    .lines {
+        position: absolute;
+        transform: rotate(-30deg);
+        width: 141vw;
+        height: 4vw;
+        left: -27vw;
+
+        .line {
+            margin: 4vw * (1 / 5);
+            width: 141%;
+            border-top: .3vw solid;
+        }
+
+        .l0 { border-color: $c_gold; }
+        .l1 { border-color: $c_orange; }
+        .l2 { border-color: $c_red; }
+        .l3 { border-color: $c_purple; }
+        .l4 { border-color: $c_blue; }
+    }
 
     .center {
         text-align: center;
@@ -58,9 +211,14 @@ code {
 
     .title {
         color: $c_green;
-        font-family: 'ZCOOL KuaiLe', cursive;
-        font-size: 3rem;
-        padding-bottom: .8rem;
+        background-color: $c_gray;
+        // red: #e54966
+        //font-family: 'ZCOOL KuaiLe', cursive;
+        font-weight: 300;
+        font-size: 5rem;
+        margin-bottom: .8rem;
+        padding: 2.4vw;
+        position: relative;
     }
 }
 
@@ -135,7 +293,7 @@ code {
 
         pre {
             padding-top: 0;
-            animation: roll-vertical 40s linear infinite;
+            animation: roll-vertical 80s linear infinite;
             overflow-x: hidden;
 
             &::after {

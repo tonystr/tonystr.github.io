@@ -14,7 +14,7 @@ export default function Home() {
 
     useEffect(() => {
         requestRawText(process.env.PUBLIC_URL + 'code.txt', res => {
-            setCodePreview(res);
+            setCodePreview(`${res}\n${res}`);
         });
         Prism.highlightAll();
     });
@@ -66,14 +66,32 @@ export default function Home() {
         return <div className='slidebar'>{list}</div>;
     }
 
+    const renderLines = (num = 5) => {
+        const list = [];
+        for (let i = 0; i < num; i++) {
+            list.push(<div className={'line l' + i} />);
+        }
+        return <div className='lines'>{list}</div>;
+    }
+
     return (
         <>
             <div className='page' id='frontpage'>
+                {renderLines()}
                 <div className='center'>
                     <div className='title'> Tony Strømsnæs </div>
-                    <div className='notice'> Undergoing redesign </div>
                 </div>
+                <ul className='attributes'>
+                    <li>GameDev</li>
+                    <li>WebDev</li>
+                </ul>
+                <ul className='ribbons'>
+                    <li className='l0'><i className="fas fa-id-card" /></li>
+                    <li className='l1'><i className="fas fa-lightbulb" /></li>
+                    <li className='l2'><i className="fas fa-code" /></li>
+                </ul>
             </div>
+            {/* About section goes here */}
             <div className='page' id='webdev'>
                 <div className='left'>
                     <div className='codeWrapper'>
