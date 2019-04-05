@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import websites from '../data/websites';
 import Prism from './../prism.js';
 
-console.log(websites);
+export default function Home(props) {
 
-export default function Home() {
+    const URLParams = new URLSearchParams(props.location.search);
+
+    if (URLParams.has('p')) {
+
+    }
+
     return (
         <>
             <FrontPage />
@@ -14,21 +19,36 @@ export default function Home() {
     );
 }
 
+function A(props) {
+    return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
+}
+
+function SectionTitle(props) {
+    return (
+        <div {...props} className={'section-title ' + (props.className || '')}>
+            <div />
+            <span>{props.content} {props.children}</span>
+            <div />
+        </div>
+    );
+}
+
 function AboutSection() {
     return (
         <section id='about'>
-            <div className='title'>
-                <div />
-                <span>About</span>
-                <div />
-            </div>
+            <SectionTitle content='About' />
             <div className='description'>
+                <div className='background' />
                 <p>
                     I am a Norwegian 2d game and web developer, working primarily with GML and JavaScript.
                 </p><p>
                     As well as developing games, I enjoy building libraries, IDE skins and other resources to aid other developers.
                 </p><p>
-                    I have contributed to community projects such as a Podcast, Github organization, text bot, shader tutorial website and more.
+                    I have contributed to community projects such as
+                    a <A href='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
+                    , <A href='https://github.com/GameMakerDiscord' target='_blank' rel='noopener noreferrer'>Github organization</A>
+                    , <A href='https://github.com/christopherwk210/gm-bot' target='_blank' rel='noopener noreferrer'>internet bot</A>
+                    , <A href='https://GMShaders.com/' target='_blank' rel='noopener noreferrer'>shader guide</A> and more.
                 </p>
             </div>
         </section>
@@ -51,8 +71,8 @@ function FrontPage() {
                 <div className='title'> Tony Strømsnæs </div>
             </div>
             <ul className='attributes'>
-                <li>GameDev</li>
-                <li>WebDev</li>
+                <A><li>GameDev</li></A>
+                <A><li>WebDev</li></A>
             </ul>
             <ul className='ribbons'>
                 <li className='l0'><i className="fas fa-id-card" /></li>
@@ -108,7 +128,7 @@ function WebDevPage() {
             </div>
             <div className='right'>
                 <div className='wrapper'>
-                    <div className='title'> Web development </div>
+                    <SectionTitle className='title' content='Web development' />
                     <div className='showcase'>
                         <div className='gridview'>
                             {renderWebsites()}

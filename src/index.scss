@@ -1,7 +1,6 @@
 
 $c_bg: #21252B;
-$c_txt: #fcfdfe;
-$c_green: #55ed85;
+$c_green: #6fcaa0;
 $c_lightgreen: #9ee2c3;
 $c_gray: #282a36;
 $c_gold: #ddc239;
@@ -10,7 +9,8 @@ $c_orange: #ef941c;
 $c_blue: #4c6aef;
 $c_purple: #b333dd;
 $c_dark: #181c21;
-$c_pastelgreen: desaturate(darken($c_lightgreen, 14%), 8%);
+$c_txt: darken(#d9dae1, 5%);
+$c_ltgray: #56576a;
 $rainbow: ($c_gold, $c_orange, $c_red, $c_purple, $c_blue);
 
 //background-color: $c_atombg;
@@ -23,12 +23,41 @@ $rainbow: ($c_gold, $c_orange, $c_red, $c_purple, $c_blue);
   background-color: rgba(red($color), green($color), blue($color), $alpha);
 }
 
+@mixin absolute-fill($marg) {
+    top: $marg;
+    left: $marg;
+    right: $marg;
+    bottom: $marg;
+}
+
 @keyframes roll-vertical {
     0% {
         transform: translateY(0);
     }
     100% {
         transform: translateY(-50%);
+    }
+}
+
+@keyframes xpand-out {
+    0% {
+        left: 50%;
+        right: 50%;
+    }
+    100% {
+        left: 0%;
+        right: 0%;
+    }
+}
+
+@keyframes xpand-in {
+    100% {
+        left: 50%;
+        right: 50%;
+    }
+    0% {
+        left: 0%;
+        right: 0%;
     }
 }
 
@@ -57,6 +86,34 @@ a {
     text-decoration: none;
     color: $c_gold;
 
+    &.link {
+        position: relative;
+        transition: color .2s;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            right: 50%;
+            border-bottom: 2px solid transparent;
+            animation: xpand-in .16s ease-in;;
+            border-color: $c_green;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            &::after {
+                left: 0;
+                right: 0;
+                bottom: -2px;
+                animation: xpand-out .16s;
+                transition: border-color 0s;
+            }
+        }
+    }
+
     &:hover {
         color: $c_green;
     }
@@ -68,6 +125,32 @@ a {
 }
 
 $xmarg: 4%;
+
+.section-title {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    position: relative;
+    text-align: center;
+    display: flex;
+    color: $c_green;
+    font-family: 'Josefin Sans', sans-serif;
+
+    > div {
+        width: 50%;
+        flex-shrink: 1000;
+        //border-top: 3px solid $c_green;
+        margin-top: 0.453 * 2.4rem;
+        height: 3px;
+        background-color: $c_green;
+        border-radius: 2px;
+    }
+
+    span {
+        font-size: 2.4rem;
+        flex-shrink: 0;
+        padding: 0 1rem;
+    }
+}
 
 #frontpage {
     display: flex;
@@ -177,22 +260,20 @@ $xmarg: 4%;
         bottom: 0;
         right: $border;
         bottom: $border;
-        margin: .9rem;
+        margin: 1rem .84rem;
 
         li {
             margin: 0 .5rem;
-            color: $c_gold;
 
             &::before {
                 content: '#';
                 color: $c_orange;
-                margin-right: 2px;
+                padding-right: 4px;
+                transition: color .2s;
             }
 
-            &:hover {
+            &:hover::before {
                 color: $c_green;
-                text-shadow: 0 0 4px $c_blue;
-                cursor: pointer;
             }
         }
     }
@@ -236,40 +317,52 @@ $xmarg: 4%;
 }
 
 #about {
-    padding: 1rem $xmarg;
+    padding: 0 $xmarg;
     margin-bottom: 4rem;
 
-    .title {
-        position: relative;
-        text-align: center;
-        display: flex;
-        color: $c_pastelgreen;
-
-        > div {
-            width: 50%;
-            flex-shrink: 1000;
-            border-top: 3px solid $c_pastelgreen;
-            margin-top: 0.65 * 2.4rem;
-            height: 2px;
-        }
-
-        span {
-            font-size: 2.4rem;
-            flex-shrink: 0;
-            padding: 0 1rem;
-        }
-    }
-
     .description {
-        font-size: 1.1rem;
-        max-width: 42rem;
+        overflow: hidden;
+        font-size: 1.2rem;
+        padding: 0 19%;
+        max-width: 52rem;
+        margin: 0 auto;
+        text-align: justify;
+        position: relative;
+        color: $c_txt;
+        filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .5));
 
+        .background {
+            position: absolute;
+            @include absolute-fill(14%);
+            top: -90%;
+            bottom: -90%;
+            background-color: $c_dark;
+            z-index: -2;
+
+            transform: rotate(12deg);
+            border: 4px solid $c_red;
+
+            &::before, &::after {
+                content: '';
+                position: absolute;
+                @include absolute-fill(-15px);
+                border: 6px solid $c_orange;
+                border-right-color: $c_purple;
+                z-index: -3;
+            }
+
+            &::after {
+                @include absolute-fill(-28px);
+                border: 8px solid $c_gold;
+                border-right-color: $c_blue;
+            }
+        }
     }
 }
 
 #webdev {
     display: flex;
-    $gray: #56576a;
+    $gray: $c_ltgray;
 
     $dkgray: darken($gray, 6%);
 
@@ -356,7 +449,6 @@ $xmarg: 4%;
             margin: $margin;
             min-height: calc(100% - #{$margin * 2});
             border: 2px solid $dkgray;
-            color: $c_pastelgreen;
             max-width: 100%;
             display: flex;
             flex-direction: column;
@@ -364,21 +456,20 @@ $xmarg: 4%;
         }
 
         .title {
-            font-family: 'Josefin Sans', sans-serif;
-            font-size: 3rem;
-            margin-top: 2.6rem;
-            margin-bottom: 2rem;
-            text-align: center;
+            padding: 0;
+            padding-top: 2rem;
+            margin: 0 2rem;
         }
 
         .description {
-            margin: 2rem auto;
+            margin: 0 auto;
             max-width: 42rem;
             text-align: center;
             background-color: $dkgray;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             padding: 3px;
             border-radius: .1rem;
+            border: 1rem solid $c_ltgray;
 
             .inner {
                 padding: 1rem;
@@ -392,7 +483,7 @@ $xmarg: 4%;
 
             background-color: darken($gray, 6%);
             position: relative;
-            padding: .7rem $padx;
+            padding: 3px 0;
 
             .slidebar {
                 margin-top: .3rem;
@@ -425,8 +516,11 @@ $xmarg: 4%;
             .gridview {
                 display: flex;
                 flex-wrap: wrap;
-                margin: 0 1rem;
+                padding: 0 1rem;
                 position: relative;
+
+                border-top: 2px solid $c_ltgray;
+                border-bottom: 2px solid $c_ltgray;
 
                 .website {
                     width: 30%;
