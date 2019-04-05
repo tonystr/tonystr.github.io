@@ -8,9 +8,45 @@ export default function Home() {
     return (
         <>
             <FrontPage />
-            {/* About section goes here */}
+            <AboutSection />
             <WebDevPage />
         </>
+    );
+}
+
+function A(props) {
+    return <a className='link' {...props} >{props.children}</a>;
+}
+
+function SectionTitle(props) {
+    return (
+        <div className='section-title'>
+            <div />
+            <span>{props.content}</span>
+            <div />
+        </div>
+    );
+}
+
+function AboutSection() {
+    return (
+        <section id='about'>
+            <SectionTitle content='About' />
+            <div className='description'>
+                <div className='background' />
+                <p>
+                    I am a Norwegian 2d game and web developer, working primarily with GML and JavaScript.
+                </p><p>
+                    As well as developing games, I enjoy building libraries, IDE skins and other resources to aid other developers.
+                </p><p>
+                    I have contributed to community projects such as
+                    a <A href='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
+                    , <A href='https://github.com/GameMakerDiscord' target='_blank' rel='noopener noreferrer'>Github organization</A>
+                    , <A href='https://github.com/christopherwk210/gm-bot' target='_blank' rel='noopener noreferrer'>internet bot</A>
+                    , <A href='https://GMShaders.com/' target='_blank' rel='noopener noreferrer'>shader guide</A> and more.
+                </p>
+            </div>
+        </section>
     );
 }
 
@@ -24,7 +60,7 @@ function FrontPage() {
     }
 
     return (
-        <div className='page' id='frontpage'>
+        <section className='page' id='frontpage'>
             {renderLines()}
             <div className='center'>
                 <div className='title'> Tony Strømsnæs </div>
@@ -37,14 +73,14 @@ function FrontPage() {
                 <li className='l0'><i className="fas fa-id-card" /></li>
                 <li className='l1'><i className="fas fa-lightbulb" /></li>
                 <li className='l2'><i className="fas fa-code" /></li>
-                <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank'>
+                <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank' rel="noopener noreferrer">
                     <li className='l3'><i className="far fa-envelope" /></li>
                 </a>
-                <a href='https://twitter.com/TonyStr_' target='_blank'>
+                <a href='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
                     <li className='l4'><i className="fab fa-twitter" /></li>
                 </a>
             </ul>
-        </div>
+        </section>
     );
 }
 
@@ -66,7 +102,7 @@ function WebDevPage() {
             const site = websites[i];
             list.push(
                 <div className='website' key={i}>
-                    <a target='_blank' href={site.url}>
+                    <a target='_blank' href={site.url} rel="noopener noreferrer">
                         <div className='name'>{site.name}</div>
                         <img alt={'image: ' + site.name} src={site.image} />
                         <div className='role'>{site.role}</div>
@@ -79,7 +115,7 @@ function WebDevPage() {
     }
 
     return (
-        <div className='page' id='webdev'>
+        <section className='page' id='webdev'>
             <div className='left'>
                 <div className='codeWrapper'>
                     {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
@@ -100,7 +136,7 @@ function WebDevPage() {
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
     );
 }
 
