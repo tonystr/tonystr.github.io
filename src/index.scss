@@ -9,8 +9,8 @@ $c_red: #ea277c;
 $c_orange: #ef941c;
 $c_blue: #4c6aef;
 $c_purple: #b333dd;
-$c_atombg: #282C34;
 $c_dark: #181c21;
+$c_pastelgreen: desaturate(darken($c_lightgreen, 14%), 8%);
 $rainbow: ($c_gold, $c_orange, $c_red, $c_purple, $c_blue);
 
 //background-color: $c_atombg;
@@ -67,6 +67,8 @@ a {
     width: 100%;
 }
 
+$xmarg: 4%;
+
 #frontpage {
     display: flex;
     justify-content: center;
@@ -75,7 +77,7 @@ a {
     position: relative;
     min-height: 92vh;
     width: 92%;
-    margin: 4vh 4%;
+    margin: 4vh $xmarg;
     font-family: 'Josefin Sans', sans-serif;
 
     $border: .24vw;
@@ -233,21 +235,35 @@ a {
     }
 }
 
-@keyframes slide-from-right {
-    0% {
-        transform: translateX(100%);
-    }
-    100% {
-        transform: translateX(0%);
-    }
-}
+#about {
+    padding: 1rem $xmarg;
+    margin-bottom: 4rem;
 
-@keyframes slide-from-left {
-    0% {
-        transform: translateX(-100%);
+    .title {
+        position: relative;
+        text-align: center;
+        display: flex;
+        color: $c_pastelgreen;
+
+        > div {
+            width: 50%;
+            flex-shrink: 1000;
+            border-top: 3px solid $c_pastelgreen;
+            margin-top: 0.65 * 2.4rem;
+            height: 2px;
+        }
+
+        span {
+            font-size: 2.4rem;
+            flex-shrink: 0;
+            padding: 0 1rem;
+        }
     }
-    100% {
-        transform: translateX(0%);
+
+    .description {
+        font-size: 1.1rem;
+        max-width: 42rem;
+
     }
 }
 
@@ -261,6 +277,7 @@ a {
         width: 28%;
         flex-shrink: 0;
         margin: 1rem 0;
+        margin-left: $xmarg;
 
         position: relative;
         z-index: 2;
@@ -327,7 +344,7 @@ a {
     .right {
         flex-shrink: 10;
         background-color: $gray;
-        margin: 1rem;
+        margin: 1rem $xmarg;
         margin-left: 0;
         box-shadow: 0 1px 6px #000000;
         border-radius: .1rem;
@@ -339,7 +356,7 @@ a {
             margin: $margin;
             min-height: calc(100% - #{$margin * 2});
             border: 2px solid $dkgray;
-            color: desaturate(darken($c_lightgreen, 14%), 8%);
+            color: $c_pastelgreen;
             max-width: 100%;
             display: flex;
             flex-direction: column;

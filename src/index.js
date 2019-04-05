@@ -17,5 +17,5 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
-// Learn more about service workers: http://bit.ly/CRA-PWA
+// Read about service workers: http://bit.ly/CRA-PWA
 serviceWorker.unregister();
