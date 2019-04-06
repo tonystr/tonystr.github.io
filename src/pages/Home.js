@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import websites from '../data/websites';
 import Prism from './../prism.js';
+import { requestRawText } from './global.js';
 
 export default function Home(props) {
 
@@ -143,15 +144,4 @@ function WebDevPage() {
             </div>
         </section>
     );
-}
-
-async function requestRawText(path, callback) {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4 && xhttp.status === 200) {
-                callback(xhttp.responseText);
-            }
-        }
-        xhttp.open('GET', path, true);
-        xhttp.send();
 }
