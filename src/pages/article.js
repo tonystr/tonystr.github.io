@@ -1,15 +1,33 @@
 import React, { useState, useEffect } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
+import Prism from './../prism.js';
+import CodeBlock from './codeblock';
 import { requestRawText } from './global.js';
-import json from '../data/articles.json';
 
 export default function Article(props) {
 
-    const location = (window.location.pathname.match(/\/([^/]*)$/)[1] || '').toLowerCase();
-    const article = json.find(article => article.name.toLowerCase() === location);
+    const [markdown, setMarkdown] = useState(null);
 
-    return article ? (
-        <div> Found article "{article.name}", tags: {JSON.stringify(article)} </div>
-    ) : (
-        <div> Could not find any article by the name "{location}" </div>
+    useEffect(() => {
+        requestRawText( // protocol://hostname:port/articles/name.md
+            `${window.location.protocol}//` +
+            `${window.location.hostname}:` +
+            `${window.location.port}/articles/` +
+            `${props.article.name.toLowerCase()}.md`
+        , res => {
+            setMarkdown(res);
+        });
+    }, []);
+
+    return (
+        <>
+            <div> Found article "{props.article.name}", tags: {JSON.stringify(props.article.tags)} </div>
+            <ReactMarkdown
+                source={markdown}
+                renderers={{ code: CodeBlock, inlineCode: CodeBlock }}
+                className='rendered-markdown'
+            />
+        </>
     );
 }

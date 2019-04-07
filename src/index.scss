@@ -119,6 +119,31 @@ a {
     }
 }
 
+.rendered-markdown {
+    max-width: 62rem;
+    margin: 0 auto;
+    padding: 1rem;
+
+    .code {
+        background-color: #1a1b26 !important;
+        border-radius: 6px;
+
+        &.block {
+            box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+            padding: .5rem .7rem !important;
+            max-height:  32rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        &.inline {
+            display: inline !important;
+            padding: .2rem .3rem !important;
+            font-size: .9rem !important;
+        }
+    }
+}
+
 .page:not(#frontpage) {
     min-height: 100vh;
     width: 100%;

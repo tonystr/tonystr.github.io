@@ -5,14 +5,17 @@
   "homepage": "https://tonystr.net",
   "dependencies": {
     "highlight.js": "^9.15.6",
+    "markdown-it": "^8.4.2",
     "node-sass": "^4.11.0",
     "prismjs": "^1.15.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-fast-highlight": "^2.2.2",
+    "react-markdown": "^4.0.6",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.5"
+    "react-scripts": "2.1.5",
+    "react-syntax-highlighter": "^10.2.1"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",
