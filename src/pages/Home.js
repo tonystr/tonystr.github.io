@@ -4,13 +4,6 @@ import Prism from './../prism.js';
 import { requestRawText } from './global.js';
 
 export default function Home(props) {
-
-    const URLParams = new URLSearchParams(props.location.search);
-
-    if (URLParams.has('p')) {
-
-    }
-
     return (
         <>
             <FrontPage />

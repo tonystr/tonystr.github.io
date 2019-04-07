@@ -6,6 +6,7 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import Home from './pages/Home';
 import Article from './pages/article.js';
+import { Scrollbars } from 'react-custom-scrollbars';
 import json from './data/articles.json';
 
 function ValidateArticle(props) {
@@ -21,12 +22,14 @@ function ValidateArticle(props) {
 }
 
 ReactDOM.render(
-    <BrowserRouter>
-        <div>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/:article' component={ValidateArticle} />
-        </div>
-    </BrowserRouter>,
+    <Scrollbars style={{ height: '100vh' }}>
+        <BrowserRouter>
+            <div>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/:article' component={ValidateArticle} />
+            </div>
+        </BrowserRouter>
+    </Scrollbars>,
     document.getElementById('root')
 );
 
