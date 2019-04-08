@@ -183,6 +183,18 @@ $xmarg: 4%;
     }
 }
 
+#theme-dracula {
+    background-color: #21222C;
+    min-height: 100vh;
+
+    .window {
+        padding: 1rem;
+        padding-top: 4rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
 #frontpage {
     display: flex;
     justify-content: center;
