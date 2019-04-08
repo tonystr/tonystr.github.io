@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import ReactMarkdown from 'react-markdown';
-import { PrismAsyncLight as SyntaxHighlighter } from "react-syntax-highlighter";
-import Prism from './../prism.js';
 import CodeBlock from './codeblock';
 import { requestRawText } from './global.js';
 

@@ -78,8 +78,7 @@ body {
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-        monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 a {
@@ -127,13 +126,15 @@ a {
     .code {
         background-color: #1a1b22 !important;
         border-radius: 6px;
+        margin: 0;
 
         &.block {
             box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
-            padding: .5rem .7rem !important;
+            //padding: .5rem .7rem !important;
             max-height:  32rem;
             position: relative;
             z-index: 2;
+            margin: 1rem 0;
         }
 
         &.inline {

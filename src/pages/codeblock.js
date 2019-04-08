@@ -4,12 +4,28 @@ import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dar
 import { Scrollbars } from 'react-custom-scrollbars';
 
 export default function CodeBlock(props) {
-    return (
+    console.log(props.value);
+
+    const hl = (
         <SyntaxHighlighter
-            className={'code ' + (props.inline ? 'inline' : 'block')}
+            className={'code ' + (props.inline ? 'inline' : '')}
             language={props.language || null}
             style={styleOneDark}
-            children={props.value}
-        />
+        >
+            {props.value}
+        </SyntaxHighlighter>
+    );
+
+    return (
+        !props.inline ? (
+            <Scrollbars
+                autoHeight
+                autoHeightMin={46}
+                autoHeightMax={200}
+                className='code block'
+            >
+                {hl}
+            </Scrollbars>
+        ) : hl
     );
 }
