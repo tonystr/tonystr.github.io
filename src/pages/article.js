@@ -23,6 +23,7 @@ export default function Article(props) {
             <div> Found article "{props.article.name}", tags: {JSON.stringify(props.article.tags)} </div>
             <ParseMarkdown
                 source={markdown}
+                linkTarget='_blank'
                 renderers={{ code: CodeBlock, inlineCode: CodeBlock, link: A }}
                 className='rendered-markdown'
             />
