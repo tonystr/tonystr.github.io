@@ -16,12 +16,20 @@ export default function CodeBlock(props) {
         </SyntaxHighlighter>
     );
 
+    const renderThumb = props => {
+        return <div className='scroll-thumb' {...props} />;
+    }
+
     return (
         !props.inline ? (
             <Scrollbars
                 autoHeight
                 autoHeightMin={46}
-                autoHeightMax={200}
+                autoHeightMax={500}
+                autoWidth
+                autoWidthMax={100}
+                renderThumbHorizontal={renderThumb}
+                renderThumbVertical={renderThumb}
                 className='code block'
             >
                 {hl}

@@ -118,6 +118,11 @@ a {
     }
 }
 
+.scroll-thumb {
+    background-color: darken($c_gray, 1.2%);
+    border-radius: 8px;
+}
+
 .rendered-markdown {
     max-width: 62rem;
     margin: 0 auto;

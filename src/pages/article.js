@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ReactMarkdown from 'react-markdown';
+import ParseMarkdown from 'react-markdown';
 import CodeBlock from './codeblock';
-import { requestRawText } from './global.js';
+import { requestRawText, A } from './global.js';
 
 export default function Article(props) {
 
@@ -21,9 +21,9 @@ export default function Article(props) {
     return (
         <>
             <div> Found article "{props.article.name}", tags: {JSON.stringify(props.article.tags)} </div>
-            <ReactMarkdown
+            <ParseMarkdown
                 source={markdown}
-                renderers={{ code: CodeBlock, inlineCode: CodeBlock }}
+                renderers={{ code: CodeBlock, inlineCode: CodeBlock, link: A }}
                 className='rendered-markdown'
             />
         </>

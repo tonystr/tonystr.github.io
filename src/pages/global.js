@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 
 async function requestRawText(path, callback) {
         const xhttp = new XMLHttpRequest();
@@ -10,4 +11,8 @@ async function requestRawText(path, callback) {
         xhttp.send();
 }
 
-export { requestRawText };
+function A(props) {
+    return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
+}
+
+export { requestRawText, A };
