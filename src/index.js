@@ -5,7 +5,7 @@ import './prism.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import Home from './pages/home';
-import Article from './pages/article.js';
+import Article from './pages/article';
 import Dracula from './pages/dracula';
 import { Scrollbars } from 'react-custom-scrollbars';
 import json from './data/articles.json';

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ParseTart from './parse-tart';  // react-markdown
+import ParseTart from 'react-markdown/with-html';  // react-markdown
 import CodeBlock from './codeblock';
 import { requestRawText, A } from './global.js';
 
@@ -26,6 +26,7 @@ export default function Article(props) {
                 linkTarget='_blank'
                 renderers={{ code: CodeBlock, inlineCode: CodeBlock, link: A }}
                 className='rendered-markdown'
+                escapeHtml={false}
             />
         </>
     );

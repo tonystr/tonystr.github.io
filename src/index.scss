@@ -127,6 +127,22 @@ a {
     max-width: 62rem;
     margin: 0 auto;
     padding: 1rem;
+    font-size: 1.1rem;
+
+    h1     { color: #E06C75; }
+    strong { color: #D19A66; }
+    em     { color: #C678DD; }
+
+    video {
+        width: 100%;
+        box-shadow: 0 1px 11px rgba(0, 0, 0, .31);
+        margin: 1rem 0;
+    }
+
+    .video {
+        width: 68%;
+        margin: 0 auto;
+    }
 
     .code {
         background-color: #1a1b22 !important;

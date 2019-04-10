@@ -15,7 +15,7 @@ export default function ParseTart(props) {
     console.log(parsed);
 
     return (
-        <div className='parsed-markdown parsed-tart'>
+        <div {...props}>
             {parsed}
         </div>
     );
@@ -23,11 +23,12 @@ export default function ParseTart(props) {
 
 const tags = {
     'strong': /(?:^|[^\\])\*{2}(?<text>[\s\S]*?[^\\])\*{2}/i,
-    'em': /(?:^|[^\\])([\*_])(?<text>[\s\S]*?[^\\])\1/i
+    'em': /(?:^|[^\\])([\*_])(?<text>[\s\S]*?[^\\])\1/i,
+    'h1': /(?:^|[^\\])#(?<text>[\s\S]*?)[\n\r]/
 }
 
 function parseSource(source) {
-    let array = [source.slice()];
+    let array = source.split(/\n\r?/g);
 
     for (const tag in tags) {
         for (let i = 0; i < array.length; i++) {
