@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import ParseTart from 'react-markdown/with-html';  // react-markdown
+import Markdown from 'react-markdown/with-html';  // react-markdown
 import CodeBlock from './codeblock';
-import { requestRawText, A } from './global.js';
+import { requestRawText, A, SectionTitle } from './global.js';
 
 export default function Article(props) {
 
@@ -13,18 +13,28 @@ export default function Article(props) {
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
             `${props.article.name.toLowerCase()}.tart`
-        , res => {
-            setMarkdown(res);
-        });
+        , setMarkdown);
     }, []);
+
+    useEffect(() => {
+        document.querySelectorAll('.rendered-markdown .video video').forEach(video => {
+            video.addEventListener('mouseover', () => video.play());
+            video.addEventListener('mouseout', () => video.pause());
+        });
+    });
 
     return (
         <>
             <div> Found article "{props.article.name}", tags: {JSON.stringify(props.article.tags)} </div>
-            <ParseTart
+            <Markdown
                 source={markdown}
                 linkTarget='_blank'
-                renderers={{ code: CodeBlock, inlineCode: CodeBlock, link: A }}
+                renderers={{
+                    code: CodeBlock,
+                    inlineCode: CodeBlock,
+                    link: A ,
+                    heading: SectionTitle
+                }}
                 className='rendered-markdown'
                 escapeHtml={false}
             />

@@ -15,4 +15,14 @@ function A(props) {
     return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
 }
 
-export { requestRawText, A };
+function SectionTitle(props) {
+    return (
+        <div {...props} className={'section-title ' + (props.className || '')}>
+            <div />
+            <span>{props.content} {props.children}</span>
+            <div />
+        </div>
+    );
+}
+
+export { requestRawText, A, SectionTitle};

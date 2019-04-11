@@ -69,7 +69,6 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
         "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
         sans-serif;
-    font-family: 'Source Sans Pro', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
@@ -124,24 +123,64 @@ a {
 }
 
 .rendered-markdown {
-    max-width: 62rem;
+    max-width: 60rem;
     margin: 0 auto;
     padding: 1rem;
     font-size: 1.1rem;
 
-    h1     { color: #E06C75; }
-    strong { color: #D19A66; }
-    em     { color: #C678DD; }
-
-    video {
-        width: 100%;
-        box-shadow: 0 1px 11px rgba(0, 0, 0, .31);
-        margin: 1rem 0;
+    hr {
+        color: $c_dark;
     }
+
+    h1, h2, h3 {
+        color: $c_green;
+        font-family: serif;
+    }
+
+    strong {
+        color: #D19A66;
+        font-weight: bold;
+    }
+    em     { color: lighten($c_red, 14%); } // #C678DD
 
     .video {
         width: 68%;
-        margin: 0 auto;
+        margin: 2rem auto;
+        position: relative;
+        transform: scale(0.98);
+        transition: .14s all;
+
+        video {
+            width: 100%;
+            box-shadow: 0 1px 11px rgba(0, 0, 0, .31);
+            border-radius: 6px;
+            opacity: .8;
+            transition: .12s all;
+            cursor: zoom-in;
+        }
+
+        &::after {
+            content: 'GIF';
+            position: absolute;
+            top: 12px;
+            right: 14px;
+            background-color: rgba(0, 0, 0, .2);
+            padding: 1px 5px;
+            border-radius: 5px;;
+            transition: .12s all;
+        }
+
+        &:hover {
+            transform: scale(1);
+
+            &::after {
+                opacity: 0;
+            }
+
+            video {
+                opacity: 1;
+            }
+        }
     }
 
     .code {

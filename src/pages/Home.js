@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import websites from '../data/websites';
 import Prism from './../prism.js';
-import { requestRawText, A } from './global.js';
+import { requestRawText, A, SectionTitle } from './global.js';
 
 export default function Home(props) {
     return (
@@ -10,16 +10,6 @@ export default function Home(props) {
             <AboutSection />
             <WebDevPage />
         </>
-    );
-}
-
-function SectionTitle(props) {
-    return (
-        <div {...props} className={'section-title ' + (props.className || '')}>
-            <div />
-            <span>{props.content} {props.children}</span>
-            <div />
-        </div>
     );
 }
 
