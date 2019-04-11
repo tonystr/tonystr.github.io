@@ -9,4 +9,19 @@ But following these criteria, how would you actually draw a circle? In the physi
     <video loop>
         <source src="./articles/circle_demonstration.mp4" type="video/mp4">
     </video>
+    <em>Circle of rocks, circular pentagram and circular attacks</em>
 </section>
+
+Regular polygons, such as triangles, squares, pentagons, hexagons and so on, can all be defined by how many edges they have. Drawing one such shape is as simple as finding the edges *(vertices)* of the shape, and drawing lines between them. Just like that "connect the dots" game you played as a kid.
+
+Since they are regular shapes, all sides are equally long *(equilateral)*. If you keep increasing the amount of vertices, you'll get closer and closer to what looks like a circle, until you can't tell the difference anymore. It is in fact exactly this we'll use to draw circles.
+
+<section class="video">
+    <em>The more vertices an equilateral shape has, the closer it is to being a circle</em>
+</section>
+
+## Trigonometry
+
+---
+
+Though the *shape* of a circle can be defined as "infinitely many points equidistant from the center", we also need to know the **radius** (distance between center and circle), and ``x, y`` coordinates in order to draw one.
