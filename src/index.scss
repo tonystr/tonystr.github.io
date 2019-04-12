@@ -123,6 +123,23 @@ a {
     border-radius: 8px;
 }
 
+.blur {
+    filter: blur(2px);
+}
+
+.focus {
+    position: fixed;
+    z-index: 86;
+    @include absolute-fill(0);
+    background-color: rgba(0, 0, 0, .6);
+    display: flex;
+    justify-content: center;
+
+    video {
+        max-width: 80%;
+    }
+}
+
 .rendered-markdown {
     max-width: 60rem;
     margin: 0 auto;

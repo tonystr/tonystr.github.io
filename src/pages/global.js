@@ -25,4 +25,14 @@ function SectionTitle(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle};
+function Focus(props) {
+    return (
+        <div className='focus'>
+            {props.video && <video controls>
+                <source src={props.video} />
+            </video>}
+        </div>
+    );
+}
+
+export { requestRawText, A, SectionTitle, Focus};
