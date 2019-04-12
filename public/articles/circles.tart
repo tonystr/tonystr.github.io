@@ -22,6 +22,21 @@ Since they are regular shapes, all sides are equally long *(equilateral)*. If yo
 
 ## Trigonometry
 
+Points around a circle can be found with trigonometry. GML provides functions ``lengthdir_x()`` and ``lengthdir_y()``, which let us find points offset by a **length** and **direction**. The length will be always the radius of the circle, so the only thing that changes is the direction. With a simple for loop, you can find angles all around a circle. Since the direction needs to be an angle between 0 and 360, you could use these as the parameters to the for loop:
+
+```gml
+var radius = 32;
+
+for (var angle = 0; angle < 360; angle++) {
+    draw_point(
+        x + lengthdir_x(radius, angle),
+        y + lengthdir_y(radius, angle)
+    );
+}
+```
+
+
+
 ---
 
 Though the *shape* of a circle can be defined as "infinitely many points equidistant from the center", we also need to know the **radius** (distance between center and circle), and ``x, y`` coordinates in order to draw one.
