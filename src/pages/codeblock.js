@@ -4,7 +4,6 @@ import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dar
 import { Scrollbars } from 'react-custom-scrollbars';
 
 export default function CodeBlock(props) {
-    console.log(props.value);
 
     const hl = (
         <SyntaxHighlighter
@@ -26,8 +25,8 @@ export default function CodeBlock(props) {
                 autoHeight
                 autoHeightMin={46}
                 autoHeightMax={500}
-                autoWidth
-                autoWidthMax={100}
+                // autoWidth
+                // autoWidthMax={100}
                 renderThumbHorizontal={renderThumb}
                 renderThumbVertical={renderThumb}
                 className='code block'

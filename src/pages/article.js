@@ -22,15 +22,14 @@ export default function Article(props) {
             video.addEventListener('mouseover', () => video.play());
             video.addEventListener('mouseout', () => video.pause());
             video.addEventListener('click', () => {
-                console.log(video);
-                setFocus(<Focus video={video.currentSrc} />);
+                setFocus(video.currentSrc);
             });
         });
     });
 
     return (
         <>
-            {focus}
+            {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
             <div className={focus ? 'blur' : ''}>
                 <Markdown
                     source={markdown}

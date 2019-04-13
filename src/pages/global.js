@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 async function requestRawText(path, callback) {
         const xhttp = new XMLHttpRequest();
@@ -26,11 +26,20 @@ function SectionTitle(props) {
 }
 
 function Focus(props) {
+
+    const handleClick = e => {
+        if (!document.querySelector('.focus .content').contains(e.target)) {
+            props.dismount();
+        }
+    }
+
     return (
-        <div className='focus'>
-            {props.video && <video controls>
-                <source src={props.video} />
-            </video>}
+        <div className='focus' onClick={handleClick}>
+            {props.video && <div className='video content'>
+                <video controls>
+                    <source src={props.video} />
+                </video>
+            </div>}
         </div>
     );
 }
