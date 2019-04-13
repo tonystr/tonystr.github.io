@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom'
 import './prism.css';
@@ -6,26 +6,37 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import Home from './pages/home';
 import Article from './pages/article';
+import ArticleLogin from './pages/article-login';
 import Dracula from './pages/dracula';
+import { WindowCenter } from './pages/global';
 import { Scrollbars } from 'react-custom-scrollbars';
-import json from './data/articles.json';
+import articlesJSON from './data/articles';
 
 function ValidateArticle(props) {
 
     const location = (window.location.pathname.match(/\/([^/]*)$/)[1] || '').toLowerCase();
-    const article = json.find(article => article.name.toLowerCase() === location);
+    const article = articlesJSON.find(article => article.name.toLowerCase() === location);
+
+    const [login, setLogin] = useState(null);
+
+    const attemptLogin = val => {
+        window.localStorage.setItem('article-password', val);
+        setLogin(val);
+    }
 
     if (article) {
-        return <Article article={article} />;
+        if (!article.password || window.localStorage.getItem('article-password') === article.password) {
+            return <Article article={article} />;
+        } else {
+            return <ArticleLogin article={article} attemptLogin={attemptLogin} />;
+        }
     } else {
         if (location === 'dracula') {
             return <Dracula />;
         } else {
-            return <div> Could not find any article by the name "{location}" </div>;
+            return <WindowCenter> Could not find any article by the name "{location}" </WindowCenter>;
         }
     }
-
-    // dracula
 }
 
 ReactDOM.render(

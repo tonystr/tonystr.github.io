@@ -1,4 +1,5 @@
 [{
     "name": "Circles",
-    "tags": ["tutorial", "gml", "rendering", "math"]
+    "tags": ["tutorial", "gml", "rendering", "math"],
+    "password": "sudo let me in"
 }]

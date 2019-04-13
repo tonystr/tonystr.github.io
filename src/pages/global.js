@@ -44,4 +44,12 @@ function Focus(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle, Focus};
+function WindowCenter(props) {
+    return (
+        <div {...props} className='window-center'>
+            <div className='center'>{props.children}</div>
+        </div>
+    );
+}
+
+export { requestRawText, A, SectionTitle, Focus, WindowCenter };
