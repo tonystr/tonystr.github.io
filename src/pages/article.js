@@ -3,6 +3,10 @@ import Markdown from 'react-markdown/with-html';  // react-markdown
 import CodeBlock from './codeblock';
 import { requestRawText, A, SectionTitle, Focus } from './global.js';
 
+const ArticleTitle = (props) => (
+    <div {...props} className='article-title' />
+);
+
 export default function Article(props) {
 
     const [markdown, setMarkdown] = useState(null);
@@ -13,7 +17,7 @@ export default function Article(props) {
             `${window.location.protocol}//` +
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
-            `${props.article.name.toLowerCase()}.tart`
+            `${props.article.name.toLowerCase()}.md`
         , setMarkdown);
     }, []);
 
@@ -37,8 +41,10 @@ export default function Article(props) {
                     renderers={{
                         code: CodeBlock,
                         inlineCode: CodeBlock,
-                        link: A ,
-                        heading: SectionTitle
+                        link: A,
+                        heading: props => props.level === 2 ?
+                            SectionTitle(props) :
+                            ArticleTitle(props),
                     }}
                     className='rendered-markdown'
                     escapeHtml={false}

@@ -16,6 +16,7 @@ function A(props) {
 }
 
 function SectionTitle(props) {
+    console.log(props);
     return (
         <div {...props} className={'section-title ' + (props.className || '')}>
             <div />
