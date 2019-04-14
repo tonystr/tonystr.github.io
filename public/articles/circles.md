@@ -5,23 +5,13 @@ Everyone loves them; they're round, convex and infinitely smooth!
 
 But following these criteria, how would you actually draw a circle? In the physical world, you could use a **drafting compass** to construct a decent circle. In the world of computers, most image manipulation software provide tools for *drawing* circles, but what if you want to *program* a circle? What are the rules that make up a circle, and how could you represent them in code? Knowing this can be a powerful tool for drawing and animating complex shapes like cog wheels, spirals or even **demonic pentagrams**.
 
-<section class="video">
-    <video loop>
-        <source src="./articles/circle_demonstration.mp4" type="video/mp4">
-    </video>
-    <em>Circle of rocks, circular pentagram and circular attacks</em>
-</section>
+![Circle of rocks, circular pentagram and circular attacks](./articles/circle_demonstration.mp4)
 
 Regular polygons, such as triangles, squares, pentagons, hexagons and so on, can all be defined by how many edges they have. Drawing one such shape is as simple as finding the edges *(vertices)* of the shape, and drawing lines between them. Just like that "connect the dots" game you played as a kid.
 
 Since they are regular shapes, all sides are equally long *(equilateral)*. If you keep increasing the amount of vertices, you'll get closer and closer to what looks like a circle, until you can't tell the difference anymore. It is in fact exactly this we'll use to draw circles.
 
-<section class="video">
-    <video loop>
-        <source src="./articles/regular_ploygons.mp4" type="video/mp4">
-    </video>
-    <em>The more vertices an equilateral shape has, the closer it is to being a circle</em>
-</section>
+![The more vertices an equilateral shape has, the closer it is to being a circle](./articles/regular_ploygons.mp4)
 
 ## Trigonometry
 
@@ -89,3 +79,47 @@ If your ``line_length`` is long and the ``radius`` short, you'll see the edges c
 Note that using the formula for the circumference of a circle and a line length variable, is only needed to allow scalable circles. These circles would work at any size. You could make the ``radius`` an instance variable and increase it over time and it would still look like a circle. However, you don't absolutely *need* to use this whenever you want to draw a circle. You could just set the ``vertex_count`` manually.
 
 ## Primitive drawing
+
+So far, we've drawn *outlines* of circles. But what if you wanted to draw a filled circle, textured circle, circular glow, thicker outline or a spiked circle? All of this and more is possible using **primitives**.
+
+Let's first draw a filled circle. To draw a primitive, you first call the function ``draw_primitive_begin(kind)`` and specify what ``kind`` of primitive you want to draw. Then you draw vertices using ``draw_vertex()``, and finally call ``draw_primitive_end()``. Once you *end* the primitive, GameMaker draws a **shape** using all the vertices you've drawn after *beginning* the primitive. How gamemaker defines this shape depends on what ``kind`` you specified in ``draw_primitive_begin(kind)``. We'll look at some different primitive kinds later, but we'll start with ``pr_trianglefan``.
+
+We actually don't need to change very much from the code we already have. The first code example showed drawing a circle using ``draw_point()``. This works pretty much the same when using ``pr_trianglefan``.
+
+```gml
+var radius = 32;
+var vertex_count = 32;
+
+draw_primitive_begin(pr_trianglefan);
+
+for (var i = 0; i < vertex_count; i++) {
+
+    var angle = (i / vertex_count) * 360;
+
+    draw_vertex(
+        x + lengthdir_x(radius, angle),
+        y + lengthdir_y(radius, angle)
+    );
+}
+
+draw_primitive_end();
+```
+
+This would draw a filled circle. Below is an illustration of the different primitive kinds, all drawn with the same circle code as above.
+
+![Different primitive kinds with varying vertex counts](./articles/primitive_kinds.mp4)
+
+Although all of these primitives are interesting, most of them aren't very useful other than for **debugging**. If you're writing a complex primitive and having problems with it, changing the ``kind`` to something like ``pr_linestrip`` or ``pr_pointlist`` might be useful for wrapping your head around what you're doing.
+
+``pr_trianglefan`` produces a decent circle, however it isn't available on the *HTML5 target* platform, and it might not work correctly on some devices for other platforms. Additionally, it doesn't really give us a whole lot of **power** to make interesting shapes (you'll see later). So which ``kind`` is best suited for drawing circles? To answer that (even if the answer might be obvious), it's best to first analyze exactly *what* ``pr_trianglefan`` does.
+
+| ![!thumbnail(./articles/trianglefan.thumbnail.png)](./articles/trianglefan.mp4) | ![!thumbnail(./articles/trianglestrip.thumbnail.png)](./articles/trianglestrip.mp4) |
+| :-----------------------------: | :-------------------------------: |
+|        *pr_trianglefan*         |         *pr_trianglestrip*        |
+| each triangle shares one vertex with previous triangle and one vertex with the anchor point | each triangle shares two vertices with previous triangle |
+
+
+
+## further reading
+* [Circular healthbars](http://www.davetech.co.uk/gamemakercircularhealthbars) by davetech
+* [Circular cooldown rectangle](https://yal.cc/gamemaker-circular-cooldown-rectangle/) by YellowAfterlife

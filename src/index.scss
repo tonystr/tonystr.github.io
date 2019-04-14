@@ -11,9 +11,9 @@ $c_orange: #ef941c;
 $c_blue: #4c6aef;
 $c_purple: #b333dd;
 $c_dark: #171921;
-$c_txt: darken(#d9dae1, 5%);
+$c_txt: #cbccd6; // darken(#d9dae1, 5%);
 $c_ltgray: #56576a;
-$c_pink: lighten($c_red, 14%);
+$c_pink: #f068a3; // lighten($c_red, 14%);
 $rainbow: (
     $c_gold,
     $c_orange,
@@ -178,13 +178,34 @@ a {
 
 .rendered-markdown {
     max-width: 60rem;
-    margin: 1rem auto;
+    margin: 2rem auto;
     padding: 2rem;
     font-size: 1.1rem;
 
+    p {
+        line-height: 1.42rem;
+    }
+
+    img {
+        max-width: 100%;
+        border-radius: 4px;
+        box-shadow: 0 1px 8px rgba(0, 0, 0, .4);
+    }
+
+    table {
+        table-layout: fixed;
+        width: 100%;
+
+        .video {
+            width: 100%;
+            margin: 0;
+        }
+    }
+
     .section-title {
-        padding-bottom: 0rem;
-        margin-bottom: 1rem;
+        padding: 0;
+        margin-bottom: 1.8rem;
+        margin-top: 3rem;
     }
 
     .article-title {
@@ -194,6 +215,7 @@ a {
         text-align: center;
         position: relative;
         font-family: 'Josefin Sans', sans-serif;
+        margin-bottom: 1.5rem;
 
         &::after, &::before {
             content: '';
@@ -243,7 +265,7 @@ a {
     }
 
     .video {
-        width: 68%;
+        width: 72%;
         margin: 2rem auto;
         transform: scale(0.98);
         transition: 0.14s all;
@@ -299,7 +321,7 @@ a {
     }
 
     .code {
-        background-color: $c_dark !important;
+        background-color: lighten($c_dark, 3%) !important;
         border-radius: 6px;
         margin: 0;
 

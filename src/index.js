@@ -4,11 +4,11 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import './prism.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import Home from './pages/home';
-import Article from './pages/article';
-import ArticleLogin from './pages/article-login';
-import Dracula from './pages/dracula';
-import { WindowCenter } from './pages/global';
+import Home from './pages/home.jsx';
+import Article from './pages/article.jsx';
+import ArticleLogin from './pages/article-login.jsx';
+import Dracula from './pages/dracula.jsx';
+import { WindowCenter } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles';
 
