@@ -78,7 +78,7 @@ Note that using the formula for the circumference of a circle and a line length 
 
 So far, we've drawn *outlines* of circles. But what if you wanted to draw a filled circle, textured circle, circular glow, thicker outline or a spiked circle? All of this and more is possible using **primitives**.
 
-Let's first draw a filled circle. To draw a primitive, you first call the function ``draw_primitive_begin(kind)`` and specify what ``kind`` of primitive you want to draw. Then you draw vertices using ``draw_vertex()``, and finally call ``draw_primitive_end()``. Once you *end* the primitive, GameMaker draws a **shape** using all the vertices you've drawn after *beginning* the primitive. How gamemaker defines this shape depends on what ``kind`` you specified in ``draw_primitive_begin(kind)``. We'll look at some different primitive kinds later, but we'll start with ``pr_trianglefan``.
+Let's start with a filled circle. To draw a primitive, you first call the function ``draw_primitive_begin(kind)`` and specify what ``kind`` of primitive you want to draw. Then you draw vertices using ``draw_vertex()``, and finally call ``draw_primitive_end()``. Once you *end* the primitive, GameMaker draws a **shape** using all the vertices you've drawn after *beginning* the primitive. How gamemaker defines this shape depends on what ``kind`` you specified in ``draw_primitive_begin(kind)``. We'll look at some different primitive kinds later, but we'll start with ``pr_trianglefan``.
 
 We actually don't need to change very much from the code we already have. The first code example showed drawing a circle using ``draw_point()``. This works pretty much the same when using ``pr_trianglefan``.
 
