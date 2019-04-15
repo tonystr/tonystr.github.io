@@ -52,7 +52,7 @@ function ArticleMedia(props) {
         matches: ['mp4', 'webm', 'ogg'],
         render: props => {
             let alt = props.alt || '';
-            const match = alt.match(/\!thumbnail\(([^)]+)\)/);
+            const match = alt.match(/!thumbnail\(([^)]+)\)/);
 
             if (match) alt = alt.replace(match[0], '');
 
@@ -98,6 +98,12 @@ export default function Article(props) {
         });
     });
 
+    useEffect(() => {
+        const scr = document.createElement('script');
+        scr.src = 'https://cdn.commento.io/js/commento.js';
+        (document.head || document.body).appendChild(scr);
+    }, []);
+
     return (
         <>
             {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
@@ -117,6 +123,7 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
+                <div className='commento-wrapper'><div id='commento' /></div>
             </div>
         </>
     );
