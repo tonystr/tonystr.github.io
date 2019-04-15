@@ -26,7 +26,7 @@ function CodeBlock(props) {
             <Scrollbars
                 autoHeight
                 autoHeightMin={46}
-                autoHeightMax={500}
+                autoHeightMax={700}
                 // autoWidth
                 // autoWidthMax={100}
                 renderThumbHorizontal={renderThumb}

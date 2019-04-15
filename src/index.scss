@@ -324,6 +324,7 @@ a {
         background-color: lighten($c_dark, 3%) !important;
         border-radius: 6px;
         margin: 0;
+        white-space: wrap;
 
         .hljs-keywords {
             color: #C678DD;
