@@ -7,7 +7,7 @@ But following these criteria, how would you actually draw a circle? In the physi
 
 ![Circle of rocks, circular pentagram and circular attacks](./articles/circle_demonstration.mp4)
 
-Regular polygons, such as triangles, squares, pentagons, hexagons and so on, can all be defined by how many edges they have. Drawing one such shape is as simple as finding the edges *(vertices)* of the shape, and drawing lines between them. Just like that "connect the dots" game you played as a kid.
+Regular polygons, such as triangles, squares, pentagons, hexagons and so on, can all be defined by how many corners they have. Drawing one such shape is as simple as finding the corners *(vertices)* of the shape, and drawing lines between them. Just like that "connect the dots" game you played as a kid.
 
 Since they are regular shapes, all sides are equally long *(equilateral)*. If you keep increasing the amount of vertices, you'll get closer and closer to what looks like a circle, until you can't tell the difference anymore. It is in fact exactly this we'll use to draw circles.
 
@@ -15,7 +15,7 @@ Since they are regular shapes, all sides are equally long *(equilateral)*. If yo
 
 ## Trigonometry
 
-Points around a circle can be found with trigonometry. GML provides functions ``lengthdir_x()`` and ``lengthdir_y()``, which let you find points offset by a **length** and **direction**. The length will be always the radius of the circle, so the only thing that changes is the direction. With a simple ``for`` loop, you can find angles all around a circle. Since the direction needs to be an angle between 0 and 360, you could use these as the parameters to the ``for`` loop:
+Points around a circle can be found with trigonometry. GML provides functions ``lengthdir_x()`` and ``lengthdir_y()``, which let you find points offset by a **length** and **direction**. The length will always be equal to the radius of the circle, so the only thing that changes is the direction. With a simple ``for`` loop, you can find angles all around a circle. Since the direction needs to be an angle between 0 and 360, you could use these as the parameters to the ``for`` loop:
 
 ```gml
 var radius = 64;
@@ -70,7 +70,7 @@ for (var i = 0; i < vertex_count; i++) {
 
 With this code, you essentially have the same result as the 2nd gif.
 
-If your ``line_length`` is long and the ``radius`` short, you'll see the edges clearly, and in extreme cases it might become a pentagon, square or even triangle instead of a circle at all. You have to experiment a little to see what line lengths and radii are appropriate for you.
+If your ``line_length`` is long and the ``radius`` short, you'll see the corners clearly, and in extreme cases it might become a pentagon, square or even triangle instead of a circle at all. You have to experiment a little to see what line lengths and radii are appropriate for you.
 
 Note that using the formula for the circumference of a circle and a line length variable, is only needed to allow **scalable circles**. These circles would work at any size. You could make the ``radius`` an instance variable and increase it over time and it would still look like a circle. However, you don't absolutely *need* to use this whenever you want to draw a circle. You could just set the ``vertex_count`` manually. Most of the following code examples in this article use ``radius = 64;`` and ``vertex_count = 24;`` to simplify the code.
 
