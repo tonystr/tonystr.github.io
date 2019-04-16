@@ -213,10 +213,14 @@ a {
             }
         }
 
-        .commento-oauth-buttons button {
-            width: 84px;
-            border-radius: .3rem;
-            color: #ffffff;
+        .commento-oauth-buttons {
+            flex-direction: row;
+
+            button {
+                width: 84px;
+                border-radius: .3rem;
+                color: #ffffff;
+            }
         }
 
         hr {
