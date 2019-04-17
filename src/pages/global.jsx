@@ -17,7 +17,7 @@ function A(props) {
 
 function SectionTitle(props) {
     return (
-        <div {...props} className={'section-title ' + (props.className || '')}>
+        <div {...props} className={'section-title section-header ' + (props.className || '')}>
             <div />
             <span>{props.content} {props.children}</span>
             <div />
@@ -52,4 +52,28 @@ function WindowCenter(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle, Focus, WindowCenter };
+function Header(props) {
+    return (
+        <header>
+            <Ribbons />
+        </header>
+    );
+}
+
+function Ribbons(props) {
+    return (
+        <ul className='ribbons'>
+            <li className='l0'><i className="fas fa-id-card" /></li>
+            <li className='l1'><i className="fas fa-lightbulb" /></li>
+            <li className='l2'><i className="fas fa-code" /></li>
+            <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank' rel="noopener noreferrer">
+                <li className='l3'><i className="far fa-envelope" /></li>
+            </a>
+            <a href='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
+                <li className='l4'><i className="fab fa-twitter" /></li>
+            </a>
+        </ul>
+    );
+}
+
+export { requestRawText, A, SectionTitle, Focus, WindowCenter, Header, Ribbons };

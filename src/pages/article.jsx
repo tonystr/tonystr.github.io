@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
-import { requestRawText, A, SectionTitle, Focus } from './global.jsx';
+import { requestRawText, A, SectionTitle, Focus, Header } from './global.jsx';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -40,7 +40,7 @@ function CodeBlock(props) {
 }
 
 const ArticleTitle = (props) => (
-    <div {...props} className='article-title' />
+    <div {...props} className='article-title section-header' />
 );
 
 function ArticleMedia(props) {
@@ -74,10 +74,63 @@ function ArticleMedia(props) {
     );
 }
 
+function TableOfContents(props) {
+
+    if (!props.contents) return null;
+
+    const [current, setCurrent] = useState(null);
+
+    let contents = []
+    let lis = [];
+    for (const content of props.contents) {
+        lis.push(
+            <li
+                className={
+                    (!!~content.className.indexOf('article-title') ? 'title' : '') +
+                    (content === current ? ' current' : '')
+                }
+                children={content.innerText}
+            />
+        );
+        contents.push(content);
+    }
+
+    useEffect(() => {
+        let ticking = false;
+        window.onScrollListeners.push(e => {
+            if (!ticking) {
+                // e.target.scrollTop
+                //console.log(e.target.scrollTop);
+                ticking = true;
+
+                for (const content of contents) {
+                    const rect = content.getBoundingClientRect();
+                    console.log('rect.top:', rect.top);
+                    if (e.target.scrollTop - 3000 > rect.top) {
+                        console.log('set new current');
+                        setCurrent(content);
+                    }
+                }
+
+                setTimeout(() => {
+                    ticking = false;
+                }, 1500);
+            }
+        });
+    }, [ contents ]);
+
+    return (
+        <aside id='table-of-contents'>
+            <ul>{lis}</ul>
+        </aside>
+    );
+}
+
 export default function Article(props) {
 
     const [markdown, setMarkdown] = useState(null);
-    const [focus, setFocus] = useState(null);
+    const [focus, setFocus]       = useState(null);
+    const [sections, setSections] = useState(null);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -86,6 +139,10 @@ export default function Article(props) {
             `${window.location.port}/articles/` +
             `${props.article.name.toLowerCase()}.md`
         , setMarkdown);
+
+        const scr = document.createElement('script');
+        scr.src = 'https://cdn.commento.io/js/commento.js';
+        (document.head || document.body).appendChild(scr);
     }, []);
 
     useEffect(() => {
@@ -96,18 +153,15 @@ export default function Article(props) {
                 setFocus(video.currentSrc);
             });
         });
-    });
 
-    useEffect(() => {
-        const scr = document.createElement('script');
-        scr.src = 'https://cdn.commento.io/js/commento.js';
-        (document.head || document.body).appendChild(scr);
-    }, []);
+        setSections(document.querySelectorAll('.section-header'));
+    }, [ markdown ]);
 
     return (
         <>
             {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
             <div className={focus ? 'blur' : ''}>
+                <Header />
                 <Markdown
                     source={markdown}
                     linkTarget='_blank'
@@ -123,6 +177,7 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
+                <TableOfContents contents={sections} />
                 <div className='commento-wrapper'><div id='commento' /></div>
             </div>
         </>

@@ -26,7 +26,8 @@ $default_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen"
 
 // imports
 
-@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400');
+// @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400');
+@import 'fonts/josefin-sans.scss';
 
 // mixins
 
@@ -95,7 +96,6 @@ $default_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen"
     45%  { border-color: $c_red };
     55%  { border-color: $c_red };
 }
-
 // global tags
 body {
     margin: 0;
@@ -149,6 +149,20 @@ a {
 
     &:hover {
         color: $c_green;
+    }
+}
+
+$border: 0.24vw;
+
+header {
+    padding: 1rem;
+    margin: 4vh 4%;
+    vertical-align: middle;
+    border-top: $border solid $c_dark;
+    position: relative;
+
+    .ribbons {
+        top: $border * .22;
     }
 }
 
@@ -394,8 +408,55 @@ a {
     }
 }
 
+#table-of-contents {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    $col: darken($c_txt, 40%);
+    color: $col;
+    pointer-events: none;
+
+    ul {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        list-style-type: none;
+        padding-left: .8rem;
+    }
+
+    li {
+        margin-bottom: .6rem;
+        pointer-events: all;
+        transition: 1s color;
+
+        &.current {
+            color: $c_txt;
+        }
+
+        &::before {
+            content: '';
+            width: .5rem;
+            height: .5rem;
+            display: inline-block;
+            margin: 0 .8rem;
+            border-radius: 50%;
+            border: 3px solid $c_dark;
+            transform: translateY(18%);
+        }
+
+        &.title {
+            border-bottom: 2px solid lighten($c_dark, 2%);
+            margin-bottom: .3rem;
+            padding-bottom: .3rem;
+            font-size: 1.1rem;
+            display: none;
+        }
+    }
+}
+
 .rendered-markdown {
-    max-width: 60rem;
+    max-width: 56rem;
     margin: 2rem auto;
     padding: 2rem;
     font-size: 1.1rem;
@@ -653,7 +714,85 @@ a {
     min-height: 100vh;
     width: 100%;
 }
+
 $xmarg: 4%;
+
+.ribbons {
+    top: $border;
+    left: $border;
+    margin: 0;
+    padding: 0;
+    margin-left: 3vw;
+    margin-top: -$border;
+    $bg: transparent;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    padding: 0;
+    font-size: 1.2rem;
+
+    @media(min-width:1400px) {
+        font-size: 1.5rem;
+    }
+
+    li {
+        $br: $c_dark;
+        background-color: $bg;
+        width: 3.2vw;
+        height: 5vw;
+        margin: 0 .6rem;
+        position: relative;
+        border: $border solid $br;
+        border-radius: 0.2rem;
+        border-bottom: none;
+        transition: 0.1s border-color;
+
+        i {
+            font-size: 1.6vw;
+            width: 100%;
+            text-align: center;
+            margin-top: 2vw;
+        }
+        // &.l0 { color: $c_gold; }
+        // &.l1 { color: $c_orange; }
+        // &.l2 { color: $c_red; }
+        @for $i from 0 through 4 {
+            &.l#{$i} {
+                $c: nth($rainbow, $i + 1);
+                color: $c;
+
+                &:hover {
+                    border-color: $c;
+
+                    &::after {
+                        border-color: $c;
+                    }
+                }
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            background-color: $bg;
+            transition: 0.1s border-color;
+            width: 100% * 0.709;
+            height: 3.2vw * 0.709;
+            bottom: -1.26vw;
+            left: 0.37vw;
+            transform: rotate(-45deg);
+            border-bottom: $border solid $br;
+            border-left: $border solid $br;
+            box-shadow: -2px 2px 2px rgba(0,0,0,.18);
+            border-radius: 0.1rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
 
 #frontpage {
     display: flex;
@@ -666,7 +805,6 @@ $xmarg: 4%;
     max-height: 52.5vw;
     margin: 4vh $xmarg;
     font-family: 'Josefin Sans', sans-serif;
-    $border: 0.24vw;
 
     &::before {
         position: absolute;
@@ -678,8 +816,7 @@ $xmarg: 4%;
         border: $border solid $c_dark;
     }
 
-    .attributes,
-    .ribbons {
+    .attributes {
         list-style: none;
         display: flex;
         flex-direction: row;
@@ -688,73 +825,6 @@ $xmarg: 4%;
         font-size: 1.2rem;
         @media(min-width:1400px) {
             font-size: 1.5rem;
-        }
-    }
-
-    .ribbons {
-        top: $border;
-        left: $border;
-        margin: 0;
-        padding: 0;
-        margin-left: 3vw;
-        margin-top: -$border;
-        $bg: transparent;
-
-        li {
-            $br: $c_dark;
-            background-color: $bg;
-            width: 3.2vw;
-            height: 5vw;
-            margin: 0 1rem;
-            position: relative;
-            border: $border solid $br;
-            border-radius: 0.2rem;
-            border-bottom: none;
-            transition: 0.1s border-color;
-
-            i {
-                font-size: 1.6vw;
-                width: 100%;
-                text-align: center;
-                margin-top: 2vw;
-            }
-            // &.l0 { color: $c_gold; }
-            // &.l1 { color: $c_orange; }
-            // &.l2 { color: $c_red; }
-            @for $i from 0 through 4 {
-                &.l#{$i} {
-                    $c: nth($rainbow, $i + 1);
-                    color: $c;
-
-                    &:hover {
-                        border-color: $c;
-
-                        &::after {
-                            border-color: $c;
-                        }
-                    }
-                }
-            }
-
-            &::after {
-                content: '';
-                position: absolute;
-                background-color: $bg;
-                transition: 0.1s border-color;
-                width: 100% * 0.709;
-                height: 3.2vw * 0.709;
-                bottom: -1.26vw;
-                left: 0.37vw;
-                transform: rotate(-45deg);
-                border-bottom: $border solid $br;
-                border-left: $border solid $br;
-                box-shadow: -2px 2px 2px rgba(0,0,0,.18);
-                border-radius: 0.1rem;
-            }
-
-            &:hover {
-                cursor: pointer;
-            }
         }
     }
 

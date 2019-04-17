@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import websites from '../data/websites';
 import Prism from './../prism.js';
-import { requestRawText, A, SectionTitle } from './global.jsx';
+import { requestRawText, A, SectionTitle, Ribbons } from './global.jsx';
 
 export default function Home(props) {
     return (
@@ -54,17 +54,7 @@ function FrontPage() {
                 <A><li>GameDev</li></A>
                 <A><li>WebDev</li></A>
             </ul>
-            <ul className='ribbons'>
-                <li className='l0'><i className="fas fa-id-card" /></li>
-                <li className='l1'><i className="fas fa-lightbulb" /></li>
-                <li className='l2'><i className="fas fa-code" /></li>
-                <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank' rel="noopener noreferrer">
-                    <li className='l3'><i className="far fa-envelope" /></li>
-                </a>
-                <a href='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
-                    <li className='l4'><i className="fab fa-twitter" /></li>
-                </a>
-            </ul>
+            <Ribbons />
         </section>
     );
 }
@@ -110,9 +100,7 @@ function WebDevPage() {
                 <div className='wrapper'>
                     <SectionTitle className='title' content='Web development' />
                     <div className='showcase'>
-                        <div className='gridview'>
-                            {renderWebsites()}
-                        </div>
+                        <div className='gridview'>{renderWebsites()}</div>
                     </div>
                     <div className='description'>
                         <div className='inner'>

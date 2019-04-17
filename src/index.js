@@ -12,6 +12,9 @@ import { WindowCenter } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles';
 
+window.onScrollListeners = []
+window.onScroll = e => { window.onScrollListeners.forEach(listener => listener(e)) };
+
 function ValidateArticle(props) {
 
     const location = (window.location.pathname.match(/\/([^/]*)$/)[1] || '').toLowerCase();
@@ -40,7 +43,7 @@ function ValidateArticle(props) {
 }
 
 ReactDOM.render(
-    <Scrollbars style={{ height: '100vh' }}>
+    <Scrollbars style={{ height: '100vh' }} onScroll={e => window.onScroll(e)}>
         <BrowserRouter>
             <div>
                 <Route exact path='/' component={Home} />
