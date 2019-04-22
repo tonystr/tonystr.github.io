@@ -6,7 +6,8 @@ import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dar
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactDOM from 'react-dom';
 import 'intersection-observer'; // optional polyfill
-import Observer from '@researchgate/react-intersection-observer'
+import Observer from '@researchgate/react-intersection-observer';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 function CodeBlock(props) {
 
@@ -73,7 +74,7 @@ function ArticleMedia(props) {
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));
 
     return renderer ? renderer.render(props) : (
-        <div> no corrsepdmedia renderer found </div>
+        <div> no corrsepdonding media renderer found </div>
     );
 }
 
@@ -81,10 +82,12 @@ function TableOfContents(props) {
 
     if (!props.contents) return null;
 
-    const [current, setCurrent] = useState(null);
+    const scrollToContent = e => {
 
-    console.log("props.contents:");
-    console.log(props.contents);
+        const node = [...document.querySelectorAll('.section-header')].find(node => node.innerText === e.target.innerText);
+        console.log(node);
+        scrollIntoView(node, { scrollMode: 'if-needed', behavior: 'smooth' });
+    };
 
     const renderlis = () => {
         let lis = [];
@@ -95,15 +98,21 @@ function TableOfContents(props) {
                         (content.level === 1 ? 'title' : '') +
                         (content.text === props.current ? ' current' : '')
                     }
-                    children={content.text}
-                />
+                    onClick={scrollToContent}
+                >
+                    <span>{content.text}</span>
+                </li>
             );
         }
         return lis;
-    }
+    };
+
+    const cur = props.contents.find(content => content.text === props.current);
+    console.log(cur);
+    const hidden = cur && cur.level === 1 ? 'hidden' : '';
 
     return (
-        <aside id='table-of-contents'>
+        <aside id='table-of-contents' className={hidden}>
             <ul>{renderlis()}</ul>
         </aside>
     );
