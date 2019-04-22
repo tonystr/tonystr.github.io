@@ -4,6 +4,7 @@ import { requestRawText, A, SectionTitle, Focus, Header } from './global.jsx';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
+import ReactDOM from 'react-dom';
 
 function CodeBlock(props) {
 
@@ -82,41 +83,48 @@ function TableOfContents(props) {
 
     let contents = []
     let lis = [];
+    let key = 0;
     for (const content of props.contents) {
-        lis.push(
-            <li
-                className={
-                    (!!~content.className.indexOf('article-title') ? 'title' : '') +
-                    (content === current ? ' current' : '')
-                }
-                children={content.innerText}
-            />
-        );
-        contents.push(content);
+        console.log(content.current);
+        if (!content.current) continue;
+        // lis.push(
+        //     <li
+        //         className={
+        //             (!!~content.className.indexOf('article-title') ? 'title' : '') +
+        //             (content === current ? ' current' : '')
+        //         }
+        //         children={content.innerText}
+        //     />
+        // );
+        content.current.classList.add(`key-${key++}`);
+        contents.push(content.current);
     }
 
+    let ticking = false;
+
     useEffect(() => {
-        let ticking = false;
-        window.onScrollListeners.push(e => {
+        window.onScrollListeners[0] = e => {
+            console.log('ticking: ' + ticking);
             if (!ticking) {
                 // e.target.scrollTop
                 //console.log(e.target.scrollTop);
                 ticking = true;
 
+                console.log(contents);
+
                 for (const content of contents) {
-                    const rect = content.getBoundingClientRect();
-                    console.log('rect.top:', rect.top);
-                    if (e.target.scrollTop - 3000 > rect.top) {
-                        console.log('set new current');
-                        setCurrent(content);
-                    }
+                    console.log(content.getBoundingClientRect()); // e.target
+                    // if (e.target.scrollTop - 3000 > rect.top) {
+                    //     console.log('set new current');
+                    //     setCurrent(content);
+                    // }
                 }
 
                 setTimeout(() => {
                     ticking = false;
                 }, 1500);
             }
-        });
+        };
     }, [ contents ]);
 
     return (
@@ -131,6 +139,10 @@ export default function Article(props) {
     const [markdown, setMarkdown] = useState(null);
     const [focus, setFocus]       = useState(null);
     const [sections, setSections] = useState(null);
+    let refs = [];
+    for (let i = 0; i < 18; i++) {
+        refs.push(React.createRef());
+    }
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -154,8 +166,17 @@ export default function Article(props) {
             });
         });
 
-        setSections(document.querySelectorAll('.section-header'));
+        if (markdown) {
+            console.log(refs);
+            if (!sections || !sections.length) {
+                setTimeout(() => {
+                    setSections(refs);
+                }, 1300);
+            }
+        }
     }, [ markdown ]);
+
+    let refIndex = 0;
 
     return (
         <>
@@ -170,8 +191,8 @@ export default function Article(props) {
                         inlineCode: props => <CodeBlock {...props} language='gml' />,
                         link: A,
                         heading: props => props.level === 2 ?
-                            SectionTitle(props) :
-                            ArticleTitle(props),
+                            <div ref={refs[refIndex++]}>{SectionTitle(props)}</div> :
+                            <div ref={refs[refIndex++]}>{ArticleTitle(props)}</div>,
                         image: ArticleMedia
                     }}
                     className='rendered-markdown'
