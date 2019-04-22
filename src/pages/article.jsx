@@ -5,6 +5,8 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactDOM from 'react-dom';
+import 'intersection-observer'; // optional polyfill
+import Observer from '@researchgate/react-intersection-observer'
 
 function CodeBlock(props) {
 
@@ -81,55 +83,28 @@ function TableOfContents(props) {
 
     const [current, setCurrent] = useState(null);
 
-    let contents = []
-    let lis = [];
-    let key = 0;
-    for (const content of props.contents) {
-        console.log(content.current);
-        if (!content.current) continue;
-        // lis.push(
-        //     <li
-        //         className={
-        //             (!!~content.className.indexOf('article-title') ? 'title' : '') +
-        //             (content === current ? ' current' : '')
-        //         }
-        //         children={content.innerText}
-        //     />
-        // );
-        content.current.classList.add(`key-${key++}`);
-        contents.push(content.current);
+    console.log("props.contents:");
+    console.log(props.contents);
+
+    const renderlis = () => {
+        let lis = [];
+        for (const content of props.contents) {
+            lis.push(
+                <li
+                    className={
+                        (content.level === 1 ? 'title' : '') +
+                        (content.text === props.current ? ' current' : '')
+                    }
+                    children={content.text}
+                />
+            );
+        }
+        return lis;
     }
-
-    let ticking = false;
-
-    useEffect(() => {
-        window.onScrollListeners[0] = e => {
-            console.log('ticking: ' + ticking);
-            if (!ticking) {
-                // e.target.scrollTop
-                //console.log(e.target.scrollTop);
-                ticking = true;
-
-                console.log(contents);
-
-                for (const content of contents) {
-                    console.log(content.getBoundingClientRect()); // e.target
-                    // if (e.target.scrollTop - 3000 > rect.top) {
-                    //     console.log('set new current');
-                    //     setCurrent(content);
-                    // }
-                }
-
-                setTimeout(() => {
-                    ticking = false;
-                }, 1500);
-            }
-        };
-    }, [ contents ]);
 
     return (
         <aside id='table-of-contents'>
-            <ul>{lis}</ul>
+            <ul>{renderlis()}</ul>
         </aside>
     );
 }
@@ -139,10 +114,7 @@ export default function Article(props) {
     const [markdown, setMarkdown] = useState(null);
     const [focus, setFocus]       = useState(null);
     const [sections, setSections] = useState(null);
-    let refs = [];
-    for (let i = 0; i < 18; i++) {
-        refs.push(React.createRef());
-    }
+    const [currentSection, setCurrentSection] = useState(null);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -167,16 +139,21 @@ export default function Article(props) {
         });
 
         if (markdown) {
-            console.log(refs);
-            if (!sections || !sections.length) {
-                setTimeout(() => {
-                    setSections(refs);
-                }, 1300);
-            }
+            const sectLines = markdown.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
+            let sects = [];
+            sectLines.forEach((s, i) => sects[i] = { text: s.match(/#+\s+([^\n]+)$/)[1], level: s.match(/#+/)[0].length });
+            console.log(sects);
+            setSections(sects);
         }
     }, [ markdown ]);
 
-    let refIndex = 0;
+    const observerOptions = {
+        onChange: e => {
+            if (e.isIntersecting && currentSection !== e.target.innerText) setCurrentSection(e.target.innerText);
+        },
+        root: '#root',
+        rootMargin: '0% 0% -25%'
+    };
 
     return (
         <>
@@ -191,14 +168,14 @@ export default function Article(props) {
                         inlineCode: props => <CodeBlock {...props} language='gml' />,
                         link: A,
                         heading: props => props.level === 2 ?
-                            <div ref={refs[refIndex++]}>{SectionTitle(props)}</div> :
-                            <div ref={refs[refIndex++]}>{ArticleTitle(props)}</div>,
+                            <Observer {...observerOptions}>{SectionTitle(props)}</Observer> :
+                            <Observer {...observerOptions}>{ArticleTitle(props)}</Observer>,
                         image: ArticleMedia
                     }}
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
-                <TableOfContents contents={sections} />
+                <TableOfContents contents={sections} current={currentSection} />
                 <div className='commento-wrapper'><div id='commento' /></div>
             </div>
         </>
