@@ -13,7 +13,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles';
 
 window.onScrollListeners = []
-window.onScroll = e => { window.onScrollListeners.forEach(listener => listener(e)) };
+window.onScroll = e => { if (window.onScrollListeners[0]) window.onScrollListeners[0](e) };
 
 function ValidateArticle(props) {
 

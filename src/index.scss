@@ -434,8 +434,23 @@ header {
         position: relative;
         transition: .2s all;
 
+        i {
+            transition: .2s all;
+            color: transparent;
+            cursor: pointer;
+            margin-left: .6rem;
+
+            &:hover {
+                color: $c_green !important;
+            }
+        }
+
         span {
             @extend a.link;
+
+            &:hover {
+                color: $c_green;
+            }
         }
 
         &.current:not(.title) {
@@ -448,7 +463,10 @@ header {
         }
 
         &:hover {
-            color: $c_green;
+            i {
+                color: $c_ltgray;
+            }
+
             &::before {
                 border-color: $c_dark;
             }
@@ -470,11 +488,19 @@ header {
         }
 
         &.title {
-            border-bottom: 2px solid lighten($c_dark, 2%);
             margin-bottom: .3rem;
             padding-bottom: .3rem;
             font-size: 1.1rem;
             font-weight: bold;
+
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                right: 1.5rem;
+                border-bottom: 2px solid lighten($c_dark, 2%);
+            }
         }
     }
 }

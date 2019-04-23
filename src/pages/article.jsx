@@ -85,7 +85,6 @@ function TableOfContents(props) {
     const scrollToContent = e => {
 
         const node = [...document.querySelectorAll('.section-header')].find(node => node.innerText === e.target.innerText);
-        console.log(node);
         scrollIntoView(node, { scrollMode: 'if-needed', behavior: 'smooth' });
     };
 
@@ -98,9 +97,9 @@ function TableOfContents(props) {
                         (content.level === 1 ? 'title' : '') +
                         (content.text === props.current ? ' current' : '')
                     }
-                    onClick={scrollToContent}
                 >
-                    <span>{content.text}</span>
+                    <span onClick={scrollToContent}>{content.text}</span>
+                    <i className="fas fa-link" />
                 </li>
             );
         }
@@ -124,6 +123,7 @@ export default function Article(props) {
     const [focus, setFocus]       = useState(null);
     const [sections, setSections] = useState(null);
     const [currentSection, setCurrentSection] = useState(null);
+    const [currentTicking, setCurrentTicking] = useState(false);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -151,17 +151,22 @@ export default function Article(props) {
             const sectLines = markdown.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
             let sects = [];
             sectLines.forEach((s, i) => sects[i] = { text: s.match(/#+\s+([^\n]+)$/)[1], level: s.match(/#+/)[0].length });
-            console.log(sects);
             setSections(sects);
         }
     }, [ markdown ]);
 
     const observerOptions = {
         onChange: e => {
-            if (e.isIntersecting && currentSection !== e.target.innerText) setCurrentSection(e.target.innerText);
+            if (!currentTicking && e.isIntersecting && currentSection !== e.target.innerText) {
+                setCurrentSection(e.target.innerText);
+                setCurrentTicking(true);
+                setTimeout(() => {
+                    setCurrentTicking(false);
+                }, 460);
+            }
         },
         root: '#root',
-        rootMargin: '0% 0% -25%'
+        rootMargin: '57% 0% -42%'
     };
 
     return (
@@ -184,8 +189,10 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
-                <TableOfContents contents={sections} current={currentSection} />
-                <div className='commento-wrapper'><div id='commento' /></div>
+                <div className='commento-wrapper'><Observer {...observerOptions}><div id='commento' /></Observer></div>
+                <div>
+                    <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
+                </div>
             </div>
         </>
     );
