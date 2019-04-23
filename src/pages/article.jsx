@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
 import { requestRawText, A, SectionTitle, Focus, Header } from './global.jsx';
-import SyntaxHighlighter from "react-syntax-highlighter";
-import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
+import SyntaxHighlighter from 'react-syntax-highlighter';
+import styleOneDark from 'react-syntax-highlighter/dist/styles/hljs/atom-one-dark';
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactDOM from 'react-dom';
 import 'intersection-observer'; // optional polyfill
@@ -99,7 +99,7 @@ function TableOfContents(props) {
                     }
                 >
                     <span onClick={scrollToContent}>{content.text}</span>
-                    <i className="fas fa-link" />
+                    <i className='fas fa-link' />
                 </li>
             );
         }
@@ -133,9 +133,26 @@ export default function Article(props) {
             `${props.article.name.toLowerCase()}.md`
         , setMarkdown);
 
-        const scr = document.createElement('script');
-        scr.src = 'https://cdn.commento.io/js/commento.js';
-        (document.head || document.body).appendChild(scr);
+        window.wpac_init = window.wpac_init || [];
+        window.wpac_init.push({widget: 'Comment', id: 18172});
+        if ('WIDGETPACK_LOADED' in window) return;
+        window.WIDGETPACK_LOADED = true;
+        var mc = document.createElement('script');
+        mc.type = 'text/javascript';
+        mc.async = true;
+        mc.src = 'https://embed.widgetpack.com/widget.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+
+        setTimeout(() => {
+            const lis = document.querySelectorAll('.wp-login-menu li');
+            console.log('lis:', lis);
+            for (const li of lis) {
+                console.log(li, li.innerText);
+                if (li.innerText === 'Get WidgetPack') li.parentNode.removeChild(li);
+            }
+        }, 3100);
+
+        // <a href="https://widgetpack.com" class="wpac-cr">Comments System WIDGET PACK</a>
     }, []);
 
     useEffect(() => {
@@ -189,7 +206,7 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
-                <div className='commento-wrapper'><Observer {...observerOptions}><div id='commento' /></Observer></div>
+                <div className='commento-wrapper'><Observer {...observerOptions}><div id='wpac-comment' /></Observer></div>
                 <div>
                     <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
                 </div>
