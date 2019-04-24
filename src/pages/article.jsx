@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
-import { requestRawText, A, SectionTitle, Focus, Header } from './global.jsx';
+import { requestRawText, A, SectionTitle, ArticleTitle, Focus, Header } from './global.jsx';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -42,10 +42,6 @@ function CodeBlock(props) {
         ) : hl
     );
 }
-
-const ArticleTitle = (props) => (
-    <div {...props} className='article-title section-header' />
-);
 
 function ArticleMedia(props) {
 
@@ -138,7 +134,7 @@ export default function Article(props) {
             `${window.location.protocol}//` +
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
-            `${props.article.name.toLowerCase()}.md`
+            `${props.article.name.toLowerCase()}/index.md`
         , setMarkdown);
 
         window.wpac_init = window.wpac_init || [];

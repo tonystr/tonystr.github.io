@@ -402,6 +402,39 @@ header {
     }
 }
 
+.article-list {
+    max-width: 56rem;
+    margin: 0 auto;
+    margin-top: 5rem;
+
+    ul li {
+        font-size: 1.8rem;
+        font-family: 'Josefin Sans', sans-serif;
+        border: 2px solid $c_dark;
+        margin: .5rem 0;
+        border-radius: .3rem;
+        display: flex;
+        flex-direction: row;
+
+        .text {
+            padding: .4rem .5rem;
+        }
+
+        .media {
+            background-color: $c_dark;
+            max-height: 5rem;
+            max-width: 8.82rem;
+            padding: 2px;
+            padding-right: 4px;
+            position: relative;
+        }
+
+        img {
+            height: 100%;
+        }
+    }
+}
+
 #table-of-contents {
     position: fixed;
     top: 0;
@@ -435,14 +468,18 @@ header {
         transition: .2s all;
 
         i {
+            color: transparent;
+            opacity: 0;
+            visibility: hidden;
+            margin-left: .6rem;
+            /*
             transition: .2s all;
             color: transparent;
             cursor: pointer;
-            margin-left: .6rem;
 
             &:hover {
                 color: $c_green !important;
-            }
+            }*/
         }
 
         span.link {
@@ -505,6 +542,35 @@ header {
     }
 }
 
+.article-title {
+    font-size: 3rem;
+    color: $c_green;
+    border-bottom: 3px solid $c_green;
+    text-align: center;
+    position: relative;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: 1.5rem;
+
+    &::after, &::before {
+        content: '';
+        position: absolute;
+        z-index: 3;
+        border-right: 3px solid $c_gray;
+        border-left: 3px solid $c_gray;
+        width: 3px;
+        height: 3px;
+        bottom: -3px;
+    }
+
+    &::after {
+        right: 3px;
+    }
+
+    &::before {
+        left: 3px;
+    }
+}
+
 .rendered-markdown {
     max-width: 56rem;
     margin: 2rem auto;
@@ -535,35 +601,6 @@ header {
         padding: 0;
         margin-bottom: 1.8rem;
         margin-top: 3rem;
-    }
-
-    .article-title {
-        font-size: 3rem;
-        color: $c_green;
-        border-bottom: 3px solid $c_green;
-        text-align: center;
-        position: relative;
-        font-family: 'Josefin Sans', sans-serif;
-        margin-bottom: 1.5rem;
-
-        &::after, &::before {
-            content: '';
-            position: absolute;
-            z-index: 3;
-            border-right: 3px solid $c_gray;
-            border-left: 3px solid $c_gray;
-            width: 3px;
-            height: 3px;
-            bottom: -3px;
-        }
-
-        &::after {
-            right: 3px;
-        }
-
-        &::before {
-            left: 3px;
-        }
     }
 
     hr {

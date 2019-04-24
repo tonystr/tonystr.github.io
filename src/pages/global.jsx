@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 async function requestRawText(path, callback) {
         const xhttp = new XMLHttpRequest();
@@ -12,7 +13,14 @@ async function requestRawText(path, callback) {
 }
 
 function A(props) {
-    return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
+    return (
+        <Link
+            {...props}
+            className={'link ' + (props.className || '')}
+            to={props.to || props.href}
+        />
+    )
+    // return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
 }
 
 function SectionTitle(props) {
@@ -24,6 +32,10 @@ function SectionTitle(props) {
         </div>
     );
 }
+
+const ArticleTitle = (props) => (
+    <div {...props} className='article-title section-header' />
+);
 
 function Focus(props) {
 
@@ -63,8 +75,8 @@ function Header(props) {
 function Ribbons(props) {
     return (
         <ul className='ribbons'>
-            <li className='l0'><i className="fas fa-id-card" /></li>
-            <li className='l1'><i className="fas fa-lightbulb" /></li>
+            <Link to='/'><li className='l0'><i className="far fa-id-card" /></li></Link>
+            <Link to='/articles'><li className='l1'><i className="fas fa-file-invoice" /></li></Link>
             <li className='l2'><i className="fas fa-code" /></li>
             <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank' rel="noopener noreferrer">
                 <li className='l3'><i className="far fa-envelope" /></li>
@@ -76,4 +88,4 @@ function Ribbons(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle, Focus, WindowCenter, Header, Ribbons };
+export { requestRawText, A, SectionTitle, ArticleTitle, Focus, WindowCenter, Header, Ribbons };

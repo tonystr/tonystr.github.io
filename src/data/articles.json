@@ -1,5 +1,22 @@
 [{
     "name": "Circles",
     "tags": ["tutorial", "gml", "rendering", "math"],
-    "password": "sudo let me in"
+    "password": "sudo let me in",
+    "thumbnail": "primitive_kinds.png"
+},{
+    "name": "Pentagons",
+    "tags": ["tutorial", "gml", "rendering", "math"],
+    "password": false
+},{
+    "name": "Filtration",
+    "tags": ["tutorial", "gml", "rendering", "math"],
+    "password": false
+},{
+    "name": "Cake",
+    "tags": ["tutorial", "gml", "rendering", "math"],
+    "password": false
+},{
+    "name": "Ace",
+    "tags": ["tutorial", "gml", "rendering", "math"],
+    "password": false
 }]

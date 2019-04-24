@@ -25,10 +25,10 @@ function AboutSection() {
                     As well as developing games, I enjoy building libraries, IDE skins and other resources to aid other developers.
                 </p><p>
                     I have contributed to community projects such as
-                    a <A href='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
-                    , <A href='https://github.com/GameMakerDiscord' target='_blank' rel='noopener noreferrer'>Github organization</A>
-                    , <A href='https://github.com/christopherwk210/gm-bot' target='_blank' rel='noopener noreferrer'>internet bot</A>
-                    , <A href='https://GMShaders.com/' target='_blank' rel='noopener noreferrer'>shader guide</A> and more.
+                    a <A to='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
+                    , <A to='https://github.com/GameMakerDiscord' target='_blank' rel='noopener noreferrer'>Github organization</A>
+                    , <A to='https://github.com/christopherwk210/gm-bot' target='_blank' rel='noopener noreferrer'>internet bot</A>
+                    , <A to='https://GMShaders.com/' target='_blank' rel='noopener noreferrer'>shader guide</A> and more.
                 </p>
             </div>
         </section>
@@ -51,8 +51,8 @@ function FrontPage() {
                 <div className='title'> Tony Strømsnæs </div>
             </div>
             <ul className='attributes'>
-                <A><li>GameDev</li></A>
-                <A><li>WebDev</li></A>
+                <A to='/'><li>GameDev</li></A>
+                <A to='/'><li>WebDev</li></A>
             </ul>
             <Ribbons />
         </section>

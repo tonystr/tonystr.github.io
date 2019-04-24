@@ -8,16 +8,20 @@ import Home from './pages/home.jsx';
 import Article from './pages/article.jsx';
 import ArticleLogin from './pages/article-login.jsx';
 import Dracula from './pages/dracula.jsx';
+import Articles from './pages/articles.jsx';
 import { WindowCenter } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
-import articlesJSON from './data/articles';
+import articlesJSON from './data/articles.json';
 
 window.onScrollListeners = []
 window.onScroll = e => { if (window.onScrollListeners[0]) window.onScrollListeners[0](e) };
 
 function ValidateArticle(props) {
 
-    const location = (window.location.pathname.match(/\/([^/]*)$/)[1] || '').toLowerCase();
+    const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
+
+    if (location === 'articles') return <Articles json={articlesJSON} />;
+
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
 
     const [login, setLogin] = useState(null);
@@ -26,6 +30,7 @@ function ValidateArticle(props) {
         window.localStorage.setItem('article-password', val);
         setLogin(val);
     }
+
 
     if (article) {
         if (!article.password || window.localStorage.getItem('article-password') === article.password) {
