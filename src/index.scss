@@ -445,7 +445,7 @@ header {
             }
         }
 
-        span {
+        span.link {
             @extend a.link;
 
             &:hover {

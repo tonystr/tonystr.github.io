@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
 import { requestRawText, A, SectionTitle, Focus, Header } from './global.jsx';
-import SyntaxHighlighter from 'react-syntax-highlighter';
-import styleOneDark from 'react-syntax-highlighter/dist/styles/hljs/atom-one-dark';
+import SyntaxHighlighter from "react-syntax-highlighter";
+import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
 import ReactDOM from 'react-dom';
 import 'intersection-observer'; // optional polyfill
@@ -83,10 +83,17 @@ function TableOfContents(props) {
     if (!props.contents) return null;
 
     const scrollToContent = e => {
-
         const node = [...document.querySelectorAll('.section-header')].find(node => node.innerText === e.target.innerText);
         scrollIntoView(node, { scrollMode: 'if-needed', behavior: 'smooth' });
     };
+
+    const generateURL = e => {
+        const copybox = document.querySelector('#copybox');
+        copybox.value = `${window.location.href.replace(/#.+/, '')}#${e.target.parentNode.parentNode.querySelector('span.link').innerText.replace(/\s+/, '_')}`;
+        copybox.focus();
+        copybox.select();
+        console.log(document.execCommand('copy'));
+    }
 
     const renderlis = () => {
         let lis = [];
@@ -98,8 +105,8 @@ function TableOfContents(props) {
                         (content.text === props.current ? ' current' : '')
                     }
                 >
-                    <span onClick={scrollToContent}>{content.text}</span>
-                    <i className='fas fa-link' />
+                    <span className='link' onClick={scrollToContent}>{content.text}</span>
+                    <span onClick={generateURL}><i className="fas fa-link" /></span>
                 </li>
             );
         }
@@ -113,6 +120,7 @@ function TableOfContents(props) {
     return (
         <aside id='table-of-contents' className={hidden}>
             <ul>{renderlis()}</ul>
+            <textarea id='copybox' vale='test' />
         </aside>
     );
 }
