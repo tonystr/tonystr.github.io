@@ -1,20 +1,25 @@
 import React from 'react';
-import { A, ArticleTitle, Focus, Header } from './global.jsx';
+import { A, ArticleTitle, Focus, Header, Link } from './global.jsx';
 
 function ArticleList(props) {
     const list = [];
+    const location = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/articles/`;
 
     for (const article of props.json) {
-        //if (!article.password)
+        if (article.password) continue;
+
         list.push(
-            <li>
-                <div className='media'>
-                    {article.thumbnail && <img src={article.name.toLowerCase() + '/' + article.thumbnail} />}
-                </div>
-                <div className='text'>
-                    <A to={'../' + article.name.toLowerCase()}>{article.name}</A>
-                </div>
-            </li>
+            <Link to={'../' + article.name.toLowerCase()}>
+                <li>
+                    <div className='media'>
+                        {article.thumbnail && <img src={`${location}${article.name.toLowerCase()}/${article.thumbnail}`} />}
+                    </div>
+                    <div className='text'>
+                        <div className='title'><span>{article.name}</span></div>
+                        <div className='summary'>{article.summary}</div>
+                    </div>
+                </li>
+            </Link>
         );
     }
 

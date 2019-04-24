@@ -405,32 +405,66 @@ header {
 .article-list {
     max-width: 56rem;
     margin: 0 auto;
-    margin-top: 5rem;
+    margin-top: 9rem;
 
-    ul li {
-        font-size: 1.8rem;
-        font-family: 'Josefin Sans', sans-serif;
-        border: 2px solid $c_dark;
-        margin: .5rem 0;
-        border-radius: .3rem;
-        display: flex;
-        flex-direction: row;
+    ul {
+        padding: 0 2rem;
+        list-style-type: none;
 
-        .text {
-            padding: .4rem .5rem;
-        }
+        li {
+            font-family: 'Josefin Sans', sans-serif;
+            border: 2px solid $c_dark;
+            margin: .5rem 0;
+            border-radius: .3rem;
+            display: flex;
+            flex-direction: row;
+            transition: .2s all;
 
-        .media {
-            background-color: $c_dark;
-            max-height: 5rem;
-            max-width: 8.82rem;
-            padding: 2px;
-            padding-right: 4px;
-            position: relative;
-        }
+            &:hover {
+                border-color: $c_green;
+                cursor: pointer;
+                transform: translateX(2%);
+                box-shadow: 0 1px 6px rgba(0, 0, 0, .34);
+            }
 
-        img {
-            height: 100%;
+            .text {
+                padding: .4rem .5rem;
+
+                .title {
+                    font-size: 1.8rem;
+                    margin-top: .1rem;
+                    margin-bottom: .4rem;
+
+                    span {
+                        border-bottom: 2px solid $c_dark;
+                        padding-right: 1rem;
+                    }
+                }
+
+                .summary {
+                    color: $c_txt;
+                }
+            }
+
+            .media {
+                flex-shrink: 0;
+                width: 8rem;
+                border-right: 2px solid $c_dark;
+                background-color: $c_dark;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                border-top-left-radius: .16rem;
+                border-bottom-left-radius: .16rem;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-top-left-radius: .16rem;
+                border-bottom-left-radius: .16rem;
+            }
         }
     }
 }

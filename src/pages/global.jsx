@@ -88,4 +88,4 @@ function Ribbons(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle, ArticleTitle, Focus, WindowCenter, Header, Ribbons };
+export { requestRawText, A, SectionTitle, ArticleTitle, Focus, WindowCenter, Header, Ribbons, Link };
