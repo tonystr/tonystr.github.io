@@ -210,7 +210,7 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
-                <div className='commento-wrapper'><Observer {...observerOptions}><div id='wpac-comment' /></Observer></div>
+                <div className='wpac-wrapper'><Observer {...observerOptions}><div id='wpac-comment' /></Observer></div>
                 <div>
                     <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
                 </div>

@@ -166,6 +166,26 @@ header {
     }
 }
 
+footer {
+    $col: lighten($c_dark, 3%);
+    padding: 1rem;
+    background-color: $col;
+    box-shadow: 0 -2px $c_gray,
+                0 -4px $col;
+
+    color: darken($c_txt, 12%);
+    text-align: center;
+
+    .content {
+        max-width: 42rem;
+        margin: 0 auto;
+    }
+
+    .tony {
+        margin-top: .3rem;
+    }
+}
+
 // global classes
 
 .scroll-thumb {
@@ -200,7 +220,7 @@ header {
     }
 }
 
-.commento-wrapper {
+.wpac-wrapper {
     padding: 0 2rem;
     margin-top: 4rem;
 }

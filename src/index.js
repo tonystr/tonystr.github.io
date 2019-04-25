@@ -9,7 +9,7 @@ import Article from './pages/article.jsx';
 import ArticleLogin from './pages/article-login.jsx';
 import Dracula from './pages/dracula.jsx';
 import Articles from './pages/articles.jsx';
-import { WindowCenter } from './pages/global.jsx';
+import { WindowCenter, Footer } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles.json';
 
@@ -53,6 +53,7 @@ ReactDOM.render(
             <div>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/:article' component={ValidateArticle} />
+                <Footer />
             </div>
         </BrowserRouter>
     </Scrollbars>,
