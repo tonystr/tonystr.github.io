@@ -323,7 +323,7 @@ draw_set_color(c_white);
 
 Want to challenge yourself with the knowledge you've now acquired? You could take on some challenges. If you make one of these, tag [me on twitter](https://twitter.com/tonystr_)!
 
-* Make an [empire star](https://en.wikipedia.org/wiki/Galactic_Empire_(Star_Wars)) from Starwars
+* Make an [empire star](https://en.wikipedia.org/wiki/Galactic_Empire_(Star_Wars) from Starwars
 * Make an [animated machine](https://en.wikipedia.org/wiki/Machine)) with interlocking cogwheels
 * Make a [planet simulation](https://managore.itch.io/planetarium) inspired by [managore](https://twitter.com/Managore) or the [solar system](https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fkosmoactions.files.wordpress.com%2F2012%2F02%2Fsolar-system.jpg&f=1)
 
