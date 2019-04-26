@@ -4,7 +4,6 @@ import { requestRawText, A, SectionTitle, ArticleTitle, Focus, Header } from './
 import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
 import { Scrollbars } from 'react-custom-scrollbars';
-import ReactDOM from 'react-dom';
 import 'intersection-observer'; // optional polyfill
 import Observer from '@researchgate/react-intersection-observer';
 import scrollIntoView from 'scroll-into-view-if-needed';
@@ -47,6 +46,9 @@ function ArticleMedia(props) {
 
     const typeMatch = props.src.match(/\.(\w+)$/);
     const type = typeMatch ? typeMatch[1] : null;
+    const src = props.src.startsWith('./') ?
+        `articles/${props.pageName}${props.src.slice(1)}` :
+        props.src;
 
     const renderers = [{
         matches: ['mp4', 'webm', 'ogg'],
@@ -58,8 +60,14 @@ function ArticleMedia(props) {
 
             return (
                 <section className='video'>
-                    <video loop poster={match ? match[1] : ''}>
-                        <source src={props.src} type={'video/' + type} />
+                    <video
+                        onClick={() => props.setFocus(src)}
+                        onMouseOver={e => e.target.play()}
+                        onMouseOut={e => e.target.pause()}
+                        poster={match ? match[1] : ''}
+                        loop
+                    >
+                        <source src={src} type={'video/' + type} />
                     </video>
                     <em>{alt}</em>
                 </section>
@@ -96,6 +104,7 @@ function TableOfContents(props) {
         for (const content of props.contents) {
             lis.push(
                 <li
+                    key={content.text}
                     className={
                         (content.level === 1 ? 'title' : '') +
                         (content.text === props.current ? ' current' : '')
@@ -110,7 +119,6 @@ function TableOfContents(props) {
     };
 
     const cur = props.contents.find(content => content.text === props.current);
-    console.log(cur);
     const hidden = cur && cur.level === 1 ? 'hidden' : '';
 
     return (
@@ -149,9 +157,7 @@ export default function Article(props) {
 
         setTimeout(() => {
             const lis = document.querySelectorAll('.wp-login-menu li');
-            console.log('lis:', lis);
             for (const li of lis) {
-                console.log(li, li.innerText);
                 if (li.innerText === 'Get WidgetPack') li.parentNode.removeChild(li);
             }
         }, 3100);
@@ -160,14 +166,6 @@ export default function Article(props) {
     }, []);
 
     useEffect(() => {
-        document.querySelectorAll('.rendered-markdown .video video').forEach(video => {
-            video.addEventListener('mouseover', () => video.play());
-            video.addEventListener('mouseout', () => video.pause());
-            video.addEventListener('click', () => {
-                setFocus(video.currentSrc);
-            });
-        });
-
         if (markdown) {
             const sectLines = markdown.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
             let sects = [];
@@ -205,7 +203,13 @@ export default function Article(props) {
                         heading: props => props.level === 2 ?
                             <Observer {...observerOptions}>{SectionTitle(props)}</Observer> :
                             <Observer {...observerOptions}>{ArticleTitle(props)}</Observer>,
-                        image: ArticleMedia
+                        image: ps => (
+                            <ArticleMedia
+                                {...ps}
+                                pageName={props.article.name.toLowerCase()}
+                                setFocus={setFocus}
+                            />
+                        )
                     }}
                     className='rendered-markdown'
                     escapeHtml={false}

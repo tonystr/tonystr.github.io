@@ -171,10 +171,13 @@ footer {
     padding: 1rem;
     background-color: $col;
     box-shadow: 0 -2px $c_gray,
-                0 -4px $col;
+                0 -4px $col,
+                0  2px $c_gray,
+                0  4px $col;
 
     color: darken($c_txt, 12%);
     text-align: center;
+    margin-top: 2rem;
 
     .content {
         max-width: 42rem;
@@ -234,6 +237,26 @@ footer {
         opacity: 0;
     }
 
+    .wp-comments {
+        border-top: 1px solid $c_dark !important;
+        padding-top: 1rem;
+    }
+
+    .wp-login {
+        @extend a.link;
+        color: $c_gold !important;
+        path { fill: $c_gold !important; }
+
+        &:hover {
+            color: $c_green !important;
+            path { fill: $c_green !important; }
+        }
+    }
+
+    .wp-hr.wp-clear {
+        opacity: 0;
+    }
+
     .wp-comment-count {
         color: $c_ltgray !important;
     }
@@ -245,6 +268,10 @@ footer {
         &:hover {
             color: $c_green !important;
         }
+    }
+
+    .wp-sort path {
+        fill: $c_ltgray !important;
     }
 
     .wp-comment-rate {
@@ -426,6 +453,7 @@ footer {
     max-width: 56rem;
     margin: 0 auto;
     margin-top: 9rem;
+    min-height: 63vh;
 
     ul {
         padding: 0 2rem;

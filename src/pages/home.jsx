@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import websites from '../data/websites';
 import Prism from './../prism.js';
 import { requestRawText, A, SectionTitle, Ribbons } from './global.jsx';
+import scrollIntoView from 'scroll-into-view-if-needed';
 
 export default function Home(props) {
     return (

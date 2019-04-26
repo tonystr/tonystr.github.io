@@ -78,7 +78,7 @@ function Ribbons(props) {
             <Link to='/'><li className='l0'><i className="far fa-id-card" /></li></Link>
             <Link to='/articles'><li className='l1'><i className="fas fa-file-invoice" /></li></Link>
             <li className='l2'><i className="fas fa-code" /></li>
-            <a href='mailto:tony.stroemsnaes@gmail.com' target='_blank' rel="noopener noreferrer">
+            <a href='mailto:hello@tonystr.net' target='_blank' rel="noopener noreferrer">
                 <li className='l3'><i className="far fa-envelope" /></li>
             </a>
             <a href='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
@@ -88,7 +88,7 @@ function Ribbons(props) {
     );
 }
 
-function Footer (props) {
+function Footer(props) {
     return (
         <footer>
             <div className='content'>
@@ -96,7 +96,7 @@ function Footer (props) {
                 Dave Gandy, <A to='https://widgetpack.com/comment-system'>Widget Pack</A> comment
                 system, <A to='https://prismjs.com/'>Prism.js</A> syntax highlighter by
                 Golmote and Jannik Zschiesche, and <A to='https://reactjs.org/'>React.js</A> by
-                Facebook
+                Facebook.
                 <div className='tony'>
                     Designed and developed by <A to='/'>Tony Strømsnæs</A>
                 </div>

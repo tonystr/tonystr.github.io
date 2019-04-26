@@ -5,13 +5,13 @@ Everyone loves them; they're round, convex and infinitely smooth!
 
 But following these criteria, how would you actually draw a circle? In the physical world, you could use a **drafting compass** to construct a decent circle. In the world of computers, most image manipulation software provide tools for *drawing* circles, but what if you want to *program* a circle? What are the rules that make up a circle, and how could you represent them in code? Knowing this can be a powerful tool for drawing and animating complex shapes like cogwheels, spirals or even **demonic pentagrams**.
 
-![Circle of rocks, circular pentagram and circular attacks](./articles/circle_demonstration.mp4)
+![Circle of rocks, circular pentagram and circular attacks](./videos/circle_demonstration.mp4)
 
 Regular polygons, such as triangles, squares, pentagons, hexagons and so on, can all be defined by how many corners they have. Drawing one such shape is as simple as finding the corners *(vertices)* of the shape, and drawing lines between them. Just like that "connect the dots" game you played as a kid.
 
 Since they are regular shapes, all sides are equally long *(equilateral)*. If you keep increasing the amount of vertices, you'll get closer and closer to what looks like a circle, until you can't tell the difference anymore. It is in fact exactly this we'll use to draw circles.
 
-![The more vertices an equilateral shape has, the closer it is to being a circle](./articles/regular_ploygons.mp4)
+![The more vertices an equilateral shape has, the closer it is to being a circle](./videos/regular_ploygons.mp4)
 
 ## Trigonometry
 
@@ -102,13 +102,13 @@ draw_primitive_end();
 
 This would draw a filled circle. Below is an illustration of the different primitive kinds, all drawn with the same circle code as above.
 
-![Different primitive kinds with varying vertex counts](./articles/primitive_kinds.mp4)
+![Different primitive kinds with varying vertex counts](./videos/primitive_kinds.mp4)
 
 Although all of these primitives are *interesting*, most of them aren't very useful other than for **debugging**. If you're writing a complex primitive and having problems with it, changing the ``kind`` to something like ``pr_linestrip`` or ``pr_pointlist`` might be useful for wrapping your head around what you're doing.
 
 ``pr_trianglefan`` produces a decent circle, however it isn't available on the *HTML5 target* platform, and it might not work correctly on some devices for other platforms. Additionally, it doesn't really give us a whole lot of power to make interesting shapes.
 
-| ![!thumbnail(./articles/trianglefan.thumbnail.png)](./articles/trianglefan.mp4) | ![!thumbnail(./articles/trianglestrip.thumbnail.png)](./articles/trianglestrip.mp4) |
+| ![!thumbnail(./videos/trianglefan.thumbnail.png)](./videos/trianglefan.mp4) | ![!thumbnail(./videos/trianglestrip.thumbnail.png)](./videos/trianglestrip.mp4) |
 | :-----------------------------: | :-------------------------------: |
 |        *pr_trianglefan*         |         *pr_trianglestrip*        |
 | each triangle shares one vertex with previous triangle and one vertex with the anchor point | each triangle shares two vertices with previous triangle |
@@ -117,7 +117,7 @@ Although all of these primitives are *interesting*, most of them aren't very use
 
 With ``pr_trianglestrip``, every triangle shares two vertices with the previous triangle. Using this knowledge, we could draw a circle in a *sawtooth* pattern. By drawing each vertex on the opposite end of the circle, every triangle would reach from one end of the circle to the other and in turn fill the whole shape.
 
-![Circles drawn with an alternating pattern](./articles/alternating_pattern.mp4)
+![Circles drawn with an alternating pattern](./videos/alternating_pattern.mp4)
 
 ```gml
 var radius = 64;
@@ -197,13 +197,13 @@ if (vertex_count % 2 == 0) draw_vertex_texture(
 draw_primitive_end();
 ```
 
-![Textured circle drawn with code above](./articles/textured_circle.mp4)
+![Textured circle drawn with code above](./videos/textured_circle.mp4)
 
 Not much changed in the draw code to get this result. ``draw_vertex_texture()`` now takes two coordinates. The first coordinate is calculated how we've always done it, ``xy + lengthdir_xy(radius, angle)``, but the second coordinate uses .5 in place of both ``xy`` and ``radius``. I mentioned above that texture coordinates were values between 0 and 1. The middle of 0 and 1 is .5. The trigonometry functions, ``lengthdir_x()`` and ``lengthdir_y()`` return values between -length and +length, so if we set length to .5, the coordinates can be anything between 0 and 1 when added to .5.
 
 ## Cogwheels
 
-![Rotating cogwheel](./articles/cogwheel.mp4)
+![Rotating cogwheel](./videos/cogwheel.mp4)
 
 Let's draw some fun shapes. By drawing every third vertex in the center and the rest around a circle, with ``pr_trianglestrip``, we get a normal filled-in circle. If you take three out of five vertices and draw them with an extended radius, you get a cogwheel.
 
@@ -261,7 +261,7 @@ draw_primitive_end();
 
 ## Spirals
 
-![Buy... Tony's games...](./articles/spirals.mp4)
+![Buy... Tony's games...](./videos/spirals.mp4)
 
 Spirals are really simple. Each angle has a slightly bigger radius, and it draws lines around ``vertex_count`` multiple times.
 
@@ -290,7 +290,7 @@ for (var i = 0; i < vertex_count * spiral_count; i++) {
 
 ## Pentagrams
 
-![Pentagram and other shapes with same code](./articles/pentagram.mp4)
+![Pentagram and other shapes with same code](./videos/pentagram.mp4)
 
 Do you suddenly feel like summoning demons? Pentagrams are also really simple to draw. Each vertex is connected with the vertex three iterations ahead, and there are only five vertices (thus the name *penta*-gram).
 
