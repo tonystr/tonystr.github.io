@@ -21,9 +21,9 @@ function AboutSection() {
             <div className='description'>
                 <div className='background' />
                 <p>
-                    I am a Norwegian 2d game and web developer, working primarily with GML and JavaScript.
+                    I am a Norwegian 2d game- and web-developer, working primarily with GML and JavaScript.
                 </p><p>
-                    As well as developing games, I enjoy building libraries, IDE skins and other resources to aid other developers.
+                    As well as creating games, I enjoy building libraries, IDE skins and other resources to aid other developers.
                 </p><p>
                     I have contributed to community projects such as
                     a <A to='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
