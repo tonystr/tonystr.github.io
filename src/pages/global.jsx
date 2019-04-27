@@ -68,6 +68,9 @@ function Header(props) {
     return (
         <header>
             <Ribbons />
+            <div className='tony'>
+                Tony Strømsnæs
+            </div>
         </header>
     );
 }

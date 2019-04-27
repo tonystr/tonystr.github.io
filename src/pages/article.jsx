@@ -170,6 +170,7 @@ export default function Article(props) {
             const sectLines = markdown.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
             let sects = [];
             sectLines.forEach((s, i) => sects[i] = { text: s.match(/#+\s+([^\n]+)$/)[1], level: s.match(/#+/)[0].length });
+            sects.push({ text: 'Comments', level: 2 });
             setSections(sects);
         }
     }, [ markdown ]);
@@ -214,7 +215,8 @@ export default function Article(props) {
                     className='rendered-markdown'
                     escapeHtml={false}
                 />
-                <div className='wpac-wrapper'><Observer {...observerOptions}><div id='wpac-comment' /></Observer></div>
+                <Observer {...observerOptions}><div className='section-header hidden'>Comments</div></Observer>
+                <div className='wpac-wrapper'><div id='wpac-comment' /></div>
                 <div>
                     <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
                 </div>

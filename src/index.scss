@@ -23,6 +23,7 @@ $rainbow: (
 );
 
 $default_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$josefin: 'josefin-sans' sans-serif;
 
 // imports
 
@@ -155,11 +156,20 @@ a {
 $border: 0.24vw;
 
 header {
-    padding: 1rem;
+    padding: .4rem 1rem;
     margin: 4vh 4%;
     vertical-align: middle;
     border-top: $border solid $c_dark;
     position: relative;
+    margin-bottom: 5rem;
+    font-weight: 300;
+
+    .tony {
+        float: right;
+        font-size: 2.44vw;
+        color: $c_green;
+        font: $josefin;
+    }
 
     .ribbons {
         top: $border * .22;
@@ -171,6 +181,35 @@ header {
 
         .ribbons {
             top: $border * .22;
+        }
+
+        .tony {
+            font-size: 2.2rem;
+        }
+    }
+
+    @media(max-width:640px) {
+        $border: 3px;
+        border-top: none;
+        border-bottom: $border solid $c_dark;
+        padding-top: 2.5rem;
+        margin-top: 1.4rem;
+
+        .ribbons {
+            top: calc(#{$border * 1} + #{2.5rem + .4rem});
+            margin-left: 0;
+            left: 0;
+            right: 0;
+            justify-content: center;
+        }
+
+        .tony {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 2rem;
         }
     }
 }
@@ -199,6 +238,10 @@ footer {
 }
 
 // global classes
+
+.section-header.hidden {
+    opacity: 0;
+}
 
 .scroll-thumb {
     background-color: darken($c_gray, 1.2%);
@@ -670,6 +713,7 @@ footer {
 .rendered-markdown {
     max-width: 56rem;
     margin: 2rem auto;
+    margin-top: 4rem;
     padding: 2rem;
     font-size: 1.1rem;
 
