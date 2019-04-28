@@ -136,6 +136,7 @@ export default function Article(props) {
     const [sections, setSections] = useState(null);
     const [currentSection, setCurrentSection] = useState(null);
     const [currentTicking, setCurrentTicking] = useState(false);
+    const [showTOC, setShowTOC] = useState(true);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -161,8 +162,6 @@ export default function Article(props) {
                 if (li.innerText === 'Get WidgetPack') li.parentNode.removeChild(li);
             }
         }, 3100);
-
-        // <a href="https://widgetpack.com" class="wpac-cr">Comments System WIDGET PACK</a>
     }, []);
 
     useEffect(() => {
@@ -174,6 +173,15 @@ export default function Article(props) {
             setSections(sects);
         }
     }, [ markdown ]);
+
+    useEffect(() => {
+        const check = e => {
+            let isEnough = window.innerWidth > 16 * 83;
+            if (showTOC !== isEnough) setShowTOC(isEnough);
+        }
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    });
 
     const observerOptions = {
         onChange: e => {
@@ -217,9 +225,9 @@ export default function Article(props) {
                 />
                 <Observer {...observerOptions}><div className='section-header hidden'>Comments</div></Observer>
                 <div className='wpac-wrapper'><div id='wpac-comment' /></div>
-                <div>
+                {showTOC && <div>
                     <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
-                </div>
+                </div>}
             </div>
         </>
     );

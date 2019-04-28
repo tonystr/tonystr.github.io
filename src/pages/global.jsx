@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 async function requestRawText(path, callback) {
@@ -45,10 +45,16 @@ function Focus(props) {
         }
     }
 
+    const videoRef = React.createRef();
+
+    useEffect(() => {
+        if (videoRef.current) videoRef.current.play();
+    });
+
     return (
         <div className='focus' onClick={handleClick}>
             {props.video && <div className='video content'>
-                <video controls>
+                <video controls ref={videoRef} >
                     <source src={props.video} />
                 </video>
             </div>}
@@ -65,6 +71,8 @@ function WindowCenter(props) {
 }
 
 function Header(props) {
+    let rootURL = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;
+    rootURL = rootURL.replace('localhost', '127.0.0.1');
     return (
         <header>
             <Ribbons />

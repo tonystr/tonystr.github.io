@@ -509,8 +509,9 @@ footer {
 .article-list {
     max-width: 56rem;
     margin: 0 auto;
-    margin-top: 9rem;
+    margin-top: 4rem;
     min-height: 63vh;
+    padding: 2rem;
 
     ul {
         padding: 0 2rem;
@@ -524,6 +525,7 @@ footer {
             display: flex;
             flex-direction: row;
             transition: .2s all;
+            position: relative;
 
             &:hover {
                 border-color: $c_green;
@@ -533,27 +535,47 @@ footer {
             }
 
             .text {
-                padding: .4rem .5rem;
-
-                .title {
-                    font-size: 1.8rem;
-                    margin-top: .1rem;
-                    margin-bottom: .4rem;
-
-                    span {
-                        border-bottom: 2px solid $c_dark;
-                        padding-right: 1rem;
-                    }
-                }
+                padding: .5rem;
 
                 .summary {
                     color: $c_txt;
                 }
             }
 
+            .title {
+                font-size: 1.8rem;
+                margin-top: .1rem;
+                margin-bottom: .5rem;
+
+                span {
+                    border-bottom: 2px solid $c_dark;
+                    padding-right: 1rem;
+                }
+            }
+
+            .tags {
+                margin-top: .4rem;
+
+                span {
+                    color: $c_ltgray;
+                    margin-right: .5rem;
+                    &::before {
+                        content: '#'
+                    }
+                }
+            }
+
+            .timestamp {
+                position: absolute;
+                $pad: .5rem;
+                top: $pad;
+                right: $pad;
+                color: $c_ltgray;
+            }
+
             .media {
                 flex-shrink: 0;
-                width: 8rem;
+                width: 6rem;
                 border-right: 2px solid $c_dark;
                 background-color: $c_dark;
                 display: flex;
@@ -564,8 +586,9 @@ footer {
             }
 
             img {
-                width: 100%;
+                max-width: 100%;
                 height: auto;
+                width: auto;
                 display: block;
                 border-top-left-radius: .16rem;
                 border-bottom-left-radius: .16rem;

@@ -8,6 +8,8 @@ function ArticleList(props) {
     for (const article of props.json) {
         if (article.password) continue;
 
+        let tags = article.tags.map(tag => <span>{tag}</span>);
+
         list.push(
             <Link to={'../' + article.name.toLowerCase()}>
                 <li>
@@ -17,6 +19,8 @@ function ArticleList(props) {
                     <div className='text'>
                         <div className='title'><span>{article.name}</span></div>
                         <div className='summary'>{article.summary}</div>
+                        <div className='tags'>{tags}</div>
+                        <div className='timestamp'>{(new Date(article.timestamp)).toDateString().slice(4)}</div>
                     </div>
                 </li>
             </Link>

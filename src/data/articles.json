@@ -1,7 +1,8 @@
 [{
     "name": "Circles",
     "tags": ["tutorial", "gml", "rendering", "math"],
-    "password": "sudo let me in",
+    "password": "",
     "thumbnail": "primitive_kinds.png",
-    "summary": "Program circles and complex shapes with primitives and trigonometry"
+    "summary": "Program circles and complex shapes with primitives and trigonometry",
+    "timestamp": 1556459185779
 }]
