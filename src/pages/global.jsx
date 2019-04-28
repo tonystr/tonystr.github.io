@@ -1,15 +1,18 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import SyntaxHighlighter from "react-syntax-highlighter";
+import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
+import { Scrollbars } from 'react-custom-scrollbars';
 
 async function requestRawText(path, callback) {
-        const xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = () => {
-            if (xhttp.readyState === 4 && xhttp.status === 200) {
-                callback(xhttp.responseText);
-            }
+    const xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = () => {
+        if (xhttp.readyState === 4 && xhttp.status === 200) {
+            callback(xhttp.responseText);
         }
-        xhttp.open('GET', path, true);
-        xhttp.send();
+    }
+    xhttp.open('GET', path, true);
+    xhttp.send();
 }
 
 function A(props) {
@@ -22,6 +25,41 @@ function A(props) {
     )
     // return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
 }
+
+function CodeBlock(props) {
+
+    const hl = (
+        <SyntaxHighlighter
+            className={'code ' + (props.inline ? 'inline' : '')}
+            language={props.language || null}
+            style={styleOneDark}
+        >
+            {props.value}
+        </SyntaxHighlighter>
+    );
+
+    const renderThumb = props => {
+        return <div className='scroll-thumb' {...props} />;
+    }
+
+    return (
+        !props.inline ? (
+            <Scrollbars
+                autoHeight
+                autoHeightMin={46}
+                autoHeightMax={700}
+                // autoWidth
+                // autoWidthMax={100}
+                renderThumbHorizontal={renderThumb}
+                renderThumbVertical={renderThumb}
+                className='code block'
+            >
+                {hl}
+            </Scrollbars>
+        ) : hl
+    );
+}
+
 
 function SectionTitle(props) {
     return (
@@ -36,6 +74,10 @@ function SectionTitle(props) {
 const ArticleTitle = (props) => (
     <div {...props} className='article-title section-header' />
 );
+
+function StandardPage({ className, ...props }) {
+    return <div className={'standard-page ' + (className || '')} {...props}/>;
+}
 
 function Focus(props) {
 
@@ -88,13 +130,13 @@ function Ribbons(props) {
         <ul className='ribbons'>
             <Link to='/'><li className='l0'><i className="far fa-id-card" /></li></Link>
             <Link to='/articles'><li className='l1'><i className="fas fa-file-invoice" /></li></Link>
-            <li className='l2'><i className="fas fa-code" /></li>
+            <Link to='/snippets'><li className='l2'><i className="fas fa-code" /></li></Link>
             <a href='mailto:hello@tonystr.net' target='_blank' rel="noopener noreferrer">
                 <li className='l3'><i className="far fa-envelope" /></li>
             </a>
-            <a href='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
+            <Link to='https://twitter.com/TonyStr_' target='_blank' rel="noopener noreferrer">
                 <li className='l4'><i className="fab fa-twitter" /></li>
-            </a>
+            </Link>
         </ul>
     );
 }
@@ -116,4 +158,17 @@ function Footer(props) {
     );
 }
 
-export { requestRawText, A, SectionTitle, ArticleTitle, Focus, WindowCenter, Header, Ribbons, Link, Footer };
+export {
+    requestRawText,
+    A,
+    SectionTitle,
+    ArticleTitle,
+    Focus,
+    WindowCenter,
+    Header,
+    Ribbons,
+    Link,
+    Footer,
+    StandardPage,
+    CodeBlock
+};

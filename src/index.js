@@ -9,6 +9,7 @@ import Article from './pages/article.jsx';
 import ArticleLogin from './pages/article-login.jsx';
 import Dracula from './pages/dracula.jsx';
 import Articles from './pages/articles.jsx';
+import Snippets from './pages/snippets.jsx';
 import { WindowCenter, Footer } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles.json';
@@ -21,6 +22,7 @@ function ValidateArticle(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
 
     if (location === 'articles') return <Articles json={articlesJSON} />;
+    if (location === 'snippets') return <Snippets />;
 
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
 
@@ -61,4 +63,4 @@ ReactDOM.render(
 );
 
 // Read about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+serviceWorker.register();

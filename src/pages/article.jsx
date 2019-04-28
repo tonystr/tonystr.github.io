@@ -1,46 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
-import { requestRawText, A, SectionTitle, ArticleTitle, Focus, Header } from './global.jsx';
-import SyntaxHighlighter from "react-syntax-highlighter";
-import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
-import { Scrollbars } from 'react-custom-scrollbars';
+import { requestRawText, A, SectionTitle, ArticleTitle, Focus, Header, StandardPage, CodeBlock } from './global.jsx';
 import 'intersection-observer'; // optional polyfill
 import Observer from '@researchgate/react-intersection-observer';
 import scrollIntoView from 'scroll-into-view-if-needed';
-
-function CodeBlock(props) {
-
-    const hl = (
-        <SyntaxHighlighter
-            className={'code ' + (props.inline ? 'inline' : '')}
-            language={props.language || null}
-            style={styleOneDark}
-        >
-            {props.value}
-        </SyntaxHighlighter>
-    );
-
-    const renderThumb = props => {
-        return <div className='scroll-thumb' {...props} />;
-    }
-
-    return (
-        !props.inline ? (
-            <Scrollbars
-                autoHeight
-                autoHeightMin={46}
-                autoHeightMax={700}
-                // autoWidth
-                // autoWidthMax={100}
-                renderThumbHorizontal={renderThumb}
-                renderThumbVertical={renderThumb}
-                className='code block'
-            >
-                {hl}
-            </Scrollbars>
-        ) : hl
-    );
-}
 
 function ArticleMedia(props) {
 
@@ -202,27 +165,29 @@ export default function Article(props) {
             {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
             <div className={focus ? 'blur' : ''}>
                 <Header />
-                <Markdown
-                    source={markdown}
-                    linkTarget='_blank'
-                    renderers={{
-                        code: CodeBlock,
-                        inlineCode: props => <CodeBlock {...props} language='gml' />,
-                        link: A,
-                        heading: props => props.level === 2 ?
-                            <Observer {...observerOptions}>{SectionTitle(props)}</Observer> :
-                            <Observer {...observerOptions}>{ArticleTitle(props)}</Observer>,
-                        image: ps => (
-                            <ArticleMedia
-                                {...ps}
-                                pageName={props.article.name.toLowerCase()}
-                                setFocus={setFocus}
-                            />
-                        )
-                    }}
-                    className='rendered-markdown'
-                    escapeHtml={false}
-                />
+                <StandardPage>
+                    <Markdown
+                        source={markdown}
+                        linkTarget='_blank'
+                        renderers={{
+                            code: CodeBlock,
+                            inlineCode: props => <CodeBlock {...props} language='gml' />,
+                            link: A,
+                            heading: props => props.level === 2 ?
+                                <Observer {...observerOptions}>{SectionTitle(props)}</Observer> :
+                                <Observer {...observerOptions}>{ArticleTitle(props)}</Observer>,
+                            image: ps => (
+                                <ArticleMedia
+                                    {...ps}
+                                    pageName={props.article.name.toLowerCase()}
+                                    setFocus={setFocus}
+                                />
+                            )
+                        }}
+                        className='rendered-markdown'
+                        escapeHtml={false}
+                    />
+                </StandardPage>
                 <Observer {...observerOptions}><div className='section-header hidden'>Comments</div></Observer>
                 <div className='wpac-wrapper'><div id='wpac-comment' /></div>
                 {showTOC && <div>

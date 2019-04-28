@@ -1,5 +1,5 @@
 import React from 'react';
-import { A, ArticleTitle, Focus, Header, Link } from './global.jsx';
+import { A, ArticleTitle, Focus, Header, Link, StandardPage } from './global.jsx';
 
 function ArticleList(props) {
     const list = [];
@@ -32,12 +32,12 @@ function ArticleList(props) {
 
 export default function Articles(props) {
     return (
-        <div>
+        <>
             <Header />
-            <div className='article-list'>
+            <StandardPage className='article-list'>
                 <ArticleTitle> Articles </ArticleTitle>
                 <ArticleList json={props.json} />
-            </div>
-        </div>
+            </StandardPage>
+        </>
     );
 }

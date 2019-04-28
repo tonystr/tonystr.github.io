@@ -507,11 +507,7 @@ footer {
 }
 
 .article-list {
-    max-width: 56rem;
-    margin: 0 auto;
-    margin-top: 4rem;
     min-height: 63vh;
-    padding: 2rem;
 
     ul {
         padding: 0 2rem;
@@ -733,11 +729,46 @@ footer {
     }
 }
 
-.rendered-markdown {
+.standard-page {
     max-width: 56rem;
-    margin: 2rem auto;
+    margin: 0 auto;
     margin-top: 4rem;
     padding: 2rem;
+}
+
+.code {
+    background-color: lighten($c_dark, 3%) !important;
+    border-radius: 6px;
+    margin: 0;
+    white-space: wrap;
+    font-size: 1.1rem;
+    tab-size: 4;
+
+    .hljs-keywords {
+        color: #C678DD;
+    }
+
+    &.block {
+        box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+        //padding: .5rem .7rem !important;
+        max-height: 32rem;
+        position: relative;
+        z-index: 2;
+        margin: 1rem 0;
+    }
+
+    &.inline {
+        display: inline !important;
+        padding: .2rem .3rem !important;
+        font-size: .9rem !important;
+    }
+
+    @media(max-width: 400px) {
+        font-size: .8rem !important;
+    }
+}
+
+.rendered-markdown {
     font-size: 1.1rem;
 
     p {
@@ -848,34 +879,6 @@ footer {
         }
     }
 
-    .code {
-        background-color: lighten($c_dark, 3%) !important;
-        border-radius: 6px;
-        margin: 0;
-        white-space: wrap;
-
-        .hljs-keywords {
-            color: #C678DD;
-        }
-
-        &.block {
-            box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
-            //padding: .5rem .7rem !important;
-            max-height: 32rem;
-            position: relative;
-            z-index: 2;
-            margin: 1rem 0;
-        }
-
-        &.inline {
-            display: inline !important;
-            padding: .2rem .3rem !important;
-            font-size: .9rem !important;
-        }
-    }
-
-
-
     @media(max-width: 400px) {
         font-size: .9rem;
         padding: .9rem;
@@ -883,10 +886,6 @@ footer {
         p {
             margin: .66rem 0;
             line-height: 1.3rem;
-        }
-
-        .code.block, .code.inline {
-            font-size: .8rem !important;
         }
 
         .section-title {
