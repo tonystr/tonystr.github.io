@@ -17,7 +17,7 @@ function ArticleList(props) {
                         {article.thumbnail && <img src={`${location}${article.name.toLowerCase()}/${article.thumbnail}`} />}
                     </div>
                     <div className='text'>
-                        <div className='title'><span>{article.name}</span></div>
+                        <div className='title'><span>{article.displayName || article.name}</span></div>
                         <div className='summary'>{article.summary}</div>
                         <div className='tags'>{tags}</div>
                         <div className='timestamp'>{(new Date(article.timestamp)).toDateString().slice(4)}</div>

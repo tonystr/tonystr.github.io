@@ -1,8 +1,15 @@
 [{
     "name": "Circles",
     "tags": ["tutorial", "gml", "rendering", "math"],
-    "password": "",
     "thumbnail": "primitive_kinds.png",
     "summary": "Program circles and complex shapes with primitives and trigonometry",
     "timestamp": 1556459185779
+},{
+    "name": "Regex",
+    "displayName": "/Reg(ul[ae]r)?[\\s_-]*Ex(pres{2}ions?|p)?/i",
+    "tags": ["tutorial", "javascript", "math", "parsing", "strings"],
+    "password": "iloveregex",
+    "thumbnail": "regex.thumbnail.png",
+    "summary": "Learn to understand what that title means",
+    "timestamp": 1561299060000
 }]
