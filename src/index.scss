@@ -600,6 +600,18 @@ footer {
     $col: darken($c_txt, 40%);
     color: $col;
     pointer-events: none;
+    max-width: calc(50% - 30rem);
+    overflow: hidden;
+
+    &::after {
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 1.6rem;
+        background: linear-gradient(90deg, transparent 0%, $c_gray 100%);
+    }
 
     @media(max-width: 82rem) {
         display: none;
@@ -770,6 +782,8 @@ footer {
 
 .rendered-markdown {
     font-size: 1.1rem;
+    background-color: $c_gray;
+    box-shadow: 2px 0 28px 46px $c_gray;
 
     p {
         line-height: 1.42rem;
