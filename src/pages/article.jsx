@@ -92,14 +92,10 @@ function TableOfContents(props) {
     );
 }
 
-export default function Article(props) {
+function ArticleContent(props) {
 
     const [markdown, setMarkdown] = useState(null);
     const [focus, setFocus]       = useState(null);
-    const [sections, setSections] = useState(null);
-    const [currentSection, setCurrentSection] = useState(null);
-    const [currentTicking, setCurrentTicking] = useState(false);
-    const [showTOC, setShowTOC] = useState(true);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -107,7 +103,18 @@ export default function Article(props) {
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
             `${props.article.name.toLowerCase()}/index.md`
-        , setMarkdown);
+        , res => {
+            setMarkdown(res);
+
+            const sectLines = res.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
+            let sects = [];
+            sectLines.forEach((s, i) => sects[i] = {
+                text:  s.match(/#+\s+([^\n]+)$/)[1],
+                level: s.match(/#+/)[0].length
+            });
+            sects.push({ text: 'Comments', level: 2 });
+            props.setSections(sects);
+        });
 
         window.wpac_init = window.wpac_init || [];
         window.wpac_init.push({widget: 'Comment', id: 18172});
@@ -127,35 +134,8 @@ export default function Article(props) {
         }, 3100);
     }, []);
 
-    useEffect(() => {
-        if (markdown) {
-            const sectLines = markdown.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
-            let sects = [];
-            sectLines.forEach((s, i) => sects[i] = { text: s.match(/#+\s+([^\n]+)$/)[1], level: s.match(/#+/)[0].length });
-            sects.push({ text: 'Comments', level: 2 });
-            setSections(sects);
-        }
-    }, [ markdown ]);
-
-    useEffect(() => {
-        const check = e => {
-            let isEnough = window.innerWidth > 16 * 83;
-            if (showTOC !== isEnough) setShowTOC(isEnough);
-        }
-        window.addEventListener('resize', check);
-        return () => window.removeEventListener('resize', check);
-    });
-
     const observerOptions = {
-        onChange: e => {
-            if (!currentTicking && e.isIntersecting && currentSection !== e.target.innerText) {
-                setCurrentSection(e.target.innerText);
-                setCurrentTicking(true);
-                setTimeout(() => {
-                    setCurrentTicking(false);
-                }, 460);
-            }
-        },
+        onChange: props.observerOnChange,
         root: '#root',
         rootMargin: '57% 0% -42%'
     };
@@ -190,10 +170,53 @@ export default function Article(props) {
                 </StandardPage>
                 <Observer {...observerOptions}><div className='section-header hidden'>Comments</div></Observer>
                 <div className='wpac-wrapper'><div id='wpac-comment' /></div>
-                {showTOC && <div>
-                    <TableOfContents style={{ 'height': '100vh' }} contents={sections} current={currentSection} />
-                </div>}
             </div>
+        </>
+    );
+}
+
+export default function Article(props) {
+    const [showTOC,    setShowTOC   ] = useState(true);
+    const [sections,   setSections  ] = useState(null);
+    const [currentTOC, setCurrentTOC] = useState('');
+    const [lastWindowY, setLastWindowY] = useState(false);
+
+    useEffect(() => {
+        const check = e => {
+            let isEnough = window.innerWidth > 16 * 83;
+            if (showTOC !== isEnough) setShowTOC(isEnough);
+        }
+        window.addEventListener('resize', check);
+        return () => window.removeEventListener('resize', check);
+    }, []);
+
+    return (
+        <>
+            <ArticleContent
+                setSections={setSections}
+                observerOnChange={e => {
+                    if (
+                        e.isIntersecting &&
+                        currentTOC !== e.target.innerText &&
+                        !document.getElementById('sqroisd-vx63')
+                    ) {
+                        setCurrentTOC(e.target.innerText);
+                        const div = document.createElement('div');
+                        div.setAttribute('id', 'sqroisd-vx63');
+                        document.body.append(div);
+                        // You have @researchgate/react-intersection-observer to thank for this...
+                        setTimeout(() => document.body.removeChild(div), 60);
+                    }
+                }}
+                article={props.article}
+            />
+            {showTOC && (<div>
+                <TableOfContents
+                    style={{ 'height': '100vh' }}
+                    contents={sections}
+                    current={currentTOC}
+                />
+            </div>)}
         </>
     );
 }

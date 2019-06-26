@@ -14,9 +14,6 @@ import { WindowCenter, Footer } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles.json';
 
-window.onScrollListeners = []
-window.onScroll = e => { if (window.onScrollListeners[0]) window.onScrollListeners[0](e) };
-
 function ValidateArticle(props) {
 
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
@@ -33,24 +30,19 @@ function ValidateArticle(props) {
         setLogin(val);
     }
 
-
     if (article) {
-        if (!article.password || window.localStorage.getItem('article-password') === article.password) {
-            return <Article article={article} />;
-        } else {
-            return <ArticleLogin article={article} attemptLogin={attemptLogin} />;
-        }
+        return !article.password || window.localStorage.getItem('article-password') === article.password ?
+            <Article article={article} /> :
+            <ArticleLogin article={article} attemptLogin={attemptLogin} />;
     } else {
-        if (location === 'dracula') {
-            return <Dracula />;
-        } else {
-            return <WindowCenter> Could not find any article by the name "{location}" </WindowCenter>;
-        }
+        return location === 'dracula' ?
+            <Dracula /> :
+            <WindowCenter> Could not find any article by the name "{location}" </WindowCenter>;
     }
 }
 
 ReactDOM.render(
-    <Scrollbars style={{ height: '100vh' }} onScroll={e => window.onScroll(e)}>
+    <Scrollbars style={{ height: '100vh' }}>
         <BrowserRouter>
             <div>
                 <Route exact path='/' component={Home} />

@@ -6,13 +6,13 @@ The mess of a title you see above isn't as messy as it might first seem. Despite
 ```js
 // Regex example in JavaScript
 
-const string = 'Three hundred flies flew over the fried rice.'
+const string = 'Three hundred flies flew over the fried rice.';
 
 const match = string.match(/flies/);    // Search for "flies" with regex
 const index = string.indexOf('flies');  // Search for "flies" with <String>.indexOf()
 
 if (match !== null) console.log('String contains "flies"!');
-if (index !== -1)   console.log('String contains "flies"!');
+if (index !== -1  ) console.log('String contains "flies"!');
 ```
 
 In the above example, regex is used to check if a string contains the word "flies". Since the string does contain that word, it will "match" the word, and return something that is not `null`. If it fails to match (the string doesn't contain "flies"), it will return `null`. Below the line that tries to match a regex, is a line that does the same with ``<String>.indexOf()``. That function returns the position (index) of the first *occurrence* of a substring in a different string. If it doesn't find any occurrence of that substring, it will return `-1` instead. This function is faster than ``<String>.match()``, because the match function is capable of a lot **more**.

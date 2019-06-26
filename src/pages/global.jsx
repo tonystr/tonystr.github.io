@@ -42,6 +42,8 @@ function CodeBlock(props) {
         return <div className='scroll-thumb' {...props} />;
     }
 
+    return hl;
+    
     return (
         !props.inline ? (
             <Scrollbars
