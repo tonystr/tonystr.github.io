@@ -97,6 +97,13 @@ $josefin: 'josefin-sans' sans-serif;
     45%  { border-color: $c_red };
     55%  { border-color: $c_red };
 }
+
+@keyframes clip-fade-in {
+    0%   { clip-path: inset(0px 100% 0px 0px); }
+    20%  { clip-path: inset(0px 100% 0px 0px); }
+    100% { clip-path: inset(0px   0% 0px 0px); }
+}
+
 // global tags
 body {
     margin: 0;
@@ -1184,33 +1191,34 @@ $xmarg: 4%;
         position: absolute;
         transform: rotate(-30deg);
         width: 141vw;
-        height: 4vw;
+        height: 5.5vw;
         left: -27.1vw;
+        animation: clip-fade-in 2.1s;
 
         .line {
             margin: 4vw * (1 / 5);
             width: 141%;
-            border-top: 0.3vw solid;
+            height: 0.3vw;
         }
 
         .l0 {
-            border-color: $c_gold;
+            background: $c_gold;
         }
 
         .l1 {
-            border-color: $c_orange;
+            background: $c_orange;
         }
 
         .l2 {
-            border-color: $c_red;
+            background: $c_red;
         }
 
         .l3 {
-            border-color: $c_purple;
+            background: $c_purple;
         }
 
         .l4 {
-            border-color: $c_blue;
+            background: $c_blue;
         }
     }
 

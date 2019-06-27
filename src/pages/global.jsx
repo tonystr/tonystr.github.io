@@ -16,14 +16,13 @@ async function requestRawText(path, callback) {
 }
 
 function A(props) {
-    return (
+    return props.to ? (
         <Link
             {...props}
             className={'link ' + (props.className || '')}
-            to={props.to || props.href}
+            to={props.to}
         />
-    )
-    // return <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
+    ) : <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
 }
 
 function CodeBlock(props) {
@@ -43,7 +42,7 @@ function CodeBlock(props) {
     }
 
     return hl;
-    
+
     return (
         !props.inline ? (
             <Scrollbars

@@ -21,15 +21,13 @@ function AboutSection() {
             <div className='description'>
                 <div className='background' />
                 <p>
-                    I am a Norwegian 2d game- and web-developer, working primarily with GML and JavaScript.
+                    Hey. I'm a Norwegian tech geek who makes videogames and web solutions.
                 </p><p>
-                    As well as creating games, I enjoy building libraries, IDE skins and other resources to aid other developers.
+                    With a keen eye for design, and love for programming, I try to contribute to projects that may
+                    aid other developers, as a way to give back for all I've been taught.
                 </p><p>
-                    I have contributed to community projects such as
-                    a <A to='https://objpodcast.com/' target='_blank' rel='noopener noreferrer'> Podcast</A>
-                    , <A to='https://github.com/GameMakerDiscord' target='_blank' rel='noopener noreferrer'>Github organization</A>
-                    , <A to='https://github.com/christopherwk210/gm-bot' target='_blank' rel='noopener noreferrer'>internet bot</A>
-                    , <A to='https://GMShaders.com/' target='_blank' rel='noopener noreferrer'>shader guide</A> and more.
+                    Although I may run the risk of starting a few too many concurrent sideprojects in my freetime,
+                    I am a strong believer in <A href='https://github.com/tonystr' target='_blank'>discipline</A> and kanban.
                 </p>
             </div>
         </section>
@@ -48,12 +46,10 @@ function FrontPage() {
     return (
         <section className='page' id='frontpage'>
             {renderLines()}
-            <div className='center'>
-                <div className='title'> Tony Strømsnæs </div>
-            </div>
+            <div className='center'><div className='title'> Tony Strømsnæs </div></div>
             <ul className='attributes'>
-                <A to='/'><li>GameDev</li></A>
-                <A to='/'><li>WebDev</li></A>
+                <A to='/#gamedev'><li>GameDev</li></A>
+                <A to='/#webdev' ><li>WebDev </li></A>
             </ul>
             <Ribbons />
         </section>
@@ -105,7 +101,9 @@ function WebDevPage() {
                     </div>
                     <div className='description'>
                         <div className='inner'>
-                            I mostly use React.js and SCSS for front-end webdevelopment, however I intend to pick up Vue.js and styled-components for future projects. Some of the websites displayed above are also written in raw html/css/js
+                            I specialize in React.js and SCSS for front-end webdevelopment, though I also have experience
+                            with Vue.js and styled-components, because I love trying new technologies. Some of the websites
+                            displayed above are also written in plain html/css/js
                         </div>
                     </div>
                 </div>
