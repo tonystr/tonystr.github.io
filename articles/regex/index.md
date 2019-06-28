@@ -23,7 +23,7 @@ Different regex implementations may have different forms of output. Some softwar
 
 ## Alternative matches
 
-Say you're searching through the entirety of the e-book, [The Witcher: Sword of Destiny](https://www.amazon.com/Sword-Destiny-Witcher-Andrzej-Sapkowski/dp/0316389706), and you want to figure out *exactly* how many times the word "diverge" is mentioned. Just searching for the word "diverge" won't do. What about when he writes "diverging" or "diverged"? You'd have to search multiple times with different strings. With regex we can search for multiple variations of a word very easily
+Say you're searching through the entirety of the e-book, [The Witcher: Sword of Destiny](https://www.amazon.com/Sword-Destiny-Witcher-Andrzej-Sapkowski/dp/0316389706), and you want to figure out *exactly* how many times the word "diverge" is mentioned. Just searching for the word "diverge" won't do. What about when he writes "diverging" or "diverged"? You'd have to search multiple times with different strings. Here is where /regex/ and normal "strings" differ. Strings consist of characters ("a", "b", "x", "\_", "9", ".", etc.), but regular expressions consist of *tokens*. Many of these tokens simply represent a character, /a/ = "a", /b/ = "b", /x/ = "x", /\_/ = "\_", /9/ = "9", however some tokens represent different *patterns*. `/./` for example, represents "any character". If you were to match something against `/./`, any character of any string would match it. The only case where `string.match(/./)` returns null is if `string` is empty (`""`). This is why it's called *matching* instead of something like *searching* - you're trying to match *patterns*. If you want to match a character which already has a use, like `/./`, you can *escape* it with a backslash (`\`). `/\./` matches ``"."``.
 
 ```js
 const string = 'The diverging path diverged between the ' +
@@ -33,7 +33,7 @@ console.log(string.match(/diverge|diverging|divergent|divine|divorce/));
 // > [ 'diverging' ]
 ```
 
-Using the pipe (``|``) symbol, you can search for an occurrence of something *or* something else *or* something else and so on. All in all, this regex matches ``diverging``, ``diverged``, ``divergent`` and ``divine``. It does not match ``divorce``, since that isn't in the input string. One problem with this is that even though it is able to match multiple words, and even through the match function returns an array, it will only ever match the first ``diverging``, and then stop *parsing* the string. Once it has matched one thing, it's satisfied. To match all occurrences in the string, you could use the ``g`` flag (short for "global") on the regex.
+Using the pipe (``|``) symbol token, you can search for an occurrence of something *or* something else *or* something else and so on. All in all, this regex matches ``diverging``, ``diverged``, ``divergent`` and ``divine``. It does not match ``divorce``, since that isn't in the input string. One problem with this is that even though it is able to match multiple words, and even through the match function returns an array, it will only ever match the first ``diverging``, and then stop *parsing* the string. Once it has matched one thing, it's satisfied. To match all occurrences in the string, you could use the ``g`` flag (short for "global") on the regex.
 
 ```js
 const string = 'The diverging path diverged between the ' +
@@ -62,7 +62,7 @@ const regex = /div(?:erg(?:ent|e|ing)|ine|orce)/g
 Here we did the same as before, but with ``erg`` from "ergent", "erging" and "erge", and turned the capturing groups into non-capturing groups. Note that regex want's to be done matching as soon as possible, which means if it tries matching the word "divergent" but your regex says ``/diverge|divergent/``, it'll only match ``diverge`` and call it a day. To avoid this, and assure you match everything you need, swap the orders so that the longer versions of similar patterns come first. `/divergent|diverge/`.
 
 
-Finally, what does the capturing group really do? It allows you to see what substring was matched with your regex (as long as you don't use the ``g`` flag). Each capturing group will output it's value into the array. The first matched character group will occupy the ``1`` index, the 2nd the ``2`` index, and so on. The non-capturing groups do not output anything, and instead only serve to scope parts of a regex. The capturing groups are numbered from left to right. To figure out which number a capturing group has, you can simply could all opening parentheses, except the non-capturing groups, from the start to end.
+Finally, what does the capturing group really do? It allows you to see what substring was matched with your regex (as long as you don't use the ``g`` flag). Each capturing group will output it's value into the array. The first matched character group will occupy the ``1`` index, the 2nd the ``2`` index, and so on. The non-capturing groups do not output anything, and instead only serve to scope parts of a regex. The capturing groups are numbered from left to right. To figure out which number a capturing group has, you can simply count all opening parentheses, except the non-capturing groups, from the start to end.
 
 ```js
 const string = 'The diverging path diverged between the ' +
@@ -71,4 +71,16 @@ const string = 'The diverging path diverged between the ' +
 // Will stop at first match, "diverging"
 console.log(string.match(/(di)v(erg(ent|e|ing)|ine|orce)/));
 // > [ 'diverging', 'di', 'erging', 'ing' ]
-```  
+```
+
+## Repetition
+
+No no, we're not repeating what I've explained above, repetition is a near fundamental useful concept within regex. You have the ability to repeat characters, tokens, or even whole patterns (enclosed in capturing groups) with regex.
+
+```js
+const string = 'Hello....... World....';
+
+console.log(string.match(/\.+/g));
+console.log(string.match(/\.*/g));
+console.log(string.match(/\.{2,4}/g));
+```
