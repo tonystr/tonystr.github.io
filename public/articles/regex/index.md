@@ -30,7 +30,6 @@ const string = 'The diverging path diverged between the ' +
                'divergent forest and the divine swamp.';
 
 console.log(string.match(/diverge|diverging|divergent|divine|divorce/));
-// > [ 'diverging' ]
 ```
 
 Using the pipe (``|``) symbol token, you can search for an occurrence of something *or* something else *or* something else and so on. All in all, this regex matches ``diverging``, ``diverged``, ``divergent`` and ``divine``. It does not match ``divorce``, since that isn't in the input string. One problem with this is that even though it is able to match multiple words, and even through the match function returns an array, it will only ever match the first ``diverging``, and then stop *parsing* the string. Once it has matched one thing, it's satisfied. To match all occurrences in the string, you could use the ``g`` flag (short for "global") on the regex.
@@ -40,7 +39,6 @@ const string = 'The diverging path diverged between the ' +
                'divergent forest and the divine swamp.';
 
 console.log(string.match(/diverge|diverging|divergent|divine|divorce/g));
-// > [ 'diverging', 'diverged', 'divergent', 'divine' ]
 ```
 
 This makes the regex search the whole string, and not stop after it has found a match. It also changes the out to be an array of each matched word, but it looses the variables ``<Match>.input`` and ``<Match>.index``.
@@ -70,7 +68,6 @@ const string = 'The diverging path diverged between the ' +
 
 // Will stop at first match, "diverging"
 console.log(string.match(/(di)v(erg(ent|e|ing)|ine|orce)/));
-// > [ 'diverging', 'di', 'erging', 'ing' ]
 ```
 
 ## Repetition
