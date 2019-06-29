@@ -26,10 +26,9 @@ function A(props) {
 }
 
 function CodeBlock(props) {
-
     const hl = (
         <SyntaxHighlighter
-            className={'code ' + (props.inline ? 'inline' : '')}
+            className={`code lang-${props.language} ${props.inline ? 'inline' : 'codeblock-full'}`}
             language={props.language || null}
             style={styleOneDark}
         >
@@ -37,28 +36,28 @@ function CodeBlock(props) {
         </SyntaxHighlighter>
     );
 
-    const renderThumb = props => {
-        return <div className='scroll-thumb' {...props} />;
-    }
+    const renderThumb = props => <div className='scroll-thumb' {...props} />;
 
     return hl;
 
-    return (
-        !props.inline ? (
-            <Scrollbars
-                autoHeight
-                autoHeightMin={46}
-                autoHeightMax={700}
-                // autoWidth
-                // autoWidthMax={100}
-                renderThumbHorizontal={renderThumb}
-                renderThumbVertical={renderThumb}
-                className='code block'
-            >
-                {hl}
-            </Scrollbars>
-        ) : hl
-    );
+    // return (
+    //     !props.inline ? (
+    //         <div>
+    //             <Scrollbars
+    //                 autoHeight
+    //                 autoHeightMin={46}
+    //                 autoHeightMax={700}
+    //                 // autoWidth
+    //                 // autoWidthMax={100}
+    //                 renderThumbHorizontal={renderThumb}
+    //                 renderThumbVertical={renderThumb}
+    //                 className='code block'
+    //             >
+    //                 {hl}
+    //             </Scrollbars>
+    //         </div>
+    //     ) : hl
+    // );
 }
 
 
