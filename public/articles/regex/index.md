@@ -48,13 +48,13 @@ This makes the regex search the whole string, and not stop after it has found a 
 The regex we have above is really just a list of words it tries to match. We can make the list shorter, and the regex faster by using *capturing groups*. There are also *non-capturing groups* which are even faster, but we'll look at later. A capturing group is defined simply by wrapping some characters in ``(parentheses)``.
 
 ```js
-const regex = /div(erge|erging|ergent|ine|orce)/g
+const regex = /div(erge|erging|ergent|ine|orce)/g;
 ```
 
 Here we removed 'div' from each word, and out it outside a capturing group. The "or" pipes are only scoped to their capturing group. This regex matches the same as the previous regex, but it's faster and more compact. It can be made even faster and more compact by using more character groups. You can also use the non-capturing character group by placing ``?:`` after the opening parenthesis.
 
 ```js
-const regex = /div(?:erg(?:ent|e|ing)|ine|orce)/g
+const regex = /div(?:erg(?:ent|e|ing)|ine|orce)/g;
 ```
 
 Here we did the same as before, but with ``erg`` from "ergent", "erging" and "erge", and turned the capturing groups into non-capturing groups. Note that regex want's to be done matching as soon as possible, which means if it tries matching the word "divergent" but your regex says ``/diverge|divergent/``, it'll only match ``diverge`` and call it a day. To avoid this, and assure you match everything you need, swap the orders so that the longer versions of similar patterns come first. `/divergent|diverge/`.
@@ -72,12 +72,107 @@ console.log(string.match(/(di)v(erg(ent|e|ing)|ine|orce)/));
 
 ## Repetition
 
-No no, we're not repeating what I've explained above, repetition is a near fundamental useful concept within regex. You have the ability to repeat characters, tokens, or even whole patterns (enclosed in capturing groups) with regex.
+Repetition is a near fundamental useful concept within regex. You have the ability to repeat characters, tokens, and even whole patterns (enclosed in capturing groups) with regex.
 
 ```js
-const string = 'Hello....... World....';
+const string = 'Hello!!!!!!! World!!!!';
 
-console.log(string.match(/\.+/g));
-console.log(string.match(/\.*/g));
-console.log(string.match(/\.{2,4}/g));
+console.log(string.match(/!+/g)); // Match one or more characters
+console.log(string.match(/!*/g)); // Match any amount of characters, or none at all
+console.log(string.match(/!{2,5}/g)); // Match anywhere between 2 and 5 characters
 ```
+
+``+`` matches the token on the left as many times as it can, but if it doesn't match at least once, it fails. ``*`` works the same way, except it can also match zero times. Since the regex `/!*/g` only needs to match exclamation marks or nothing, it will succeed in matching *nothing*, which leads to the output being ``['', '', '', '', '', '!!!!!!!', '', '', '', '', '', '', '!!!!', '']``. That's one empty string for every character in the input string, plus another at the end. ``/!+/g`` Outputs the exact same, but without all the empty strings. Lastly, you can use ``{x,y}`` to match anywhere between x and y repetitions of a character. In the above example the first five "!"s are matched, then the next two "!"s are matched, and lastly the four remaining "!"s match. ``{x}`` can also be used to match *exactly* x occurrences of a character. Say you wanted to find out whether or not someone in a chatroom used too many characters at the end of a sentence......................
+
+```js
+const strings = [
+    'person 1 - Hello!!!!!!!!!!!!!!!!!!1!!11',
+    'person 2 - Hi',
+    'person 3 - What do you want?',
+    'person 1 - What do YOU want??????????????????????????',
+    'person 3 - ...',
+    'person 2 - .....',
+    'person 1 - .......................',
+    'person 2 - .?.?.?.?.?.?.?.?.?.!!?!!!',
+    'person 1 - ......!!!!?????????!!!!......'
+];
+
+for (const string of strings) {
+    if (string.match(/(?:!|\.|\?|1){6}(?:!|\.|\?|1)*/)) {
+        console.log('Detected annoying message: ' + string);
+    }
+}
+```
+
+The regex starts with a non-capturing group `(?:`, which matches either "!", ".", "?" or "1". "." and "?" are escaped since they're special tokens in regex. Once the non-capturing group has matched something, it tries to match again, and again, and again until it has matched six times. Next, an identical non-capturing group tries to match any of the same characters as previous, any mount of times. This essentially means the regex matches "!", ".", "?" or "1" repeated either six or more times. Although this is nice, what if you only wanted to match repeated characters that are the same? like "???????????", "!!!!!!!!!!!!!" or ".................", but not "!?..?!?!?!?!..1.1.1.1.". If you use capturing groups regex allows you to try to match the content of something that was previously matched. You can refer to capturing groups in a regex simply by escaping a number. ``\1`` refers to the first capturing group in the regex, ``\2`` refers to the second, ``\3`` refers to the third, and so on. Since we have two identical sections in our regex, we can turn the first into a capturing group, then repeat a reference to the first capturing group exactly *five* times (since we've already matched it once with the capture group), and finally match the reference any amount of times with the star.
+
+```js
+const regex = /(!|\.|\?|1)\1{6}\1*/;
+```
+
+## Character Class
+
+Regex has even more features that help optimize and make this even more compact. A group of single characters (like we have above), can be written as a *character class*, by using square brackets.
+
+```js
+const regex = /[!\.\?1]\1{6}\1*/;
+```
+
+Since a character class can only house *individual characters*, there is no need for the ``|`` token. Instead the characters are all written right next to each other. However, most tokens still need to be escaped, since a character class can also house tokens. ``[.+{2}]`` is a perfectly valid character group, that will match either "any character", "+", "{", "2" or "}". The tokens that normally have a use like "+" and "{", don't need to be escaped, since they can't do anything in the character class. Remember that the character class can only match individual characters, so repeating characters doesn't make any sense, thus those would-be tokens are treated as normal characters. That example is however a bit useless since the ``.`` token means "any character", which means that no matter what the character class will match some character, so the other characters in it aren't really needed - and if you don't need more than one character, you don't need a character class at all.
+
+
+Character classes do have some special features in addition to being a quicker way of writing single-character-groups. They can match *ranges* of characters.
+
+```js
+const string = 'Hi, I am 17 years old';
+
+console.log(string.match(/[0-9]+/));
+```
+
+The regex above matches any character between ``1`` and ``9``, repeated one or more times. I say *character* and not *number*, because `[x-y]` is read as any character from x to y according to the order of the character codes. The best way to understand this is to look at an [ASCII](https://en.wikipedia.org/wiki/ASCII) table.
+
+![ASCII Table](ASCIITable.jsx)
+
+"Dec" is short for "Decimal". The decimal columns represent the *charcode* of each character. "Char" is short for "Character". The regex ``/[0-9]/`` matches any character from character "0" to character "9", sequentially by the ascii table above. The regex ``/[1-_]/`` matches any character from "1" (charcode: 49) to "\_" (charcode: 95). Between "1" and "\_" are some all the numbers except 0, some symbols and all CAPITAL letters, but no lowercase letters.
+
+```js
+const string = 'Hi, I am 17 years old. :)';
+
+console.log(string.match(/[1-_]+/g));
+```
+
+Another use of character classes is negation. You can check for the *opposite* of a character by placing an ``^`` in the beginning of your character class.
+
+```js
+const string = 'Hello World!!1!';
+
+console.log(string.match(/[^a-z0-9]+/g));
+```
+
+The character class above finds any character that is not within the range ``a-z``, *and* is not within the range ``0-9``. That means it'll match anything that isn't either a lowercase letter or a number. Note that if you want to actually match the character "^", you can either escape it or simply not put it in the beginning of the character class.
+
+## Shorthand Character Classes
+
+While character classes are great, it could be a bit cumbersome to have to write the same classes over and over again, which is why a lot of regex flavors provide *shorthand character classes*. These are character classes that are already made for you. The tokens for these character classes look like escaped letters. (Remember that ``+`` just repeats the previous token one or more times)
+
+```js
+const string = `
+    Hello.
+    Did you know that JavaScript supports
+    multi-line strings by using template_litterals?
+    \`this is a template litteral\`
+    You can even evaluate JavaScript in them like this:
+    4 + 8 = ${4 + 8}
+    It is super useful!
+    By the way, Norwegian has æ, ø and å characters.
+    Japanese has symbols like 六
+`;
+
+console.log(string);
+
+console.log('Digits:',          string.match(/\d+/g));
+console.log('Word Characters:', string.match(/\w+/g));
+console.log('Whitespace:',      string.match(/\s+/g));
+```
+
+``\d`` matches any *digit*, same as ``[0-9]``. ``\w`` matches any *word character*. In most regex flavors this means ``[a-zA-Z_0-9]``. Notice that it includes the underscore ("\_"), and numbers ``0-9``. It doesn't match unicode characters, nor ANSII characters, so "æ", "ø", "å" and "六" are left in the dust. ``\s`` matches any *whitespace*, which is any "invisible" character, like space, newline, tab, etc. This one also includes a number of unicode whitespace characters.

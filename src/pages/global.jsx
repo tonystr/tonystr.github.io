@@ -25,6 +25,45 @@ function A(props) {
     ) : <a {...props} className={'link ' + (props.className || '')}>{props.children}</a>;
 }
 
+function ASCIITable(props) {
+
+    const showDecimal = props.showDecimal !== undefined ? props.showDecimal : true;
+    const showHex     = props.showHex     !== undefined ? props.showHex     : true;
+    const showChar    = props.showChar    !== undefined ? props.showChar    : true;
+
+    const renderRow = i => {
+        const tds = [];
+        for (let j = 0; j < 4; j++) {
+            const dec = i + j * 32;
+            if (showDecimal) tds.push(<td>{dec}</td>);
+            if (showHex    ) tds.push(<td>{dec.toString(16)}</td>);
+            if (showChar   ) tds.push(<td>{String.fromCharCode(dec)}</td>);
+        }
+        return <tr>{tds}</tr>;
+    }
+
+    const renderRows = () => {
+        const headers = [];
+        for (let i = 0; i < 4; i++) {
+            if (showDecimal) headers.push(<th>Dec </th>);
+            if (showHex    ) headers.push(<th>Hex </th>);
+            if (showChar   ) headers.push(<th>Char</th>);
+        }
+
+        const rows = [<tr>{headers}</tr>];
+        for (let i = 0; i < 32; i++) {
+            rows.push(renderRow(i));
+        }
+        return rows;
+    }
+
+    return (
+        <table className={props.className ? 'ascii-table ' + props.className : 'ascii-table'}>
+            {renderRows()}
+        </table>
+    );
+}
+
 function CodeBlock(props) {
     const hl = (
         <SyntaxHighlighter
@@ -170,5 +209,6 @@ export {
     Link,
     Footer,
     StandardPage,
-    CodeBlock
+    CodeBlock,
+    ASCIITable
 };

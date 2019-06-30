@@ -10,7 +10,7 @@ import ArticleLogin from './pages/article-login.jsx';
 import Dracula from './pages/dracula.jsx';
 import Articles from './pages/articles.jsx';
 import Snippets from './pages/snippets.jsx';
-import { WindowCenter, Footer } from './pages/global.jsx';
+import { WindowCenter, Footer, ASCIITable, Header, StandardPage } from './pages/global.jsx';
 import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles.json';
 
@@ -20,6 +20,14 @@ function ValidateArticle(props) {
 
     if (location === 'articles') return <Articles json={articlesJSON} />;
     if (location === 'snippets') return <Snippets />;
+    if (location === 'ascii') return (
+        <>
+            <Header />
+            <StandardPage>
+                <ASCIITable />
+            </StandardPage>
+        </>
+    );
 
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
 

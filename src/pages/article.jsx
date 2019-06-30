@@ -1,6 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
-import { requestRawText, A, SectionTitle, ArticleTitle, Focus, Header, StandardPage, CodeBlock } from './global.jsx';
+import {
+    requestRawText,
+    A,
+    SectionTitle,
+    ArticleTitle,
+    Focus,
+    Header,
+    StandardPage,
+    CodeBlock ,
+    ASCIITable
+} from './global.jsx';
 import 'intersection-observer'; // optional polyfill
 import Observer from '@researchgate/react-intersection-observer';
 import scrollIntoView from 'scroll-into-view-if-needed';
@@ -9,15 +19,26 @@ const runningCodeblock = {
     onChange: () => {},
     output: {
         text: '',
-        push: data => {
+        push: (...args) => {
             let newLine = '';
-            switch (typeof data) {
-                case 'object' && Array.isArray(data) ? 'object' : null:
-                    const array = data.map(d => typeof d === 'string' ? `'${d}'` : d);
-                    newLine += `[${array}]`;
-                    break;
-                default:
-                    newLine += data;
+            for (const data of args) {
+                let newString = '';
+                switch (typeof data) {
+                    case 'string':
+                        newString += data;
+                        const lastChar = data.slice(-1);
+                        if (lastChar === ':' || lastChar === ',') newString += ' ';
+                        break;
+
+                    case 'object' && Array.isArray(data) ? 'object' : null:
+                        const array = data.map(d => typeof d === 'string' ? `'${d}'` : d);
+                        newString += `[${array.join(', ')}]`;
+                        break;
+
+                    default:
+                        newString += String(data);
+                }
+                newLine += newString;
             }
             console.log(newLine);
             runningCodeblock.output.text += newLine + '\n';
@@ -25,6 +46,10 @@ const runningCodeblock = {
         },
         clear: () => runningCodeblock.output.text = ''
     }
+}
+
+const mediaComponents = {
+    ASCIITable: <ASCIITable className='media' />
 }
 
 function ArticleMedia(props) {
@@ -40,8 +65,7 @@ function ArticleMedia(props) {
         render: props => {
             let alt = props.alt || '';
             const match = alt.match(/!thumbnail\(([^)]+)\)/);
-
-            if (match) alt = alt.replace(match[0], '');
+            alt = match ? alt.replace(match[0], '') : alt;
 
             return (
                 <section className='video'>
@@ -57,6 +81,11 @@ function ArticleMedia(props) {
                     <em>{alt}</em>
                 </section>
             )
+        }
+    },{
+        matches: ['jsx'],
+        render: props => {
+            return mediaComponents[props.src.slice(0, -4)];
         }
     }];
 
@@ -208,7 +237,7 @@ function ArticleContent(props) {
 
                     runningCodeblock.output.clear();
                     runningCodeblock.onChange = () => {
-                        andy.innerText = runningCodeblock.output.text.replace(/\n/g, '-NLN**:o');;
+                        andy.innerText = runningCodeblock.output.text.replace(/\n/g, '-NLN**:o');
                         divOut.innerHTML = andy.innerText.replace(
                             /(^|[^\\])('(?:[^'\\]|\\.)*')/g,
                             '$1<span class="string">$2</span>'
