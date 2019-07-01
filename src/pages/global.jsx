@@ -31,13 +31,32 @@ function ASCIITable(props) {
     const showHex     = props.showHex     !== undefined ? props.showHex     : true;
     const showChar    = props.showChar    !== undefined ? props.showChar    : true;
 
+    const specialCharDescs = [
+        'null', 'start of heading', 'start of text', 'end of text', 'end of transmission',
+        'enquiry', 'acknowledge', 'bell', 'backspace', 'horizontal tab', 'new line feed',
+        'vertical tab', 'new page feed', 'carriage return', 'shit out', 'shift in',
+        'data link escape', 'device control 1', 'device control 2', 'device control 3',
+        'device control 4', 'negative acknowledge', 'synchronous idle', 'end of trans. block',
+        'cancel', 'end of medium', 'substitute', 'escape', 'file separator', 'group separator',
+        'record separator', 'unit separator', 'space'
+    ];
+    specialCharDescs[127] = 'delete';
+    const specialChars = [
+        'NUL', 'SOH', 'STX', 'ETX', 'EOT', 'ENQ', 'ACK', 'BEL', 'BS', 'TAB', 'LF', 'VT', 'FF',
+        'CR', 'SO', 'SI', 'DLE', 'DC1', 'DC2', 'DC3', 'DC4', 'NAK', 'SYN', 'ETB', 'CAN', 'EM',
+        'SUB', 'ESC', 'FS', 'GS', 'RS', 'US', 'Space'
+    ];
+    specialChars[127] = 'DEL';
+
     const renderRow = i => {
         const tds = [];
         for (let j = 0; j < 4; j++) {
             const dec = i + j * 32;
             if (showDecimal) tds.push(<td>{dec}</td>);
             if (showHex    ) tds.push(<td>{dec.toString(16)}</td>);
-            if (showChar   ) tds.push(<td>{String.fromCharCode(dec)}</td>);
+            if (showChar   ) tds.push(<td>{
+                specialChars[dec] || String.fromCharCode(dec)
+            }</td>);
         }
         return <tr>{tds}</tr>;
     }
@@ -65,38 +84,23 @@ function ASCIITable(props) {
 }
 
 function CodeBlock(props) {
-    const hl = (
+    if (props.inline) return (
+        <pre className={`code lang-${props.language || 'auto'} inline`}>
+            <code>
+                {props.value}
+            </code>
+        </pre>
+    );
+
+    return (
         <SyntaxHighlighter
-            className={`code lang-${props.language} ${props.inline ? 'inline' : 'codeblock-full'}`}
+            className={`code lang-${props.language || 'auto'} codeblock-full`}
             language={props.language || null}
             style={styleOneDark}
         >
             {props.value}
         </SyntaxHighlighter>
     );
-
-    const renderThumb = props => <div className='scroll-thumb' {...props} />;
-
-    return hl;
-
-    // return (
-    //     !props.inline ? (
-    //         <div>
-    //             <Scrollbars
-    //                 autoHeight
-    //                 autoHeightMin={46}
-    //                 autoHeightMax={700}
-    //                 // autoWidth
-    //                 // autoWidthMax={100}
-    //                 renderThumbHorizontal={renderThumb}
-    //                 renderThumbVertical={renderThumb}
-    //                 className='code block'
-    //             >
-    //                 {hl}
-    //             </Scrollbars>
-    //         </div>
-    //     ) : hl
-    // );
 }
 
 

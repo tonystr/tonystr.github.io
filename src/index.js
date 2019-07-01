@@ -11,7 +11,6 @@ import Dracula from './pages/dracula.jsx';
 import Articles from './pages/articles.jsx';
 import Snippets from './pages/snippets.jsx';
 import { WindowCenter, Footer, ASCIITable, Header, StandardPage } from './pages/global.jsx';
-import { Scrollbars } from 'react-custom-scrollbars';
 import articlesJSON from './data/articles.json';
 
 function ValidateArticle(props) {
@@ -50,15 +49,13 @@ function ValidateArticle(props) {
 }
 
 ReactDOM.render(
-    <Scrollbars style={{ height: '100vh' }}>
-        <BrowserRouter>
-            <div>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/:article' component={ValidateArticle} />
-                <Footer />
-            </div>
-        </BrowserRouter>
-    </Scrollbars>,
+    <BrowserRouter>
+        <div>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/:article' component={ValidateArticle} />
+            <Footer />
+        </div>
+    </BrowserRouter>,
     document.getElementById('root')
 );
 

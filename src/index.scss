@@ -254,6 +254,24 @@ footer {
     }
 }
 
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $c_dark;
+    border-radius: .5rem;
+    border: 2px solid $c_gray;
+
+    &:hover {
+        background: $c_green;
+    }
+}
+
 .copybox {
     position: absolute;
     pointer-events: none;
@@ -329,6 +347,7 @@ footer {
 
 .codeblock-full {
     position: relative;
+    min-height: 1.5rem;
 
     .codeblock-controls {
         position: absolute;
@@ -340,7 +359,7 @@ footer {
         border-bottom: 2px solid $c_dark;
         border-left:   2px solid $c_dark;
 
-        >span {
+        > span {
             padding: 0 .4rem;
 
             font-family: 'Font Awesome 5 Free';
@@ -861,8 +880,8 @@ footer {
         border-right: 3px solid $c_gray;
         border-left: 3px solid $c_gray;
         width: 3px;
-        height: 3px;
-        bottom: -3px;
+        height: 8px;
+        bottom: -5px;
     }
 
     &::after {
@@ -877,7 +896,7 @@ footer {
 .standard-page {
     max-width: 56rem;
     margin: 0 auto;
-    margin-top: 4rem;
+    margin-top: 5rem;
     padding: 2rem;
 }
 
@@ -906,6 +925,7 @@ footer {
         display: inline !important;
         padding: .2rem .3rem !important;
         font-size: .9rem !important;
+        color: lighten($c_ltgray, 35%);
     }
 
     @media(max-width: 400px) {
@@ -913,9 +933,40 @@ footer {
     }
 }
 
+@keyframes gradient-slide-out {
+    0% {
+        top: 20%;
+        background: $c_gray;
+    }
+    10% {
+        top: 20%;
+        background: $c_gray;
+    }
+    99% {
+        top: 99.8%;
+        background: $c_gray;
+    }
+    100% {
+        top: 100%;
+    }
+}
+
 .rendered-markdown {
     font-size: 1.1rem;
     background-color: $c_gray;
+
+    &::after {
+        position: fixed;
+        content: '';
+        @include absolute-fill(0);
+        animation: gradient-slide-out .2s;
+        z-index: 400;
+        pointer-events: none;
+
+        &.loaded {
+            border-left: 2px solid blue;
+        }
+    }
 
     p {
         line-height: 1.42rem;

@@ -17,11 +17,11 @@ if (index !== -1  ) console.log('String contains "flies"!');
 
 In the above example, regex is used to check if a string contains the word "flies". Since the string does contain that word, it will "match" the word, and return something that is not `null`. If it fails to match (the string doesn't contain "flies"), it will return `null`. Below the line that tries to match a regex, is a line that does the same with ``<String>.indexOf()``. That function returns the position (index) of the first *occurrence* of a substring in a different string. If it doesn't find any occurrence of that substring, it will return `-1` instead. This function is faster than ``<String>.match()``, because the match function is capable of a lot **more**.
 
-## Match output
+## Match Output
 
 Different regex implementations may have different forms of output. Some software that lets you search with regex, will usually just *highlight* the matching sequences, and/or let you jump to them. In JavaScript, the ``<String>.match()`` function returns an array, but it has some extra properties added. The ``0`` index of the array holds the matched substring, which in the case of the example above is just `'flies'`. The array also has a ``<Match>.index`` variable which holds the position of the match, same way ``<String>.indexOf()`` works. Lastly, it has a ``<Match>.input`` variable which holds the input string. In the case of the example above, that would be `'Three hundred flies flew over the fried rice.'`. With the way we've used the match function so far, it will only ever have one index, making it a pretty weird array, however we'll see why it is an array later.
 
-## Alternative matches
+## Alternative Matches
 
 Say you're searching through the entirety of the e-book, [The Witcher: Sword of Destiny](https://www.amazon.com/Sword-Destiny-Witcher-Andrzej-Sapkowski/dp/0316389706), and you want to figure out *exactly* how many times the word "diverge" is mentioned. Just searching for the word "diverge" won't do. What about when he writes "diverging" or "diverged"? You'd have to search multiple times with different strings. Here is where /regex/ and normal "strings" differ. Strings consist of characters ("a", "b", "x", "\_", "9", ".", etc.), but regular expressions consist of *tokens*. Many of these tokens simply represent a character, /a/ = "a", /b/ = "b", /x/ = "x", /\_/ = "\_", /9/ = "9", however some tokens represent different *patterns*. `/./` for example, represents "any character". If you were to match something against `/./`, any character of any string would match it. The only case where `string.match(/./)` returns null is if `string` is empty (`""`). This is why it's called *matching* instead of something like *searching* - you're trying to match *patterns*. If you want to match a character which already has a use, like `/./`, you can *escape* it with a backslash (`\`). `/\./` matches ``"."``.
 
@@ -43,7 +43,7 @@ console.log(string.match(/diverge|diverging|divergent|divine|divorce/g));
 
 This makes the regex search the whole string, and not stop after it has found a match. It also changes the out to be an array of each matched word, but it looses the variables ``<Match>.input`` and ``<Match>.index``.
 
-## Grouping characters
+## Grouping Characters
 
 The regex we have above is really just a list of words it tries to match. We can make the list shorter, and the regex faster by using *capturing groups*. There are also *non-capturing groups* which are even faster, but we'll look at later. A capturing group is defined simply by wrapping some characters in ``(parentheses)``.
 
@@ -175,4 +175,31 @@ console.log('Word Characters:', string.match(/\w+/g));
 console.log('Whitespace:',      string.match(/\s+/g));
 ```
 
-``\d`` matches any *digit*, same as ``[0-9]``. ``\w`` matches any *word character*. In most regex flavors this means ``[a-zA-Z_0-9]``. Notice that it includes the underscore ("\_"), and numbers ``0-9``. It doesn't match unicode characters, nor ANSII characters, so "æ", "ø", "å" and "六" are left in the dust. ``\s`` matches any *whitespace*, which is any "invisible" character, like space, newline, tab, etc. This one also includes a number of unicode whitespace characters.
+``\d`` matches any *digit*, same as ``[0-9]``. ``\w`` matches any *word character*. In most regex flavors this means ``[a-zA-Z_0-9]``. Notice that it includes the underscore ("\_"), and numbers ``0-9``. It doesn't match any unicode nor ANSII characters, so "æ", "ø", "å" and "六" are left in the dust. ``\s`` matches any *whitespace*, which is any "invisible" character, like space, newline, tab, etc. This one also includes a number of unicode whitespace characters.
+
+
+Shorthand character classes can be used in character classes too. `[\d\s]` would match either a digit or a whitespace. If you wanted to match numbers and the decimal point, you could use `[\d\.]`. This way you could also check for anything but a character class. `[^\d]` would find any character that is not a digit. Though most regex flavors also have character classes that represent the negation of another character class. `\D` is `[^\d]`, `\W` is `[^\w]` and `\S` is `[^\s]`.
+
+```js
+const string = `
+    Hello.
+    Did you know that JavaScript supports
+    multi-line strings by using template_litterals?
+    \`this is a template litteral\`
+    You can even evaluate JavaScript in them like this:
+    4 + 8 = ${4 + 8}
+    It is super useful!
+    By the way, Norwegian has æ, ø and å characters.
+    Japanese has symbols like 六
+`;
+
+console.log(string);
+
+console.log('Anything but digits:',          string.match(/\D+/g));
+console.log('Anything but word Characters:', string.match(/\W+/g));
+console.log('Anything but whitespace:',      string.match(/\S+/g));
+```
+
+## When To Use Regex
+
+As you've learned, regular expressions can be used to match complex patterns. It can be used to detect expected patterns in human language, it can be used to sanitize data and is near essential in general string manipulation once you get comfortable with it. A typical use of regex would be to check if an input string qualifies as an email, or a hex code, or a phone number. Although this tutorial only really covered the basics, you should already be able to use regex for all of that, and lots more! If you're interested in learning everything there is to learn about regex, check out https://www.regular-expressions.info/tutorial.html. There are many more interesting features of regex, such as lookahead/lookbehind, recursion and conditional matching. I can assure you a lot of regex was used to build this website. Have fun, and, be careful not to go [too crazy](https://stackoverflow.com/questions/1732348/regex-match-open-tags-except-xhtml-self-contained-tags).

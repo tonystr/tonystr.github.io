@@ -27,7 +27,7 @@ function AboutSection() {
                     aid other developers, as a way to give back for all I've been taught.
                 </p><p>
                     Although I may run the risk of starting a few too many concurrent sideprojects in my freetime,
-                    I am a strong believer in <A href='https://github.com/tonystr' target='_blank'>discipline</A> and kanban.
+                    I am a strong believer in discipline and kanban.
                 </p>
             </div>
         </section>

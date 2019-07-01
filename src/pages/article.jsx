@@ -8,7 +8,7 @@ import {
     Focus,
     Header,
     StandardPage,
-    CodeBlock ,
+    CodeBlock,
     ASCIITable
 } from './global.jsx';
 import 'intersection-observer'; // optional polyfill
