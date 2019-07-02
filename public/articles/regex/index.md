@@ -45,19 +45,19 @@ This makes the regex search the whole string, and not stop after it has found a 
 
 ## Grouping Characters
 
-The regex we have above is really just a list of words it tries to match. We can make the list shorter, and the regex faster by using *capturing groups*. There are also *non-capturing groups* which are even faster, but we'll look at later. A capturing group is defined simply by wrapping some characters in ``(parentheses)``.
+The regex we have above is really just a list of words it tries to match. We can make the list shorter, and the regex faster by using *capturing groups*. A capturing group is defined simply by wrapping some characters in ``(parentheses)``.
 
 ```js
 const regex = /div(erge|erging|ergent|ine|orce)/g;
 ```
 
-Here we removed 'div' from each word, and out it outside a capturing group. The "or" pipes are only scoped to their capturing group. This regex matches the same as the previous regex, but it's faster and more compact. It can be made even faster and more compact by using more character groups. You can also use the non-capturing character group by placing ``?:`` after the opening parenthesis.
+Here we removed 'div' from each word, and out it outside a capturing group. The "or" pipes are only scoped to their capturing group. This regex matches the same as the previous regex, but it's faster and more compact. It can be made even faster and more compact by using more character groups. You can also use the *non-capturing* character group by placing ``?:`` after the opening parenthesis.
 
 ```js
 const regex = /div(?:erg(?:ent|e|ing)|ine|orce)/g;
 ```
 
-Here we did the same as before, but with ``erg`` from "ergent", "erging" and "erge", and turned the capturing groups into non-capturing groups. Note that regex want's to be done matching as soon as possible, which means if it tries matching the word "divergent" but your regex says ``/diverge|divergent/``, it'll only match ``diverge`` and call it a day. To avoid this, and assure you match everything you need, swap the orders so that the longer versions of similar patterns come first. `/divergent|diverge/`.
+Here we did the same as before, but with ``erg`` from "ergent", "erging" and "erge", and turned the capturing groups into non-capturing groups. The non-capturing groups are a bit faster than normal capturing groups, simply because they don't actually capture any values. Note that regex want's to be done matching as soon as possible, which means if it tries matching the word "divergent" but your regex says ``/diverge|divergent/``, it'll only match ``diverge`` and call it a day. To avoid this, and assure you match everything you need, swap the orders so that the longer versions of similar patterns come first. `/divergent|diverge/`.
 
 
 Finally, what does the capturing group really do? It allows you to see what substring was matched with your regex (as long as you don't use the ``g`` flag). Each capturing group will output it's value into the array. The first matched character group will occupy the ``1`` index, the 2nd the ``2`` index, and so on. The non-capturing groups do not output anything, and instead only serve to scope parts of a regex. The capturing groups are numbered from left to right. To figure out which number a capturing group has, you can simply count all opening parentheses, except the non-capturing groups, from the start to end.

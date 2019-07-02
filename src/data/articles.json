@@ -8,8 +8,8 @@
     "name": "Regex",
     "displayName": "/Reg(ul[ae]r)?[\\s_-]*Ex(pres{2}ions?|p)?/i",
     "tags": ["tutorial", "javascript", "math", "parsing", "strings"],
-    "password": "iloveregex",
+    "password": "",
     "thumbnail": "regex.thumbnail.png",
     "summary": "Learn to understand what that title means",
-    "timestamp": 1561299060000
+    "timestamp": 1562086005138
 }]
