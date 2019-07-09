@@ -41,7 +41,7 @@ const string = 'The diverging path diverged between the ' +
 console.log(string.match(/diverge|diverging|divergent|divine|divorce/g));
 ```
 
-This makes the regex search the whole string, and not stop after it has found a match. It also changes the out to be an array of each matched word, but it looses the variables ``<Match>.input`` and ``<Match>.index``.
+This makes the regex search the whole string, and not stop after it has found a match. It also changes the output to be an array of each matched word, but it looses the variables ``<Match>.input`` and ``<Match>.index``.
 
 ## Grouping Characters
 
@@ -51,7 +51,7 @@ The regex we have above is really just a list of words it tries to match. We can
 const regex = /div(erge|erging|ergent|ine|orce)/g;
 ```
 
-Here we removed 'div' from each word, and out it outside a capturing group. The "or" pipes are only scoped to their capturing group. This regex matches the same as the previous regex, but it's faster and more compact. It can be made even faster and more compact by using more character groups. You can also use the *non-capturing* character group by placing ``?:`` after the opening parenthesis.
+Here we removed 'div' from each word, and moved it outside a capturing group. The "or" pipes are only scoped to their capturing group. This regex matches the same as the previous regex, but it's faster and more compact. It can be made even faster and more compact by using more character groups. You can also use the *non-capturing* character group by placing ``?:`` after the opening parenthesis.
 
 ```js
 const regex = /div(?:erg(?:ent|e|ing)|ine|orce)/g;
@@ -82,7 +82,7 @@ console.log(string.match(/!*/g)); // Match any amount of characters, or none at 
 console.log(string.match(/!{2,5}/g)); // Match anywhere between 2 and 5 characters
 ```
 
-``+`` matches the token on the left as many times as it can, but if it doesn't match at least once, it fails. ``*`` works the same way, except it can also match zero times. Since the regex `/!*/g` only needs to match exclamation marks or nothing, it will succeed in matching *nothing*, which leads to the output being ``['', '', '', '', '', '!!!!!!!', '', '', '', '', '', '', '!!!!', '']``. That's one empty string for every character in the input string, plus another at the end. ``/!+/g`` Outputs the exact same, but without all the empty strings. Lastly, you can use ``{x,y}`` to match anywhere between x and y repetitions of a character. In the above example the first five "!"s are matched, then the next two "!"s are matched, and lastly the four remaining "!"s match. ``{x}`` can also be used to match *exactly* x occurrences of a character. Say you wanted to find out whether or not someone in a chatroom used too many characters at the end of a sentence......................
+``+`` matches the token on the left as many times as it can, but if it doesn't match at least once, it fails. ``*`` works the same way, except it can also match zero times. Since the regex `/!*/g` only needs to match exclamation marks or nothing, it will succeed in matching *nothing*, which leads to the output being ``['', '', '', '', '', '!!!!!!!', '', '', '', '', '', '', '!!!!', '']``. That's one empty string for every character in the input string (that isn't "!"), plus another at the end. ``/!+/g`` Outputs the exact same, but without all the empty strings. Lastly, you can use ``{n,m}`` to match anywhere between n and m amount of repetitions of a character. In the above example the first five "!"s are matched, then the next two "!"s are matched, and lastly the four remaining "!"s match. ``{n}`` can also be used to match *exactly* n occurrences of a character. Say you wanted to find out whether or not someone in a chatroom used too many symbols at the end of a sentence......................
 
 ```js
 const strings = [
