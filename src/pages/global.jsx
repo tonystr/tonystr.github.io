@@ -106,7 +106,11 @@ function CodeBlock(props) {
 
 function SectionTitle(props) {
     return (
-        <div {...props} className={'section-title section-header ' + (props.className || '')}>
+        <div {...props} className={
+            'section-title section-header ' +
+            (props.className || '') +
+            ' ttt-' + encodeURIComponent(props.children[0].props.value)
+        }>
             <div />
             <span>{props.content} {props.children}</span>
             <div />

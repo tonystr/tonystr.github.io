@@ -101,7 +101,14 @@ function TableOfContents(props) {
     if (!props.contents) return null;
 
     const scrollToContent = e => {
-        const node = [...document.querySelectorAll('.section-header')].find(node => node.innerText === e.target.innerText);
+        const match = e.target.className.match(/ttt-(\S+)/);
+        const innerText = match ? match[1] : e.target.innerText;
+        const classText = `ttt-${innerText}`;
+        const node = [...document.querySelectorAll('.section-header')].find(node =>
+            node.classList.contains(classText) ||
+            node.innerText === innerText
+        );
+        if (!node) return;
         scrollIntoView(node, { scrollMode: 'if-needed', behavior: 'smooth' });
     };
 
@@ -121,9 +128,10 @@ function TableOfContents(props) {
                 <li
                     key={content.text}
                     className={
-                        (content.level === 1 ? 'title' : '') +
-                        (content.text === props.current ? ' current' : '') +
-                        (content.text === 'Comments' ? ' comments' : '')
+                        (content.level === 1 ? 'title ' : '') +
+                        (content.text === props.current ? ' current ' : '') +
+                        (content.text === ' Comments ' ? ' comments ' : '') +
+                        (content.ttt || '')
                     }
                 >
                     <span className='link' onClick={scrollToContent}>{content.text}</span>
@@ -161,11 +169,15 @@ function ArticleContent(props) {
 
             const sectLines = res.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
             let sects = [];
-            sectLines.forEach((s, i) => sects[i] = {
-                text:  s.match(/#+\s+([^\n]+)$/)[1],
-                level: s.match(/#+/)[0].length
+            sectLines.forEach((s, i) => {
+                const text = s.match(/#+\s+([^\n]+)$/)[1];
+                sects[i] = {
+                    text:  text,
+                    level: s.match(/#+/)[0].length,
+                    ttt:   'ttt-' + encodeURIComponent(text)
+                }
             });
-            sects.push({ text: 'Comments', level: 2 });
+            sects.push({ text: 'Comments', level: 2, ttt: 'ttt-comments' });
             props.setSections(sects);
         });
 
@@ -258,12 +270,6 @@ function ArticleContent(props) {
         });
     }, [markdown]);
 
-    const observerOptions = {
-        onChange: props.observerOnChange,
-        root: '#root',
-        rootMargin: '57% 0% -42%'
-    };
-
     return (
         <>
             {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
@@ -282,8 +288,8 @@ function ArticleContent(props) {
                             />),
                             link: A,
                             heading: props => props.level === 2 ?
-                                <Observer {...observerOptions}>{SectionTitle(props)}</Observer> :
-                                <Observer {...observerOptions}>{ArticleTitle(props)}</Observer>,
+                                SectionTitle(props) :
+                                ArticleTitle(props),
                             image: ps => (<ArticleMedia
                                 {...ps}
                                 pageName={props.article.name.toLowerCase()}
@@ -294,7 +300,7 @@ function ArticleContent(props) {
                         escapeHtml={false}
                     />
                 </StandardPage>
-                <Observer {...observerOptions}><div className='section-header hidden'>Comments</div></Observer>
+                <div className='section-header hidden'>Comments</div>
                 <div className='wpac-wrapper'><div id='wpac-comment' /></div>
             </div>
         </>
@@ -307,33 +313,37 @@ export default function Article(props) {
     const [currentTOC, setCurrentTOC] = useState('');
     const [lastWindowY, setLastWindowY] = useState(false);
 
+    const handleScroll = e => {
+        const sectionTitles = document.getElementsByClassName('section-title');
+        for (const section of sectionTitles) {
+            const rect = section.getBoundingClientRect();
+            if (rect.top > 0 && rect.top < window.innerHeight / 2) {
+                const text = section.innerText;
+                if (currentTOC !== text) setCurrentTOC(text);
+                break;
+            }
+        }
+    }
+
     useEffect(() => {
         const check = e => {
             let isEnough = window.innerWidth > 16 * 83;
             if (showTOC !== isEnough) setShowTOC(isEnough);
         }
+
         window.addEventListener('resize', check);
-        return () => window.removeEventListener('resize', check);
+        window.addEventListener('scroll', handleScroll);
+
+        return () => {
+            window.removeEventListener('resize', check)
+            window.removeEventListener('scroll', handleScroll)
+        };
     }, []);
 
     return (
         <>
             <ArticleContent
                 setSections={setSections}
-                observerOnChange={e => {
-                    if (
-                        e.isIntersecting &&
-                        currentTOC !== e.target.innerText &&
-                        !document.getElementById('sqroisd-vx63')
-                    ) {
-                        setCurrentTOC(e.target.innerText);
-                        const div = document.createElement('div');
-                        div.setAttribute('id', 'sqroisd-vx63');
-                        document.body.append(div);
-                        // You have @researchgate/react-intersection-observer to thank for this...
-                        setTimeout(() => document.body.removeChild(div), 60);
-                    }
-                }}
                 article={props.article}
             />
             {showTOC && (<div>

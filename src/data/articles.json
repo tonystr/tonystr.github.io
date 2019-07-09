@@ -12,4 +12,12 @@
     "thumbnail": "regex.thumbnail.png",
     "summary": "Learn to understand what that title means",
     "timestamp": 1562086005138
+},{
+    "name": "json_in_gamemaker",
+    "displayName": "Json In Gamemaker",
+    "tags": ["tutorial", "gml", "json", "data"],
+    "password": "11037",
+    "thumbnail": "json.thumbnail.png",
+    "summary": "Learn to efficiently store data for your games",
+    "timestamp": 0
 }]
