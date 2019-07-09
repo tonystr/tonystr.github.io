@@ -54,7 +54,7 @@ function ASCIITable(props) {
             const dec = i + j * 32;
             if (showDecimal) tds.push(<td>{dec}</td>);
             if (showHex    ) tds.push(<td>{dec.toString(16)}</td>);
-            if (showChar   ) tds.push(<td>{
+            if (showChar   ) tds.push(<td title={specialCharDescs[dec] || ''}>{
                 specialChars[dec] || String.fromCharCode(dec)
             }</td>);
         }
@@ -64,9 +64,9 @@ function ASCIITable(props) {
     const renderRows = () => {
         const headers = [];
         for (let i = 0; i < 4; i++) {
-            if (showDecimal) headers.push(<th>Dec </th>);
-            if (showHex    ) headers.push(<th>Hex </th>);
-            if (showChar   ) headers.push(<th>Char</th>);
+            if (showDecimal) headers.push(<th title='decimal'>    Dec </th>);
+            if (showHex    ) headers.push(<th title='hexadecimal'>Hex </th>);
+            if (showChar   ) headers.push(<th title='character'>  Char</th>);
         }
 
         const rows = [<tr>{headers}</tr>];
@@ -109,7 +109,7 @@ function SectionTitle(props) {
         <div {...props} className={
             'section-title section-header ' +
             (props.className || '') +
-            ' ttt-' + encodeURIComponent(props.children[0].props.value)
+            (props.children ? ' ttt-' + encodeURIComponent(props.children[0].props.value) : '')
         }>
             <div />
             <span>{props.content} {props.children}</span>
