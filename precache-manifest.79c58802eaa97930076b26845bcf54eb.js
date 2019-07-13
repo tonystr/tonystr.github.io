@@ -28,12 +28,12 @@ self.__precacheManifest = [
     "url": "/static/media/Qw3FZQNVED7rKGKxtqIqX5Ecpl5tdV0hspo.fec62de4.woff2"
   },
   {
-    "revision": "0dcf23da55811f59e6a663d198b2b5e3",
-    "url": "/static/media/Qw3aZQNVED7rKGKxtqIqX5EUA3x4RHw.0dcf23da.woff2"
-  },
-  {
     "revision": "40076eb41e12aa0e8ca2b5ea2992e033",
     "url": "/static/media/Qw3FZQNVED7rKGKxtqIqX5Ecpl5te10h.40076eb4.woff2"
+  },
+  {
+    "revision": "0dcf23da55811f59e6a663d198b2b5e3",
+    "url": "/static/media/Qw3aZQNVED7rKGKxtqIqX5EUA3x4RHw.0dcf23da.woff2"
   },
   {
     "revision": "be88b4fc2cd2e8fd167c9fdd1a4e4a3e",
