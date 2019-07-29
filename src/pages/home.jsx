@@ -37,13 +37,15 @@ function FrontPage() {
         return <div className='lines'>{list}</div>;
     }
 
+    const scrollTo = selector => document.querySelector(selector).scrollIntoView({ behavior: 'smooth' });
+
     return (
         <section className='page' id='frontpage'>
             {renderLines()}
             <div className='center'><div className='title'> Tony Strømsnæs </div></div>
             <ul className='attributes'>
-                <A to='/#gamedev'><li>GameDev</li></A>
-                <A to='/#webdev' ><li>WebDev </li></A>
+                <A to='/#gamedev' onClick={() => scrollTo('#gamedev')}><li>GameDev</li></A>
+                <A to='/#webdev'  onClick={() => scrollTo('#webdev' )}><li>WebDev </li></A>
             </ul>
             <Ribbons />
         </section>
