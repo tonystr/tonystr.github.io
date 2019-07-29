@@ -11,7 +11,7 @@ function ArticleList(props) {
         let tags = article.tags.map(tag => <span>{tag}</span>);
 
         list.push(
-            <Link to={'../' + article.name.toLowerCase()}>
+            <Link to={'../a/' + article.name.toLowerCase()}>
                 <li>
                     <div className='media'>
                         {article.thumbnail && <img src={`${location}${article.name.toLowerCase()}/${article.thumbnail}`} />}

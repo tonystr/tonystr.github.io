@@ -8,29 +8,23 @@ export default function Home(props) {
     return (
         <>
             <FrontPage />
-            <AboutSection />
+            <section id='about'>
+                <SectionTitle content='About' />
+                <div className='description'>
+                    <div className='background' />
+                    <p>
+                        Hey. I'm a Norwegian tech geek who makes videogames and web solutions.
+                    </p><p>
+                        With a keen eye for design, and love for programming, I like to contribute to projects that may
+                        aid other developers, as a way to give back for all I've been taught.
+                    </p><p>
+                        Although I may run the risk of starting a few too many concurrent sideprojects in my free time,
+                        I am a strong believer in discipline and kanban for my more serious endeavours.
+                    </p>
+                </div>
+            </section>
             <WebDevPage />
         </>
-    );
-}
-
-function AboutSection() {
-    return (
-        <section id='about'>
-            <SectionTitle content='About' />
-            <div className='description'>
-                <div className='background' />
-                <p>
-                    Hey. I'm a Norwegian tech geek who makes videogames and web solutions.
-                </p><p>
-                    With a keen eye for design, and love for programming, I try to contribute to projects that may
-                    aid other developers, as a way to give back for all I've been taught.
-                </p><p>
-                    Although I may run the risk of starting a few too many concurrent sideprojects in my freetime,
-                    I am a strong believer in discipline and kanban.
-                </p>
-            </div>
-        </section>
     );
 }
 
