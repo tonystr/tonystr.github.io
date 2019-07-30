@@ -4,7 +4,7 @@ window.mousePrevious = { x: null, y: null, down: false };
 
 function canvasDraw(e) {
     const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d');
 
     const x = e.clientX;
     const y = e.clientY;
@@ -12,14 +12,13 @@ function canvasDraw(e) {
     const py = window.mousePrevious.down ? window.mousePrevious.y : y;
     const dis = Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2));
 
-    context.beginPath();
-    context.lineWidth = 5;
-    context.strokeStyle = "#ffffff";
-    for (let i = 0; i < dis; i += 3) {
-        const f = i / dis;
-        context.arc(px + (x - px) * f, py + (y - py) * f, 3, 0, Math.PI * 2, false);
-    }
-    context.stroke();
+    ctx.beginPath();
+    ctx.lineWidth = 5;
+    ctx.strokeStyle = '#ffffff';
+    ctx.lineCap = 'round';
+    ctx.moveTo(px, py);
+    ctx.lineTo(x, y);
+    ctx.stroke();
 
     window.mousePrevious = {
         x: x,
@@ -51,12 +50,20 @@ export default function Paint() {
                 width={canvasSize.width}
                 height={canvasSize.height}
                 id='canvas'
-                onMouseDown={() => window.addEventListener('mousemove',  canvasDraw)}
+                onMouseDown={e => {
+                    canvasDraw(e);
+                    document.addEventListener('mousemove',  canvasDraw);
+                }}
                 onMouseUp={() => {
-                    window.removeEventListener('mousemove', canvasDraw)
+                    document.removeEventListener('mousemove', canvasDraw)
+                    window.mousePrevious.down = false;
+                }}
+                onClick={e => {
+                    canvasDraw(e);
                     window.mousePrevious.down = false;
                 }}
             />
+            <textarea id='copybox' />
         </div>
     );
 }
