@@ -11,8 +11,6 @@ import {
     CodeBlock,
     ASCIITable
 } from './global.jsx';
-import 'intersection-observer'; // optional polyfill
-import Observer from '@researchgate/react-intersection-observer';
 import scrollIntoView from 'scroll-into-view-if-needed';
 
 const runningCodeblock = {
@@ -30,7 +28,7 @@ const runningCodeblock = {
                         if (lastChar === ':' || lastChar === ',') newString += ' ';
                         break;
 
-                    case 'object' && Array.isArray(data) ? 'object' : null:
+                    case Array.isArray(data) ? 'object' : null:
                         const array = data.map(d => typeof d === 'string' ? `'${d}'` : d);
                         newString += `[${array.join(', ')}]`;
                         break;
