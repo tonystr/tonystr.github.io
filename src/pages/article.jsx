@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, lazy, Suspense } from 'react';
 import Markdown from 'react-markdown/with-html';  // react-markdown
-import {
-    requestRawText,
-    A,
-    SectionTitle,
-    ArticleTitle,
-    Focus,
-    Header,
-    StandardPage,
-    CodeBlock,
-    ASCIITable
-} from './global.jsx';
+import Focus        from '../components/Focus.jsx';
+import A            from '../components/A.jsx';
+import Header       from '../components/Header.jsx'
+import StandardPage from '../components/StandardPage.jsx';
+import ArticleTitle from '../components/ArticleTitle.jsx';
+import SectionTitle from '../components/SectionTitle.jsx';
+import CodeBlock    from '../components/CodeBlock.jsx';
 import scrollIntoView from 'scroll-into-view-if-needed';
+import requestRawText from '../functions/requestRawText.jsx';
+const components = {
+    ASCIITable: lazy(() => import('../components/ASCIITable.jsx'))
+}
 
 const runningCodeblock = {
     onChange: () => {},
@@ -44,10 +44,6 @@ const runningCodeblock = {
         },
         clear: () => runningCodeblock.output.text = ''
     }
-}
-
-const mediaComponents = {
-    ASCIITable: <ASCIITable className='media' />
 }
 
 function ArticleMedia(props) {
@@ -83,14 +79,17 @@ function ArticleMedia(props) {
         }
     },{
         matches: ['jsx'],
-        render: props => mediaComponents[props.src.slice(0, -4)]
+        render: props => (
+            <Suspense fallback={<div>Loading React Component...</div>}>
+                {React.createElement(
+                    components[props.src.slice(0, -4)] ||
+                    (() => <div>Failed to Load React Component</div>)
+                )}
+            </Suspense>
+        )
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
-        render: props => (
-            <section className='image'>
-                <img src={src} />
-            </section>
-        )
+        render: props => <section className='image'><img src={src} /></section>
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));
@@ -312,9 +311,9 @@ function ArticleContent(props) {
 }
 
 export default function Article(props) {
-    const [showTOC,    setShowTOC   ] = useState(true);
-    const [sections,   setSections  ] = useState(null);
-    const [currentTOC, setCurrentTOC] = useState('');
+    const [showTOC,     setShowTOC    ] = useState(true);
+    const [sections,    setSections   ] = useState(null);
+    const [currentTOC,  setCurrentTOC ] = useState('');
     const [lastWindowY, setLastWindowY] = useState(false);
 
     const handleScroll = e => {

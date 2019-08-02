@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Header, ArticleTitle, StandardPage, CodeBlock, requestRawText } from './global.jsx';
+import requestRawText from '../functions/requestRawText.jsx';
+import ArticleTitle from '../components/ArticleTitle.jsx';
+import CodeBlock    from '../components/CodeBlock.jsx';
+import Header       from '../components/Header.jsx'
+import StandardPage from '../components/StandardPage.jsx';
 import snippetsJSON from '../data/snippets.json'
 
 function SnippetList(props) {

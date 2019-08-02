@@ -114,6 +114,11 @@ $josefin: 'josefin-sans' sans-serif;
     100% { clip-path: inset(0px   0% 0px 0px); }
 }
 
+@keyframes rotate {
+    0%   { transform: rotate(0deg  ); }
+    100% { transform: rotate(360deg); }
+}
+
 // global tags
 body {
     margin: 0;
@@ -279,6 +284,37 @@ footer {
 
     &:hover {
         background: $c_green;
+    }
+}
+
+.page-loading {
+    position: relative;
+    font-size: 1.4rem;
+
+    &::after {
+        position: absolute;
+        content: '';
+        top:  50%;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background-color: $c_dark;
+        z-index: -3;
+    }
+
+    .loader {
+        position: absolute;
+        display: block;
+        left: calc(50% - 4rem - 12px);
+        top:  calc(50% - 4rem - 8px);
+        width:  8rem;
+        height: 8rem;
+        border-radius: 50%;
+        border: 10px dotted $c_green;
+        animation: rotate 2s infinite;
+        background-color: $c_gray;
+        z-index: -1;
+        box-shadow: 0 0 0px 5px $c_dark;
     }
 }
 

@@ -1,5 +1,10 @@
 import React from 'react';
-import { A, ArticleTitle, Focus, Header, Link, StandardPage } from './global.jsx';
+import { Link } from 'react-router-dom'
+import Focus        from '../components/Focus.jsx';
+import A            from '../components/A.jsx';
+import ArticleTitle from '../components/ArticleTitle.jsx';
+import Header       from '../components/Header.jsx'
+import StandardPage from '../components/StandardPage.jsx';
 
 function ArticleList(props) {
     const list = [];

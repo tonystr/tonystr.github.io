@@ -4,8 +4,12 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import './prism.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import { WindowCenter, Footer, ASCIITable, Header, StandardPage } from './pages/global.jsx';
 import articlesJSON from './data/articles.json';
+import Footer       from './components/Footer.jsx';
+import WindowCenter from './components/WindowCenter.jsx';
+const Header        = lazy(() => import('./components/Header.jsx'));
+const StandardPage  = lazy(() => import('./components/StandardPage.jsx'));
+const ASCIITable    = lazy(() => import('./components/ASCIITable.jsx'));
 const Home          = lazy(() => import('./pages/home.jsx'));
 const Article       = lazy(() => import('./pages/article.jsx'));
 const ArticleLogin  = lazy(() => import('./pages/article-login.jsx'));
@@ -20,6 +24,7 @@ function ValidatePage(props) {
     switch (location) {
         case 'articles': return <Articles json={articlesJSON} />;
         case 'snippets': return <Snippets />;
+        case 'page_loading': return <PageLoading />;
         case 'ascii': return (
             <>
                 <Header />
@@ -52,16 +57,25 @@ function ValidateArticle(props) {
         <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
 }
 
+function PageLoading(props) {
+    return (
+        <WindowCenter className='page-loading'>
+            Loading...
+            <div className='loader' />
+        </WindowCenter>
+    );
+}
+
 ReactDOM.render(
     <BrowserRouter>
         <div>
-            <Suspense fallback={<WindowCenter>Loading...</WindowCenter>}>
+            <Suspense fallback={<PageLoading />}>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/:page' component={ValidatePage} />
                 <Route exact path='/a/:article' component={ValidateArticle} />
                 <Route exact path='/article/:article' component={ValidateArticle} />
+                <Footer />
             </Suspense>
-            <Footer />
         </div>
     </BrowserRouter>,
     document.getElementById('root')
