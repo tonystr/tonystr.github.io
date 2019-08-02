@@ -52,10 +52,11 @@ const mediaComponents = {
 
 function ArticleMedia(props) {
 
-    const typeMatch = props.src.match(/\.(\w+)$/);
-    const type = typeMatch ? typeMatch[1] : null;
+    const type = (props.src.match(/\.(\w+)$/) || [0, null])[1];
     const src = props.src.startsWith('./') ?
-        `articles/${props.pageName}${props.src.slice(1)}` :
+        `${
+            (document.location.pathname.match(/\//g) || ['/']).join('..').slice(1)
+        }articles/${props.pageName}${props.src.slice(1)}` :
         props.src;
 
     const renderers = [{
@@ -82,9 +83,14 @@ function ArticleMedia(props) {
         }
     },{
         matches: ['jsx'],
-        render: props => {
-            return mediaComponents[props.src.slice(0, -4)];
-        }
+        render: props => mediaComponents[props.src.slice(0, -4)]
+    },{
+        matches: ['jpg', 'png', 'jpeg', ''],
+        render: props => (
+            <section className='image'>
+                <img src={src} />
+            </section>
+        )
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));

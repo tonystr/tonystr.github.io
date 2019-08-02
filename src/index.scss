@@ -186,6 +186,16 @@ header {
         font-size: 2.44vw;
         color: $c_green;
         font: $josefin;
+        position: relative;
+
+        img {
+            height: 2.4rem;
+            position: absolute;
+            bottom: 2px;
+            left: -3.2rem;
+            border: 3px solid $c_dark;
+            border-radius: 50%;
+        }
     }
 
     .ribbons {

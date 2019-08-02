@@ -1,18 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom'
 import './prism.css';
 import './index.scss';
 import * as serviceWorker from './serviceWorker';
-import Home from './pages/home.jsx';
-import Article from './pages/article.jsx';
-import ArticleLogin from './pages/article-login.jsx';
-import Dracula from './pages/dracula.jsx';
-import Articles from './pages/articles.jsx';
-import Snippets from './pages/snippets.jsx';
-import Paint from './pages/paint.jsx';
 import { WindowCenter, Footer, ASCIITable, Header, StandardPage } from './pages/global.jsx';
 import articlesJSON from './data/articles.json';
+const Home          = lazy(() => import('./pages/home.jsx'));
+const Article       = lazy(() => import('./pages/article.jsx'));
+const ArticleLogin  = lazy(() => import('./pages/article-login.jsx'));
+const Dracula       = lazy(() => import('./pages/dracula.jsx'));
+const Articles      = lazy(() => import('./pages/articles.jsx'));
+const Snippets      = lazy(() => import('./pages/snippets.jsx'));
+const Paint         = lazy(() => import('./pages/paint.jsx'));
 
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
@@ -55,17 +55,17 @@ function ValidateArticle(props) {
 ReactDOM.render(
     <BrowserRouter>
         <div>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/:page' component={ValidatePage} />
-            <Route exact path='/a/:article' component={ValidateArticle} />
-            <Route exact path='/article/:article' component={ValidateArticle} />
+            <Suspense fallback={<WindowCenter>Loading...</WindowCenter>}>
+                <Route exact path='/' component={Home} />
+                <Route exact path='/:page' component={ValidatePage} />
+                <Route exact path='/a/:article' component={ValidateArticle} />
+                <Route exact path='/article/:article' component={ValidateArticle} />
+            </Suspense>
             <Footer />
         </div>
     </BrowserRouter>,
     document.getElementById('root')
 );
-
-//
 
 // Read about service workers: http://bit.ly/CRA-PWA
 serviceWorker.register();
