@@ -1,36 +1,5 @@
 
-// colors
-
-$c_bg: #21252B;
-$c_green: #6fcaa0;
-$c_lightgreen: #9ee2c3;
-$c_gray: #282a36;
-$c_gold: #ddc239;
-$c_red: #ea277c;
-$c_orange: #ef941c;
-$c_blue: #4c6aef;
-$c_purple: #b333dd;
-$c_dark: #171921;
-$c_txt: #cbccd6; // darken(#d9dae1, 5%);
-$c_ltgray: #56576a;
-$c_pink: #f068a3; // lighten($c_red, 14%);
-$rainbow: (
-    $c_gold,
-    $c_orange,
-    $c_red,
-    $c_purple,
-    $c_blue
-);
-
-$default_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
-$josefin: 'josefin-sans' sans-serif;
-
-// imports
-
-// @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,400');
-@import 'fonts/josefin-sans.scss';
-
-// mixins
+@import 'global';
 
 @mixin background-color-alpha($color, $alpha) {
     background-color: rgba(red($color), green($color), blue($color), $alpha);
@@ -119,202 +88,46 @@ $josefin: 'josefin-sans' sans-serif;
     100% { transform: rotate(360deg); }
 }
 
-// global tags
-body {
-    margin: 0;
-    padding: 0;
-    font-family: $default_font;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    background-color: $c_gray;
-    color: $c_txt;
-}
-
-code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
-}
-
-a {
-    text-decoration: none;
-    color: $c_gold;
-
-    &.link {
-        position: relative;
-        transition: color 0.2s;
-        white-space: nowrap;
-
-        &::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            right: 50%;
-            border-bottom: 2px solid transparent;
-            animation: xpand-in 0.16s ease-in;
-            transition: opacity 1s;
-            border-color: $c_green;
-            opacity: 0;
-        }
-
-        &:hover {
-            cursor: pointer;
-
-            &::after {
-                left: 0;
-                right: 0;
-                bottom: -2px;
-                animation: xpand-out 0.16s;
-                opacity: 1;
-                transition: opacity .01s;
-            }
-        }
-    }
-
-    &:hover {
-        color: $c_green;
-    }
-}
-
 $border: 0.24vw;
 
-header {
-    padding: .4rem 1rem;
-    margin: 4vh 4%;
-    vertical-align: middle;
-    border-top: $border solid $c_dark;
-    position: relative;
-    margin-bottom: 5rem;
-    font-weight: 300;
-
-    .tony {
-        float: right;
-        font-size: 2.44vw;
-        color: $c_green;
-        font: $josefin;
-        position: relative;
-
-        img {
-            height: 2.4rem;
-            position: absolute;
-            bottom: 2px;
-            left: -3.2rem;
-            border: 3px solid $c_dark;
-            border-radius: 50%;
-        }
-    }
-
-    .ribbons {
-        top: $border * .22;
-    }
-
-    @media(max-width:1000px) {
-        $border: 3px;
-        border-top: $border solid $c_dark;
-
-        .ribbons {
-            top: $border * .22;
-        }
-
-        .tony {
-            font-size: 2.2rem;
-        }
-    }
-
-    @media(max-width:640px) {
-        $border: 3px;
-        border-top: none;
-        border-bottom: $border solid $c_dark;
-        padding-top: 2.5rem;
-        margin-top: 1.4rem;
-
-        .ribbons {
-            top: calc(#{$border * 1} + #{2.5rem + .4rem});
-            margin-left: 0;
-            left: 0;
-            right: 0;
-            justify-content: center;
-        }
-
-        .tony {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            text-align: center;
-            font-size: 2rem;
-        }
-    }
-}
-
-footer {
-    $col: lighten($c_dark, 3%);
-    padding: 1rem;
-    background-color: $col;
-    box-shadow: 0 -2px $c_gray,
-                0 -4px $col,
-                0  2px $c_gray,
-                0  4px $col;
-
-    color: darken($c_txt, 12%);
-    text-align: center;
-    margin-top: 2rem;
-
-    .content {
-        max-width: 42rem;
-        margin: 0 auto;
-    }
-
-    .tony {
-        margin-top: .3rem;
-    }
-}
-
-::-webkit-scrollbar {
-    width: 11px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background: $c_dark;
-    border-radius: .5rem;
-    border: 2px solid $c_gray;
-
-    &:hover {
-        background: $c_green;
-    }
-}
-
 .page-loading {
-    position: relative;
-    font-size: 1.4rem;
+    position: fixed;
+    z-index: 5000;
+    background-color: $c_gray;
+    @include absolute-fill(0);
 
-    &::after {
+    &::before {
         position: absolute;
+        z-index: -2;
         content: '';
         top:  50%;
         left: 0;
         right: 0;
         height: 4px;
         background-color: $c_dark;
-        z-index: -3;
     }
 
-    .loader {
-        position: absolute;
-        display: block;
-        left: calc(50% - 4rem - 12px);
-        top:  calc(50% - 4rem - 8px);
-        width:  8rem;
-        height: 8rem;
-        border-radius: 50%;
-        border: 10px dotted $c_green;
-        animation: rotate 2s infinite;
-        background-color: $c_gray;
-        z-index: -1;
-        box-shadow: 0 0 0px 5px $c_dark;
+    .window-center {
+        position: relative;
+        font-size: 1.4rem;
+
+        .cener {
+            z-index: 5002;
+        }
+
+        .loader {
+            z-index: -1;
+            position: absolute;
+            left: calc(50% - 4rem - 12px);
+            top:  calc(50% - 4rem - 8px);
+            width:  8rem;
+            height: 8rem;
+            border-radius: 50%;
+            border: 10px dotted $c_green;
+            animation: rotate 2s infinite;
+            background-color: $c_gray;
+            box-shadow: 0 0 0px 5px $c_dark;
+        }
     }
 }
 
@@ -352,47 +165,6 @@ footer {
 
 .paint {
     overflow-x: none;
-}
-
-.ascii-table {
-    table-layout: fixed;
-    width: 100%;
-    font-size: 1rem;
-    $ldark: lighten($c_dark, 3%);
-    background-color: $ldark;
-    border-radius: .4rem;
-    border-collapse: collapse;
-
-    tr {
-        &:nth-child(1) {
-            border-radius: .4rem;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .2);
-            th {
-                padding: .4rem 0;
-            }
-        }
-
-        td:nth-child(3n + 1) {
-            color: $c_green;
-        }
-
-        td:nth-child(3n + 2) {
-            color: $c_pink;
-        }
-
-        td:nth-child(3n) {
-
-            & + td {
-                border-left: 2px solid $c_gray;
-            }
-        }
-
-        text-align: center;
-
-        &:nth-child(2n+2) {
-            background-color: $c_dark;
-        }
-    }
 }
 
 .codeblock-full {
@@ -467,237 +239,6 @@ footer {
     }
 }
 
-.wpac-wrapper {
-    padding: 0 2rem;
-    margin-top: 4rem;
-}
-
-#wpac-comment {
-    max-width: 60rem;
-    margin: 0 auto;
-
-    .wp-copyright {
-        display: hidden !important;
-        opacity: 0;
-    }
-
-    .wp-comments {
-        border-top: 1px solid $c_dark !important;
-        padding-top: 1rem;
-    }
-
-    .wp-login {
-        @extend a.link;
-        color: $c_gold !important;
-        path { fill: $c_gold !important; }
-
-        &:hover {
-            color: $c_green !important;
-            path { fill: $c_green !important; }
-        }
-    }
-
-    .wp-hr.wp-clear {
-        opacity: 0;
-    }
-
-    .wp-comment-count {
-        color: $c_ltgray !important;
-    }
-
-    .wp-comment-sort {
-        color: $c_ltgray !important;
-        transition: .2s all;
-
-        &:hover {
-            color: $c_green !important;
-        }
-    }
-
-    .wp-sort path {
-        fill: $c_ltgray !important;
-    }
-
-    .wp-comment-rate {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-    }
-
-    .wp-comment-media li a {
-        transition: .14s all !important;
-
-        img {
-            box-shadow: 0 1px 6px rgba(0, 0, 0, .34) !important;
-
-            @media(max-width: 400px) {
-                max-width: 100px !important;
-                max-height: 66px !important;
-            }
-        }
-
-        &:hover {
-            transform: scale(1.04);
-        }
-    }
-
-    .wpac .wp-media-preview {
-        border-top: 2px dashed $c_dark !important;
-
-        li span {
-            background-color: $c_dark !important;
-            color: $c_ltgray !important;
-            font-size: 1rem !important;
-            top: -5px !important;
-            right: -5px !important;
-            width: 1.1rem !important;
-            height: 1.1rem !important;
-
-            &:hover {
-                background-color: $c_gold !important;
-            }
-        }
-
-        .wp-media-surface {
-            background-color: $c_dark !important;
-            border-color: $c_dark !important;
-            border-radius: 4px !important;
-
-            img {
-                border-radius: 3px !important;
-            }
-        }
-    }
-
-    .wp-submit-cnt {
-        border: none !important;
-        background-color: transparent !important;
-        margin-top: .4rem !important;
-    }
-
-    .wp-btn, .wp-submit-cnt .wp-submit {
-        background-color: $c_dark !important;
-        border-radius: 4px !important;
-        color: $c_green !important;
-        border: 2px solid transparent !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .23) !important;
-        transition: .14s all !important;
-
-        &:hover {
-            background-color: darken($c_gray, 3%) !important;
-            border-color: $c_green !important;
-        }
-    }
-
-    .wp-social-wrap {
-        opacity: 0;
-        display: hidden;
-    }
-
-    .wp-text-wrap {
-        border: none !important;
-        background-color: transparent !important;
-        box-shadow: none !important;
-    }
-
-    .wp-comment-msg {
-        color: $c_txt !important;
-    }
-
-    .wp-comment-reply {
-        color: $c_ltgray !important;
-        font-size: .8rem !important;
-
-        &:hover {
-            color: $c_green !important;
-        }
-    }
-
-    .wp-comment-username {
-        color: $c_pink !important;
-    }
-
-    .wp-comment-time {
-        color: $c_ltgray !important;
-    }
-
-    .wp-comment-parent {
-        color: $c_pink !important;
-    }
-
-    .wp-comment-vote {
-        transform: translateY(4px);
-    }
-
-    .wp-svg svg,
-    .wp-comment-menu > a svg {
-        path {
-            fill: $c_ltgray !important;
-            transition: .14s all;
-        }
-
-        &:hover path {
-            fill: $c_green !important;
-        }
-    }
-
-    .wp-textarea-wrap {
-        background-color: $c_dark !important;
-        border-radius: 4px !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .34) !important;
-
-        textarea {
-            background-color: $c_dark !important;
-            color: $c_txt !important;
-            font-size: 1rem !important;
-
-            &::placeholder {
-                color: $c_ltgray !important;
-                opacity: .8 !important;
-            }
-        }
-    }
-
-    .wp-dropdown-menu {
-        background-color: lighten($c_dark, 3%) !important;
-        border-color: transparent !important;
-
-        li a {
-            color: $c_txt !important;
-            font-size: .9rem !important;
-
-            &:hover {
-                background-color: $c_dark !important;
-                color: $c_green !important;
-            }
-        }
-
-        .wp-logout {
-            border-top-color: $c_dark !important;
-        }
-    }
-
-    .wp-c.wp-loggedin .wp-user-menu {
-        color: $c_gold !important;
-    }
-
-    .wp-c {
-        .wp-form {
-            margin: 6px 0 !important;
-        }
-
-        .wp-nocomments {
-            color: $c_ltgray !important;
-            text-shadow: none !important;
-            font-size: 1.1rem !important;
-        }
-
-        .wp-hr {
-            border-color: $c_dark !important;
-        }
-    }
-}
-
 .article-list {
     min-height: 63vh;
 
@@ -706,7 +247,7 @@ footer {
         list-style-type: none;
 
         li {
-            font-family: 'Josefin Sans', sans-serif;
+            font-family: $josefin;
             border: 2px solid $c_dark;
             margin: .5rem 0;
             border-radius: .3rem;

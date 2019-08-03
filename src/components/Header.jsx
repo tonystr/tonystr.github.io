@@ -1,5 +1,6 @@
 import React from 'react';
 import Ribbons from './Ribbons.jsx';
+import '../styles/header.scss';
 
 export default function Header(props) {
     // let rootURL = `${window.location.protocol}//${window.location.hostname}:${window.location.port}`;

@@ -2,11 +2,12 @@ import React, { useState, Suspense, lazy } from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom'
 import './prism.css';
-import './index.scss';
+import './styles/index.scss';
 import * as serviceWorker from './serviceWorker';
 import articlesJSON from './data/articles.json';
 import Footer       from './components/Footer.jsx';
 import WindowCenter from './components/WindowCenter.jsx';
+import PageLoading  from './components/PageLoading.jsx';
 const Header        = lazy(() => import('./components/Header.jsx'));
 const StandardPage  = lazy(() => import('./components/StandardPage.jsx'));
 const ASCIITable    = lazy(() => import('./components/ASCIITable.jsx'));
@@ -55,15 +56,6 @@ function ValidateArticle(props) {
                 setLogin(val);
             }} />) :
         <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
-}
-
-function PageLoading(props) {
-    return (
-        <WindowCenter className='page-loading'>
-            Loading...
-            <div className='loader' />
-        </WindowCenter>
-    );
 }
 
 ReactDOM.render(

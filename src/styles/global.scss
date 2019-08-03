@@ -1,0 +1,98 @@
+@import './fonts/josefin-sans';
+
+$c_bg: #21252B;
+$c_green: #6fcaa0;
+$c_lightgreen: #9ee2c3;
+$c_gray: #282a36;
+$c_gold: #ddc239;
+$c_red: #ea277c;
+$c_orange: #ef941c;
+$c_blue: #4c6aef;
+$c_purple: #b333dd;
+$c_dark: #171921;
+$c_txt: #cbccd6; // darken(#d9dae1, 5%);
+$c_ltgray: #56576a;
+$c_pink: #f068a3; // lighten($c_red, 14%);
+$rainbow: (
+    $c_gold,
+    $c_orange,
+    $c_red,
+    $c_purple,
+    $c_blue
+);
+
+$default_font: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+$josefin: 'josefin-sans', sans-serif;
+
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: $c_dark;
+    border-radius: .5rem;
+    border: 2px solid $c_gray;
+
+    &:hover {
+        background: $c_green;
+    }
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: $default_font;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: $c_gray;
+    color: $c_txt;
+}
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+a {
+    text-decoration: none;
+    color: $c_gold;
+
+    &.link {
+        position: relative;
+        transition: color 0.2s;
+        white-space: nowrap;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            right: 50%;
+            border-bottom: 2px solid transparent;
+            animation: xpand-in 0.16s ease-in;
+            transition: opacity 1s;
+            border-color: $c_green;
+            opacity: 0;
+        }
+
+        &:hover {
+            cursor: pointer;
+
+            &::after {
+                left: 0;
+                right: 0;
+                bottom: -2px;
+                animation: xpand-out 0.16s;
+                opacity: 1;
+                transition: opacity .01s;
+            }
+        }
+    }
+
+    &:hover {
+        color: $c_green;
+    }
+}

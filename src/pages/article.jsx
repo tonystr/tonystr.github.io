@@ -7,6 +7,8 @@ import StandardPage from '../components/StandardPage.jsx';
 import ArticleTitle from '../components/ArticleTitle.jsx';
 import SectionTitle from '../components/SectionTitle.jsx';
 import CodeBlock    from '../components/CodeBlock.jsx';
+import PageLoading  from '../components/PageLoading.jsx';
+import Wpac         from '../components/Wpac.jsx';
 import scrollIntoView from 'scroll-into-view-if-needed';
 import requestRawText from '../functions/requestRawText.jsx';
 const components = {
@@ -183,23 +185,6 @@ function ArticleContent(props) {
             sects.push({ text: 'Comments', level: 2, ttt: 'ttt-comments' });
             props.setSections(sects);
         });
-
-        window.wpac_init = window.wpac_init || [];
-        window.wpac_init.push({widget: 'Comment', id: 18172});
-        if ('WIDGETPACK_LOADED' in window) return;
-        window.WIDGETPACK_LOADED = true;
-        var mc = document.createElement('script');
-        mc.type = 'text/javascript';
-        mc.async = true;
-        mc.src = 'https://embed.widgetpack.com/widget.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
-
-        setTimeout(() => {
-            const lis = document.querySelectorAll('.wp-login-menu li');
-            for (const li of lis) {
-                if (li.innerText === 'Get WidgetPack') li.parentNode.removeChild(li);
-            }
-        }, 3100);
     }, []);
 
     useEffect(() => {
@@ -273,7 +258,7 @@ function ArticleContent(props) {
         });
     }, [markdown]);
 
-    return (
+    return markdown ? (
         <>
             {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
             <div className={focus ? 'blur' : ''}>
@@ -304,10 +289,10 @@ function ArticleContent(props) {
                     />
                 </StandardPage>
                 <div className='section-header hidden'>Comments</div>
-                <div className='wpac-wrapper'><div id='wpac-comment' /></div>
+                <Wpac />
             </div>
         </>
-    );
+    ) : <PageLoading />;
 }
 
 export default function Article(props) {

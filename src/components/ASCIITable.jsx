@@ -1,4 +1,5 @@
 import React from 'react';
+import '../styles/asciitable.scss';
 
 export default function ASCIITable(props) {
 

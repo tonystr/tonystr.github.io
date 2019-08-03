@@ -1,0 +1,256 @@
+@import 'global';
+
+.wpac-wrapper {
+    padding: 0 2rem;
+    margin-top: 4rem;
+}
+
+.wpac.wp-modal-login .wp-modal-dialog {
+    background-color: $c_gray !important;
+    color: $c_txt !important;
+
+    .wp-l .wp-auth-anonym input[type="text"],
+    .wp-l .wp-auth-anonym input[type="password"] {
+        background-color: $c_dark !important;
+        border: none !important;
+        color: $c_txt !important;
+    }
+
+    .wp-close {
+        color: $c_orange !important;
+
+        &:hover {
+            color: $c_gold !important;
+        }
+    }
+}
+
+#wpac-comment .wp-btn,
+#wpac-comment .wp-submit-cnt .wp-submit,
+.wpac.wp-modal-login .wp-modal-dialog .wp-btn {
+    background-color: $c_dark !important;
+    border-radius: 4px !important;
+    color: $c_green !important;
+    border: 2px solid transparent !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .23) !important;
+    transition: .14s all !important;
+
+    &:hover {
+        background-color: darken($c_gray, 3%) !important;
+        border-color: $c_green !important;
+    }
+}
+
+#wpac-comment .wp-textarea-wrap,
+.wpac.wp-modal-login .wp-modal-dialog .wp-l .wp-auth-anonym input[type="text"],
+.wpac.wp-modal-login .wp-modal-dialog .wp-l .wp-auth-anonym input[type="password"] {
+    background-color: $c_dark !important;
+    border-radius: 4px !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, .34) !important;
+
+    textarea {
+        background-color: $c_dark !important;
+        color: $c_txt !important;
+        font-size: 1rem !important;
+
+        &::placeholder {
+            color: $c_ltgray !important;
+            opacity: .8 !important;
+        }
+    }
+}
+
+#wpac-comment {
+    max-width: 60rem;
+    margin: 0 auto;
+
+    .wp-copyright {
+        display: hidden !important;
+        opacity: 0;
+    }
+
+    .wp-comments {
+        border-top: 1px solid $c_dark !important;
+        padding-top: 1rem;
+    }
+
+    .wp-login {
+        @extend a.link;
+        color: $c_gold !important;
+        path { fill: $c_gold !important; }
+
+        &:hover {
+            color: $c_green !important;
+            path { fill: $c_green !important; }
+        }
+    }
+
+    .wp-hr.wp-clear {
+        opacity: 0;
+    }
+
+    .wp-comment-count {
+        color: $c_ltgray !important;
+    }
+
+    .wp-comment-sort {
+        color: $c_ltgray !important;
+        transition: .2s all;
+
+        &:hover {
+            color: $c_green !important;
+        }
+    }
+
+    .wp-sort path {
+        fill: $c_ltgray !important;
+    }
+
+    .wp-comment-rate {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+
+    .wp-comment-media li a {
+        transition: .14s all !important;
+
+        img {
+            box-shadow: 0 1px 6px rgba(0, 0, 0, .34) !important;
+
+            @media(max-width: 400px) {
+                max-width: 100px !important;
+                max-height: 66px !important;
+            }
+        }
+
+        &:hover {
+            transform: scale(1.04);
+        }
+    }
+
+    .wpac .wp-media-preview {
+        border-top: 2px dashed $c_dark !important;
+
+        li span {
+            background-color: $c_dark !important;
+            color: $c_ltgray !important;
+            font-size: 1rem !important;
+            top: -5px !important;
+            right: -5px !important;
+            width: 1.1rem !important;
+            height: 1.1rem !important;
+
+            &:hover {
+                background-color: $c_gold !important;
+            }
+        }
+
+        .wp-media-surface {
+            background-color: $c_dark !important;
+            border-color: $c_dark !important;
+            border-radius: 4px !important;
+
+            img {
+                border-radius: 3px !important;
+            }
+        }
+    }
+
+    .wp-submit-cnt {
+        border: none !important;
+        background-color: transparent !important;
+        margin-top: .4rem !important;
+    }
+
+    .wp-social-wrap {
+        opacity: 0;
+        display: hidden;
+    }
+
+    .wp-text-wrap {
+        border: none !important;
+        background-color: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .wp-comment-msg {
+        color: $c_txt !important;
+    }
+
+    .wp-comment-reply {
+        color: $c_ltgray !important;
+        font-size: .8rem !important;
+
+        &:hover {
+            color: $c_green !important;
+        }
+    }
+
+    .wp-comment-username {
+        color: $c_pink !important;
+    }
+
+    .wp-comment-time {
+        color: $c_ltgray !important;
+    }
+
+    .wp-comment-parent {
+        color: $c_pink !important;
+    }
+
+    .wp-comment-vote {
+        transform: translateY(4px);
+    }
+
+    .wp-svg svg,
+    .wp-comment-menu > a svg {
+        path {
+            fill: $c_ltgray !important;
+            transition: .14s all;
+        }
+
+        &:hover path {
+            fill: $c_green !important;
+        }
+    }
+
+    .wp-dropdown-menu {
+        background-color: lighten($c_dark, 3%) !important;
+        border-color: transparent !important;
+
+        li a {
+            color: $c_txt !important;
+            font-size: .9rem !important;
+
+            &:hover {
+                background-color: $c_dark !important;
+                color: $c_green !important;
+            }
+        }
+
+        .wp-logout {
+            border-top-color: $c_dark !important;
+        }
+    }
+
+    .wp-c.wp-loggedin .wp-user-menu {
+        color: $c_gold !important;
+    }
+
+    .wp-c {
+        .wp-form {
+            margin: 6px 0 !important;
+        }
+
+        .wp-nocomments {
+            color: $c_ltgray !important;
+            text-shadow: none !important;
+            font-size: 1.1rem !important;
+        }
+
+        .wp-hr {
+            border-color: $c_dark !important;
+        }
+    }
+}
