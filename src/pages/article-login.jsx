@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import WindowCenter from '../components/WindowCenter.jsx';
+import '../styles/articlelogin.scss';
 
 export default function ArticleLogin(props) {
 

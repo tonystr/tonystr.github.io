@@ -6,6 +6,7 @@ import A from '../components/A.jsx';
 import requestRawText from '../functions/requestRawText.jsx';
 import Ribbons from '../components/Ribbons.jsx';
 import scrollIntoView from 'scroll-into-view-if-needed';
+import '../styles/home.scss';
 
 export default function Home(props) {
     return (

@@ -1,6 +1,7 @@
 import React from 'react';
 import SyntaxHighlighter from "react-syntax-highlighter";
 import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dark";
+import '../styles/codeblock.scss';
 
 export default function CodeBlock(props) {
     if (props.inline) return (

@@ -1,0 +1,100 @@
+@import 'global';
+
+$border: 0.24vw;
+
+.ribbons {
+    top: $border;
+    left: $border;
+    margin: 0;
+    padding: 0;
+    margin-left: 3vw;
+    margin-top: -$border;
+    $bg: transparent;
+    list-style: none;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    padding: 0;
+
+    li {
+        $br: $c_dark;
+        background-color: $bg;
+        width: 3.2vw;
+        height: 5vw;
+        margin: 0 .6rem;
+        position: relative;
+        border: $border solid $br;
+        border-bottom: none;
+        border-radius: 0.2rem;
+        transition: 0.1s border-color;
+
+        i {
+            font-size: 1.6vw;
+            width: 100%;
+            text-align: center;
+            margin-top: 2vw;
+        }
+        // &.l0 { color: $c_gold; }
+        // &.l1 { color: $c_orange; }
+        // &.l2 { color: $c_red; }
+        @for $i from 0 through 4 {
+            &.l#{$i} {
+                $c: nth($rainbow, $i + 1);
+                color: $c;
+
+                &:hover, &:hover::after  {
+                    border-color: $c;
+                }
+            }
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            background-color: $bg;
+            transition: 0.1s border-color;
+            width: 100% * 0.709;
+            height: 3.2vw * 0.709;
+            bottom: -1.23vw;
+            left: 0.37vw;
+            transform: rotate(-45deg);
+            border-bottom: $border solid $br;
+            border-left: $border solid $br;
+            // box-shadow: -2px 2px 4px rgba(0,0,0,.18);
+            border-radius: 0.1rem;
+        }
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    @media(max-width:1000px) {
+        $border: 3px;
+        top: $border;
+        left: $border;
+        margin-top: -$border;
+        $br: $c_dark;
+
+        li {
+            border: $border solid $br;
+            border-bottom: none;
+            width: 32px;
+            height: 50px;
+
+            i {
+                font-size: 20px;
+                margin-top: 16px;
+            }
+
+            &::after {
+                border-bottom: $border solid $br;
+                border-left: $border solid $br;
+                bottom: -12px;
+                left: 3.3px;
+                width: 100% * 0.709;
+                height: 31px * 0.709;
+            }
+        }
+    }
+}

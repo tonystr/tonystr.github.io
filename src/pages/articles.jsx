@@ -5,6 +5,7 @@ import A            from '../components/A.jsx';
 import ArticleTitle from '../components/ArticleTitle.jsx';
 import Header       from '../components/Header.jsx'
 import StandardPage from '../components/StandardPage.jsx';
+import '../styles/articles.scss';
 
 function ArticleList(props) {
     const list = [];
