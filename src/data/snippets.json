@@ -1,0 +1,23 @@
+[
+    "array_contains",
+    "array_find_index",
+    "array_max_index",
+    "draw_grid_outline",
+    "draw_grid",
+    "draw_line_pixel",
+    "draw_rect_outline",
+    "draw_rect",
+    "draw_self_ext",
+    "ds_list_add_list",
+    "ds_list_add_map",
+    "ds_list_create_add",
+    "ds_list_fill",
+    "instance_place_list_any",
+    "json_load",
+    "log",
+    "place_meeting_any",
+    "script_execute_array",
+    "script_execute_list",
+    "surface_clear_set",
+    "surface_clear"
+]

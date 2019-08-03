@@ -1,0 +1,35 @@
+@import 'global';
+
+#article-login {
+    div {
+        margin: 1rem;
+        text-align: center;
+    }
+
+    .input {
+        background-color: $c_dark;
+        border: 2px solid $c_gray;
+        border-radius: 6px;
+        padding: .1rem 0;
+
+        i {
+            border-left: 2px solid $c_gray;
+            padding: .1rem .3rem;
+            cursor: pointer;
+
+            &:hover {
+                color: $c_green;
+            }
+        }
+
+        input {
+            color: $c_gold;
+            background-color: transparent;
+            border: none;
+            padding-left: .4rem;
+            font-size: 1rem;
+            font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+            width: 9rem;
+        }
+    }
+}

@@ -1,0 +1,215 @@
+@import 'global';
+
+@keyframes fadein-blur {
+    0%   { filter: blur(0px); }
+    100% { filter: blur(3px); }
+}
+
+@keyframes fadein-bgcolor {
+    0%   { background-color: rgba(0, 0, 0,  0); }
+    100% { background-color: rgba(0, 0, 0, .5); }
+}
+
+@keyframes fadein-drawer-bottom {
+    0%   { transform: translateY(100%); opacity: 0; }
+    6%   { opacity: 0; }
+    7%   { opacity: 1; }
+    44%  { transform: translateY(100% + -104.63%); }
+    59%  { transform: translateY(100% + -98.36%); }
+    73%  { transform: translateY(100% + -100.58%); }
+    88%  { transform: translateY(100% + -99.8%); }
+    100% { transform: translateY(0%); }
+}
+
+@keyframes rotate {
+    0%   { transform: rotate(0deg  ); }
+    100% { transform: rotate(360deg); }
+}
+
+$border: 0.24vw;
+
+.page-loading {
+    position: fixed;
+    z-index: 5000;
+    background-color: $c_gray;
+    @include absolute-fill(0);
+
+    &::before {
+        position: absolute;
+        z-index: -2;
+        content: '';
+        top:  50%;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background-color: $c_dark;
+    }
+
+    .window-center {
+        position: relative;
+        font-size: 1.4rem;
+
+        .cener {
+            z-index: 5002;
+        }
+
+        .loader {
+            z-index: -1;
+            position: absolute;
+            left: calc(50% - 4rem - 12px);
+            top:  calc(50% - 4rem - 8px);
+            width:  8rem;
+            height: 8rem;
+            border-radius: 50%;
+            border: 10px dotted $c_green;
+            animation: rotate 2s infinite;
+            background-color: $c_gray;
+            box-shadow: 0 0 0px 5px $c_dark;
+        }
+    }
+}
+
+.copybox {
+    position: absolute;
+    pointer-events: none;
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 2em;
+    color: transparent;
+    background: transparent;
+    opacity: 0;
+    border: none;
+}
+
+.paint {
+    overflow-x: none;
+}
+
+// global classes
+
+.section-header.hidden {
+    opacity: 0;
+}
+
+.blur {
+    animation: fadein-blur 1s;
+    filter: blur(3px);
+}
+
+.focus {
+    animation: fadein-bgcolor 1s;
+    position: fixed;
+    z-index: 86;
+    @include absolute-fill(0);
+    background-color: rgba(0, 0, 0, .5);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    .video {
+        max-width: 80%;
+        margin: 0 auto;
+        animation: fadein-drawer-bottom 1s;
+
+        video {
+            width: 100%;
+            box-shadow: 0 1px 8px rgba(0, 0, 0, .6);
+        }
+    }
+}
+
+.article-title {
+    font-size: 3rem;
+    color: $c_green;
+    border-bottom: 3px solid $c_green;
+    text-align: center;
+    position: relative;
+    font-family: 'Josefin Sans', sans-serif;
+    margin-bottom: 1.5rem;
+
+    &::after, &::before {
+        content: '';
+        position: absolute;
+        z-index: 3;
+        border-right: 3px solid $c_gray;
+        border-left: 3px solid $c_gray;
+        width: 3px;
+        height: 8px;
+        bottom: -5px;
+    }
+
+    &::after {  right: 3px; }
+    &::before { left:  3px; }
+}
+
+.standard-page {
+    max-width: 56rem;
+    margin: 0 auto;
+    margin-top: 5rem;
+    padding: 2rem;
+}
+
+.section-title {
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+    position: relative;
+    text-align: center;
+    display: flex;
+    color: $c_green;
+    font-family: 'Josefin Sans', sans-serif;
+
+    > div {
+        width: 50%;
+        flex-shrink: 1000;
+        //border-top: 3px solid $c_green;
+        margin-top: 0.453 * 2.4rem;
+        height: 3px;
+        background-color: $c_green;
+        border-radius: 2px;
+    }
+
+    span {
+        font-size: 2.4rem;
+        flex-shrink: 0;
+        padding: 0 1rem;
+    }
+
+    @media(max-width: 400px) {
+        span {
+            font-size: 1.6rem;
+            padding: 0 .5rem;
+        }
+
+        > div {
+            margin-top: 0.57 * 1.5rem;
+        }
+    }
+}
+
+#theme-dracula {
+    background-color: #21222C;
+    min-height: 100vh;
+
+    .window {
+        padding: 4rem 1rem 1rem;
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.window-center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 100vh;
+
+    .center {
+        margin: 0 auto;
+    }
+}
+
+.page:not(#frontpage) {
+    min-height: 100vh;
+    width: 100%;
+}

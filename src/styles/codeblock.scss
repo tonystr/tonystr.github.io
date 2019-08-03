@@ -1,0 +1,97 @@
+@import 'global';
+
+@keyframes fadein-drawer-top {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+        z-index: -4;
+        height: 0;
+    }
+    100% { transform: translateY(0); }
+}
+
+.code {
+    background-color: lighten($c_dark, 3%) !important;
+    border-radius: 6px;
+    margin: 0;
+    white-space: wrap;
+    font-size: 1.1rem;
+    tab-size: 4;
+
+    .hljs-keywords {
+        color: #C678DD;
+    }
+
+    &.block {
+        box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
+        //padding: .5rem .7rem !important;
+        max-height: 32rem;
+        position: relative;
+        z-index: 2;
+        margin: 1rem 0;
+    }
+
+    &.inline {
+        display: inline !important;
+        padding: .2rem .3rem !important;
+        font-size: .9rem !important;
+        color: lighten($c_ltgray, 35%);
+    }
+
+    @media(max-width: 400px) {
+        font-size: .8rem !important;
+    }
+}
+
+.codeblock-full {
+    position: relative;
+    min-height: 1.5rem;
+
+    .codeblock-controls {
+        position: absolute;
+        top: 0;
+        right: 0;
+        padding: .4rem .3rem;
+        font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+        border-bottom-left-radius: .4rem;
+        border-bottom: 2px solid $c_dark;
+        border-left:   2px solid $c_dark;
+
+        > span {
+            padding: 0 .4rem;
+
+            font-family: 'Font Awesome 5 Free';
+            font-weight: bold;
+            color: $c_ltgray;
+            font-size: 1rem;
+            transition: .14s color;
+
+            &:hover {
+                color: $c_green;
+                cursor: pointer;
+            }
+
+            &.copy::before { content: '\f0c5'; }
+            &.run::before  { content: '\f04b'; }
+        }
+    }
+
+    &.ran {
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+}
+
+.codeblock-output {
+    background: $c_dark;
+    border-bottom-left-radius:  .4rem;
+    border-bottom-right-radius: .4rem;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+    padding: .8rem .5rem;
+    position: relative;
+    animation: fadein-drawer-top .14s;
+
+    .string {
+        color: $c_green;
+    }
+}
