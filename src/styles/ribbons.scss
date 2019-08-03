@@ -34,9 +34,7 @@ $border: 0.24vw;
             text-align: center;
             margin-top: 2vw;
         }
-        // &.l0 { color: $c_gold; }
-        // &.l1 { color: $c_orange; }
-        // &.l2 { color: $c_red; }
+        
         @for $i from 0 through 4 {
             &.l#{$i} {
                 $c: nth($rainbow, $i + 1);
@@ -60,7 +58,6 @@ $border: 0.24vw;
             transform: rotate(-45deg);
             border-bottom: $border solid $br;
             border-left: $border solid $br;
-            // box-shadow: -2px 2px 4px rgba(0,0,0,.18);
             border-radius: 0.1rem;
         }
 

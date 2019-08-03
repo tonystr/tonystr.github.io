@@ -92,7 +92,7 @@ function ArticleMedia(props) {
         )
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
-        render: props => <section className='image'><img src={src} /></section>
+        render: props => <section className='image'><img src={src} alt='' /></section>
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));
@@ -300,7 +300,6 @@ export default function Article(props) {
     const [showTOC,     setShowTOC    ] = useState(true);
     const [sections,    setSections   ] = useState(null);
     const [currentTOC,  setCurrentTOC ] = useState('');
-    const [lastWindowY, setLastWindowY] = useState(false);
 
     const handleScroll = e => {
         const sectionTitles = document.getElementsByClassName('section-title');

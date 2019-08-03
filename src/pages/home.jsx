@@ -5,7 +5,6 @@ import SectionTitle from '../components/SectionTitle.jsx';
 import A from '../components/A.jsx';
 import requestRawText from '../functions/requestRawText.jsx';
 import Ribbons from '../components/Ribbons.jsx';
-import scrollIntoView from 'scroll-into-view-if-needed';
 import '../styles/home.scss';
 
 export default function Home(props) {
@@ -36,7 +35,10 @@ function FrontPage() {
     const renderLines = (num = 5) => {
         const list = [];
         for (let i = 0; i < num; i++) {
-            list.push(<div className={'line l' + i} />);
+            list.push(<div
+                className={'line l' + i}
+                key={i}
+            />);
         }
         return <div className='lines'>{list}</div>;
     }

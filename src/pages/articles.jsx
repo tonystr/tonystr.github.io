@@ -1,7 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom'
-import Focus        from '../components/Focus.jsx';
-import A            from '../components/A.jsx';
 import ArticleTitle from '../components/ArticleTitle.jsx';
 import Header       from '../components/Header.jsx'
 import StandardPage from '../components/StandardPage.jsx';
@@ -17,10 +15,16 @@ function ArticleList(props) {
         let tags = article.tags.map(tag => <span>{tag}</span>);
 
         list.push(
-            <Link to={'../a/' + article.name.toLowerCase()}>
+            <Link
+                to={'../a/' + article.name.toLowerCase()}
+                key={article.name}
+            >
                 <li>
                     <div className='media'>
-                        {article.thumbnail && <img src={`${location}${article.name.toLowerCase()}/${article.thumbnail}`} />}
+                        {article.thumbnail && (<img
+                            src={`${location}${article.name.toLowerCase()}/${article.thumbnail}`}
+                            alt=''
+                        />)}
                     </div>
                     <div className='text'>
                         <div className='title'><span>{article.displayName || article.name}</span></div>

@@ -23,6 +23,7 @@ function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
     switch (location) {
+        case '': return <Home />;
         case 'articles': return <Articles json={articlesJSON} />;
         case 'snippets': return <Snippets />;
         case 'page_loading': return <PageLoading />;
@@ -50,11 +51,14 @@ function ValidateArticle(props) {
 
     return article ?
         (!article.password || window.localStorage.getItem('article-password') === article.password ?
-            <Article article={article} /> :
-            <ArticleLogin article={article} attemptLogin={val => {
-                window.localStorage.setItem('article-password', val);
-                setLogin(val);
-            }} />) :
+            <Article article={article} login={login} /> : (
+            <ArticleLogin article={article}
+                attemptLogin={val => {
+                    window.localStorage.setItem('article-password', val);
+                    setLogin(val);
+                }}
+            />
+        )) :
         <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
 }
 
@@ -62,7 +66,7 @@ ReactDOM.render(
     <BrowserRouter>
         <div>
             <Suspense fallback={<PageLoading />}>
-                <Route exact path='/' component={Home} />
+                <Route exact path='/' component={ValidatePage} />
                 <Route exact path='/:page' component={ValidatePage} />
                 <Route exact path='/a/:article' component={ValidateArticle} />
                 <Route exact path='/article/:article' component={ValidateArticle} />

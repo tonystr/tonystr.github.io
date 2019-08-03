@@ -9,7 +9,10 @@ export default function Header(props) {
         <header>
             <Ribbons />
             <div className='tony'>
-                <img src={`${window.location.origin.toString()}/images/window.png`} />
+                <img
+                    src={`${window.location.origin.toString()}/images/window.png`}
+                    alt='Window Icon'
+                />
                 Tony Strømsnæs
             </div>
         </header>

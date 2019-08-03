@@ -10,7 +10,7 @@ function canvasDraw(e) {
     const y = e.clientY;
     const px = window.mousePrevious.down ? window.mousePrevious.x : x;
     const py = window.mousePrevious.down ? window.mousePrevious.y : y;
-    const dis = Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2));
+    // const dis = Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2));
 
     ctx.beginPath();
     ctx.lineWidth = 5;
