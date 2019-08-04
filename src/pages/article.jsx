@@ -9,7 +9,6 @@ import SectionTitle from '../components/SectionTitle.jsx';
 import CodeBlock    from '../components/CodeBlock.jsx';
 import PageLoading  from '../components/PageLoading.jsx';
 import Wpac         from '../components/Wpac.jsx';
-import scrollIntoView from 'scroll-into-view-if-needed';
 import requestRawText from '../functions/requestRawText.jsx';
 import '../styles/article.scss';
 const components = {
@@ -114,8 +113,7 @@ function TableOfContents(props) {
             node.classList.contains(classText) ||
             node.innerText === innerText
         );
-        if (!node) return;
-        scrollIntoView(node, { scrollMode: 'if-needed', behavior: 'smooth' });
+        if (node) node.scrollIntoView({ behavior: 'smooth', alignTo: true });
     };
 
     const generateURL = e => {
