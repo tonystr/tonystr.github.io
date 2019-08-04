@@ -63,7 +63,7 @@ function WebDevPage() {
     const [codePreview, setCodePreview] = useState('loading...');
 
     useEffect(() => {
-        requestRawText(process.env.PUBLIC_URL + 'code.txt', res => {
+        requestRawText('https://raw.githubusercontent.com/tonystr/tonystr.github.io/master/src/pages/home.jsx', res => {
             setCodePreview(`${res}\n${res}`);
             Prism.highlightAll();
         });
@@ -102,10 +102,15 @@ function WebDevPage() {
                         <div className='gridview'>{renderWebsites()}</div>
                     </div>
                     <div className='description'>
+                        <div className='window'>
+                            <img src='images/window.png' alt='window' />
+                            <span className='name'>TonyStr</span>
+                        </div>
                         <div className='inner'>
-                            I specialize in React.js and SCSS for front-end webdevelopment, though I also have experience
-                            with Vue.js and styled-components, because I love trying new technologies. Some of the websites
-                            displayed above are also written in plain html/css/js
+                            I specialize in <A to='https://reactjs.org/'>React.js</A> and <A to='https://sass-lang.com/'>SCSS</A> for
+                            front-end web development, though I also have experience
+                            with <A to='https://vuejs.org'>Vue.js</A> and <A to='https://www.styled-components.com/'>styled-components</A>, because
+                            I love trying out new technologies. Some of the websites displayed above are also written in plain html/css/js
                         </div>
                     </div>
                 </div>
