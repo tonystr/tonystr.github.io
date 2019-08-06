@@ -87,6 +87,16 @@
         transform: translateY(25%);
     }
 
+    .image {
+        text-align: center;
+        margin: 2rem auto;
+
+        em {
+            display: block;
+            text-align: left;
+        }
+    }
+
     .video {
         width: 72%;
         margin: 2rem auto;

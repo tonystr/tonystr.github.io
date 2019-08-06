@@ -48,6 +48,21 @@ const runningCodeblock = {
     }
 }
 
+function ImageSection(props) {
+    const [width, setWidth] = useState('');
+
+    return (
+        <section className='image' style={{ width: width }}>
+            <img
+                src={props.src}
+                alt=''
+                onLoad={e => setWidth(e.target.width)}
+            />
+            {props.alt && <em>{props.alt}</em>}
+        </section>
+    )
+}
+
 function ArticleMedia(props) {
 
     const type = (props.src.match(/\.(\w+)$/) || [0, null])[1];
@@ -57,28 +72,26 @@ function ArticleMedia(props) {
         }articles/${props.pageName}${props.src.slice(1)}` :
         props.src;
 
+    let alt = props.alt || '';
+    const thumbnail = alt.match(/!thumbnail\(([^)]+)\)/);
+    if (thumbnail) alt = alt.replace(thumbnail[0], '');
+
     const renderers = [{
         matches: ['mp4', 'webm', 'ogg'],
-        render: props => {
-            let alt = props.alt || '';
-            const match = alt.match(/!thumbnail\(([^)]+)\)/);
-            alt = match ? alt.replace(match[0], '') : alt;
-
-            return (
-                <section className='video'>
-                    <video
-                        onClick={() => props.setFocus(src)}
-                        onMouseOver={e => e.target.play()}
-                        onMouseOut={e => e.target.pause()}
-                        poster={match ? match[1] : ''}
-                        loop
-                    >
-                        <source src={src} type={'video/' + type} />
-                    </video>
-                    <em>{alt}</em>
-                </section>
-            )
-        }
+        render: props => (
+            <section className='video'>
+                <video
+                    onClick={() => props.setFocus(src)}
+                    onMouseOver={e => e.target.play()}
+                    onMouseOut={e => e.target.pause()}
+                    poster={thumbnail ? thumbnail[1] : ''}
+                    loop
+                >
+                    <source src={src} type={'video/' + type} />
+                </video>
+                {alt && <em>{alt}</em>}
+            </section>
+        )
     },{
         matches: ['jsx'],
         render: props => (
@@ -91,7 +104,7 @@ function ArticleMedia(props) {
         )
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
-        render: props => <section className='image'><img src={src} alt='' /></section>
+        render: props => <ImageSection src={src} alt={alt} />
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));

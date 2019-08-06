@@ -112,7 +112,11 @@ Create a file (New Text Document) on your computer and call it `rpg_data.json`. 
 
 ![](./show_file_name_extensions.jpg)
 
-Right click it, and open with notepad, [Atom](https://atom.io/), [VSCode](https://code.visualstudio.com/) or whatever text-editing software you have available.
+Right-click it, and open with [Atom](https://atom.io/), [VSCode](https://code.visualstudio.com/), notepad or whatever text-editing software you have available. Note: although you technically can write JSON in any text editor you like, a [code editor](https://en.wikipedia.org/wiki/Source-code_editor) that provides [syntax highlighting](https://en.wikipedia.org/wiki/Syntax_highlighting) will be a tremendous help when writing JSON. If you miss a quote, comma or colon, your JSON will be invalid, leading to issues when you want to use this data. Below is an example of invalid JSON with syntax highlighting:
+
+![A comma is missing at the end of line 123, `"title:` is missing a closing quote on line 125, and `"foods"` is missing a colon on line 127](./invalid_json.png)
+
+I will use the following JSON in the `rpg_data.json` file for the next section's examples.
 
 ## Reading JSON From File
 
