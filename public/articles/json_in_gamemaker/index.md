@@ -87,7 +87,7 @@ The reason that both of these variables refer to the same map, instead of copyin
 
 Every language has something it calls *primitive types*. Think of these as the some of the building blocks of the language, what every value in you program, game or website is based on. In Javascript, those are `objects`, `numbers`, `strings` and `undefined`. In Gamemaker, they are `arrays`, `numbers`, `strings` and `undefined`. JavaScript does have arrays, but they're technically objects (they just have numbers as keys instead of strings). And Gamemaker has maps instead of JavaScript objects, but they're really just numbers (think of them as IDs for the actual data structures stored somewhere in memory). While Gamemaker does have arrays, it also has a very similar datastructure called *ds_list*. Lists are pretty much the same as arrays, except they use the `|` accessor, and need to be created with `ds_list_create()`. When dealing with JSON in Gamemaker, lists are preferred over arrays.
 
-JSON's primitive types are `objects`, `arrays`, `numbers` and `strings`. Objects in JSON are written like the first example of JS objects in this tutorial. Arrays, numbers and strings are written like you're used to. Since JSON is just for storing data, it doesn't support any logic or anything more complex than primitive types. Every JSON file is an object with data inside.
+JSON's primitive types are `objects`, `arrays`, `numbers`, `strings` and `boolean`. The last type, `boolean` is just either `true` or `false`. In Gamemaker, this will become 1 and 0, since Gamemaker booleans are just `number`s. Objects in JSON are written like the first example of JS objects in this tutorial. Arrays, numbers and strings are written like you're used to. Since JSON is just for storing data, it doesn't support any logic or anything more complex than primitive types. Every JSON file is an object with data inside.
 
 ```json
 {
@@ -98,7 +98,9 @@ JSON's primitive types are `objects`, `arrays`, `numbers` and `strings`. Objects
     "object": {
         "title": "this is an object inside an object!",
         "another_object": {
-            "foods": ["apple", "banana", "MeatOnTheBone"]
+            "foods": ["apple", "banana", "MeatOnTheBone"],
+            "is_inside_object": true,
+            "is_a_list": false
         }
     }
 }
@@ -110,15 +112,199 @@ Above is an example of a JSON file. You can nest as many lists and objects insid
 
 Create a file (New Text Document) on your computer and call it `rpg_data.json`. You might have to enable "Show File Name Extensions" in your file explorer to be able to change the file type.
 
-![](./show_file_name_extensions.jpg)
+![](./images/show_file_name_extensions.jpg)
 
 Right-click it, and open with [Atom](https://atom.io/), [VSCode](https://code.visualstudio.com/), notepad or whatever text-editing software you have available. Note: although you technically can write JSON in any text editor you like, a [code editor](https://en.wikipedia.org/wiki/Source-code_editor) that provides [syntax highlighting](https://en.wikipedia.org/wiki/Syntax_highlighting) will be a tremendous help when writing JSON. If you miss a quote, comma or colon, your JSON will be invalid, leading to issues when you want to use this data. Below is an example of invalid JSON with syntax highlighting:
 
-![A comma is missing at the end of line 123, `"title:` is missing a closing quote on line 125, and `"foods"` is missing a colon on line 127](./invalid_json.png)
+![A comma is missing at the end of line 123, `"title:` is missing a closing quote on line 125, and `"foods"` is missing a colon on line 127](./images/invalid_json.png)
 
+Once you've created the JSON file, (even if it's still empty), fire up Gamemaker and add the file to "Included Files"
+
+You can pretty much handle whitespace (spaces, newlines, tabs) however you want, but missing commas, quotes, braces and brackets will break your JSON. If you're not sure what's wrong with your JSON, you can use an [online JSON validator](https://jsonformatter.curiousconcept.com/).
 I will use the following JSON in the `rpg_data.json` file for the next section's examples.
 
-## Reading JSON From File
+```json
+{
+    "weapons": [{
+        "name": "longsword",
+        "damage": 3,
+        "weight": 13
+    },{
+        "name": "rapier",
+        "damage": 1,
+        "weight": 4.3
+    },{
+        "name": "steel_bow",
+        "damage": 2,
+        "weight": 13,
+        "arrow_count": 8,
+        "elasticity": 12
+    },{
+        "name": "burning_longsword",
+        "damage": 2.4,
+        "weight": 12,
+        "effects": ["fire"]
+    },{
+        "name": "enchanted_bow",
+        "damage": 2.4,
+        "weight": 12,
+        "arrow_count": 8,
+        "elasticity": 12,
+        "effects": ["ice", "poison", "lightning"]
+    }],
+
+    "items": [{
+        "name": "apple",
+        "effects": ["heal"]
+    },{
+        "name": "scroll",
+        "type": "ancient",
+        "effects": ["lightning"],
+        "mana_cost": 17
+    },{
+        "name": "slug",
+        "has_shell": true
+    }],
+
+    "potions": [{
+        "name": "Vial of Thunder",
+        "effects": ["lightning", "sight"]
+    },{
+        "name": "Potion of Farsight",
+        "effects": ["sight"]
+    },{
+        "name": "Philter of Pheromones"
+    },{
+        "name": "Potion of Speed",
+        "effects": ["speed"]
+    },{
+        "name": "Draught of Bribery",
+        "effects": ["luck"]
+    },{
+        "name": "Flask of Desires",
+        "effects": ["luck", "accuracy", "strength"]
+    },{
+        "name": "Elixir of Empowerment",
+        "effects": ["strength"]
+    },{
+        "name": "Draught of Accuracy",
+        "effects": ["accuracy"]
+    },{
+        "name": "Draught of the Unknown",
+        "effects": ["random"]
+    },{
+        "name": "Potion of Defense",
+        "effects": ["defense"]
+    }]
+}
+```
+
+This JSON consists of three lists ("weapons", "items", "potions"). Every weapon, item and potion has a "name", many of them have "effects", and some have more properties. All of the weapons have damage and weight. This is kinda messy, and it can be hard to keep track of which objects can have which properties, so it might be helpful to write another JSON document that describes the structure of your JSON ([JSON schema](https://json-schema.org/)). This isn't necessary, and if it causes more confusion than understanding, ignore the rest of this section. In the case of the example above, the JSON schema I've made is:
+
+```json
+{
+    "type": "object",
+    "required": true,
+    "properties": [{
+        "key": "weapons",
+        "type": "list",
+        "required": true,
+        "children": [{
+            "type": "object",
+            "required": false,
+            "properties": [{
+                "key": "name",
+                "type": "string",
+                "required": true
+            },{
+                "key": "damage",
+                "type": "number",
+                "required": true
+            },{
+                "key": "weight",
+                "type": "number",
+                "required": true
+            },{
+                "key": "effects",
+                "type": "list",
+                "required": false,
+                "children": [{
+                    "type": "string",
+                    "required": false
+                }]
+            },{
+                "key": "arrow_count",
+                "type": "number",
+                "required": false
+            },{
+                "key": "elasticity",
+                "type": "number",
+                "required": false
+            }]
+        }]
+    },{
+        "key": "items",
+        "type": "list",
+        "required": true,
+        "children": [{
+            "type": "object",
+            "required": false,
+            "properties": [{
+                "key": "name",
+                "type": "string",
+                "required": true
+            },{
+                "key": "effects",
+                "type": "list",
+                "required": false,
+                "children": [{
+                    "type": "string",
+                    "required": false
+                }]
+            },{
+                "key": "type",
+                "type": "string",
+                "required": false
+            },{
+                "key": "mana_cost",
+                "type": "number",
+                "required": false
+            },{
+                "key": "has_shell",
+                "type": "boolean",
+                "required": false
+            }]
+        }]
+    },{
+        "key": "potions",
+        "type": "object",
+        "required": true,
+        "children": [{
+            "type": "object",
+            "required": false,
+            "properties": [{
+                "key": "name",
+                "type": "string",
+                "required": true
+            },{
+                "key": "effects",
+                "type": "list",
+                "required": false,
+                "children": [{
+                    "type": "string",
+                    "required": false
+                }]
+            }]
+        }]
+    }]
+}
+```
+
+This has no practical use beyond mapping what kind of data your JSON keeps track of, but if you're working with others, this can be very helpful for your collaborators to understand how to deal with the JSON data.
+
+## Loading JSON From File
+
+
 
 ## JSON vs 2d Arrays
 

@@ -49,14 +49,14 @@ const runningCodeblock = {
 }
 
 function ImageSection(props) {
-    const [width, setWidth] = useState('');
+    const [style, setStyle] = useState(null);
 
     return (
-        <section className='image' style={{ width: width }}>
+        <section className='image' style={style}>
             <img
                 src={props.src}
                 alt=''
-                onLoad={e => setWidth(e.target.width)}
+                onLoad={e => setStyle({ width: e.target.width })}
             />
             {props.alt && <em>{props.alt}</em>}
         </section>

@@ -55,12 +55,6 @@
         }
     }
 
-    .section-title {
-        padding: 0;
-        margin-bottom: 1.8rem;
-        margin-top: 3rem;
-    }
-
     hr {
         color: $c_dark;
     }
@@ -76,6 +70,16 @@
 
     strong {
         font-weight: bold;
+    }
+
+    .section-title {
+        padding: 0;
+        margin-bottom: 1.8rem;
+        margin-top: 3rem;
+    }
+
+    .codeblock-full {
+        max-height: 80vh;
     }
 
     .dotted-circle {
