@@ -1,5 +1,5 @@
 @import 'global';
-@import './fonts/josefin_sans';
+@import './fonts/roboto_mono';
 
 @keyframes fadein-drawer-top {
     0% {
@@ -11,7 +11,7 @@
     100% { transform: translateY(0); }
 }
 
-$font: 'Roboto Mono', sans-serif;
+$font: 'Roboto Mono', 'Source Code Pro';
 
 .code {
     font-family: $font;
