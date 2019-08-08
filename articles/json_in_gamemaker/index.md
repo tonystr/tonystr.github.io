@@ -134,21 +134,30 @@ I will use the following JSON in the `rpg_data.json` file for the next section's
         "weight": 13
     },{
         "name": "rapier",
+        "sprite": "spr_rapier",
         "damage": 1,
         "weight": 4.3
     },{
+        "name": "axe",
+        "sprite": "spr_axe",
+        "damage": 3,
+        "weight": 9.7
+    },{
         "name": "steel_bow",
+        "sprite": "spr_bow",
         "damage": 2,
         "weight": 13,
         "arrow_count": 8,
         "elasticity": 12
     },{
         "name": "burning_longsword",
+        "sprite": "spr_burning_longsword",
         "damage": 2.4,
         "weight": 12,
         "effects": ["fire"]
     },{
         "name": "enchanted_bow",
+        "sprite": "spr_enchanted_bow",
         "damage": 2.4,
         "weight": 12,
         "arrow_count": 8,
@@ -217,6 +226,10 @@ This JSON consists of three lists ("weapons", "items", "potions"). Every weapon,
             "required": false,
             "properties": [{
                 "key": "name",
+                "type": "string",
+                "required": true
+            },{
+                "key": "sprite",
                 "type": "string",
                 "required": true
             },{
@@ -324,7 +337,82 @@ Four lines of code is all it takes! The function `json_decode()` reads a string,
 
 ## Using JSON data
 
-You might want to load your JSON data into a global variable, or somewhere that makes it easily accessible from anywhere in your game.
+You might want to load your JSON data into a global variable, or somewhere that makes it easily accessible from anywhere in your game. Let's make global variables for each of the lists in the JSON, in a new script called `INIT()`.
+
+```gml
+/// @func INIT()
+
+gml_pragma("global", "INIT()");
+
+global.rpg_data = json_load("rpg_data.json");
+
+global.weapons  = global.rpg_data[? "weapons"];
+global.items    = global.rpg_data[? "items"];
+global.potions  = global.rpg_data[? "potions"];
+```
+
+The line, `gml_pragma("global", "INIT()");`, makes the script automatically run at the start of the game, without you ever having to call `INIT()` anywhere in your code. You could just define globals in a game start event, or even just the create event of some object, but this way we don't need to worry about instance creation order. You can read more about `gml_pragma()` [here](https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/miscellaneous/gml_pragma.html).
+
+Now, let's give a player object it's own sword. We could just do `sword = global.weapons[| 0]`, however it's more readable if we select a sword by it's name, rather than it's index in the weapons array. Let's write a quick script to find a map inside a list, which has a key that matches a given value:
+
+```gml
+/// @func ds_list_find_map(list, key, value)
+/// @desc Finds a map inside a list which has a `key` that matches `value`
+/// @arg list
+/// @arg key
+/// @arg value
+
+var _list = argument0;
+var _key  = argument1;
+var _val  = argument2;
+var _ls	  = ds_list_size(_list);
+
+for (var i = 0; i < _ls; i++) {
+	var _map = _list[| i];
+
+	if (ds_exists(_map, ds_type_map) && _map[? _key] == _val) {
+		return _map;
+	}
+}
+
+return undefined;
+```
+
+Now we can get a sword in a much more reliable way.
+
+```gml
+sword = ds_list_find_map(global.weapons, "name", "longsword");
+```
+
+Then, when the player deals damage to an enemy, let's use the weapon's damage value.
+
+```gml
+_instance.hp -= sword[? "damage"];
+```
+
+![&nbsp;](./videos/weapon_damage.mp4)
+
+Now, if you want to use the "sprite" in the JSON, you have to find the *asset index* of it. You can't just do `draw_sprite(sword[? "sprite"], 0, x, y)`, since that will try to draw the *string* "spr_longsword". It's the same as writing `draw_sprite("spr_longsword", 0, x, y)`, but you need `draw_sprite(spr_longsword, 0, x, y)`. To achieve this, use the function `asset_get_index()`.
+
+```gml
+draw_sprite(asset_get_index(sword[? "name"]), 0, x, y);
+```
+
+Now, with a quick snippet of code for switching weapons, let's see it in-game.
+
+```gml
+var _change = keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left);
+if (_change != 0) {
+	var _weapons = ["longsword", "rapier", "axe"];
+	var _len = array_length_1d(_weapons);
+	var _index = (array_find_index(_weapons, sword[? "name"]) + _change + _len) % _len;
+	sword = ds_list_find_map(global.weapons, "name", _weapons[_index]);
+}
+```
+
+![&nbsp;](./videos/swords.mp4)
+
+Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`, instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
 
 ## Saving JSON
 
