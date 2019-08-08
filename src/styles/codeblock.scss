@@ -1,4 +1,5 @@
 @import 'global';
+@import './fonts/josefin_sans';
 
 @keyframes fadein-drawer-top {
     0% {
@@ -10,7 +11,10 @@
     100% { transform: translateY(0); }
 }
 
+$font: 'Roboto Mono', sans-serif;
+
 .code {
+    font-family: $font;
     background-color: lighten($c_dark, 3%) !important;
     border-radius: 6px;
     margin: 0;
@@ -18,11 +22,16 @@
     font-size: 1.1rem;
     tab-size: 4;
 
+    code {
+        font-family: $font;
+    }
+
     .hljs-keywords {
         color: #C678DD;
     }
 
     &.block {
+        font-family: $font;
         box-shadow: 0 1px 8px rgba(0, 0, 0, .3);
         //padding: .5rem .7rem !important;
         max-height: 32rem;
@@ -46,6 +55,7 @@
 .codeblock-full {
     position: relative;
     min-height: 1.5rem;
+    font-size: 1rem;
 
     .codeblock-controls {
         position: absolute;

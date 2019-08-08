@@ -70,6 +70,7 @@ ReactDOM.render(
                 <Route exact path='/:page' component={ValidatePage} />
                 <Route exact path='/a/:article' component={ValidateArticle} />
                 <Route exact path='/article/:article' component={ValidateArticle} />
+                <Route exact path='/articles/:article' component={ValidateArticle} />
                 <Footer />
             </Suspense>
         </div>
