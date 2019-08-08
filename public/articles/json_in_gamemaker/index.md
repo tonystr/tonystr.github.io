@@ -43,7 +43,7 @@ console.log(object["number"]);
 console.log(object["meow"]);
 ```
 
-JavaScript objects are also called by two other names; "dictionary" and "map". Gamemaker has a similar structure which it calls *ds_map*. If you're not familiar with data structures in Gamemaker, don't worry; they're nowhere near as scary as they might first seem.
+JavaScript objects are also called by two other names; "dictionary" and "map". Gamemaker has a similar structure which it calls [ds_map](https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/data_structures/ds%20maps/). If you're not familiar with data structures in Gamemaker, don't worry; they're nowhere near as scary as they might first seem.
 
 ## Using Maps In Gamemaker
 
@@ -85,7 +85,7 @@ The reason that both of these variables refer to the same map, instead of copyin
 
 ## Primitive types
 
-Every language has something it calls *primitive types*. Think of these as the some of the building blocks of the language, what every value in you program, game or website is based on. In Javascript, those are `objects`, `numbers`, `strings` and `undefined`. In Gamemaker, they are `arrays`, `numbers`, `strings` and `undefined`. JavaScript does have arrays, but they're technically objects (they just have numbers as keys instead of strings). And Gamemaker has maps instead of JavaScript objects, but they're really just numbers (think of them as IDs for the actual data structures stored somewhere in memory). While Gamemaker does have arrays, it also has a very similar datastructure called *ds_list*. Lists are pretty much the same as arrays, except they use the `|` accessor, and need to be created with `ds_list_create()`. When dealing with JSON in Gamemaker, lists are preferred over arrays.
+Every language has something it calls *primitive types*. Think of these as the some of the building blocks of the language, what every value in you program, game or website is based on. In Javascript, those are `objects`, `numbers`, `strings` and `undefined`. In Gamemaker, they are `arrays`, `numbers`, `strings` and `undefined`. JavaScript does have arrays, but they're technically objects (they just have numbers as keys instead of strings). And Gamemaker has maps instead of JavaScript objects, but they're really just numbers (think of them as IDs for the actual data structures stored somewhere in memory). While Gamemaker does have arrays, it also has a very similar datastructure called [ds_list](https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/data_structures/ds%20lists/). Lists are pretty much the same as arrays, except they use the `|` accessor, and need to be created with `ds_list_create()`. When dealing with JSON in Gamemaker, lists are preferred over arrays.
 
 JSON's primitive types are `objects`, `arrays`, `numbers`, `strings` and `boolean`. The last type, `boolean` is just either `true` or `false`. In Gamemaker, this will become 1 and 0, since Gamemaker booleans are just `number`s. Objects in JSON are written like the first example of JS objects in this tutorial. Arrays, numbers and strings are written like you're used to. Since JSON is just for storing data, it doesn't support any logic or anything more complex than primitive types. Every JSON file is an object with data inside.
 
@@ -120,6 +120,8 @@ Right-click it, and open with [Atom](https://atom.io/), [VSCode](https://code.vi
 
 Once you've created the JSON file, (even if it's still empty), fire up Gamemaker and add the file to "Included Files"
 
+![If you wish to edit the JSON again, right click the Included File, and select "Open In Explorer"](./images/included_files.png)
+
 You can pretty much handle whitespace (spaces, newlines, tabs) however you want, but missing commas, quotes, braces and brackets will break your JSON. If you're not sure what's wrong with your JSON, you can use an [online JSON validator](https://jsonformatter.curiousconcept.com/).
 I will use the following JSON in the `rpg_data.json` file for the next section's examples.
 
@@ -127,6 +129,7 @@ I will use the following JSON in the `rpg_data.json` file for the next section's
 {
     "weapons": [{
         "name": "longsword",
+        "sprite": "spr_longsword",
         "damage": 3,
         "weight": 13
     },{
@@ -300,11 +303,30 @@ This JSON consists of three lists ("weapons", "items", "potions"). Every weapon,
 }
 ```
 
-This has no practical use beyond mapping what kind of data your JSON keeps track of, but if you're working with others, this can be very helpful for your collaborators to understand how to deal with the JSON data.
+This has no practical use beyond mapping out what kind of data your JSON keeps track of, but if you're working with others, this can be very helpful for your collaborators to understand how to deal with the JSON data.
 
 ## Loading JSON From File
 
+Once you've got your JSON file, you'll want to load it in to Gamemaker. One way to do this is to use the `file_text_open_read()` functions, to read it as a text file. However, we want the whole file simply loaded in as one big string, so it's actually easier to just use `buffer_read()` functions. Below is a script called `json_load()`, which takes a filename (or file path) as argument, and returns a ds_map:
 
+```gml
+/// @func json_load(fname)
+/// @desc Loads external JSON file into datastructure
+/// @arg fname
+
+var _buff = buffer_load(argument0);
+var _out = buffer_read(_buff, buffer_string);
+buffer_delete(_buff);
+return json_decode(_out);
+```
+
+Four lines of code is all it takes! The function `json_decode()` reads a string, and [parses](https://en.wikipedia.org/wiki/Parsing) it as JSON, then spits out a ds_map, containing all the data in your JSON file.
+
+## Using JSON data
+
+You might want to load your JSON data into a global variable, or somewhere that makes it easily accessible from anywhere in your game.
+
+## Saving JSON
 
 ## JSON vs 2d Arrays
 

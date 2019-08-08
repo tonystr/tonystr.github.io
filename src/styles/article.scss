@@ -98,6 +98,7 @@
         em {
             display: block;
             text-align: left;
+            color: lighten($c_ltgray, 14%);
         }
     }
 
@@ -115,6 +116,10 @@
             transition: 0.12s all;
             cursor: zoom-in;
             position: relative;
+        }
+
+        em {
+            color: lighten($c_ltgray, 14%);
         }
 
         em::before {
