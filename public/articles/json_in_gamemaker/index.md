@@ -412,6 +412,8 @@ if (_change != 0) {
 
 ![&nbsp;](./videos/swords.mp4)
 
+Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`, instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
+
 ## Saving JSON
 
 ## JSON vs 2d Arrays
