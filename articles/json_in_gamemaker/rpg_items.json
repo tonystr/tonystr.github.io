@@ -1,10 +1,71 @@
 {
-    "name": "test",
-    "c": 21.7,
-    "o": {
-        "name": "test",
-        "c": 21.7,
-    },
-    "a": [3, 5, 6, "s", 9, { "q": "o", "x": 8 }],
-    "u": null
+    "weapons": [{
+        "name": "longsword",
+        "damage": 3,
+        "weight": 13
+    },{
+        "name": "rapier",
+        "damage": 1,
+        "weight": 4.3
+    },{
+        "name": "steel_bow",
+        "damage": 2,
+        "weight": 13,
+        "arrow_count": 8,
+        "elasticity": 12
+    },{
+        "name": "burning_longsword",
+        "damage": 2.4,
+        "weight": 12,
+        "effects": ["fire"]
+    },{
+        "name": "enchanted_bow",
+        "damage": 2.4,
+        "weight": 12,
+        "arrow_count": 8,
+        "elasticity": 12,
+        "effects": ["ice", "poison", "lightning"]
+    }],
+    "items": [{
+        "name": "apple",
+        "effects": ["heal"]
+    },{
+        "name": "scroll",
+        "type": "ancient",
+        "effects": ["lightning"],
+        "mana_cost": 17
+    },{
+        "name": "slug",
+        "has_shell": true
+    }],
+    "potions": [{
+        "name": "Vial of Thunder",
+        "effects": ["lightning"]
+    },{
+        "name": "Potion of Farsight",
+        "effects": ["sight"]
+    },{
+        "name": "Philter of Pheromones"
+    },{
+        "name": "Potion of Speed",
+        "effects": ["speed"]
+    },{
+        "name": "Draught of Bribery",
+        "effects": ["luck"]
+    },{
+        "name": "Flask of Desires",
+        "effects": ["luck"]
+    },{
+        "name": "Elixir of Empowerment",
+        "effects": ["strength"]
+    },{
+        "name": "Draught of Accuracy",
+        "effects": ["accuracy"]
+    },{
+        "name": "Draught of the Unknown",
+        "effects": ["random"]
+    },{
+        "name": "Potion of Defense",
+        "effects": ["defense"]
+    }]
 }
