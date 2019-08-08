@@ -138,6 +138,11 @@ I will use the following JSON in the `rpg_data.json` file for the next section's
         "damage": 1,
         "weight": 4.3
     },{
+        "name": "axe",
+        "sprite": "spr_axe",
+        "damage": 3,
+        "weight": 9.7
+    },{
         "name": "steel_bow",
         "sprite": "spr_bow",
         "damage": 2,
@@ -376,8 +381,36 @@ return undefined;
 Now we can get a sword in a much more reliable way.
 
 ```gml
-sword = ds_list_find_map(global.weapons, "name", "rapier");
+sword = ds_list_find_map(global.weapons, "name", "longsword");
 ```
+
+Then, when the player deals damage to an enemy, let's use the weapon's damage value.
+
+```gml
+_instance.hp -= sword[? "damage"];
+```
+
+![&nbsp;](./videos/weapon_damage.mp4)
+
+Now, if you want to use the "sprite" in the JSON, you have to find the *asset index* of it. You can't just do `draw_sprite(sword[? "sprite"], 0, x, y)`, since that will try to draw the *string* "spr_longsword". It's the same as writing `draw_sprite("spr_longsword", 0, x, y)`, but you need `draw_sprite(spr_longsword, 0, x, y)`. To achieve this, use the function `asset_get_index()`.
+
+```gml
+draw_sprite(asset_get_index(sword[? "name"]), 0, x, y);
+```
+
+Now, with a quick snippet of code for switching weapons, let's see it in-game.
+
+```gml
+var _change = keyboard_check_pressed(vk_right) - keyboard_check_pressed(vk_left);
+if (_change != 0) {
+	var _weapons = ["longsword", "rapier", "axe"];
+	var _len = array_length_1d(_weapons);
+	var _index = (array_find_index(_weapons, sword[? "name"]) + _change + _len) % _len;
+	sword = ds_list_find_map(global.weapons, "name", _weapons[_index]);
+}
+```
+
+![&nbsp;](./videos/swords.mp4)
 
 ## Saving JSON
 
