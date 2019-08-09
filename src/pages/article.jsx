@@ -281,20 +281,21 @@ function ArticleContent(props) {
                         linkTarget='_blank'
                         renderers={{
                             code: CodeBlock,
-                            inlineCode: props => (<CodeBlock
-                                {...props}
+                            inlineCode: ps => (<CodeBlock
+                                {...ps}
                                 language='gml'
                                 inline={true}
                             />),
                             link: A,
-                            heading: props => props.level === 2 ?
-                                SectionTitle(props) :
-                                ArticleTitle(props),
+                            heading: ps => ps.level === 2 ?
+                                SectionTitle(ps) :
+                                ArticleTitle(ps),
                             image: ps => (<ArticleMedia
                                 {...ps}
                                 pageName={props.article.name.toLowerCase()}
                                 setFocus={setFocus}
-                            />)
+                            />),
+                            paragraph: ps => <div className='p'>{ps.children}</div>
                         }}
                         className='rendered-markdown'
                         escapeHtml={false}

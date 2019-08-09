@@ -167,46 +167,59 @@ I will use the following JSON in the `rpg_data.json` file for the next section's
 
     "items": [{
         "name": "apple",
-        "effects": ["heal"]
+        "effects": ["heal"],
+        "weight": 0.5
     },{
         "name": "scroll",
         "type": "ancient",
         "effects": ["lightning"],
-        "mana_cost": 17
+        "mana_cost": 17,
+        "weight": 0.1
     },{
         "name": "slug",
-        "has_shell": true
+        "has_shell": true,
+        "weight": 0.2
     }],
 
     "potions": [{
         "name": "Vial of Thunder",
-        "effects": ["lightning", "sight"]
+        "effects": ["lightning", "sight"],
+        "weight": 1
     },{
         "name": "Potion of Farsight",
-        "effects": ["sight"]
+        "effects": ["sight"],
+        "weight": 1
     },{
-        "name": "Philter of Pheromones"
+        "name": "Philter of Pheromones",
+        "weight": 1
     },{
         "name": "Potion of Speed",
-        "effects": ["speed"]
+        "effects": ["speed"],
+        "weight": 1
     },{
         "name": "Draught of Bribery",
-        "effects": ["luck"]
+        "effects": ["luck"],
+        "weight": 1
     },{
         "name": "Flask of Desires",
-        "effects": ["luck", "accuracy", "strength"]
+        "effects": ["luck", "accuracy", "strength"],
+        "weight": 1
     },{
         "name": "Elixir of Empowerment",
-        "effects": ["strength"]
+        "effects": ["strength"],
+        "weight": 1
     },{
         "name": "Draught of Accuracy",
-        "effects": ["accuracy"]
+        "effects": ["accuracy"],
+        "weight": 1
     },{
         "name": "Draught of the Unknown",
-        "effects": ["random"]
+        "effects": ["random"],
+        "weight": 1
     },{
         "name": "Potion of Defense",
-        "effects": ["defense"]
+        "effects": ["defense"],
+        "weight": 1
     }]
 }
 ```
@@ -412,9 +425,136 @@ if (_change != 0) {
 
 ![&nbsp;](./videos/swords.mp4)
 
-Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`, instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
+Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`. Instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
 
 ## Saving JSON
+
+Let's give the player an inventory, and use *weight* to determine how much he can carry. I'm going to do this in the form of a ds_list of items/weapons/potions that the player has in possession. I'll start by filling it up with random items until the total weight surpasses the max weight.
+
+```gml
+inventory = ds_list_create();
+inventory_weight_max = 32;
+
+var _weight = 0;
+while (_weight < inventory_weight_max) {
+	var _list  = choose(global.weapons, global.items, global.potions);
+	var _index = irandom(ds_list_size(_list) - 1);
+	var _item  = _list[| _index];
+
+    _weight += _item[? "weight"];
+	if (_weight > inventory_weight_max) break;
+
+	ds_list_add(inventory, _item);
+
+	show_debug_message("Added item: " + _item[? "name"]);
+}
+
+show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+```
+
+> Debug message output: Added item: slug,
+Added item: slug,
+Added item: scroll,
+Added item: axe,
+Added item: burning_longsword,
+inventory size: 5
+
+How you decide to *represent* the inventory (grid, list, icons, etc.) is up to you. To use the inventory, you'd simply use functions like `ds_list_add()`, `ds_list_delete()` and `ds_list_find_map()` to add items, delete items and find items. Assuming your player has collected these items in the game, and they now wish to stop playing for a while, you'll need to save their inventory. This is actually pretty easy. Simply add the list to a new ds_map, run `json_encode()`, and save the file.
+
+```gml
+var _save_map = ds_map_create();
+_save_map[? "inventory"] = inventory;
+
+var _file = file_text_open_write("save_data.json");
+file_text_write_string(_file, json_encode(_save_map));
+file_text_close(_file);
+```
+
+This will save the JSON to `%appdata%/Local/<GAME_NAME>/save_data.json`. (`C:\Users\Tony\AppData\Local\arpash` in my case). AppData is hidden by default, but you can find it by pressing `win`+`r` and typing `%appdata%`. If you're a particularly perceptive person, you might remember that all data structures are really just numbers, instead of their own datatype. So, how does `json_encode()` know which keys hold maps, lists or actual numbers? Well... currently it doesn't.
+
+```json
+{ "inventory": 16.000000 }
+```
+
+This is what the `save_data.json` file looks like. We can solve this with the functions, `ds_list_mark_as_map()` and `ds_map_add_list()`. When using these functions, gamemaker remembers that these values are lists and maps, instead of just numbers.
+
+```gml
+// Create inventory
+var _weight = 0;
+var _inventory_index = 0;
+while (_weight < inventory_weight_max) {
+	var _list  = choose(global.weapons, global.items, global.potions);
+	var _index = irandom(ds_list_size(_list) - 1);
+	var _item  = _list[| _index];
+
+    _weight += _item[? "weight"];
+	if (_weight > inventory_weight_max) break;
+
+/*add*/	inventory[| _inventory_index] = _item;
+/*add*/	ds_list_mark_as_map(inventory, _inventory_index);
+/*add*/	_inventory_index++;
+
+	show_debug_message("Added item: " + _item[? "name"]);
+}
+
+show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+
+// Save inventory
+var _save_map = ds_map_create();
+/*add*/ds_map_add_list(_save_map, "inventory", inventory);
+
+var _file = file_text_open_write("save_data.json");
+file_text_write_string(_file, json_encode(_save_map));
+file_text_close(_file);
+```
+
+Now if you try to save, you should see a much more desirable JSON structure.
+
+```json
+{ "inventory": [ { "has_shell": 1.000000, "weight": 0.200000, "name": "slug" }, {
+"has_shell": 1.000000, "weight": 0.200000, "name": "slug" }, { "mana_cost": 17.000000,
+"effects": [ "lightning" ], "weight": 0.100000, "type": "ancient", "name": "scroll" },
+{ "sprite": "spr_axe", "damage": 3.000000, "weight": 9.700000, "name": "axe" }, {
+"effects": [ "fire" ], "sprite": "spr_burning_longsword", "damage": 2.400000,
+"weight": 12.000000, "name": "burning_longsword" } ] }
+```
+
+Perfect! Except very hard to read. `json_encode()` prefers making more compact JSON to save on file size, since JSON doesn't necessarily need to be human readable. Again, a JSON formatter would fix this. Let's make the game check if a save file already exists, then load that, but if it doesn't, fill up a new one.
+
+```gml
+
+inventory_weight_max = 32;
+
+/*add*/if (file_exists("save_data.json")) {
+/*add*/	// Load inventory
+/*add*/	var _map = json_load("save_data.json");
+/*add*/	inventory = _map[? "inventory"];
+/*add*/
+/*add*/	show_debug_message("loaded JSON: " + json_encode(_map));
+/*add*/} else {
+	// Create new inventory
+	inventory = ds_list_create();
+
+	var _weight = 0;
+	var _inventory_index = 0;
+	while (_weight < inventory_weight_max) {
+		var _list  = choose(global.weapons, global.items, global.potions);
+		var _index = irandom(ds_list_size(_list) - 1);
+		var _item  = _list[| _index];
+
+	    _weight += _item[? "weight"];
+		if (_weight > inventory_weight_max) break;
+
+		inventory[| _inventory_index] = _item;
+		ds_list_mark_as_map(inventory, _inventory_index);
+		_inventory_index++;
+
+		show_debug_message("Added item: " + _item[? "name"]);
+	}
+
+	show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+/*add*/}
+```
 
 ## JSON vs 2d Arrays
 
