@@ -180,23 +180,27 @@ function ArticleContent(props) {
             `${window.location.protocol}//` +
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
-            `${props.article.name.toLowerCase()}/index.md`
-        , res => {
-            setMarkdown(res);
+            `${props.article.name.toLowerCase()}/index.md`,
+            res => {
+                setMarkdown(res);
 
-            const sectLines = res.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
-            let sects = [];
-            sectLines.forEach((s, i) => {
-                const text = s.match(/#+\s+([^\n]+)$/)[1];
-                sects[i] = {
-                    text:  text,
-                    level: s.match(/#+/)[0].length,
-                    ttt:   'ttt-' + encodeURIComponent(text)
-                }
-            });
-            sects.push({ text: 'Comments', level: 2, ttt: 'ttt-comments' });
-            props.setSections(sects);
-        });
+                // const words = res.match(/\w+/g);
+                // console.log("word count: " + words.length);
+
+                const sectLines = res.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
+                let sects = [];
+                sectLines.forEach((s, i) => {
+                    const text = s.match(/#+\s+([^\n]+)$/)[1];
+                    sects[i] = {
+                        text:  text,
+                        level: s.match(/#+/)[0].length,
+                        ttt:   'ttt-' + encodeURIComponent(text)
+                    }
+                });
+                sects.push({ text: 'Comments', level: 2, ttt: 'ttt-comments' });
+                props.setSections(sects);
+            }
+        );
     }, []);
 
     useEffect(() => {
