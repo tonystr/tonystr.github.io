@@ -1,7 +1,7 @@
 
 # JSON In Gamemaker
 
-Say you're making an RPG. Your game is going to feature a plethora of different weapons, items and potions. *Some* weapons have special effects (fire, ice, poison), and they deal different amounts of damage. The potions can cause all kinds of arcane effects to your character, and the items could be anything from apples to ancient scrolls to slugs. How do you keep track of all this complex data? There are many solutions, ranging from arrays to grids, all the way to strings. I'll convince you that JSON is the superior way to structure your data in Gamemaker. I'll also cover when JSON is *not* the superior way to structure your data, and what to do instead.
+Say you're making an RPG. Your game is going to feature a plethora of different weapons, items and potions. *Some* weapons have special effects (fire, ice, poison), and they deal different amounts of damage. The potions can cause all kinds of arcane effects to your character, and the items could be anything from apples to ancient scrolls to slugs. How do you keep track of all this complex data? There are many solutions, ranging from arrays to grids, all the way to strings. The problem with most of the solutions is they end up tough to expand or modify when needed. With JSON, adding a custom weapon that differs from all the others in some way, or changing your mind about how a system should work is super easy, and doesn't require completely revising your code or utilizing ugly hacks.
 
 ## JSON Object
 
@@ -61,9 +61,9 @@ show_debug_message(map[? "number"]); // Outputs `78`
 show_debug_message(map[? "meow"  ]); // Outputs `cat`
 ```
 
-If it wasn't for that `?` after every opening bracket (`[`), this would be near identical to JavaScript. When dealing with datastructures in Gamemaker, you can either use functions to get and set values, or you can use accessors. The accessor tells Gamemaker which type of data structure you're using. `?` means map, `#` means grid, `|` means list. Technically, there also exists an [accessor for arrays](https://docs2.yoyogames.com/source/_build/3_scripting/3_gml_overview/13_accessors.html), but that's for advanced use.
+If it wasn't for that `?` after every opening bracket (`[`), this would be near identical to JavaScript. When dealing with data structures in Gamemaker, you can either use functions to get and set values, or you can use accessors. The accessor tells Gamemaker which type of data structure you're using. `?` means map, `#` means grid, `|` means list. Technically, there also exists an [accessor for arrays](https://docs2.yoyogames.com/source/_build/3_scripting/3_gml_overview/13_accessors.html), but that's for advanced use.
 
-There really isn't much of a difference between using ``map[? "key"]`` and a variable ``mapKey``. You can set both to any kind of value (number, string, undefined), and you can read the value of both. Maps are useful because they can be much more *dynamic*. It's very easy to load in a map, giving you any number of key-value pairs, as opposed to reading some file line by line and manually storing each value in a variable. Additionally, you can use variables as keys, giving you more control over what data you're reading/writing. Lastly, maps (and other datastructures) can be "shared" very easily. Once you've created a datastructure, you can store that in multiple variables, arrays, even different objects, and they'll all refer to the same map.
+There really isn't much of a difference between using ``map[? "key"]`` and a variable ``mapKey``. You can set both to any kind of value (number, string, undefined), and you can read the value of both. Maps are useful because they can be much more *dynamic*. It's very easy to load in a map, giving you any number of key-value pairs, as opposed to reading some file line by line and manually storing each value in a variable. Additionally, you can use variables as keys, giving you more control over what data you're reading/writing. Lastly, maps (and other data structures) can be "shared" very easily. Once you've created a data structure, you can store that in multiple variables, arrays, even different objects, and they'll all refer to the same map.
 
 ```gml
 map1 = ds_map_create();
@@ -81,11 +81,11 @@ show_debug_message(map2[? "health"]); // Outputs `6`
 show_debug_message(map1[? "health"]); // Outputs `6`
 ```
 
-The reason that both of these variables refer to the same map, instead of copying the map when doing `map2 = map1`, is that datastructures in Gamemaker are technically just numbers. If you were to do `show_debug_message(ds_map_create())`, it would log some number. Maybe 0, maybe 1, maybe 2, maybe 64. It depends entirely on how many maps you've created in your game. Anyway, since datastructures are numbers, there isn't really any way for Gamemaker to tell what *type* of datastructure a variable has, or even if it is a data structure at all.
+The reason that both of these variables refer to the same map, instead of copying the map when doing `map2 = map1`, is that data structures in Gamemaker are technically just numbers. If you were to do `show_debug_message(ds_map_create())`, it would log some number. Maybe 0, maybe 1, maybe 2, maybe 64. It depends entirely on how many maps you've created in your game. Anyway, since data structures are numbers, there isn't really any way for Gamemaker to tell what *type* of data structure a variable has, or even if it is a data structure at all. That's why we need accessors, and different functions for different data structures.
 
 ## Primitive types
 
-Every language has something it calls *primitive types*. Think of these as the some of the building blocks of the language, what every value in you program, game or website is based on. In Javascript, those are `objects`, `numbers`, `strings` and `undefined`. In Gamemaker, they are `arrays`, `numbers`, `strings` and `undefined`. JavaScript does have arrays, but they're technically objects (they just have numbers as keys instead of strings). And Gamemaker has maps instead of JavaScript objects, but they're really just numbers (think of them as IDs for the actual data structures stored somewhere in memory). While Gamemaker does have arrays, it also has a very similar datastructure called [ds_list](https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/data_structures/ds%20lists/). Lists are pretty much the same as arrays, except they use the `|` accessor, and need to be created with `ds_list_create()`. When dealing with JSON in Gamemaker, lists are preferred over arrays.
+Every language has something it calls *primitive types*. Think of these as some of the building blocks of the language; what every value in you program, game or website is based on. In Javascript, those are `objects`, `numbers`, `strings` and `undefined`. In Gamemaker, they are `arrays`, `numbers`, `strings` and `undefined`. JavaScript does have arrays, but they're technically objects (they just have numbers as keys instead of strings). And Gamemaker has maps instead of JavaScript objects, but they're really just numbers (think of them as IDs for the actual data structures stored somewhere in memory). While Gamemaker does have arrays, it also has a very similar data structure called [ds_list](https://docs2.yoyogames.com/source/_build/3_scripting/4_gml_reference/data_structures/ds%20lists/). Lists are pretty much the same as arrays, except they use the `|` accessor, and need to be created with `ds_list_create()`. When dealing with JSON in Gamemaker, lists are preferred over arrays.
 
 JSON's primitive types are `objects`, `arrays`, `numbers`, `strings` and `boolean`. The last type, `boolean` is just either `true` or `false`. In Gamemaker, this will become 1 and 0, since Gamemaker booleans are just `number`s. Objects in JSON are written like the first example of JS objects in this tutorial. Arrays, numbers and strings are written like you're used to. Since JSON is just for storing data, it doesn't support any logic or anything more complex than primitive types. Every JSON file is an object with data inside.
 
@@ -123,7 +123,7 @@ Once you've created the JSON file, (even if it's still empty), fire up Gamemaker
 ![If you wish to edit the JSON again, right click the Included File, and select "Open In Explorer"](./images/included_files.png)
 
 You can pretty much handle whitespace (spaces, newlines, tabs) however you want, but missing commas, quotes, braces and brackets will break your JSON. If you're not sure what's wrong with your JSON, you can use an [online JSON validator](https://jsonformatter.curiousconcept.com/).
-I will use the following JSON in the `rpg_data.json` file for the next section's examples.
+I will use the following JSON in the `rpg_data.json` file for the rest of the examples in this article.
 
 ```json
 {
@@ -167,46 +167,59 @@ I will use the following JSON in the `rpg_data.json` file for the next section's
 
     "items": [{
         "name": "apple",
-        "effects": ["heal"]
+        "effects": ["heal"],
+        "weight": 0.5
     },{
         "name": "scroll",
         "type": "ancient",
         "effects": ["lightning"],
-        "mana_cost": 17
+        "mana_cost": 17,
+        "weight": 0.1
     },{
         "name": "slug",
-        "has_shell": true
+        "has_shell": true,
+        "weight": 0.2
     }],
 
     "potions": [{
         "name": "Vial of Thunder",
-        "effects": ["lightning", "sight"]
+        "effects": ["lightning", "sight"],
+        "weight": 1
     },{
         "name": "Potion of Farsight",
-        "effects": ["sight"]
+        "effects": ["sight"],
+        "weight": 1
     },{
-        "name": "Philter of Pheromones"
+        "name": "Philter of Pheromones",
+        "weight": 1
     },{
         "name": "Potion of Speed",
-        "effects": ["speed"]
+        "effects": ["speed"],
+        "weight": 1
     },{
         "name": "Draught of Bribery",
-        "effects": ["luck"]
+        "effects": ["luck"],
+        "weight": 1
     },{
         "name": "Flask of Desires",
-        "effects": ["luck", "accuracy", "strength"]
+        "effects": ["luck", "accuracy", "strength"],
+        "weight": 1
     },{
         "name": "Elixir of Empowerment",
-        "effects": ["strength"]
+        "effects": ["strength"],
+        "weight": 1
     },{
         "name": "Draught of Accuracy",
-        "effects": ["accuracy"]
+        "effects": ["accuracy"],
+        "weight": 1
     },{
         "name": "Draught of the Unknown",
-        "effects": ["random"]
+        "effects": ["random"],
+        "weight": 1
     },{
         "name": "Potion of Defense",
-        "effects": ["defense"]
+        "effects": ["defense"],
+        "weight": 1
     }]
 }
 ```
@@ -270,6 +283,10 @@ This JSON consists of three lists ("weapons", "items", "potions"). Every weapon,
                 "type": "string",
                 "required": true
             },{
+                "key": "weight",
+                "type": "number",
+                "required": true
+            },{
                 "key": "effects",
                 "type": "list",
                 "required": false,
@@ -303,6 +320,10 @@ This JSON consists of three lists ("weapons", "items", "potions"). Every weapon,
                 "type": "string",
                 "required": true
             },{
+                "key": "weight",
+                "type": "number",
+                "required": true
+            },{
                 "key": "effects",
                 "type": "list",
                 "required": false,
@@ -324,7 +345,7 @@ Once you've got your JSON file, you'll want to load it in to Gamemaker. One way 
 
 ```gml
 /// @func json_load(fname)
-/// @desc Loads external JSON file into datastructure
+/// @desc Loads external JSON file into data structure
 /// @arg fname
 
 var _buff = buffer_load(argument0);
@@ -412,12 +433,146 @@ if (_change != 0) {
 
 ![&nbsp;](./videos/swords.mp4)
 
-Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`, instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
+Note: if you have an object inside an object inside an object, and you want to get the innermost object in gml, sadly you can't currently do `json[? "object1"][? "object2"][? "object3"]`. Instead, create a local variable for `var _object1 = json[? "object1"];`, then do `var _object2 = _object1[? "object2"];` and repeat. This feature is promised to come along with a bunch of gml features in the near future, though! (This also applies to ds_lists)
 
 ## Saving JSON
 
-## JSON vs 2d Arrays
+Let's give the player an inventory, and use *weight* to determine how much he can carry. I'm going to do this in the form of a ds_list of items/weapons/potions that the player has in possession. I'll start by filling it up with random items until the total weight surpasses the max weight.
 
-## Cleaning Datastructures
+```gml
+inventory = ds_list_create();
+inventory_weight_max = 32;
 
-Datastructures are just numbers, and numbers are dirty
+var _weight = 0;
+while (_weight < inventory_weight_max) {
+	var _list  = choose(global.weapons, global.items, global.potions);
+	var _index = irandom(ds_list_size(_list) - 1);
+	var _item  = _list[| _index];
+
+    _weight += _item[? "weight"];
+	if (_weight > inventory_weight_max) break;
+
+	ds_list_add(inventory, _item);
+
+	show_debug_message("Added item: " + _item[? "name"]);
+}
+
+show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+```
+
+> Debug message output: Added item: slug,
+Added item: slug,
+Added item: scroll,
+Added item: axe,
+Added item: burning_longsword,
+inventory size: 5
+
+How you decide to *represent* the inventory (grid, list, icons, etc.) is up to you. To use the inventory, you'd simply use functions like `ds_list_add()`, `ds_list_delete()` and `ds_list_find_map()` to add items, delete items and find items. Assuming your player has collected these items in the game, and they now wish to stop playing for a while, you'll need to save their inventory. This is actually pretty easy. Simply add the list to a new ds_map, run `json_encode()`, and save the file.
+
+```gml
+var _save_map = ds_map_create();
+_save_map[? "inventory"] = inventory;
+
+var _file = file_text_open_write("save_data.json");
+file_text_write_string(_file, json_encode(_save_map));
+file_text_close(_file);
+```
+
+This will save the JSON to `%appdata%/Local/<GAME_NAME>/save_data.json`. (`C:\Users\Tony\AppData\Local\arpash` in my case). AppData is hidden by default, but you can find it by pressing `win`+`r` and typing `%appdata%`. If you're a particularly perceptive person, you might remember that all data structures are really just numbers, instead of their own datatype. So, how does `json_encode()` know which keys hold maps, lists or actual numbers? Well... currently it doesn't.
+
+```json
+{ "inventory": 16.000000 }
+```
+
+This is what the `save_data.json` file looks like. We can solve this with the functions, `ds_list_mark_as_map()` and `ds_map_add_list()`. When using these functions, gamemaker remembers that these values are lists and maps, instead of just numbers.
+
+```gml
+// Create inventory
+var _weight = 0;
+var _inventory_index = 0;
+while (_weight < inventory_weight_max) {
+	var _list  = choose(global.weapons, global.items, global.potions);
+	var _index = irandom(ds_list_size(_list) - 1);
+	var _item  = _list[| _index];
+
+    _weight += _item[? "weight"];
+	if (_weight > inventory_weight_max) break;
+
+/*add*/	inventory[| _inventory_index] = _item;
+/*add*/	ds_list_mark_as_map(inventory, _inventory_index);
+/*add*/	_inventory_index++;
+
+	show_debug_message("Added item: " + _item[? "name"]);
+}
+
+show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+
+// Save inventory
+var _save_map = ds_map_create();
+/*add*/ds_map_add_list(_save_map, "inventory", inventory);
+
+var _file = file_text_open_write("save_data.json");
+file_text_write_string(_file, json_encode(_save_map));
+file_text_close(_file);
+```
+
+Now if you try to save, you should see a much more desirable JSON structure.
+
+```json
+{ "inventory": [ { "has_shell": 1.000000, "weight": 0.200000, "name": "slug" }, {
+"has_shell": 1.000000, "weight": 0.200000, "name": "slug" }, { "mana_cost": 17.000000,
+"effects": [ "lightning" ], "weight": 0.100000, "type": "ancient", "name": "scroll" },
+{ "sprite": "spr_axe", "damage": 3.000000, "weight": 9.700000, "name": "axe" }, {
+"effects": [ "fire" ], "sprite": "spr_burning_longsword", "damage": 2.400000,
+"weight": 12.000000, "name": "burning_longsword" } ] }
+```
+
+Perfect! Except it's very hard to read. `json_encode()` prefers making more compact JSON to save on file size, since JSON doesn't necessarily need to be human readable. A JSON formatter could fix this. Let's make the game check if a save file already exists, then load that, but if it doesn't, fill up a new one.
+
+```gml
+
+inventory_weight_max = 32;
+
+/*add*/if (file_exists("save_data.json")) {
+/*add*/	// Load inventory
+/*add*/	var _map = json_load("save_data.json");
+/*add*/	inventory = _map[? "inventory"];
+/*add*/
+/*add*/	show_debug_message("loaded JSON: " + json_encode(_map));
+/*add*/} else {
+	// Create new inventory
+	inventory = ds_list_create();
+
+	var _weight = 0;
+	var _inventory_index = 0;
+	while (_weight < inventory_weight_max) {
+		var _list  = choose(global.weapons, global.items, global.potions);
+		var _index = irandom(ds_list_size(_list) - 1);
+		var _item  = _list[| _index];
+
+	    _weight += _item[? "weight"];
+		if (_weight > inventory_weight_max) break;
+
+		inventory[| _inventory_index] = _item;
+		ds_list_mark_as_map(inventory, _inventory_index);
+		_inventory_index++;
+
+		show_debug_message("Added item: " + _item[? "name"]);
+	}
+
+	show_debug_message("inventory size: " + string(ds_list_size(inventory)));
+/*add*/}
+```
+
+## Cleaning Data Structures
+
+Another side effect of data structures not having their own data types is that Gamemaker doesn't know when to destroy them (clean them from memory). If an instance creates a ds_map, then later dies (`instance_destroy()`), that ds_map still exists in memory, You've just deleted the only *reference* to it. This means that you have to destroy your data structures manually. Gamemaker has a CleanUp event, which runs when it's destroyed, the game ends, or other things happen that would cause it to cease to exist. Usually destroying your data structures there will suffice.
+
+```gml
+if (ds_exists(inventory, ds_type_list)) ds_list_destroy(inventory);
+if (ds_exists(global.rpg_data, ds_type_map)) ds_map_destroy(global.rpg_data);
+```
+
+When using the functions, `ds_list_mark_as_map()`, `ds_list_mark_as_list()`, `ds_map_add_list()`, `ds_map_add_map()`, you don't need to destroy the lists and maps inside of other lists and maps. You only need to destroy the top-level data structure, and that'll destroy all child structures too.
+
+And that concludes this tutorial on JSON! Go make some games with saving/loading and many weapons/items/potions. I'll be looking out for them on [twitter](https://twitter.com/TonyStr_).
