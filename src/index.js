@@ -49,17 +49,16 @@ function ValidateArticle(props) {
     const location = props.loc || (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
     const article = props.article || articlesJSON.find(article => article.name.toLowerCase() === location);
 
-    return article ?
-        (!article.password || window.localStorage.getItem('article-password') === article.password ?
-            <Article article={article} login={login} /> : (
-            <ArticleLogin article={article}
-                attemptLogin={val => {
-                    window.localStorage.setItem('article-password', val);
-                    setLogin(val);
-                }}
-            />
-        )) :
-        <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
+    return article ? (
+        !article.password || window.localStorage.getItem('article-password') === article.password ? (
+            <Article article={article} login={login} />
+        ) : (
+            <ArticleLogin article={article} attemptLogin={val => {
+                window.localStorage.setItem('article-password', val);
+                setLogin(val);
+            }} />
+        )
+    ) : <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
 }
 
 ReactDOM.render(

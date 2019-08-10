@@ -11,6 +11,7 @@ import PageLoading  from '../components/PageLoading.jsx';
 import Wpac         from '../components/Wpac.jsx';
 import requestRawText from '../functions/requestRawText.jsx';
 import '../styles/article.scss';
+const WindowCenter = lazy(() => import('../components/WindowCenter.jsx'));
 const components = {
     ASCIITable: lazy(() => import('../components/ASCIITable.jsx'))
 }
@@ -173,7 +174,8 @@ function TableOfContents(props) {
 function ArticleContent(props) {
 
     const [markdown, setMarkdown] = useState(null);
-    const [focus, setFocus]       = useState(null);
+    const [focus,    setFocus   ] = useState(null);
+    const [status,   setStatus  ] = useState('loading');
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md
@@ -182,7 +184,9 @@ function ArticleContent(props) {
             `${window.location.port}/articles/` +
             `${props.article.name.toLowerCase()}/index.md`,
             res => {
+                if (res.startsWith('<!DOCTYPE html>')) return setStatus('article_not_found');
                 setMarkdown(res);
+                setStatus('markdown_found');
 
                 // const words = res.match(/\w+/g);
                 // console.log("word count: " + words.length);
@@ -274,42 +278,50 @@ function ArticleContent(props) {
         });
     }, [markdown]);
 
-    return markdown ? (
-        <>
-            {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
-            <div className={focus ? 'blur' : ''}>
-                <Header />
-                <StandardPage>
-                    <Markdown
-                        source={markdown}
-                        linkTarget='_blank'
-                        renderers={{
-                            code: CodeBlock,
-                            inlineCode: ps => (<CodeBlock
-                                {...ps}
-                                language='gml'
-                                inline={true}
-                            />),
-                            link: A,
-                            heading: ps => ps.level === 2 ?
-                                SectionTitle(ps) :
-                                ArticleTitle(ps),
-                            image: ps => (<ArticleMedia
-                                {...ps}
-                                pageName={props.article.name.toLowerCase()}
-                                setFocus={setFocus}
-                            />),
-                            paragraph: ps => <div className='p'>{ps.children}</div>
-                        }}
-                        className='rendered-markdown'
-                        escapeHtml={false}
-                    />
-                </StandardPage>
-                <div className='section-header hidden'>Comments</div>
-                <Wpac />
-            </div>
-        </>
-    ) : <PageLoading />;
+    switch (status) {
+        case 'markdown_found': return (
+            <>
+                {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
+                <div className={focus ? 'blur' : ''}>
+                    <Header />
+                    <StandardPage>
+                        <Markdown
+                            source={markdown}
+                            linkTarget='_blank'
+                            renderers={{
+                                code: CodeBlock,
+                                inlineCode: ps => (<CodeBlock
+                                    {...ps}
+                                    language='gml'
+                                    inline={true}
+                                />),
+                                link: A,
+                                heading: ps => ps.level === 2 ?
+                                    SectionTitle(ps) :
+                                    ArticleTitle(ps),
+                                image: ps => (<ArticleMedia
+                                    {...ps}
+                                    pageName={props.article.name.toLowerCase()}
+                                    setFocus={setFocus}
+                                />),
+                                paragraph: ps => <div className='p'>{ps.children}</div>
+                            }}
+                            className='rendered-markdown'
+                            escapeHtml={false}
+                        />
+                    </StandardPage>
+                    <div className='section-header hidden'>Comments</div>
+                    <Wpac />
+                </div>
+            </>
+        );
+
+        case 'loading': return <PageLoading />;
+
+        case 'article_not_found': return <WindowCenter> 404! Could not find article "{props.article.name}" </WindowCenter>;
+
+        default: return <WindowCenter> Invalid Article Status [article.jsx:177] </WindowCenter>;
+    }
 }
 
 export default function Article(props) {

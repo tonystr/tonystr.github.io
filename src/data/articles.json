@@ -1,23 +1,30 @@
 [{
     "name": "Circles",
-    "tags": ["tutorial", "gml", "rendering", "math"],
+    "tags": ["tutorial", "gml", "rendering", "math", "programming"],
     "thumbnail": "primitive_kinds.png",
     "summary": "Program circles and complex shapes with primitives and trigonometry",
     "timestamp": 1556459185779
 },{
     "name": "Regex",
     "displayName": "/Reg(ul[ae]r)?[\\s_-]*Ex(pres{2}ions?|p)?/i",
-    "tags": ["tutorial", "javascript", "math", "parsing", "strings"],
-    "password": "",
+    "tags": ["tutorial", "javascript", "math", "parsing", "strings", "programming"],
     "thumbnail": "regex.thumbnail.png",
     "summary": "Learn to understand what that title means",
     "timestamp": 1562086005138
 },{
     "name": "json_in_gamemaker",
     "displayName": "Json In Gamemaker",
-    "tags": ["tutorial", "gml", "json", "data"],
-    "password": "11037",
+    "tags": ["tutorial", "gml", "json", "data", "programming"],
+    "password": "",
     "thumbnail": "json.thumbnail.png",
     "summary": "Learn to efficiently store data for your games",
-    "timestamp": 0
+    "timestamp": 1565357772000
+},{
+    "name": "programming_terminology",
+    "displayName": "Programming Terminology",
+    "tags": ["tutorial", "terminology", "programming"],
+    "password": "syntax",
+    "thumbnail": "terminology.thumbnail.png",
+    "summary": "Learn some terminology commonly used in programming",
+    "timestamp": null
 }]
