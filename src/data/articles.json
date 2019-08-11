@@ -20,8 +20,15 @@
     "summary": "Learn to efficiently store data for your games",
     "timestamp": 1565357772000
 },{
+    "name": "Autotiling",
+    "tags": ["tutorial", "terminology", "programming"],
+    "password": "bitflags",
+    "thumbnail": "autotiling.thumbnail.png",
+    "summary": "Learn to autotile in code",
+    "timestamp": null
+},{
     "name": "programming_terminology",
-    "displayName": "Programming Terminology",
+    "displayName": "Programming Terminology [on hold]",
     "tags": ["tutorial", "terminology", "programming"],
     "password": "syntax",
     "thumbnail": "terminology.thumbnail.png",
