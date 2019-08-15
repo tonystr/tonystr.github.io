@@ -13,7 +13,8 @@ import requestRawText from '../functions/requestRawText.jsx';
 import '../styles/article.scss';
 const WindowCenter = lazy(() => import('../components/WindowCenter.jsx'));
 const components = {
-    ASCIITable: lazy(() => import('../components/ASCIITable.jsx'))
+    ASCIITable: lazy(() => import('../components/ASCIITable.jsx')),
+    Autotiling: lazy(() => import('../components/Autotiling.jsx'))
 }
 
 const runningCodeblock = {

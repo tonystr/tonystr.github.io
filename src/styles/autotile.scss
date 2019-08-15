@@ -1,0 +1,10 @@
+@import 'global';
+
+.autotile {
+    width: 100%;
+    table-layout: fixed;
+
+    td {
+        border: 1px solid $c_green;
+    }
+}
