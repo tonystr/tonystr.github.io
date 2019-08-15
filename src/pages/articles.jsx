@@ -12,7 +12,7 @@ function ArticleList(props) {
     for (const article of props.json) {
         if (article.password) continue;
 
-        let tags = article.tags.map(tag => <span>{tag}</span>);
+        let tags = article.tags.map(tag => <span key={tag}>{tag}</span>);
 
         list.push(
             <Link
