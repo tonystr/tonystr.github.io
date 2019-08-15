@@ -3,12 +3,19 @@
 .autotile {
     width: 100%;
     table-layout: fixed;
+    border-collapse: collapse;
 
     td {
-        border: 1px solid $c_green;
+        @extend .pixelart;
+        background: url('32tlstrp.png');
+        background-repeat: no-repeat;
+        background-position: 0px 0px;
+        background-size: cover;
 
-        &.state-on {
-            background-color: $c_gold;
-        }
+        // @for $i from 0 through 15 {
+        //     &.tile-#{$i} {
+        //         background-position: $i * 6% 0;
+        //     }
+        // }
     }
 }
