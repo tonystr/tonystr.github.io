@@ -6,5 +6,9 @@
 
     td {
         border: 1px solid $c_green;
+
+        &.state-on {
+            background-color: $c_gold;
+        }
     }
 }
