@@ -6,40 +6,38 @@ export default function Autotiling(props) {
     const height = props.height || 6;
 
     const [drawMode, setDrawMode] = useState(null);
-    const [tiles, setTiles] = useState((() => {
-        const ts = [];
-        for (let i = 0; i < width * height; i++) ts.push({
-            solid: false,
-            style: ''
-        });
-        return ts;
-    })());
 
     const startDrawing = e => setDrawMode(e.button);
     const stopDrawing = () => setDrawMode(null);
-    const draw = e => {
-        if (drawMode === 0) {
-            tiles[+e.target.getAttribute('index')] = {
-                solid: true,
-                bitflag: 1
-            }
-        } else {
-            tiles[+e.target.getAttribute('index')] = {
-                solid: false,
-                bitflag: 0
-            }
-        }
-    }
 
     return (
         <Table
             width={width}
             height={height}
-            tiles={tiles}
-            onMouseDown={e => startDrawing(e)}
-            onMouseUp={e => stopDrawing(e)}
-            onMouseMove={drawMode !== null ? draw : null}
-            draw={draw}
+            onMouseDown={startDrawing}
+            onMouseUp={stopDrawing}
+            drawMode={drawMode}
+        />
+    );
+}
+
+function Tile(props) {
+    // onClick={props.draw}
+    // onMouseMove={props.draw}
+    // onContextMenu={props.draw}
+
+    const [bitflag, setBitflag] = useState(0);
+
+    const setTile = t => {
+        setBitflag(t);
+    };
+
+    return (
+        <td
+            style={{ backgroundPosition: bitflag * (10 / 1.5) + '%' }}
+            onClick={() => setTile(props.drawMode !== 0)}
+            onContextMenu={() => setTile(props.drawMode === 0)}
+            onMouseMove={props.drawMode !== null && (() => setTile(props.drawMode === 0))}
         />
     );
 }
@@ -63,14 +61,11 @@ function Table(props) {
     for (let y = 0; y < height; y++) {
         const row = [];
         for (let x = 0; x < width; x++) {
-            const bitflag = (props.tiles[x + y * width] || {}).bitflag
-            row.push(<td
+            row.push(<Tile
                 key={x + y * width}
                 index={x + y * width}
-                style={{ backgroundPosition: bitflag * 6.6 + '%' }}
-                onClick={props.draw}
-                onContextMenu={props.draw}
-            ></td>);
+                drawMode={props.drawMode}
+            />);
         }
         rows.push(<tr>{row}</tr>);
     }
