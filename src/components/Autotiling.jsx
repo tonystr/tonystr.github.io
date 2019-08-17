@@ -22,7 +22,7 @@ export default function Autotiling(props) {
     useEffect(() => {
         const table = document.querySelector('.autotile.squares:not(.squared)');
         table.querySelectorAll('td').forEach(td => {
-            td.style = 'height:' + td.offsetWidth + 'px';
+            td.style.height = td.offsetWidth + 'px'; // ' height:' +
         });
         table.classList.add('squared');
         table.oncontextmenu = () => false;
@@ -37,12 +37,10 @@ export default function Autotiling(props) {
             tiles[y][x].solid = (mode === 0);
             setTiles(prev => prev.map((row, cy) => row.map((cell, cx) => {
 
-                if (
-                    cell.solid && (
-                        (y === cy && cx <= x + 1 && cx >= x - 1) ||
-                        (x === cx && cy <= y + 1 && cy >= y - 1)
-                    )
-                ) {
+                if (cell.solid && (
+                    (y === cy && cx <= x + 1 && cx >= x - 1) ||
+                    (x === cx && cy <= y + 1 && cy >= y - 1)
+                )) {
                     let newCell = {
                         solid:   cell.solid,
                         bitflag: cell.bitflag
@@ -57,7 +55,7 @@ export default function Autotiling(props) {
                     const right  = !(                   (tiles[cy][cx + 1] || oob).solid);
                     const bottom = !(cy < height - 1 && (tiles[cy + 1][cx] || oob).solid);
 
-                    newCell.bitflag = right + top * 2 + left * 4 + bottom * 8
+                    newCell.bitflag = right + bottom * 2 + left * 4 + top * 8
 
                     return newCell;
                 }
@@ -72,6 +70,7 @@ export default function Autotiling(props) {
             className='autotile squares'
             onMouseDown={e => startDrawing(e)}
             onMouseUp={e => stopDrawing(e)}
+            style={{ backgroundColor: '#7A4A36' }}
         >
             <tbody>
                 {tiles.map((row, y) => (
@@ -79,7 +78,8 @@ export default function Autotiling(props) {
                         {row.map((cell, x) => (
                             <td
                                 style={{
-                                    backgroundPosition: cell.bitflag * 6.6 + '%'
+                                    backgroundPosition: (cell.bitflag) * (10 / 1.5) + '%',
+                                    opacity: Number(cell.solid)
                                 }}
                                 onClick={() => draw(x, y, 0)}
                                 onContextMenu={() => draw(x, y)}
