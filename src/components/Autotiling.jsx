@@ -34,10 +34,36 @@ export default function Autotiling(props) {
     const draw = (x, y, mode = drawMode) => {
         if (x === undefined || y === undefined || tiles[y] === undefined) return;
         if (tiles[y][x].solid !== (mode === 0)) {
-            setTiles(prev => prev.map((row, cy) => row.map((cell, cx) => (x === cx && y === cy) ? ({
-                solid:   mode === 0,
-                bitflag: mode === 0 ? 1 : 0
-            }) : cell)));
+            tiles[y][x].solid = (mode === 0);
+            setTiles(prev => prev.map((row, cy) => row.map((cell, cx) => {
+
+                if (
+                    cell.solid && (
+                        (y === cy && cx <= x + 1 && cx >= x - 1) ||
+                        (x === cx && cy <= y + 1 && cy >= y - 1)
+                    )
+                ) {
+                    let newCell = {
+                        solid:   cell.solid,
+                        bitflag: cell.bitflag
+                    };
+
+                    if (x === cx && y === cy) newCell.solid = mode === 0
+
+                    const oob = { solid: false };
+
+                    const top    = !(cy > 0          && (tiles[cy - 1][cx] || oob).solid);
+                    const left   = !(                   (tiles[cy][cx - 1] || oob).solid);
+                    const right  = !(                   (tiles[cy][cx + 1] || oob).solid);
+                    const bottom = !(cy < height - 1 && (tiles[cy + 1][cx] || oob).solid);
+
+                    newCell.bitflag = right + top * 2 + left * 4 + bottom * 8
+
+                    return newCell;
+                }
+
+                return cell;
+            })));
         }
     }
 
