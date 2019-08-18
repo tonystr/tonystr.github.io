@@ -96,14 +96,19 @@ function ArticleMedia(props) {
         )
     },{
         matches: ['jsx'],
-        render: props => (
-            <Suspense fallback={<div>Loading React Component...</div>}>
-                {React.createElement(
-                    components[props.src.slice(0, -4)] ||
-                    (() => <div>Failed to Load React Component</div>)
-                )}
-            </Suspense>
-        )
+        render: props => {
+            const Component = components[props.src.slice(0, -4)] || (() => <div>Failed to Load React Component</div>);
+
+            let componentProps = {};
+            const match = props.alt && props.alt.match(/(\w+)={(`)([^}]*)\2}/);
+            if (match) componentProps[match[1]] = match[3];
+
+            return (
+                <Suspense fallback={<div>Loading React Component...</div>}>
+                    <Component {...componentProps} />
+                </Suspense>
+            );
+        }
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
         render: props => <ImageSection src={src} alt={alt} />

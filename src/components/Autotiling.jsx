@@ -2,37 +2,32 @@ import React, { useState, useEffect } from 'react';
 import '../styles/autotile.scss';
 
 export default function Autotiling(props) {
-    const width  = props.width  || 16;
-    const height = props.height || 6;
-
     const [drawMode, setDrawMode] = useState(null);
-    const [tiles, setTiles] = useState((() => {
-        const ts = [];
-        for (let y = 0; y < height; y++) {
-            const tr = [];
-            for (let x = 0; x < width; x++) tr.push({
-                solid: false,
-                bitflag: 0
-            });
-            ts.push(tr);
-        }
-        return ts;
-    })());
+    const [tiles,    setTiles   ] = useState(createDefaultTiles(props));
+    const [tdHeight, setTdHeight] = useState(0);
+
+    const resize = () => setTdHeight(document.querySelector('.autotile.squares td').offsetWidth);
 
     useEffect(() => {
-        const table = document.querySelector('.autotile.squares:not(.squared)');
-        table.querySelectorAll('td').forEach(td => {
-            td.style.height = td.offsetWidth + 'px'; // ' height:' +
-        });
-        table.classList.add('squared');
-        table.oncontextmenu = () => false;
-        table.onselectstart = () => false;
+        resize();
+        document.querySelector('.autotile').oncontextmenu = () => {};
+        window.addEventListener('resize', resize);
+        return () => window.removeEventListener('resize', resize);
     }, []);
 
     const startDrawing = e => setDrawMode(e.button);
     const stopDrawing = () => setDrawMode(null);
     const draw = (x, y, mode = drawMode) => {
-        if (x === undefined || y === undefined || tiles[y] === undefined) return;
+        //////////////////////////////// Important Debug Stuff ////////////////////////////////
+        //
+        // if (x === undefined || y === undefined || tiles[y] === undefined) return;
+        // if (x === 0 && y === 0 && tiles[y][x].solid) console.log(JSON.stringify(tiles)
+        //     .replace(/{\w*"solid":true/gi, 'S')
+        //     .replace(/{\w*"solid":false/gi, 'E')
+        //     .replace(/,"bitflag":(\d+)\w*}/gi, ':$1')
+        // );
+        //
+        ///////////////////////////////////////////////////////////////////////////////////////
         if (tiles[y][x].solid !== (mode === 0)) {
             tiles[y][x].solid = (mode === 0);
             setTiles(prev => prev.map((row, cy) => row.map((cell, cx) => {
@@ -48,12 +43,13 @@ export default function Autotiling(props) {
 
                     if (x === cx && y === cy) newCell.solid = mode === 0
 
-                    const oob = { solid: false };
+                    const b = tiles.length - 1;
+                    const oob = { solid: true };
 
-                    const top    = !(cy > 0          && (tiles[cy - 1][cx] || oob).solid);
-                    const left   = !(                   (tiles[cy][cx - 1] || oob).solid);
-                    const right  = !(                   (tiles[cy][cx + 1] || oob).solid);
-                    const bottom = !(cy < height - 1 && (tiles[cy + 1][cx] || oob).solid);
+                    const top    = !((cy > 0 && tiles[cy - 1][cx] || oob).solid);
+                    const left   = !((          tiles[cy][cx - 1] || oob).solid);
+                    const right  = !((          tiles[cy][cx + 1] || oob).solid);
+                    const bottom = !((cy < b && tiles[cy + 1][cx] || oob).solid);
 
                     newCell.bitflag = right + bottom * 2 + left * 4 + top * 8
 
@@ -67,19 +63,20 @@ export default function Autotiling(props) {
 
     return (
         <table
-            className='autotile squares'
+            className='autotile squares grass'
             onMouseDown={e => startDrawing(e)}
             onMouseUp={e => stopDrawing(e)}
-            style={{ backgroundColor: '#7A4A36' }}
         >
             <tbody>
                 {tiles.map((row, y) => (
-                    <tr>
+                    <tr key={y}>
                         {row.map((cell, x) => (
                             <td
+                                key={x}
                                 style={{
                                     backgroundPosition: (cell.bitflag) * (10 / 1.5) + '%',
-                                    opacity: Number(cell.solid)
+                                    opacity: Number(cell.solid),
+                                    height: tdHeight
                                 }}
                                 onClick={() => draw(x, y, 0)}
                                 onContextMenu={() => draw(x, y)}
@@ -91,54 +88,24 @@ export default function Autotiling(props) {
             </tbody>
         </table>
     );
-
-    // return (
-    //     <Table
-    //         width={width}
-    //         height={height}
-    //         tiles={tiles}
-    //         onMouseDown={e => startDrawing(e)}
-    //         onMouseUp={e => stopDrawing(e)}
-    //         onMouseMove={drawMode !== null ? draw : null}
-    //         draw={draw}
-    //     />
-    // );
 }
 
-function Table(props) {
-    const width  = props.width;
-    const height = props.height;
-    const rows   = [];
-
-    useEffect(() => {
-        const table = document.querySelector('.autotile.squares:not(.squared)');
-        table.querySelectorAll('td').forEach(td => {
-            td.style = 'height:' + td.offsetWidth + 'px';
-            console.log(td.offsetWidth);
-        });
-        table.classList.add('squared');
-        table.oncontextmenu = () => false;
-        table.onselectstart = () => false;
-    }, []);
-
-    for (let y = 0; y < height; y++) {
-        const row = [];
-        for (let x = 0; x < width; x++) {
-            const bitflag = (props.tiles[x + y * width] || {}).bitflag
-            row.push(<td
-                key={x + y * width}
-                index={x + y * width}
-                style={{ backgroundPosition: bitflag * 6.6 + '%' }}
-                onClick={props.draw}
-                onContextMenu={props.draw}
-            ></td>);
-        }
-        rows.push(<tr>{row}</tr>);
-    }
-
-    return (
-        <table {...props} className='autotile squares'>
-            <tbody>{rows}</tbody>
-        </table>
+function createDefaultTiles(props) {
+    return props.defaultTiles ? JSON.parse(
+        props.defaultTiles.replace(
+            /\s+/g, ''
+        ).replace(
+            /S/g, '{"solid":true'
+        ).replace(
+            /E/g, '{"solid":false'
+        ).replace(
+            /:(\d+)/gi, ',"bitflag":$1}'
+        )
+    ) : Array.from(
+        { length: props.height || 6 },
+        () => Array.from(
+            { length: props.width || 16 },
+            () => ({ solid: false, bitflag: 0 })
+        )
     );
 }

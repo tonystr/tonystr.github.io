@@ -5,17 +5,16 @@
     table-layout: fixed;
     border-collapse: collapse;
 
+    &.grass {
+        background-color: rgba(#7a4a36, .5);
+        border: 2px solid #7a4a36;
+    }
+
     td {
         @extend .pixelart;
         background: url('32tlstrp.png');
         background-repeat: no-repeat;
         background-position: 0px 0px;
         background-size: cover;
-
-        // @for $i from 0 through 15 {
-        //     &.tile-#{$i} {
-        //         background-position: $i * 6% 0;
-        //     }
-        // }
     }
 }
