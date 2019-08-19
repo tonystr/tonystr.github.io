@@ -100,8 +100,16 @@ function ArticleMedia(props) {
             const Component = components[props.src.slice(0, -4)] || (() => <div>Failed to Load React Component</div>);
 
             let componentProps = {};
-            const match = props.alt && props.alt.match(/(\w+)={(`)([^}]*)\2}/);
-            if (match) componentProps[match[1]] = match[3];
+            let str = props.alt.slice();
+
+            while (str) {
+                const match = props.alt && str.match(/(\w+)={?([`'"])([^\2]*)\2/); // }?
+                if (!match) break;
+                componentProps[match[1]] = match[3];
+                str = str.slice(match.index + match[0].length);
+            }
+
+            console.log(componentProps);
 
             return (
                 <Suspense fallback={<div>Loading React Component...</div>}>

@@ -6,17 +6,29 @@ export default function Autotiling(props) {
     const [tiles,    setTiles   ] = useState(createDefaultTiles(props));
     const [tdHeight, setTdHeight] = useState(0);
 
+    console.log('props.type: ' + props.type);
+
     const resize = () => setTdHeight(document.querySelector('.autotile.squares td').offsetWidth);
 
     useEffect(() => {
         resize();
-        document.querySelector('.autotile').oncontextmenu = () => {};
+        document.querySelector('.autotile').addEventListener('contextmenu', e => e.preventDefault());
         window.addEventListener('resize', resize);
         return () => window.removeEventListener('resize', resize);
     }, []);
 
-    const startDrawing = e => setDrawMode(e.button);
-    const stopDrawing = () => setDrawMode(null);
+    const preventEvent = e => e.preventDefault();
+
+    const startDrawing = e => {
+        document.addEventListener('contextmenu', preventEvent);
+        document.addEventListener('mouseup', stopDrawing);
+        setDrawMode(e.button);
+    }
+    const stopDrawing = () => {
+        setTimeout(() => document.removeEventListener('contextmenu', preventEvent), 40);
+        document.removeEventListener('mouseup', stopDrawing);
+        setDrawMode(null);
+    }
     const draw = (x, y, mode = drawMode) => {
         //////////////////////////////// Important Debug Stuff ////////////////////////////////
         //
@@ -65,7 +77,6 @@ export default function Autotiling(props) {
         <table
             className='autotile squares grass'
             onMouseDown={e => startDrawing(e)}
-            onMouseUp={e => stopDrawing(e)}
         >
             <tbody>
                 {tiles.map((row, y) => (
