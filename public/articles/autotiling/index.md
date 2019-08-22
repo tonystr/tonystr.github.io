@@ -1,6 +1,8 @@
 
 # Autotiling
 
+Autotiling is software that automatically figures out which type of tile graphic belongs on each cell of a grid. This is super useful when creating level editors and games with modifiable terrain. For level editors, autotiling allows the user to select a *tilemap*, and then "draw" tiles on a level. The autotile software figures out which graphics belong on each cell you draw to, as you draw. Play around with the interactive autotiling demo below to get a feel for how one implementation works.
+
 ![
     type='47'
     defaultTiles={`[
@@ -12,6 +14,8 @@
         [S:0,S:0,S:0,S:0,S:19,S:9,E:0,E:0,E:0,S:12,S:16,S:0,S:0,S:0,S:0,S:0]
     ]`}
 ](Autotiling.jsx)
+
+Some exemplary games that use autotiling are [Terraria](http://terraria.org/), [Super Mario Maker 2](https://www.mariowiki.com/Super_Mario_Maker_2), [Spelunky](https://spelunkyworld.com/), [Stardew Valley](https://www.stardewvalley.net/), [Factorio](https://www.factorio.com/), (Rimworld)[https://rimworldgame.com/], (Oxygen Not Included)[https://store.steampowered.com/app/457140/Oxygen_Not_Included/]
 
 ## Bitwise math
 
