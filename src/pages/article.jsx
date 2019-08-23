@@ -279,6 +279,7 @@ function ArticleContent(props) {
                     }
 
                     try {
+                        // eslint-disable-next-line no-eval
                         eval(copyBox.value.replace(/console\.log/g, 'runningCodeblock.output.push'));
                     } catch (e) {
                         runningCodeblock.output.push(e);

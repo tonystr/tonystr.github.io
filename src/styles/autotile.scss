@@ -1,5 +1,22 @@
 @import 'global';
 
+.autotile-demo {
+
+    .controls {
+        height: 2.2rem;
+        border: 2px solid $c_dark;
+        border-bottom-left-radius: .4rem;
+        border-bottom-right-radius: .4rem;
+        display: flex;
+        flex-direction: row-reverse;
+        padding: 0 .6rem;
+
+        .btn {
+            width: 1.3rem !important;
+        }
+    }
+}
+
 .autotile {
     width: 100%;
     table-layout: fixed;
@@ -10,6 +27,10 @@
    -webkit-user-select: none;
    -ms-user-select: none;
    user-select: none;
+
+   &.grid-lines {
+       border-collapse: separate;
+   }
 
     &.grass {
         background-color: rgba(#7a4a36, .5);
