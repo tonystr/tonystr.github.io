@@ -222,75 +222,77 @@ function ArticleContent(props) {
     }, []);
 
     useEffect(() => {
-        Array.from(document.getElementsByClassName('codeblock-full')).forEach(cb => {
-            const canExecute = cb.classList.contains('lang-js');
+        setTimeout(() => Array.from(document.getElementsByClassName('codeblock-full')).forEach(cb => {
+                const canExecute = cb.classList.contains('lang-js');
 
-            const elm = document.createElement('div');
-            elm.classList.add('codeblock-controls');
+                const elm = document.createElement('div');
+                elm.classList.add('codeblock-controls');
 
-            const copyBox  = document.createElement('textarea');
-            const spanCopy = document.createElement('span');
+                const copyBox  = document.createElement('textarea');
+                const spanCopy = document.createElement('span');
 
-            copyBox.setAttribute('class', 'copybox');
-            copyBox.value = cb.innerText;
-            copyBox.readOnly = true;
-            elm.appendChild(copyBox);
+                copyBox.setAttribute('class', 'copybox');
+                copyBox.value = cb.innerText;
+                copyBox.readOnly = true;
+                elm.appendChild(copyBox);
 
-            spanCopy.classList.add('copy');
-            spanCopy.setAttribute('title', 'copy to clipboard');
-            spanCopy.addEventListener('click', () => {
-                copyBox.focus();
-                copyBox.select();
-                document.execCommand('copy');
-            });
-            elm.appendChild(spanCopy);
-
-            if (canExecute) {
-                const spanRun  = document.createElement('span');
-                spanRun.classList.add('run');
-                spanRun.setAttribute('title', 'run code');
-                spanRun.addEventListener('click', () => {
-
-                    cb.classList.add('ran');
-
-                    let divOut;
-                    if (cb.nextSibling && cb.nextSibling.classList.contains('codeblock-output')) {
-                        divOut = cb.nextSibling;
-                    } else {
-                        divOut = document.createElement('div');
-                        divOut.classList.add('codeblock-output');
-                        divOut.innerText = '';
-                        if (cb.nextSibling) {
-                            cb.parentElement.insertBefore(divOut, cb.nextSibling);
-                        } else {
-                            cb.parentElement.append(divOut);
-                        }
-                    }
-
-                    const andy = document.createElement('div');
-
-                    runningCodeblock.output.clear();
-                    runningCodeblock.onChange = () => {
-                        andy.innerText = runningCodeblock.output.text.replace(/\n/g, '-NLN**:o');
-                        divOut.innerHTML = andy.innerText.replace(
-                            /(^|[^\\])('(?:[^'\\]|\\.)*')/g,
-                            '$1<span class="string">$2</span>'
-                        ).replace(/-NLN\*\*:o/g, '<br>');
-                    }
-
-                    try {
-                        // eslint-disable-next-line no-eval
-                        eval(copyBox.value.replace(/console\.log/g, 'runningCodeblock.output.push'));
-                    } catch (e) {
-                        runningCodeblock.output.push(e);
-                    }
+                spanCopy.classList.add('copy');
+                spanCopy.setAttribute('title', 'copy to clipboard');
+                spanCopy.addEventListener('click', () => {
+                    copyBox.focus();
+                    copyBox.select();
+                    document.execCommand('copy');
                 });
+                elm.appendChild(spanCopy);
 
-                elm.appendChild(spanRun);
-            }
+                if (canExecute) {
+                    const spanRun  = document.createElement('span');
+                    spanRun.classList.add('run');
+                    spanRun.setAttribute('title', 'run code');
+                    spanRun.addEventListener('click', () => {
 
-            cb.appendChild(elm);
-        });
+                        cb.classList.add('ran');
+
+                        let divOut;
+                        if (cb.nextSibling && cb.nextSibling.classList.contains('codeblock-output')) {
+                            divOut = cb.nextSibling;
+                        } else {
+                            divOut = document.createElement('div');
+                            divOut.classList.add('codeblock-output');
+                            divOut.innerText = '';
+                            if (cb.nextSibling) {
+                                cb.parentElement.insertBefore(divOut, cb.nextSibling);
+                            } else {
+                                cb.parentElement.append(divOut);
+                            }
+                        }
+
+                        const andy = document.createElement('div');
+
+                        runningCodeblock.output.clear();
+                        runningCodeblock.onChange = () => {
+                            andy.innerText = runningCodeblock.output.text.replace(/\n/g, '-NLN**:o');
+                            divOut.innerHTML = andy.innerText.replace(
+                                /(^|[^\\])('(?:[^'\\]|\\.)*')/g,
+                                '$1<span class="string">$2</span>'
+                            ).replace(/-NLN\*\*:o/g, '<br>');
+                        }
+
+                        try {
+                            // eslint-disable-next-line no-eval
+                            eval(copyBox.value.replace(/console\.log/g, 'runningCodeblock.output.push'));
+                        } catch (e) {
+                            runningCodeblock.output.push(e);
+                        }
+                    });
+
+                    elm.appendChild(spanRun);
+                }
+
+                cb.appendChild(elm);
+            }),
+            300
+        );
     }, [markdown]);
 
     switch (status) {

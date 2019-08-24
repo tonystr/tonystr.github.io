@@ -68,7 +68,11 @@ export default function Autotiling(props) {
                 </tbody>
             </table>
             <div className='controls'>
-                <GridIcon className='btn grid' style={{ width: '1rem' }} />
+                <GridIcon
+                    className='btn grid'
+                    style={{ width: '1rem' }}
+                    onClick={() => setGridLines(!gridLines)}
+                />
             </div>
         </div>
     );

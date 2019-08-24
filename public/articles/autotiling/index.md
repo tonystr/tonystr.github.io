@@ -21,7 +21,21 @@ Some exemplary games that use autotiling are [Terraria](http://terraria.org/), [
 
 When deciding which tile to display, you need to look at the *surrounding tiles*. A tile doesn't need to know what type of tile is next to it, or how that tile is tiled, it only needs to know whether there is a tile next to it, or not. If there is a tile to the right of it, it'll need to display a tile graphic that makes it look like it's connected to the tile to the right of it. If there is no tile anywhere around it, it can just be a lone lump of grass, dirt, bricks, water or whatever your tileset represents. When a tile touches multiple tiles, it'll need to display a sprite that makes it look connected to every tile it touches. Try placing a tile in the demo above, then add tiles around it. You can enable a grid from the control-menu to the right of it, to see how each of the tile graphics fit together.
 
-By the way, I'm saying "tile graphics" instead of "sprite", because in the context of *Gamemaker Studio 2* (the game engine I presume you're using), one sprite can be house for many tiles.
+> By the way, I'm saying "tile graphics" instead of "sprite", because in the context of [Gamemaker Studio 2](https://www.yoyogames.com/gamemaker) (the game engine I presume you're using), one sprite can be house for many tiles.
+
+```python
+if tile above
+    if tile to right
+        show 'tile_top_right'
+    if tile to left
+        show 'tile_to_left'
+    else
+        show 'tile_top'
+if tile below
+    if tile to right
+        show 'tile_bottom_right'
+    ...
+```
 
 ## Bitwise math
 

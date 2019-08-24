@@ -16,9 +16,15 @@
         padding: .5rem 0rem;
 
         .btn {
-            margin: 0 .4rem;
-            width: 1.2rem !important;
+            margin: 0 .5rem;
+            width: 1rem !important;
             color: $c_gold;
+            cursor: pointer;
+            transition: .2s color;
+
+            &:hover {
+                color: $c_green;
+            }
         }
     }
 }
