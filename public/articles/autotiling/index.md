@@ -37,7 +37,35 @@ if tile below
     ...
 ```
 
+Here's some pseudocode of how you might go about implementing autotiling. Lots of if-else checks will eventually do the trick, but it's big, messy, clunky, unreadable and hard to edit in the future. But the main reason I'm showing you a different solution, is because autotiling (at least 16-tile) can be expressed in a *beautiful* way.
+
 ## Bitwise math
+
+Bitwise/binary math/algebra, is the *mathematical field which deals with base-2 operations*. In other words, bitwise math is math on binary numbers. In normal "base-10" math, we use *operators* such as `+`, `-`, `*`, `/` and so on. These are called arithmetic operators. In binary algebra, we have bitwise operators (operators that work on bits). The most common operators are AND (`&`), OR (`|`), XOR (`^`) and NOT (`~`). You might be familiar with some *logical operators* called almost the same; AND (`&&`), OR (`||`), XOR (`^^`) and NOT (`!`). What all of the logical operators have in common, is that they only know about 1 and 0. They will treat all numbers around them as either 1 or 0, and they will produce either 1 or 0 (true or false). Bitwise math does the same, but on *every digit* of the number as binary. Let's see an example:
+
+```python
+0110 & 1100 = 0100
+0110 | 1100 = 1110
+0110 ^ 1100 = 1010
+~0110 = 1001
+```
+
+You can really think of bitwise operators as logical operators running on every *bit* of a number. When you write `3 & 6`, the compiler runs `&` on every individual bit in the *binary representation* of those two numbers. In this case, that'd be `0011 & 0110`. A number is represented in binary by adding together different values for the bits. The first bit (starting from the right) is only worth `1`, the 2nd bit is worth `2`. The 3rd, `4`, the 4th `8`, the 5th `16`, and it keeps doubling value for every bit higher you go to the left. If a bit is on (`1`), then you add the worth of that bit. If it's off (`0`), you skip it and go on to the next. The final number is the sum of all of the bits. The code block above can be written in base-10 as:
+
+```python
+6 & 12 = 4
+6 | 12 = 14
+6 ^ 12 = 10
+~6 = 9
+```
+> There also exists `&=`, `|=`, `^=` bitwise operators, that work similarly to `+=`, `-=`, `*=`, `/=`.
+
+Where this gets relevant for autotiling, is that you can essentially *encode* information in any number. We established above that autotiling is just a series of *binary* checks (true/false, 0/1), which means we don't need more than a single bit for every surrounding tile. If you're only checking four sides, you only need four bits.
+
+```gml
+var _index = 0;
+_index &=
+```
 
 ## Rest
 
