@@ -6,9 +6,7 @@ import '../styles/codeblock.scss';
 export default function CodeBlock(props) {
     if (props.inline) return (
         <pre className={`code lang-${props.language || 'auto'} inline`}>
-            <code>
-                {props.value}
-            </code>
+            <code>{props.value}</code>
         </pre>
     );
 
@@ -22,13 +20,22 @@ export default function CodeBlock(props) {
         block.classList.add('fixed');
     });
 
+    console.log(props.value.match(/\/\/\s*#hidecode[\s\S]*?#endhidecode/g));
+
+    const transJSToGML = props.value.includes('#lang=gml');
+    console.log("transJSToGML: ", transJSToGML);
+
     return (
         <SyntaxHighlighter
-            className={`code lang-${props.language || 'auto'} codeblock-full`}
-            language={props.language || null}
+            className={
+                `code lang-${(transJSToGML && 'gml') || props.language || 'auto'} codeblock-full` +
+                ((props.language === 'js' || transJSToGML) ? ' executable' : '')
+            }
+            language={(transJSToGML && 'gml') || props.language || null}
             style={styleOneDark}
+            sourceCode={props.value}
         >
-            {props.value}
+            {props.value.replace(/\/\/\s*#hidecode[\s\S]*?#endhidecode([^\n]*\n)?/g, '')}
         </SyntaxHighlighter>
     );
 }

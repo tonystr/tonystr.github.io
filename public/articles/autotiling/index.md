@@ -41,7 +41,7 @@ Here's some pseudocode of how you might go about implementing autotiling. Lots o
 
 ## Bitwise math
 
-Bitwise/binary math/algebra, is the *mathematical field which deals with base-2 operations*. In other words, bitwise math is math on binary numbers. In normal "base-10" math, we use *operators* such as `+`, `-`, `*`, `/` and so on. These are called arithmetic operators. In binary algebra, we have bitwise operators (operators that work on bits). The most common operators are AND (`&`), OR (`|`), XOR (`^`) and NOT (`~`). You might be familiar with some *logical operators* called almost the same; AND (`&&`), OR (`||`), XOR (`^^`) and NOT (`!`). What all of the logical operators have in common, is that they only know about 1 and 0. They will treat all numbers around them as either 1 or 0, and they will produce either 1 or 0 (true or false). Bitwise math does the same, but on *every digit* of the number as binary. Let's see an example:
+Bitwise/binary math/algebra, is the *mathematical field which deals with base-2 operations*. In other words, bitwise math is math on binary numbers. In normal "base-10" math, we use operators such as `+`, `-`, `*`, `/` and so on. These are called arithmetic operators. In binary algebra, we have bitwise operators (operators that work on bits). The most common operators are AND (`&`), OR (`|`), XOR (`^`) and NOT (`~`). You might be familiar with some *logical operators* that are almost the same; AND (`&&`), OR (`||`), XOR (`^^`) and NOT (`!`). What all of the logical operators have in common, is that they only know about 1 and 0. They will treat all numbers around them as either 1 or 0 (`-3` is read as `0`, `89` is read as 1, `0.521` is read as 1), and they will produce either 1 or 0 (true or false). Bitwise math does the same, but on *every digit* of the number *as binary*. Let's see an example:
 
 ```python
 0110 & 1100 = 0100
@@ -62,9 +62,28 @@ You can really think of bitwise operators as logical operators running on every 
 
 Where this gets relevant for autotiling, is that you can essentially *encode* information in any number. We established above that autotiling is just a series of *binary* checks (true/false, 0/1), which means we don't need more than a single bit for every surrounding tile. If you're only checking four sides, you only need four bits.
 
-```gml
+```js
+// #hidecode
+// #lang=gml
+const x = 0;
+const y = 0;
+
+function check_tile(x, y) {
+    return Math.round(Math.random());
+}
+
+function show_debug_message(...args) {
+    console.log(args.join('\n'));
+}
+// #endhidecode
 var _index = 0;
-_index &=
+
+_index |= check_tile(x + 1, y) * 1; // right
+_index |= check_tile(x, y - 1) * 2; // above
+_index |= check_tile(x - 1, y) * 4; // left
+_index |= check_tile(x, y + 1) * 8; // below
+
+show_debug_message(_index);
 ```
 
 ## Rest

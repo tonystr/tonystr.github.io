@@ -223,7 +223,7 @@ function ArticleContent(props) {
 
     useEffect(() => {
         setTimeout(() => Array.from(document.getElementsByClassName('codeblock-full')).forEach(cb => {
-                const canExecute = cb.classList.contains('lang-js');
+                const canExecute = cb.classList.contains('executable');
 
                 const elm = document.createElement('div');
                 elm.classList.add('codeblock-controls');
@@ -232,7 +232,7 @@ function ArticleContent(props) {
                 const spanCopy = document.createElement('span');
 
                 copyBox.setAttribute('class', 'copybox');
-                copyBox.value = cb.innerText;
+                copyBox.value = cb.getAttribute('sourceCode');
                 copyBox.readOnly = true;
                 elm.appendChild(copyBox);
 
