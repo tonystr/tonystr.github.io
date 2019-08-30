@@ -20,10 +20,7 @@ export default function CodeBlock(props) {
         block.classList.add('fixed');
     });
 
-    console.log(props.value.match(/\/\/\s*#hidecode[\s\S]*?#endhidecode/g));
-
     const transJSToGML = props.value.includes('#lang=gml');
-    console.log("transJSToGML: ", transJSToGML);
 
     return (
         <SyntaxHighlighter
