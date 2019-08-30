@@ -211,10 +211,19 @@ function createExecMenu(cb, copyBox) {
         runningCodeblock.output.clear();
         runningCodeblock.onChange = () => {
             andy.innerText = runningCodeblock.output.text.replace(/\n/g, '-NLN**:o');
-            divOut.innerHTML = andy.innerText.replace(
-                /(^|[^\\])('(?:[^'\\]|\\.)*')/g,
+            divOut.innerHTML = andy.innerText.replace( // strings
+                /(^|[^\\])((['"])(?:\\.|(?!\3).)*\3)/g,
                 '$1<span class="string">$2</span>'
-            ).replace(/-NLN\*\*:o/g, '<br>');
+            ).replace( // newlines
+                /-NLN\*\*:o/g,
+                '<br>'
+            ).replace( // booleans
+                /\b(true|false)\b/g,
+                '<span class="bool">$1</span>'
+            ).replace( // numbers
+                /\b(\d+)\b/g,
+                '<span class="number">$1</span>'
+            );
         }
 
         try {

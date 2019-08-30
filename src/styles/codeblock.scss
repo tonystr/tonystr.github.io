@@ -105,4 +105,12 @@ $font: 'Roboto Mono', 'Source Code Pro';
     .string {
         color: $c_green;
     }
+
+    .bool {
+        color: rgb(97, 174, 238);
+    }
+    
+    .number {
+        color: rgb(209, 154, 102);
+    }
 }
