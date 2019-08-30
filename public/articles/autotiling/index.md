@@ -60,9 +60,9 @@ You can really think of bitwise operators as logical operators running on every 
 ```
 > There also exists `&=`, `|=`, `^=` bitwise operators, that work similarly to `+=`, `-=`, `*=`, `/=`.
 
-Differentiating binary from base-10 when writing numbers is really important. Above, I've used the same symbols, `1` and `0`, in both base-10 and binary, even though those two symbols mean completely different things in the two counting systems. Even so, it's not that common to use different character sets for different counting systems. Counting systems usually use the symbols from `0` to `9`, then if they're longer than base-10, they borrow symbols from the alphabet. Base-16 (Hex/Hexadecimal) for example, uses all of these symbols: `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f`. This is pretty unfortunate, because if you just see the number `102` for example, you have no way of knowing if that's base-3, base-4, base-10, base-16, base-256 or even base-9001. That's why the base should *always* be specified, especially in programming. GML sadly doesn't allow writing numbers in base-2 (binary), but if it did, it would look like this: `0b1101`. `0b` denotes that the following is a number of base-2, the "b" is short for "binary". GML does however support  `0x1a5f`; hexadecimal. Until now, I've only showed binary numbers with four digits (bits), but that's only half of a *byte*. A byte can hold eight bits, which means the highest value a byte can hold is all eight bits added together, keeping in mind that each bit is worth twice as much as the previous. That's `1 + 2 + 4 + 8 + 16 + 32 + 64 + 128` = `255`. If you count the `0`, it can hold `256` different values.
+Differentiating binary from base-10 when writing numbers is really important. Above, I've used the same symbols, `1` and `0`, in both base-10 and binary, even though those two symbols mean completely different things in the two counting systems. Even so, it's not that common to use different character sets for different counting systems. Counting systems usually use the symbols from `0` to `9`, then if they're longer than base-10, they borrow symbols from the alphabet. Base-16 (Hex/Hexadecimal) for example, uses all of these symbols: `0, 1, 2, 3, 4, 5, 6, 7, 8, 9, a, b, c, d, e, f`. This is pretty unfortunate, because if you just see the number `102` for example, you have no way of knowing if that's base-3, base-4, base-10, base-16, base-256 or even base-11037. That's why the base should *always* be specified, especially in programming. GML sadly doesn't allow writing numbers in base-2 (binary), but if it did, it would look like this: `0b1101`. `0b` denotes that the following is a number of base-2, the "b" is short for "binary". GML does however support  `0x1a5f`; hexadecimal. Until now, I've only showed binary numbers with four digits (bits), but that's only half of a *byte*. A byte can hold eight bits, which means the highest value a byte can hold is all eight bits added together, keeping in mind that each bit is worth twice as much as the previous. That's `1 + 2 + 4 + 8 + 16 + 32 + 64 + 128` = `255`, or `2^8 - 1`. If you count the `0`, it can hold `256` different values, which is why `2^8` becomes 256 instead of 255.
 
-Where this gets relevant for autotiling, is that you can essentially *encode* information in any number. We established above that autotiling is just a series of *binary* checks (true/false, 0/1), which means we don't need more than a single bit for every surrounding tile. If you're only checking four sides, you only need four bits.
+Where this gets relevant for autotiling, is that you can essentially *encode* information in any number. We established above that autotiling is just a series of *binary* checks (true/false, 1/0), which means we don't need more than a single bit for every surrounding tile. If you're only checking four sides, you only need four bits.
 
 ```js
 // #hidecode
@@ -70,14 +70,15 @@ Where this gets relevant for autotiling, is that you can essentially *encode* in
 const x = 0;
 const y = 0;
 
-function check_tile(x, y) {
-    return Math.round(Math.random());
-}
+const check_tile = (x, y) => Math.round(Math.random());
+const show_debug_message = (...args) => console.log(args.join('\n'));
+const string = s => new String(s);
+const bool = a => a ? "true" : "false";
+const format_bits = n => `${n & 1} + ${n & 2} + ${n & 4} + ${n & 8}`;
 
-function show_debug_message(...args) {
-    console.log(args.join('\n'));
-}
 // #endhidecode
+// A different random grid is used every time you run this code,
+// hit the play button to the right multiple times, if you wish
 var _index = 0;
 
 _index |= check_tile(x + 1, y) * 1; // right
@@ -85,7 +86,16 @@ _index |= check_tile(x, y - 1) * 2; // above
 _index |= check_tile(x - 1, y) * 4; // left
 _index |= check_tile(x, y + 1) * 8; // below
 
-show_debug_message(_index);
+show_debug_message("Total bitflag value: " + string(_index));
+
+// Logs each `true` bit (1) as base-10
+show_debug_message("Bits: " + format_bits(_index));
+
+// Logs which sides found tiles
+show_debug_message("Tile right: " + bool(_index & 1));
+show_debug_message("Tile above: " + bool(_index & 2));
+show_debug_message("Tile left: "  + bool(_index & 4));
+show_debug_message("Tile below: " + bool(_index & 8));
 ```
 
 ## Rest
