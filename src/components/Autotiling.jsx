@@ -43,7 +43,11 @@ export default function Autotiling(props) {
     return (
         <div className='autotile-demo'>
             <table
-                className={'autotile squares grass' + (gridLines ? ' grid-lines' : '')}
+                className={
+                    'autotile squares grass' +
+                    (gridLines ? ' grid-lines' : '') +
+                    (drawMode !== null ? ' action ' + (drawMode ? 'erasing' : 'drawing') : '')
+                }
                 onMouseDown={e => startDrawing(e)}
             >
                 <tbody>
@@ -52,10 +56,11 @@ export default function Autotiling(props) {
                             {row.map((cell, x) => (
                                 <td
                                     key={x}
-                                    style={{
+                                    style={cell.solid ? {
                                         backgroundImage: `url(${sprite})`,
                                         backgroundPosition: (cell.bitflag) * tileSize + '%',
-                                        opacity: Number(cell.solid),
+                                        height: tdHeight
+                                    } : {
                                         height: tdHeight
                                     }}
                                     onClick={() => draw(x, y, 0)}
@@ -149,7 +154,6 @@ function draw47(x, y, mode, tiles, setTiles) {
         398: 14, 158: 14, 62: 14, 302: 14, 446: 14, 318: 14, 286: 14, 142: 14, 174: 14, 430: 14, 190: 14, 414: 14, 30: 14, 270: 14, 46: 14,
         295: 7, 423: 7, 311: 7, 439: 7, 407: 7, 391: 7, 263: 7, 39: 7, 167: 7, 183: 7, 23: 7, 135: 7, 55: 7, 279: 7, 151: 7,
         438: 33,
-        447: 15,
         432: 30,
         434: 40, 178: 40, 146: 40, 402: 40,
         442: 10, 314: 10, 426: 10, 410: 10, 186: 10, 282: 10, 170: 10, 394: 10, 138: 10, 42: 10, 154: 10, 298: 10, 58: 10, 26: 10, 266: 10,
@@ -161,7 +165,7 @@ function draw47(x, y, mode, tiles, setTiles) {
         435: 34, 403: 34, 179: 34, 147: 34, 307: 34, 275: 34, 51: 34, 19: 34,
         444: 32, 188: 32, 428: 32, 172: 32, 316: 32, 60: 32, 44: 32, 300: 32,
         441: 31, 425: 31, 313: 31, 297: 31, 409: 31, 393: 31, 281: 31, 265: 31,
-        431: 15, 319: 15, 303: 15, 175: 15, 63: 15, 47: 15, 415: 15, 399: 15, 191: 15, 271: 15, 159: 15, 143: 15, 31: 15,
+        287: 15, 447: 15, 431: 15, 319: 15, 303: 15, 175: 15, 63: 15, 47: 15, 415: 15, 399: 15, 191: 15, 271: 15, 159: 15, 143: 15, 31: 15,
         412: 12, 156: 12, 396: 12, 140: 12, 284: 12, 28: 12, 268: 12,
         185: 9, 169: 9, 57: 9, 41: 9, 153: 9, 137: 9, 25: 9,
         419: 3, 291: 3, 387: 3, 259: 3, 163: 3, 35: 3, 131: 3,
