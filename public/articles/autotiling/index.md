@@ -75,10 +75,18 @@ const show_debug_message = (...args) => console.log(args.join('\n'));
 const string = s => new String(s);
 const bool = a => a ? "true" : "false";
 const format_bits = n => `${n & 1} + ${n & 2} + ${n & 4} + ${n & 8}`;
+const debug_tile_bitflag = bitflag => (
+    "Total bitflag value: " + string(bitflag) + ` (0b${bitflag.toString(2)})` + "\n" +
+    "Bits: " + format_bits(bitflag) + "\n" +
+    "Tile right: " + bool(bitflag & 1) + "\n" +
+    "Tile above: " + bool(bitflag & 8) + "\n" +
+    "Tile left: "  + bool(bitflag & 2) + "\n" +
+    "Tile below: " + bool(bitflag & 4)
+);
 
 // #endhidecode
-// A different random grid is used every time you run this code,
-// hit the play button to the right multiple times, if you wish
+// A different random grid is used every time you run this code, hit
+// the play button multiple times to see how the bitflag value changes
 var _index = 0;
 
 _index |= check_tile(x + 1, y) * 1; // right
@@ -86,17 +94,12 @@ _index |= check_tile(x, y - 1) * 2; // above
 _index |= check_tile(x - 1, y) * 4; // left
 _index |= check_tile(x, y + 1) * 8; // below
 
-show_debug_message("Total bitflag value: " + string(_index));
-
-// Logs each `true` bit (1) as base-10
-show_debug_message("Bits: " + format_bits(_index));
-
-// Logs which sides found tiles
-show_debug_message("Tile right: " + bool(_index & 1));
-show_debug_message("Tile above: " + bool(_index & 2));
-show_debug_message("Tile left: "  + bool(_index & 4));
-show_debug_message("Tile below: " + bool(_index & 8));
+show_debug_message(debug_tile_bitflag(_index));
 ```
+
+## Arranging tileset
+
+Now that you can encode surrounding tile data in a *number*, let's  
 
 ## Rest
 

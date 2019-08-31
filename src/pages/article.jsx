@@ -221,7 +221,7 @@ function createExecMenu(cb, copyBox) {
                 /\b(true|false)\b/g,
                 '<span class="bool">$1</span>'
             ).replace( // numbers
-                /\b(\d+)\b/g,
+                /\b((?:0[xb])?\d+)\b/g,
                 '<span class="number">$1</span>'
             );
         }
