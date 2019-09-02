@@ -4,6 +4,7 @@
 Autotiling is software that automatically figures out which type of tile graphic belongs on each cell of a grid. This is super useful when creating level editors and games with modifiable terrain. For level editors, autotiling allows the user to select a *tilemap*, and then "draw" tiles on a level. The autotile software figures out which graphics belong on each cell you draw to, as you draw. Play around with the interactive autotiling demo below to get a feel for how one implementation works.
 
 ![
+    test='test'
     type='47'
     defaultTiles={`[
         [S:3,E:0,S:6,S:23,S:0,S:0,S:17,S:3,E:0,E:5,E:0,S:6,S:23,S:0,S:17,S:2],
@@ -99,7 +100,17 @@ show_debug_message(debug_tile_bitflag(_index));
 
 ## Arranging tileset
 
-Now that you can encode surrounding tile data in a *number*, let's  
+Now that you can encode surrounding tile data in a *number*, let'
+
+![
+    type='47'
+    defaultTiles={`[
+        [S:12, S:8,  S:9,  S:13],
+        [S:4,  S:0,  S:1,  S:5 ],
+        [S:6,  S:2,  S:3,  S:7 ],
+        [S:14, S:10, S:11, S:47]
+    ]`}
+](Autotiling.jsx)
 
 ## Rest
 

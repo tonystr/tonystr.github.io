@@ -239,9 +239,10 @@ function createExecMenu(cb, copyBox) {
 
 function ArticleContent(props) {
 
-    const [markdown, setMarkdown] = useState(null);
-    const [focus,    setFocus   ] = useState(null);
-    const [status,   setStatus  ] = useState('loading');
+    const [markdown,     setMarkdown    ] = useState(null);
+    const [focus,        setFocus       ] = useState(null);
+    const [status,       setStatus      ] = useState('loading');
+    const [articleWidth, setArticleWidth] = useState(0);
 
     useEffect(() => {
         requestRawText( // protocol://hostname:port/articles/name.md

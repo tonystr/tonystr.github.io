@@ -13,13 +13,19 @@ export default function Autotiling(props) {
     const sprite   = props.type === '16' ? grassT16 : grassT47;
     const tileSize = props.type === '16' ? (1 / 15) * 100 : (1 / 46) * 100;
 
-    const resize = () => setTdHeight(document.querySelector('.autotile.squares td').offsetWidth);
+    const resize = _ => {
+        const tdw = document.querySelector(`.autotile.squares.twidth-${tiles[0].length} td`).offsetWidth;
+        setTdHeight(tdw > 10 ? tdw : tdHeight);
+    }
 
     useEffect(() => {
-        resize();
+        if (tdHeight === 0) resize();
         document.querySelector('.autotile').addEventListener('contextmenu', e => e.preventDefault());
         window.addEventListener('resize', resize);
-        return () => window.removeEventListener('resize', resize);
+        return () => {
+            if (props.test) console.log('destroying autotile component');
+            window.removeEventListener('resize', resize);
+        }
     }, []);
 
     const preventEvent = e => e.preventDefault();
@@ -41,10 +47,16 @@ export default function Autotiling(props) {
         (x, y, d = drawMode) => draw47(x, y, d, tiles, setTiles);
 
     return (
-        <div className='autotile-demo'>
+        <div
+            className='autotile-demo'
+            style={{
+                height: tiles.length * tdHeight,
+                maxWidth: tiles[0].length * 6 + 'rem'
+            }}
+        >
             <table
                 className={
-                    'autotile squares grass' +
+                    `autotile squares grass twidth-${tiles[0].length}` +
                     (gridLines ? ' grid-lines' : '') +
                     (drawMode !== null ? ' action ' + (drawMode ? 'erasing' : 'drawing') : '')
                 }
@@ -147,6 +159,13 @@ function draw16(x, y, mode, tiles, setTiles) {
 }
 
 function draw47(x, y, mode, tiles, setTiles) {
+
+    if (x === undefined || y === undefined || tiles[y] === undefined) return;
+    if (x === 0 && y === 0 && tiles[y][x].solid) console.log(JSON.stringify(tiles)
+        .replace(/{\w*"solid":true/gi, 'S')
+        .replace(/{\w*"solid":false/gi, 'E')
+        .replace(/,"bitflag":(\d+)\w*}/gi, ':$1')
+    );
 
     const bitflagMap = {
         171: 11, 187: 11, 427: 11, 443: 11, 43: 11, 139: 11, 395: 11, 411: 11, 283: 11, 315: 11, 299: 11, 27: 11, 267: 11, 155: 11, 59: 11,
