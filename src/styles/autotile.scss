@@ -2,11 +2,15 @@
 
 .autotile-demo {
     position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
 
     .controls {
-        position: absolute;
-        right: -2.45rem;
+        margin-right: -2.45rem;
         width: 2.1rem;
+        height: calc(100% - 4px);
         top: 0;
         border: 2px solid $c_dark;
         border-bottom-right-radius: .4rem;
@@ -33,17 +37,19 @@
     width: 100%;
     border-collapse: collapse;
     table-layout: fixed;
+    -moz-user-select: -moz-none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 
-   -moz-user-select: -moz-none;
-   -khtml-user-select: none;
-   -webkit-user-select: none;
-   -ms-user-select: none;
-   user-select: none;
-   cursor: crosshair;
-
-   &.grid-lines {
-       border-collapse: separate;
-   }
+    &.editable {
+        cursor: crosshair;
+    }
+    
+    &.grid-lines {
+        border-collapse: separate;
+    }
 
     &.grass {
         background-color: rgba(#7a4a36, .5);
@@ -69,11 +75,11 @@
             transition: .04s opacity, .025s border;
             border-radius: .4rem;
         }
+    }
 
-        &:hover::after {
-            opacity: 1;
-            border-color: $c_blue;
-        }
+    &.editable td:hover::after {
+        opacity: 1;
+        border-color: $c_blue;
     }
 
     &.erasing td::after {

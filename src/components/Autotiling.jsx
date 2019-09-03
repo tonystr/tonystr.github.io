@@ -8,10 +8,12 @@ export default function Autotiling(props) {
     const [drawMode,  setDrawMode ] = useState(null);
     const [tiles,     setTiles    ] = useState(createDefaultTiles(props));
     const [tdHeight,  setTdHeight ] = useState(0);
-    const [gridLines, setGridLines] = useState(false);
+    const [gridLines, setGridLines] = useState(props.grid || false);
 
-    const sprite   = props.type === '16' ? grassT16 : grassT47;
-    const tileSize = props.type === '16' ? (1 / 15) * 100 : (1 / 46) * 100;
+    const editable = props.edit === undefined ? true : props.editable;
+    const pType    = props.type + '';
+    const sprite   = pType === '16' ? grassT16 : grassT47;
+    const tileSize = pType === '16' ? (1 / 15) * 100 : (1 / 46) * 100;
 
     const resize = _ => {
         const tdw = document.querySelector(`.autotile.squares.twidth-${tiles[0].length} td`).offsetWidth;
@@ -42,25 +44,24 @@ export default function Autotiling(props) {
         setDrawMode(null);
     }
 
-    const draw = props.type === '16' ?
+    const draw = pType === '16' ?
         (x, y, d = drawMode) => draw16(x, y, d, tiles, setTiles) :
         (x, y, d = drawMode) => draw47(x, y, d, tiles, setTiles);
 
     return (
-        <div
-            className='autotile-demo'
-            style={{
-                height: tiles.length * tdHeight,
-                maxWidth: tiles[0].length * 6 + 'rem'
-            }}
-        >
+        <div className='autotile-demo'>
             <table
                 className={
                     `autotile squares grass twidth-${tiles[0].length}` +
                     (gridLines ? ' grid-lines' : '') +
-                    (drawMode !== null ? ' action ' + (drawMode ? 'erasing' : 'drawing') : '')
+                    (drawMode !== null ? ' action ' + (drawMode ? 'erasing' : 'drawing') : '') +
+                    (editable ? ' editable' : '')
                 }
                 onMouseDown={e => startDrawing(e)}
+                style={{
+                    height: tiles.length * (tdHeight + gridLines * 2),
+                    maxWidth: tiles[0].length * (82 + gridLines * 2)
+                }}
             >
                 <tbody>
                     {tiles.map((row, y) => (
@@ -75,9 +76,9 @@ export default function Autotiling(props) {
                                     } : {
                                         height: tdHeight
                                     }}
-                                    onClick={() => draw(x, y, 0)}
-                                    onContextMenu={() => draw(x, y)}
-                                    onMouseMove={drawMode !== null ? () => draw(x, y) : null}
+                                    onClick={editable && (() => draw(x, y, 0))}
+                                    onContextMenu={editable && (() => draw(x, y))}
+                                    onMouseMove={editable && drawMode !== null && (() => draw(x, y))}
                                 />
                             ))}
                         </tr>

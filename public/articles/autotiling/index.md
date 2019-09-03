@@ -100,20 +100,23 @@ show_debug_message(debug_tile_bitflag(_index));
 
 ## Arranging tileset
 
-Now that you can encode surrounding tile data in a *number*, let'
+Now that you can encode surrounding tile data in a *number*, let's look at numbering the tile graphics. You could just start counting 0, 1, 2, ... from the top-left, however if we want to use the bitflag number from before, we'll have to arrange it in a special order. First, let's think of the autotiling looking for *empty* tiles rather than *solid* tiles. Also, let's start with right, then top, then left, then bottom, like a unit circle. So, `0b0001` that means tiles all around, except to the right. If that's the case, we wish to display a border to the right. Then, `0b0010` is tiles all around, expect above. `0b0100` is free only to the left, and finally `0b1000` is border down. However, there are lots moe combinations between these numbers. `2`, for example, is `0b0011`. That means there is no tile to the right, *or* above. In this case we want to display the rounded top-right tile. Later we get to `0b0111`, which is free everywhere except below. In this case, we'll want to display the rounded vertical line top. Mark them all, and you'll end up with this:  
 
 ![
-    type='47'
+    edit=false
+    grid=true
+    type=16
     defaultTiles={`[
         [S:12, S:8,  S:9,  S:13],
         [S:4,  S:0,  S:1,  S:5 ],
         [S:6,  S:2,  S:3,  S:7 ],
-        [S:14, S:10, S:11, S:47]
+        [S:14, S:10, S:11, S:16]
     ]`}
 ](Autotiling.jsx)
 
 ## Rest
 
+The most common forms of autotiling are 16-tile rectangle-grid autotiling, and 47-tile rectangle-grid autotiling. The former can be implemented in a very beautiful way (programming wise), while the latter is much harder to implement in a neat way. So what's the difference? The number refers to how many variations are needed for each tile. These variations are determined by where the tile touches other tiles similar to itself, and where it doesn't touch anything (or tiles of another tileset). Below is an interactive demo of 16-tile autotiling. Left-click to place tiles, right-click to remove tiles.
 The most common forms of autotiling are 16-tile rectangle-grid autotiling, and 47-tile rectangle-grid autotiling. The former can be implemented in a very beautiful way (programming wise), while the latter is much harder to implement in a neat way. So what's the difference? The number refers to how many variations are needed for each tile. These variations are determined by where the tile touches other tiles similar to itself, and where it doesn't touch anything (or tiles of another tileset). Below is an interactive demo of 16-tile autotiling. Left-click to place tiles, right-click to remove tiles.
 
 ![
@@ -129,15 +132,3 @@ The most common forms of autotiling are 16-tile rectangle-grid autotiling, and 4
 ](Autotiling.jsx)
 
 Notice that there are a good amount of rough corners here. If you design your tileset with these in mind, you can sometimes get good results, but with the grass-type palette used here, it looks pretty bad. We can fix it by introducing even more tiles. The total amount of tiles needed to make this work out smoothly ends up being 47. Below is an example of 47-tile autotiling.
-
-![
-    type='47'
-    defaultTiles={`[
-        [S:3,E:0,S:6,S:23,S:0,S:0,S:17,S:3,E:0,E:5,E:0,S:6,S:23,S:0,S:17,S:2],
-        [E:0,E:15,E:6,S:4,S:0,S:17,S:3,E:3,E:0,E:15,E:10,E:4,S:4,S:17,S:3,E:2],
-        [E:0,E:7,E:12,S:4,S:0,S:1,E:3,E:0,E:15,E:14,S:14,S:44,S:16,S:1,E:3,E:0],
-        [S:9,E:8,S:12,S:16,S:17,S:3,E:0,E:0,E:7,E:3,E:12,S:4,S:0,S:1,E:8,S:12],
-        [S:19,S:8,S:16,S:0,S:1,E:21,S:15,E:0,E:0,E:12,S:12,S:16,S:0,S:19,S:8,S:16],
-        [S:0,S:0,S:0,S:0,S:19,S:9,E:0,E:0,E:0,S:12,S:16,S:0,S:0,S:0,S:0,S:0]
-    ]`}
-](Autotiling.jsx)

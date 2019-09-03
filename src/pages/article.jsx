@@ -103,9 +103,16 @@ function ArticleMedia(props) {
             let str = props.alt.slice();
 
             while (str) {
-                const match = props.alt && str.match(/(\w+)={?([`'"])([^\2]*)\2/); // }?
+                const match = props.alt && str.match(
+                    /(\w+)={?(([`'"])[^\2]*\3|true|false|\d+\b)/
+                );
                 if (!match) break;
-                componentProps[match[1]] = match[3];
+                componentProps[match[1]] = /^[`'"]/.test(match[2]) ?
+                    match[2].slice(1, -1) : (
+                        /true|false/.test(match[2]) ?
+                            (match[2] === 'true' ? true : false) :
+                            parseInt(match[2])
+                    );
                 str = str.slice(match.index + match[0].length);
             }
 
