@@ -103,6 +103,7 @@ show_debug_message(debug_tile_bitflag(_index));
 Now that you can encode surrounding tile data in a *number*, let's look at numbering the tile graphics. You could just start counting 0, 1, 2, ... from the top-left, however if we want to use the bitflag number from before, we'll have to arrange it in a special order. First, let's think of the autotiling looking for *empty* tiles rather than *solid* tiles. Also, let's start with right, then top, then left, then bottom, like a unit circle. So, `0b0001` that means tiles all around, except to the right. If that's the case, we wish to display a border to the right. Then, `0b0010` is tiles all around, expect above. `0b0100` is free only to the left, and finally `0b1000` is border down. However, there are lots moe combinations between these numbers. `2`, for example, is `0b0011`. That means there is no tile to the right, *or* above. In this case we want to display the rounded top-right tile. Later we get to `0b0111`, which is free everywhere except below. In this case, we'll want to display the rounded vertical line top. Mark them all, and you'll end up with this:  
 
 ![
+    numbers=true
     edit=false
     grid=true
     type=16
@@ -113,6 +114,12 @@ Now that you can encode surrounding tile data in a *number*, let's look at numbe
         [S:14, S:10, S:11, S:16]
     ]`}
 ](Autotiling.jsx)
+
+Let's arrange them from lowest bitflag value to highest. Try to look for some patterns in how they line up, before you continue reading:
+
+![src='./images/grass-t16.png'](GrassTileStripImage.jsx)
+
+> This tileset is arranged "right, down, left, up" instead of "right, up, left, down" as I previously mentioned
 
 ## Rest
 

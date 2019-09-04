@@ -79,7 +79,9 @@ export default function Autotiling(props) {
                                     onClick={editable && (() => draw(x, y, 0))}
                                     onContextMenu={editable && (() => draw(x, y))}
                                     onMouseMove={editable && drawMode !== null && (() => draw(x, y))}
-                                />
+                                >
+                                    {cell.solid && props.numbers ? <span>{cell.bitflag}</span> : null}
+                                </td>
                             ))}
                         </tr>
                     ))}

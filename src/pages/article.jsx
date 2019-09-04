@@ -14,7 +14,8 @@ import '../styles/article.scss';
 const WindowCenter = lazy(() => import('../components/WindowCenter.jsx'));
 const components = {
     ASCIITable: lazy(() => import('../components/ASCIITable.jsx')),
-    Autotiling: lazy(() => import('../components/Autotiling.jsx'))
+    Autotiling: lazy(() => import('../components/Autotiling.jsx')),
+    GrassTileStripImage: lazy(() => import('../components/GrassTileStripImage.jsx'))
 }
 
 const runningCodeblock = {
@@ -71,7 +72,7 @@ function ArticleMedia(props) {
     const src = props.src.startsWith('./') ?
         `${
             (document.location.pathname.match(/\//g) || ['/']).join('..').slice(1)
-        }articles/${props.pageName}${props.src.slice(1)}` :
+        }articles/${props.article.name.toLowerCase()}${props.src.slice(1)}` :
         props.src;
 
     let alt = props.alt || '';
@@ -99,7 +100,9 @@ function ArticleMedia(props) {
         render: props => {
             const Component = components[props.src.slice(0, -4)] || (() => <div>Failed to Load React Component</div>);
 
-            let componentProps = {};
+            let componentProps = {
+                _article: props.article
+            };
             let str = props.alt.slice();
 
             while (str) {
@@ -334,7 +337,7 @@ function ArticleContent(props) {
                                     ArticleTitle(ps),
                                 image: ps => (<ArticleMedia
                                     {...ps}
-                                    pageName={props.article.name.toLowerCase()}
+                                    article={props.article}
                                     setFocus={setFocus}
                                 />),
                                 paragraph: ps => <div className='p'>{ps.children}</div>

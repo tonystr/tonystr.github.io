@@ -46,7 +46,7 @@
     &.editable {
         cursor: crosshair;
     }
-    
+
     &.grid-lines {
         border-collapse: separate;
     }
@@ -64,6 +64,16 @@
         background-size: cover;
         position: relative;
         max-width: 1rem;
+
+        span {
+            font-size: 1.6rem;
+            position: absolute;
+            text-align: center;
+            @include absolute-fill(0);
+            top: calc(50% - .8rem);
+            color: #ffffff;
+            text-shadow: 0 1px 7px #000000;
+        }
 
         &::after {
             content: '';
