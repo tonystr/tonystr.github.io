@@ -100,7 +100,7 @@ show_debug_message(debug_tile_bitflag(_index));
 
 ## Arranging tileset
 
-Now that you can encode surrounding tile data in a *number*, let's look at numbering the tile graphics. You could just start counting 0, 1, 2, ... from the top-left, however if we want to use the bitflag number from before, we'll have to arrange it in a special order. First, let's think of the autotiling looking for *empty* tiles rather than *solid* tiles. Also, let's start with right, then top, then left, then bottom, like a unit circle. So, `0b0001` that means tiles all around, except to the right. If that's the case, we wish to display a border to the right. Then, `0b0010` is tiles all around, expect above. `0b0100` is free only to the left, and finally `0b1000` is border down. However, there are lots moe combinations between these numbers. `2`, for example, is `0b0011`. That means there is no tile to the right, *or* above. In this case we want to display the rounded top-right tile. Later we get to `0b0111`, which is free everywhere except below. In this case, we'll want to display the rounded vertical line top. Mark them all, and you'll end up with this:  
+Now that you can encode surrounding tile data in a *number*, let's look at numbering the tile graphics. You could just start counting 0, 1, 2, ... from the top-left, however if we want to use the bitflag number from before, we'll have to arrange it in a specific order. First, let's think of the autotiling as looking for *empty* tiles rather than *solid* tiles. Also, let's start with right, then top, then left, then bottom, like a unit circle. So, `0b0001` that means tiles all around, except to the right. If that's the case, we wish to display a border to the right. Then, `0b0010` is tiles all around, expect above. `0b0100` is free only to the left, and finally `0b1000` is border down. However, there are lots more combinations between these numbers. `2`, for example, is `0b0011`. That means there is no tile to the right, *nor* above. In this case we want to display the rounded top-right tile. Later we get to `0b0111`, which is free everywhere except below. In this case, we'll want to display the rounded vertical line top. Mark them all, and you'll end up with this:  
 
 ![
     numbers=true
@@ -111,7 +111,7 @@ Now that you can encode surrounding tile data in a *number*, let's look at numbe
         [S:12, S:8,  S:9,  S:13],
         [S:4,  S:0,  S:1,  S:5 ],
         [S:6,  S:2,  S:3,  S:7 ],
-        [S:14, S:10, S:11, S:16]
+        [S:14, S:10, S:11, E:16]
     ]`}
 ](Autotiling.jsx)
 
@@ -119,7 +119,11 @@ Let's arrange them from lowest bitflag value to highest. Try to look for some pa
 
 ![src='./images/grass-t16.png'](GrassTileStripImage.jsx)
 
-> This tileset is arranged "right, down, left, up" instead of "right, up, left, down" as I previously mentioned
+> This tileset is arranged "*right* **➡**, *down* **⬇**, *left* **⬅**, *up* ⬆" instead of "*right* **➡**, *up* ⬆, *left* **⬅**, *down* **⬇**" as I previously mentioned. It doesn't really matter too much which order you do these four directions in, as long as you pick one and stay consistent.
+
+Notice how every other tile has a border to the right. And how every two tiles have a border below, followed by two without, then another two with. From tile 4 to 7 this also happens with border to the left, then it stops for four tiles, then the left border reappears for the last four tiles. The top border doesn't appear before tile 8, but it continues all the way to tile 15. At tile 15, these all line up, and we end up with a tile which has borders to the right, below, left and above. It ends up being a circle! A lone salad island of grass...
+
+Anyway, do you see what I mean? How cool isn't it that each of the *bits* end up aligning so smoothly? Here I drew an image to further express how cool it is:
 
 ## Rest
 
