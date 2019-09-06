@@ -112,6 +112,16 @@
         text-align: center;
         margin: 2rem auto;
 
+        &.pixelart {
+            margin: 0;
+            width: 100% !important;
+
+            img {
+                width: 100%;
+                box-shadow: none;
+            }
+        }
+
         em {
             display: block;
             text-align: left;

@@ -55,7 +55,7 @@ function ImageSection(props) {
     const [style, setStyle] = useState(null);
 
     return (
-        <section className='image' style={style}>
+        <section className={'image' + (props.isPixelart ? ' pixelart' : '')} style={style}>
             <img
                 src={props.src}
                 alt=''
@@ -76,8 +76,10 @@ function ArticleMedia(props) {
         props.src;
 
     let alt = props.alt || '';
-    const thumbnail = alt.match(/!thumbnail\(([^)]+)\)/);
+    const thumbnail = alt.match(/^!thumbnail\(([^)]+)\)/);
     if (thumbnail) alt = alt.replace(thumbnail[0], '');
+    const isPixelart = alt.match(/^!pixelart\b/);
+    if (isPixelart) alt = alt.replace(isPixelart[0], '');
 
     const renderers = [{
         matches: ['mp4', 'webm', 'ogg'],
@@ -129,7 +131,7 @@ function ArticleMedia(props) {
         }
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
-        render: props => <ImageSection src={src} alt={alt} />
+        render: props => <ImageSection src={src} alt={alt} isPixelart={isPixelart} />
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));

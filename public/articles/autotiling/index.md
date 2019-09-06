@@ -115,7 +115,7 @@ Now that you can encode surrounding tile data in a *number*, let's look at numbe
     ]`}
 ](Autotiling.jsx)
 
-Let's arrange them from lowest bitflag value to highest. Try to look for some patterns in how they line up, before you continue reading:
+Let's arrange them from lowest bitflag value to highest. Try to look for some patterns in how they line up.
 
 ![src='./images/grass-t16.png'](GrassTileStripImage.jsx)
 
@@ -123,7 +123,9 @@ Let's arrange them from lowest bitflag value to highest. Try to look for some pa
 
 Notice how every other tile has a border to the right. And how every two tiles have a border below, followed by two without, then another two with. From tile 4 to 7 this also happens with border to the left, then it stops for four tiles, then the left border reappears for the last four tiles. The top border doesn't appear before tile 8, but it continues all the way to tile 15. At tile 15, these all line up, and we end up with a tile which has borders to the right, below, left and above. It ends up being a circle! A lone salad island of grass...
 
-Anyway, do you see what I mean? How cool isn't it that each of the *bits* end up aligning so smoothly? Here I drew an image to further express how cool it is:
+Look how neatly the bits line up!
+
+![!pixelart](./images/tiling_bits.png)
 
 ## Rest
 
