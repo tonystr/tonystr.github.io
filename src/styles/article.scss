@@ -108,9 +108,24 @@
         transform: translateY(25%);
     }
 
+    .noshadow img {
+        box-shadow: none;
+    }
+
     .image {
         text-align: center;
         margin: 2rem auto;
+        position: relative;
+
+        .controls {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 2px 5px;
+            background-color: rgba(0, 0, 0, .5);
+            box-shadow: 0 0 4px 1px rgba(0, 0, 0, .5);
+            border-bottom-left-radius: .2rem;
+        }
 
         &.pixelart {
             margin: 0;
@@ -118,7 +133,6 @@
 
             img {
                 width: 100%;
-                box-shadow: none;
             }
         }
 

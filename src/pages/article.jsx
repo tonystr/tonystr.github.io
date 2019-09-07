@@ -55,12 +55,17 @@ function ImageSection(props) {
     const [style, setStyle] = useState(null);
 
     return (
-        <section className={'image' + (props.isPixelart ? ' pixelart' : '')} style={style}>
+        <section className={'image ' + (props.className || '')} style={style}>
             <img
                 src={props.src}
                 alt=''
                 onLoad={e => setStyle({ width: e.target.width })}
             />
+            {props.isDownload && (
+                <div className='controls'>
+                    <i className='fas fa-download' />
+                </div>
+            )}
             {props.alt && <em>{props.alt}</em>}
         </section>
     )
@@ -76,10 +81,14 @@ function ArticleMedia(props) {
         props.src;
 
     let alt = props.alt || '';
-    const thumbnail = alt.match(/^!thumbnail\(([^)]+)\)/);
-    if (thumbnail) alt = alt.replace(thumbnail[0], '');
-    const isPixelart = alt.match(/^!pixelart\b/);
+    const thumbnail     = alt.match(/!thumbnail\(([^)]+)\)/i);
+    if (thumbnail)  alt = alt.replace(thumbnail[0], '');
+    const isPixelart    = alt.match(/!pixelart\b/i);
     if (isPixelart) alt = alt.replace(isPixelart[0], '');
+    const isDownload    = alt.match(/!download\b/i);
+    if (isDownload) alt = alt.replace(isDownload[0], '');
+    const noShadow      = alt.match(/!noshadow\b/i);
+    if (noShadow)   alt = alt.replace(noShadow[0], '');
 
     const renderers = [{
         matches: ['mp4', 'webm', 'ogg'],
@@ -102,9 +111,7 @@ function ArticleMedia(props) {
         render: props => {
             const Component = components[props.src.slice(0, -4)] || (() => <div>Failed to Load React Component</div>);
 
-            let componentProps = {
-                _article: props.article
-            };
+            let componentProps = { _article: props.article };
             let str = props.alt.slice();
 
             while (str) {
@@ -121,8 +128,6 @@ function ArticleMedia(props) {
                 str = str.slice(match.index + match[0].length);
             }
 
-            console.log(componentProps);
-
             return (
                 <Suspense fallback={<div>Loading React Component...</div>}>
                     <Component {...componentProps} />
@@ -131,7 +136,18 @@ function ArticleMedia(props) {
         }
     },{
         matches: ['jpg', 'png', 'jpeg', ''],
-        render: props => <ImageSection src={src} alt={alt} isPixelart={isPixelart} />
+        render: () => (
+            <ImageSection
+                src={src}
+                alt={alt}
+                isPixelart={isPixelart}
+                isDownload={isDownload}
+                className={
+                    (noShadow ? 'noshadow' : '') +
+                    (isPixelart ? ' pixelart': '')
+                }
+            />
+        )
     }];
 
     const renderer = renderers.find(renderer => renderer.matches.find(match => match === type));
