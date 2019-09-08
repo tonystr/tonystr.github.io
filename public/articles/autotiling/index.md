@@ -132,3 +132,28 @@ Look how neatly the bits line up!
 Let's start with implementing 16-tile autotiling in Gamemaker Studio 2. We'll do 47-tile later, but that's harder, and will become easier after having implemented 16-tile. Firstly, download this tilestrip or make your own:
 
 ![!pixelart!download](./images/grass-t16.png)
+
+Create a new GMS2 project, drag the image in, and save the sprite as `spr_tileset_grass`. Then, click `Edit Image`, and look for `Image` > `Convert To Frames` from the toolbar at the top of the IDE:
+
+![](./images/gms2_ide_image_convert_to_frames.png)
+
+Since this is a 16-tile tileset, the *Number of Frames* should be `16`, and so should *Frames per Row* be, since they're all lined up in a single row. In this tileset, each tile is 32x32 pixels large, so both *Frame Width* and *Frame Height* should be `32`. There is no separation or offset, so the rest of the values can be left at `0`.
+
+![](./images/gms2_ide_sprite_to_frames.png)
+
+Once you're done, hit *Convert*. The sprite will be transformed into a 32x32 pixel sprite with 16 frames, each of which is another tile from the tileset. This has the benefit of letting us simply draw the sprite with `subimg` set to the bitflag value accumulated from autotiling. Now, with the tileset imported, we'll need to store *tile data* (where to draw tiles) somewhere. For this, we'll use a *ds_grid*. A ds_grid is essentially a 2d array, except it's a bit easier to work with. If you still don't get what it is, think of a spreadsheet, like excel. It's a grid of cells which can hold any data you wish. We'll be using the cells to hold tile data. When there is no tile, we'll set the cell to `-1`, but when there is a cell, we'll store the bitflag value in the cell. That means a tile cell can be any (whole) number from 0 to 15. When we perform autotiling, we'll simply check if surrounding tiles are *less than* `0` (< 0). If it is less than 0, that means there isn't any tile there. If it is larger than or equal to 0, on the other hand, that means there is a tile there.
+
+```gml
+/// Create event of `obj_world`
+
+// Width and height of each tile
+cell_size = 32;
+
+// Crete a grid that is the same size as the room, but 32 times smaller.
+grid_width  = room_width  div cell_size;
+grid_height = room_height div cell_size;
+grid = ds_grid_create(grid_width, grid_height);
+
+// Fill the grid with empty cells
+ds_grid_clear(grid, -1);
+```  

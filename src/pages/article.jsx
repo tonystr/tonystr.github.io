@@ -63,7 +63,9 @@ function ImageSection(props) {
             />
             {props.isDownload && (
                 <div className='controls'>
-                    <i className='fas fa-download' />
+                    <a href={props.src} download target='_blank' rel='noopener noreferrer'>
+                        <i className='fas fa-download' />
+                    </a>
                 </div>
             )}
             {props.alt && <em>{props.alt}</em>}
