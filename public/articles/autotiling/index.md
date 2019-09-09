@@ -149,11 +149,52 @@ Once you're done, hit *Convert*. The sprite will be transformed into a 32x32 pix
 // Width and height of each tile
 cell_size = 32;
 
-// Crete a grid that is the same size as the room, but 32 times smaller.
+// Create a grid that is the same size as the room, but 32 times smaller.
 grid_width  = room_width  div cell_size;
 grid_height = room_height div cell_size;
 grid = ds_grid_create(grid_width, grid_height);
 
 // Fill the grid with empty cells
 ds_grid_clear(grid, -1);
-```  
+```
+
+Let's also set some temporary tile data for testing. This should become a 3x3 tiles square once we implement drawing:
+
+```gml
+// Placeholder 3x3 tiles data
+grid[# 2, 2] = 12;
+grid[# 2, 3] = 4;
+grid[# 2, 4] = 6;
+grid[# 3, 2] = 8;
+grid[# 3, 3] = 0;
+grid[# 3, 4] = 2;
+grid[# 4, 2] = 9;
+grid[# 4, 3] = 1;
+grid[# 4, 4] = 3;
+```
+
+Now, let's implement drawing. In a normal draw event, we'll loop through all the cells of the grid. For each cell value, if it's larger than or equal to 0, we'll draw `spr_tileset_grass` with the cell value as subimage. Since the cells only either draw or don't, the `continue` statement can be used. It simply skips all code below it, and continues to the next iteration of the loop. The coordinates to draw each tile at is `loop_x * cell_size` and `loop_y * cell_size`.
+
+```gml
+for (var _y = 0; _y < grid_height; _y++) {
+	for (var _x = 0; _x < grid_width; _x++) {
+
+		var _bitflag = grid[# _x, _y];
+        // Skip empty tiles
+		if (_bitflag < 0) continue;
+
+        draw_sprite(
+			spr_tileset_grass,
+			_bitflag,
+			_x * cell_size,
+			_y * cell_size
+		);
+	}
+}
+```
+
+![The test tiledata gets drawn!](./images/tiled3x3.png)
+
+If you don't see the testing tiles in-game now, maybe the object isn't in the room? Maybe it's behind a layer? Maybe you're looking in the wrong place? Maybe the something's wrong with the sprite?
+
+Assuming it now works, let's 

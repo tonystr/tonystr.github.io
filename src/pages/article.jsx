@@ -288,7 +288,7 @@ function ArticleContent(props) {
                 // const words = res.match(/\w+/g);
                 // console.log("word count: " + words.length);
 
-                const sectLines = res.match(/(?:^|[^\\])#+\s+[^\n\r]+/g);
+                const sectLines = res.match(/(?:^|\s)#+\s+[^\n\r]+/g);
                 let sects = [];
                 sectLines.forEach((s, i) => {
                     const text = s.match(/#+\s+([^\n]+)$/)[1];
