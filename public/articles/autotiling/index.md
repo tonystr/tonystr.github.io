@@ -129,7 +129,7 @@ Look how neatly the bits line up!
 
 ## 16-tile in GMS2
 
-Let's start with implementing 16-tile autotiling in Gamemaker Studio 2. We'll do 47-tile later, but that's harder, and will become easier after having implemented 16-tile. Firstly, download this tilestrip or make your own:
+Let's start with implementing 16-tile autotiling in Gamemaker Studio 2. We'll do 47-tile later, but that's harder and will become easier after having implemented 16-tile. Firstly, download this tilestrip or make your own:
 
 ![!pixelart!download](./images/grass-t16.png)
 
@@ -197,4 +197,34 @@ for (var _y = 0; _y < grid_height; _y++) {
 
 If you don't see the testing tiles in-game now, maybe the object isn't in the room? Maybe it's behind a layer? Maybe you're looking in the wrong place? Maybe the something's wrong with the sprite?
 
-Assuming it now works, let's 
+Assuming it now works, let's proceed with the actual autotiling. Firstly, a script for autotiling a single grid cell based on surrounding cells:
+
+```gml
+/// @func grid_tile_cell(grid, x, y)
+/// @desc Tiles a cell based on surrounding cells
+/// @arg grid
+/// @arg x
+/// @arg y
+/// @returns bitflag or -1 if not solid
+
+var _grid = argument0;
+var _x	  = argument1;
+var _y    = argument2;
+
+// Return early if cell is not solid
+if (_grid[# _x, _y] < 0) return -1;
+
+var _mx = ds_grid_width( _grid) - 1; // Max grid x value
+var _my = ds_grid_height(_grid) - 1; // Max grid y value
+
+var _bitflag = 0;
+
+if (_x >   0) _bitflag |= (_grid[# _x + 1, _y] < 0) * 1;
+if (_y >   0) _bitflag |= (_grid[# _x, _y + 1] < 0) * 2;
+if (_x < _mx) _bitflag |= (_grid[# _x - 1, _y] < 0) * 4;
+if (_y < _my) _bitflag |= (_grid[# _x, _y - 1] < 0) * 8;
+
+_grid[# _x, _y] = _bitflag;
+
+return _bitflag;
+```
