@@ -219,12 +219,16 @@ var _my = ds_grid_height(_grid) - 1; // Max grid y value
 
 var _bitflag = 0;
 
-if (_x >   0) _bitflag |= (_grid[# _x + 1, _y] < 0) * 1;
-if (_y >   0) _bitflag |= (_grid[# _x, _y + 1] < 0) * 2;
-if (_x < _mx) _bitflag |= (_grid[# _x - 1, _y] < 0) * 4;
-if (_y < _my) _bitflag |= (_grid[# _x, _y - 1] < 0) * 8;
+if (_x < _mx) _bitflag |= (_grid[# _x + 1, _y] < 0) * 1;
+if (_y < _my) _bitflag |= (_grid[# _x, _y + 1] < 0) * 2;
+if (_x >   0) _bitflag |= (_grid[# _x - 1, _y] < 0) * 4;
+if (_y >   0) _bitflag |= (_grid[# _x, _y - 1] < 0) * 8;
 
 _grid[# _x, _y] = _bitflag;
 
 return _bitflag;
 ```
+
+This script first checks if the cell at the given `x`, `y` coordinates is solid (any positive value), and exits early if it isn't. Then it gets the *max* value for x and y on the grid. This is important so that it doesn't check cells OOB (Out Of Bounds). When reading OOB in a ds_grid in GML, you'll get `undefined` and a warning message in the output panel. Sometimes this could be nice, however when you build an executable from the project, ds_grid OOB reading will cause the game to error. Therefore, it's important to make sure you don't read OOB. So, below, when we check the surrounding tiles, we start with an `if` check that makes sure the coordinate is within bounds. We assume that `x` and `y` passed into the script are within bounds. When we wish to check for a tile to the right, `[# _x + 1, _y]`, we simply need to make sure `_x < _mx`. If `x` is `_mx`, then `x + 1` will be out of bounds. If `x` is `0`, then `x - 1` will be out of bounds.
+
+After making sure grid checks will be within bounds, we want to check the cells, and add values onto `_bitflag`. Here it is perfectly possible to simply *add* (+) values as long as none of the values are the same, and the values only have one *on* bit. However, since this looks confusing, it's better use bitwise *or*. `x |= y` will set `x = x | y`. The values we want to add are `0b0001`, `0b0010`, `0b0100` and `0b1000`, which, in base-10 is: `1`, `2`, `4` and `8`. Because we wish to either add a value, or not add a value, for each surrounding cell, we can simply multiply the value by a boolean (true/falase, 1/0), and add it to `_bitflag`. `_bitflag |= true * 4` will add `4` to `_bitflag`, but `_bitflag |= false * 4` will add `0` to `_bitflag`, leaving it unchanged. If you're uncomfortable using [weak typing](https://en.wikipedia.org/wiki/Duck_typing) like this, you could instead use a ternary: `_bitflag |= boolean ? 4 : 0`, or even add the check to the if statement before it.
