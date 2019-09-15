@@ -141,7 +141,7 @@ Since this is a 16-tile tileset, the *Number of Frames* should be `16`, and so s
 
 ![](./images/gms2_ide_sprite_to_frames.png)
 
-Once you're done, hit *Convert*. The sprite will be transformed into a 32x32 pixel sprite with 16 frames, each of which is another tile from the tileset. This has the benefit of letting us simply draw the sprite with `subimg` set to the bitflag value accumulated from autotiling. Now, with the tileset imported, we'll need to store *tile data* (where to draw tiles) somewhere. For this, we'll use a *ds_grid*. A ds_grid is essentially a 2d array, except it's a bit easier to work with. If you still don't get what it is, think of a spreadsheet, like excel. It's a grid of cells which can hold any data you wish. We'll be using the cells to hold tile data. When there is no tile, we'll set the cell to `-1`, but when there is a cell, we'll store the bitflag value in the cell. That means a tile cell can be any (whole) number from 0 to 15. When we perform autotiling, we'll simply check if surrounding tiles are *less than* `0` (< 0). If it is less than 0, that means there isn't any tile there. If it is larger than or equal to 0, on the other hand, that means there is a tile there.
+Once you're done, hit *Convert*. The sprite will be transformed into a 32x32 pixel sprite with 16 frames, each of which is another tile from the tileset. This has the benefit of letting us simply draw the sprite with `subimg` set to the bitflag value accumulated from autotiling. Now, with the tileset imported, we'll need to store *tile data* (where to draw tiles) somewhere. For this, we'll use a *ds_grid*. A ds_grid is essentially a 2d array, except it's a bit easier to work with. If you still don't get what it is, think of a spreadsheet, like excel. It's a grid of cells which can hold any data you wish. We'll be using the cells to hold tile data. When there is no tile, we'll set the cell to `undefined`, but when there is a cell, we'll store the bitflag value in that cell. That means a tile cell can be any (whole) number from 0 to 15. When we perform autotiling, we'll simply check if surrounding tiles are *undefined*. If it is undefined, that means there isn't any tile there. If it is a number, on the other hand, that means there is a tile there.
 
 ```gml
 /// Create event of `obj_world`
@@ -155,7 +155,7 @@ grid_height = room_height div cell_size;
 grid = ds_grid_create(grid_width, grid_height);
 
 // Fill the grid with empty cells
-ds_grid_clear(grid, -1);
+ds_grid_clear(grid, undefined);
 ```
 
 Let's also set some temporary tile data for testing. This should become a 3x3 tiles square once we implement drawing:
@@ -197,7 +197,7 @@ for (var _y = 0; _y < grid_height; _y++) {
 
 If you don't see the testing tiles in-game now, maybe the object isn't in the room? Maybe it's behind a layer? Maybe you're looking in the wrong place? Maybe the something's wrong with the sprite?
 
-Assuming it now works, let's proceed with the actual autotiling. Firstly, a script for autotiling a single grid cell based on surrounding cells:
+Assuming it now works, let's proceed with the actual autotiling. Firstly, let's write a script for autotiling a single grid cell based on surrounding cells. The script is explained in great detail below.
 
 ```gml
 /// @func grid_tile_cell(grid, x, y)
@@ -205,30 +205,61 @@ Assuming it now works, let's proceed with the actual autotiling. Firstly, a scri
 /// @arg grid
 /// @arg x
 /// @arg y
-/// @returns bitflag or -1 if not solid
+/// @returns bitflag or undefined if not solid
 
 var _grid = argument0;
 var _x	  = argument1;
 var _y    = argument2;
 
 // Return early if cell is not solid
-if (_grid[# _x, _y] < 0) return -1;
+if (_grid[# _x, _y] == undefined) return undefined;
 
 var _mx = ds_grid_width( _grid) - 1; // Max grid x value
 var _my = ds_grid_height(_grid) - 1; // Max grid y value
 
 var _bitflag = 0;
 
-if (_x < _mx) _bitflag |= (_grid[# _x + 1, _y] < 0) * 1;
-if (_y < _my) _bitflag |= (_grid[# _x, _y + 1] < 0) * 2;
-if (_x >   0) _bitflag |= (_grid[# _x - 1, _y] < 0) * 4;
-if (_y >   0) _bitflag |= (_grid[# _x, _y - 1] < 0) * 8;
+if (_x < _mx) _bitflag |= (_grid[# _x + 1, _y] == undefined) * 1;
+if (_y < _my) _bitflag |= (_grid[# _x, _y + 1] == undefined) * 2;
+if (_x >   0) _bitflag |= (_grid[# _x - 1, _y] == undefined) * 4;
+if (_y >   0) _bitflag |= (_grid[# _x, _y - 1] == undefined) * 8;
 
 _grid[# _x, _y] = _bitflag;
 
 return _bitflag;
 ```
 
-This script first checks if the cell at the given `x`, `y` coordinates is solid (any positive value), and exits early if it isn't. Then it gets the *max* value for x and y on the grid. This is important so that it doesn't check cells OOB (Out Of Bounds). When reading OOB in a ds_grid in GML, you'll get `undefined` and a warning message in the output panel. Sometimes this could be nice, however when you build an executable from the project, ds_grid OOB reading will cause the game to error. Therefore, it's important to make sure you don't read OOB. So, below, when we check the surrounding tiles, we start with an `if` check that makes sure the coordinate is within bounds. We assume that `x` and `y` passed into the script are within bounds. When we wish to check for a tile to the right, `[# _x + 1, _y]`, we simply need to make sure `_x < _mx`. If `x` is `_mx`, then `x + 1` will be out of bounds. If `x` is `0`, then `x - 1` will be out of bounds.
+This script first checks if the cell at the given `_x, _y` coordinate is solid (any positive value), and exits early if it isn't. Then it gets the *max* value for x and y on the grid. This is important so that it doesn't check cells OOB (Out Of Bounds). When reading OOB of a ds_grid in GML, you'll get `undefined`, and a warning message in the output panel. Sometimes this could be nice, however when you build an executable from the project, ds_grid OOB reading will cause the game to *crash*. Therefore, it's important to make sure you don't read OOB. So, below, when we check the surrounding tiles, we start with an `if` check that makes sure the adjacent coordinate to check is within bounds. We assume that `_x, _y` is within bounds. When we wish to check for a tile to the right, `_x + 1, _y`, we simply need to make sure `_x < _mx`. If `x` is `_mx`, then `x + 1` will be out of bounds. If `x` is `0`, then `x - 1` will be out of bounds.
 
-After making sure grid checks will be within bounds, we want to check the cells, and add values onto `_bitflag`. Here it's perfectly possible to simply *add* (+) values as long as none of the values are the same and the values only have one *on* bit. However, since this looks confusing, it's better to use bitwise *OR*. `x |= y` will set `x = x | y`. The values we want to add are `0b0001`, `0b0010`, `0b0100` and `0b1000`, which, in base-10 is: `1`, `2`, `4` and `8`. Because we wish to either OR a value or *not* OR a value for each surrounding cell, we can simply multiply the value by a boolean (true/falase, 1/0), and OR it to `_bitflag`. `_bitflag |= true * 4` will OR `4` to `_bitflag`, but `_bitflag |= false * 4` will OR `0` to `_bitflag`, leaving it unchanged. If you're uncomfortable using [weak typing](https://en.wikipedia.org/wiki/Duck_typing) for this, you could instead use a ternary (`_bitflag |= boolean ? 4 : 0`), or even add the check to the if statement before it.
+After making sure grid checks will be within bounds, we want to check the cells, and add values onto `_bitflag`. Here it's perfectly possible to simply *add* (+) values as long as none of the values are the same and the values only have one *on* bit. However, since this is a bit misleading, it's better to use bitwise *OR*. `x |= y` will set `x = x | y`. This also makes it so that if you were to OR the same value into a variable again, it won't break the bitflag (`x |= 4; x |= 4` is not the same as `x += 4; x += 4`). The values we want to OR are `0b0001`, `0b0010`, `0b0100` and `0b1000`, which in base-10 is: `1`, `2`, `4` and `8`. Because we wish to either OR a value or *not* OR a value for each surrounding cell, we can simply multiply the value by a boolean (true/falase, 1/0), and OR it to `_bitflag`. `_bitflag |= true * 4` will OR `4` to `_bitflag`, but `_bitflag |= false * 4` will OR `0` to `_bitflag`, leaving it unchanged. If you're uncomfortable using [weak typing](https://en.wikipedia.org/wiki/Duck_typing) for this, you could instead use a ternary (`_bitflag |= boolean ? 4 : 0`), or even add the check to the if statement before it.
+
+The boolean we multiply with will be the result of a [relational expression](https://en.wikipedia.org/wiki/Relational_operator), often just called a *condition*. This can for example be `x > y`, `x == y`, `x <= y`, where the operator between `x` and `y` is called a *relational operator*. Normally you see these in [conditional statements](https://en.wikipedia.org/wiki/Conditional_(computer_programming)) like `if (x == y)`, but they can be used anywhere in code, just like `x * 8` or `z - y`. Relational expressions evaluate to booleans, so `v = x == y` will set `v` to either true or false, depending on whether or not `x` is equal to `y` or not. Since we want to add bits to the bitflag if an adjacent tile is *not* solid, and because cells with a value of `0` or above are considered solid, we can simply check if the cell value is less than 0.
+
+Finally, the accumulated bitflag value replaces the cell value, and is returned from the script. Of course, this only tiles a single cell, so a bit more work needs to be done. When, in the game, you place a new tile (or remove a tile), the surrounding tiles need to be updated too. You could just loop through the entire grid and tile every single cell, but that's pretty slow. There are times when this is a valid option (when loading a grid, for example), but it can be avoided when placing/removing tiles, since only a few tiles need to be updated. Let's write some code in a step event for placing, removing and tiling cells:
+
+```gml
+// Placing/removing tiles at mouse coordinate
+if (mouse_check_button(mb_left) || mouse_check_button(mb_right)) {
+
+	var _grid_mouse_x = mouse_x div cell_size;
+	var _grid_mouse_y = mouse_y div cell_size;
+
+	if ( // Check if coordinate in grid bounds
+		_grid_mouse_x >= 0 &&
+		_grid_mouse_y >= 0 &&
+		_grid_mouse_x < grid_width &&
+		_grid_mouse_y < grid_height
+	) {
+		if (mouse_check_button(mb_left )) grid[# _grid_mouse_x, _grid_mouse_y] = 0;
+		if (mouse_check_button(mb_right)) grid[# _grid_mouse_x, _grid_mouse_y] = undefined;
+
+        grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y	 ); // x At mouse  
+		grid_tile_cell(grid, _grid_mouse_x + 1,	_grid_mouse_y	 ); // → Right     
+		grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y + 1); // ↓ Down      
+		grid_tile_cell(grid, _grid_mouse_x - 1,	_grid_mouse_y	 ); // ← Left      
+		grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y - 1); // ↑ Up
+	}
+}
+```
+
+This simply gets the mouse coordinate relative to the grid, checks if it's within grid bounds, then sets the cell to either `0` (solid) or `undefined` (void). The Cell is tiled afterwards, but it has to be set before surrounding cells are tiled. This can be optimized a bit more by also checking if the cell already is solid/removed.
