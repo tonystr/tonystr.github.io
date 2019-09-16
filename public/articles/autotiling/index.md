@@ -262,4 +262,33 @@ if (mouse_check_button(mb_left) || mouse_check_button(mb_right)) {
 }
 ```
 
-This simply gets the mouse coordinate relative to the grid, checks if it's within grid bounds, then sets the cell to either `0` (solid) or `undefined` (void). The Cell is tiled afterwards, but it has to be set before surrounding cells are tiled. This can be optimized a bit more by also checking if the cell already is solid/removed.
+This simply gets the mouse coordinate relative to the grid, checks if it's within grid bounds, then sets the cell to either `0` (solid) or `undefined` (void). The Cell is tiled afterwards, but it has to be set before surrounding cells are tiled. This can be optimized a bit more by also checking if the cell already is solid/removed before tiling.
+
+```gml
+// Placing/removing tiles at mouse coordinate
+/*add*/var _mb = mouse_check_button(mb_left) | mouse_check_button(mb_right) * 2;
+/*add*/if (_mb > 0) {
+
+	var _grid_mouse_x = mouse_x div cell_size;
+	var _grid_mouse_y = mouse_y div cell_size;
+
+	if ( // Check if coordinate in grid bounds
+		_grid_mouse_x >= 0 &&
+		_grid_mouse_y >= 0 &&
+		_grid_mouse_x < grid_width &&
+/*add*/		_grid_mouse_y < grid_height && (
+/*add*/            _mb == 1 && grid[# _grid_mouse_x, _grid_mouse_y] == undefined ||
+/*add*/            _mb == 2 && grid[# _grid_mouse_x, _grid_mouse_y] != undefined
+/*add*/        )
+	) {
+/*add*/        grid[# _grid_mouse_x, _grid_mouse_y] = _mb == 1 ? 0 : undefined;
+
+        grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y	 ); // x At mouse  
+		grid_tile_cell(grid, _grid_mouse_x + 1,	_grid_mouse_y	 ); // → Right     
+		grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y + 1); // ↓ Down      
+		grid_tile_cell(grid, _grid_mouse_x - 1,	_grid_mouse_y	 ); // ← Left      
+		grid_tile_cell(grid, _grid_mouse_x,		_grid_mouse_y - 1); // ↑ Up
+	}
+}
+```
+> Changed duplicate mouse checks to using bitflag `_mb` (\_mouse_button) and check if cell needs to be changed
