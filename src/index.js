@@ -18,6 +18,7 @@ const Dracula      = lazy(() => import('./pages/dracula.jsx'));
 const Articles     = lazy(() => import('./pages/articles.jsx'));
 const Snippets     = lazy(() => import('./pages/snippets.jsx'));
 const Paint        = lazy(() => import('./pages/paint.jsx'));
+const Minesweeper  = lazy(() => import('./pages/minesweeper.jsx'));
 
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
@@ -37,6 +38,7 @@ function ValidatePage(props) {
         );
         case 'paint': return <Paint />;
         case 'dracula': return <Dracula />;
+        case 'minesweeper': return <Minesweeper />;
         default: return article ?
             <ValidateArticle loc={location} article={article} /> :
             <WindowCenter> 404! Could not find any page or article by the name "{location}" </WindowCenter>;

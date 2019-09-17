@@ -1,0 +1,40 @@
+@import 'global';
+
+.minesweeper {
+    .game-grid {
+        table-layout: fixed;
+        border-collapse: collapse;
+        margin: 0 auto;
+        margin-top: 2rem;
+
+        td {
+            $csize: 1.5rem;
+            width: $csize;
+            height: $csize;
+            background-color: $c_dark;
+            border: 4px solid $c_gray;
+            border-radius: 4px;
+            position: relative;
+            cursor: pointer;
+
+            &.hidden {
+                background-color: lighten($c_gray, 10%);
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                @include absolute-fill(-3px);
+                border: 3px solid transparent;
+                transition: .08s border-color;
+                border-radius: 4px;
+                z-index: 4;
+            }
+
+            &:hover::after {
+                border-color: $c_lightgreen;
+                z-index: 6;
+            }
+        }
+    }
+}
