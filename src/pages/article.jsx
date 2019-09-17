@@ -208,7 +208,7 @@ function TableOfContents(props) {
     const hidden = cur && cur.level === 1 ? 'hidden' : '';
 
     return (
-        <aside id='table-of-contents' className={hidden}>
+        <aside id='table-of-contents' className={(props.className ? `${props.className} ` : '') + hidden}>
             <ul>{renderlis()}</ul>
             <textarea id='copybox' value='test' readOnly={true} />
         </aside>
@@ -270,7 +270,6 @@ function createExecMenu(cb, copyBox) {
 function ArticleContent(props) {
 
     const [markdown,     setMarkdown    ] = useState(null);
-    const [focus,        setFocus       ] = useState(null);
     const [status,       setStatus      ] = useState('loading');
     const [articleWidth, setArticleWidth] = useState(0);
 
@@ -337,8 +336,7 @@ function ArticleContent(props) {
     switch (status) {
         case 'markdown_found': return (
             <>
-                {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
-                <div className={focus ? 'blur' : ''}>
+                <div className={props.focus ? 'blur' : ''}>
                     <Header />
                     <StandardPage>
                         <Markdown
@@ -358,7 +356,7 @@ function ArticleContent(props) {
                                 image: ps => (<ArticleMedia
                                     {...ps}
                                     article={props.article}
-                                    setFocus={setFocus}
+                                    setFocus={props.setFocus}
                                 />),
                                 paragraph: ps => <div className='p'>{ps.children}</div>
                             }}
@@ -384,6 +382,7 @@ export default function Article(props) {
     const [showTOC,     setShowTOC    ] = useState(true);
     const [sections,    setSections   ] = useState(null);
     const [currentTOC,  setCurrentTOC ] = useState('');
+    const [focus,       setFocus      ] = useState(null);
 
     const handleScroll = e => {
         const sectionTitles = document.getElementsByClassName('section-title');
@@ -417,14 +416,18 @@ export default function Article(props) {
             <ArticleContent
                 setSections={setSections}
                 article={props.article}
+                setFocus={setFocus}
+                focus={focus}
             />
             {showTOC && (<div>
                 <TableOfContents
                     style={{ 'height': '100vh' }}
                     contents={sections}
                     current={currentTOC}
+                    className={focus ? 'blur' : ''}
                 />
             </div>)}
+            {focus && <Focus video={focus} dismount={() => setFocus(null)} />}
         </>
     );
 }

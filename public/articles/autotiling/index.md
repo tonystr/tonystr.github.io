@@ -292,3 +292,11 @@ This simply gets the mouse coordinate relative to the grid, checks if it's withi
 }
 ```
 > Changed duplicate mouse checks to using bitflag `_mb` (\_mouse_button) and check if cell needs to be changed
+
+![&nbsp;](./videos/at47_implemented.mp4)
+
+Everything should now be in order for 16-tile autotiling!
+
+## 47-tile autotiling
+
+So lets look at a more advanced solution. You've seen that the 16-tile solution has a bunch of odd corners with the tileset used in this article. To solve this, you'd want to also check diagonal cells.
