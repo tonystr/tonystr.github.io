@@ -2,15 +2,27 @@ import React, { useState } from 'react';
 import '../styles/minesweeper.scss';
 
 export default function Minesweeper() {
+    const defCell = {
+        hidden: true,
+        flag: false
+    };
     const [grid, setGrid] = useState(Array.from(
         { length: 21 },
         () => Array.from(
             { length: 46 },
-            () => ({ hidden: true })
+            () => ({ ...defCell })
         )
     ));
 
-    // { ...c, hidden: !c.hidden }
+    const handleCellClick = (e, rx, ry) => setGrid(prev => prev.map((r, y) => r.map((c, x) => {
+        if (x === rx && y === ry) {
+            console.log(e.button);
+            return e.button === 0 ?
+                { ...c, flag: !c.flag } :
+                { ...c, hidden: !c.hidden };
+        }
+        return c;
+    })));
 
     return (
         <div className='minesweeper'>
@@ -21,10 +33,10 @@ export default function Minesweeper() {
                             <td
                                 key={rx}
                                 className={cell.hidden ? 'hidden' : ''}
-                                onClick={() => setGrid(prev => prev.map((r, y) => r.map((c, x) => (
-                                    x === rx && y === ry ? { ...c, hidden: !c.hidden } : c
-                                ))))}
-                            />
+                                onClick={e => handleCellClick(e, rx, ry)}
+                            >
+                                {cell.flag && <i className='far fa-flag' />}
+                            </td>
                         ))}
                     </tr>
                 ))}
