@@ -51,6 +51,21 @@ const runningCodeblock = {
     }
 }
 
+function renderAlt(alt) {
+    const out = [];
+    let altStr = alt;
+    const pattern = /\[([^\]]*?)\]\(([^)]*?)\)/;
+    let match = alt.match(pattern);
+    while (match !== null) {
+        out.push(altStr.slice(0, match.index));
+        out.push(<A to={match[2]}>{match[1]}</A>);
+        altStr = altStr.slice(match.index + match[0].length);
+        match = altStr.match(pattern);
+    }
+    out.push(altStr);
+    return out;
+}
+
 function ImageSection(props) {
     const [style, setStyle] = useState(null);
 
@@ -68,7 +83,7 @@ function ImageSection(props) {
                     </a>
                 </div>
             )}
-            {props.alt && <em>{props.alt}</em>}
+            {props.alt && <em>{renderAlt(props.alt)}</em>}
         </section>
     )
 }
@@ -94,20 +109,23 @@ function ArticleMedia(props) {
 
     const renderers = [{
         matches: ['mp4', 'webm', 'ogg'],
-        render: props => (
-            <section className='video'>
-                <video
-                    onClick={() => props.setFocus(src)}
-                    onMouseOver={e => e.target.play()}
-                    onMouseOut={e => e.target.pause()}
-                    poster={thumbnail ? thumbnail[1] : ''}
-                    loop
-                >
-                    <source src={src} type={'video/' + type} />
-                </video>
-                {alt && <em>{alt}</em>}
-            </section>
-        )
+        render: props => {
+
+            return (
+                <section className='video'>
+                    <video
+                        onClick={() => props.setFocus(src)}
+                        onMouseOver={e => e.target.play()}
+                        onMouseOut={e => e.target.pause()}
+                        poster={thumbnail ? thumbnail[1] : ''}
+                        loop
+                    >
+                        <source src={src} type={'video/' + type} />
+                    </video>
+                    {props.alt && <em>{renderAlt(props.alt)}</em>}
+                </section>
+            );
+        }
     },{
         matches: ['jsx'],
         render: props => {

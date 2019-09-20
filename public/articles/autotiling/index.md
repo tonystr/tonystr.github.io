@@ -293,7 +293,8 @@ This simply gets the mouse coordinate relative to the grid, checks if it's withi
 ```
 > Changed duplicate mouse checks to using bitflag `_mb` (\_mouse_button) and check if cell needs to be changed
 
-![&nbsp;](./videos/at47_implemented.mp4)
+![&nbsp;](./videos/at16_arpash.mp4)
+![An actual decent-looking 16-tile tileset: [Caves Of Gallet](https://adamatomic.itch.io/caves-of-gallet)](./videos/at16_reveen.mp4)
 
 Everything should now be in order for 16-tile autotiling!
 
