@@ -2,17 +2,27 @@ import React, { useState, useEffect } from 'react';
 import '../styles/autotile.scss';
 import grassT16 from '../images/grass-t16.png';
 import grassT47 from '../images/grass-t47.png';
-import { ReactComponent as GridIcon } from '../images/border-all-solid.svg';
+import cogT16   from '../images/cog-t16.png';
+import { ReactComponent as GridIcon   } from '../images/border-all-solid.svg';
+import { ReactComponent as ImagesIcon } from '../images/images-solid.svg';
+
+const t16 = [grassT16, cogT16];
 
 export default function Autotiling(props) {
+    const pType = props.type + '';
     const [drawMode,  setDrawMode ] = useState(null);
     const [tiles,     setTiles    ] = useState(createDefaultTiles(props));
     const [tdHeight,  setTdHeight ] = useState(0);
     const [gridLines, setGridLines] = useState(props.grid || false);
+    const [tileset,   setTileset  ] = useState(pType === '16' ? grassT16 : grassT47);
+
+    const iterateTileset = () => {
+        const tss = pType === '16' ? t16 : null;
+        if (tss !== null) setTileset(prev => tss[(tss.findIndex(ts => ts === prev) + 1) % tss.length]);
+    };
 
     const editable = props.edit === undefined ? true : props.editable;
-    const pType    = props.type + '';
-    const sprite   = pType === '16' ? grassT16 : grassT47;
+    const sprite   = tileset;
     const tileSize = pType === '16' ? (1 / 15) * 100 : (1 / 46) * 100;
 
     const resize = _ => {
@@ -90,9 +100,14 @@ export default function Autotiling(props) {
             <div className='controls'>
                 <GridIcon
                     className='btn grid'
-                    style={{ width: '1rem' }}
+                    style={{ width: '1rem'}}
                     onClick={() => setGridLines(!gridLines)}
                 />
+                {pType === '16' && <ImagesIcon
+                    className='btn tilesets'
+                    style={{ width: '1rem', marginTop: '.6rem' }}
+                    onClick={iterateTileset}
+                />}
             </div>
         </div>
     );

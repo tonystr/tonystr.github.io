@@ -4,7 +4,6 @@
 Autotiling is a type of software that automatically figures out which tile graphics belong on each cell of a grid. This is super useful when creating level editors and games with modifiable terrain. For level editors, autotiling allows the user to select a *tilemap*, and then "draw" tiles on a level. The autotile software figures out which graphics belong on each cell you draw to, while you're drawing. Play around with the interactive autotiling demo below to get a feel for how one implementation works.
 
 ![
-    test='test'
     type='47'
     defaultTiles={`[
         [S:3,E:0,S:6,S:23,S:0,S:0,S:17,S:3,E:0,E:5,E:0,S:6,S:23,S:0,S:17,S:2],
@@ -17,6 +16,20 @@ Autotiling is a type of software that automatically figures out which tile graph
 ](Autotiling.jsx)
 
 Some exemplary games that use autotiling are [Terraria](http://terraria.org/), [Super Mario Maker 2](https://www.mariowiki.com/Super_Mario_Maker_2), [Spelunky](https://spelunkyworld.com/), [Stardew Valley](https://www.stardewvalley.net/), [Factorio](https://www.factorio.com/), [Rimworld](https://rimworldgame.com/), [Oxygen Not Included](https://store.steampowered.com/app/457140/Oxygen_Not_Included/), and many more.
+
+The two most common implementations of autotiling are *16-tile autotiling* and *47-tile autotiling*. 16-tile is easier to implement, and requires less work for the artist who draws the tileset, but 47-tile usually looks better. This article covers both implementations. Here's a demo of 16-tile autotiling, try switching tilesets from the control menu on the right, to see which it works best with.
+
+![
+    type=16
+    defaultTiles={`[
+        [S:3,E:0,S:6,S:0,S:0,S:0,S:0,S:3,E:0,E:0,E:0,S:6,S:0,S:0,S:0,S:2],
+        [E:0,E:0,E:0,S:4,S:0,S:0,S:3,E:0,E:0,E:0,E:0,E:0,S:4,S:0,S:3,E:0],
+        [E:0,E:0,E:0,S:4,S:0,S:1,E:0,E:0,E:0,E:0,S:14,S:8,S:0,S:1,E:0,E:0],
+        [S:9,E:0,S:12,S:0,S:0,S:3,E:0,E:0,E:0,E:0,E:0,S:4,S:0,S:1,E:0,S:12],
+        [S:0,S:8,S:0,S:0,S:1,E:0,S:15,E:0,E:0,E:0,S:12,S:0,S:0,S:0,S:8,S:0],
+        [S:0,S:0,S:0,S:0,S:0,S:9,E:0,E:0,E:0,S:12,S:0,S:0,S:0,S:0,S:0,S:0]
+    ]`}
+](Autotiling.jsx)
 
 ## How tiling works
 
