@@ -37,14 +37,16 @@ function gridGenerate(width, height) {
 }
 
 export default function Minesweeper() {
-    const [grid, setGrid] = useState(gridGenerate(46, 21));
+    const width  = 46;
+    const height = 21;
+    const [grid, setGrid] = useState(gridGenerate(width, height));
 
     const handleCellClick = (e, rx, ry) => setGrid(prev => prev.map((r, y) => r.map((c, x) => {
         if (x === rx && y === ry) {
-            console.log(e.button);
-            return e.button === 2 ?
-                { ...c, flag: !c.flag } :
-                { ...c, hidden: !c.hidden };
+            // TODO:
+            if (x > 0) return e.button === 2 ?
+                { ...obj, flag: !c.flag } :
+                { ...obj, hidden: !c.hidden };
         }
         return c;
     })));
