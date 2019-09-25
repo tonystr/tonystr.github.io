@@ -44,28 +44,18 @@ export default function Minesweeper() {
     const [grid, setGrid] = useState(gridGenerate(width, height));
     const [lost, setLost] = useState(false);
 
-    const touchCell = (mutGrid, rx, ry, button, rw = width, rh = height) => {
-        //console.log("unraveling cell", mutGrid[ry][rx].value);
-        // if (button === 2) mutGrid[ry][rx].flag   = !mutGrid[ry][rx].flag;
-        // if (button !== 2) mutGrid[ry][rx].hidden = !mutGrid[ry][rx].hidden;
-        mutGrid[ry][rx].hidden = false; //!mutGrid[ry][rx].hidden;
-        if (mutGrid[ry][rx].value < 1) {
-            for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
-                for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
-                    if (x === rx && y === ry || mutGrid[y] === undefined) continue;
-                    if (mutGrid[y][x].hidden) {
-                        touchCell(mutGrid, x, y, button, rw, rh);
-                    }
+    const touchCell = (mutGrid, rx, ry, rw = width, rh = height) => {
+        mutGrid[ry][rx].hidden = false;
+        if (mutGrid[ry][rx].value >= 1) return;
+
+        for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
+            for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
+                if (x === rx && y === ry || mutGrid[y] === undefined) continue;
+                if (mutGrid[y][x].hidden) {
+                    touchCell(mutGrid, x, y, rw, rh);
                 }
             }
         }
-    };
-
-    const handleCellClick = (button, rx, ry) => {
-        if (grid[ry][rx].value === 72) return setLost(true);
-        const mutGrid = JSON.parse(JSON.stringify(grid));
-        touchCell(mutGrid, rx, ry, button);
-        setGrid(mutGrid);
     };
 
     return (
@@ -77,7 +67,15 @@ export default function Minesweeper() {
                             <td
                                 key={rx}
                                 className={cell.hidden ? 'hidden' : ''}
-                                onClick={e => handleCellClick(e.button, rx, ry)}
+                                onClick={() => {
+                                    if (grid[ry][rx].value === 72) return setLost(true);
+                                    const mutGrid = JSON.parse(JSON.stringify(grid));
+                                    touchCell(mutGrid, rx, ry);
+                                    setGrid(mutGrid);
+                                }}
+                                onContextMenu={() => {
+
+                                }}
                             >
                                 {(!cell.hidden || lost) && (cell.value === 72 ? '💣' : cell.value !== 0 && cell.value)}
                                 {cell.flag && <i className='far fa-flag' />}
