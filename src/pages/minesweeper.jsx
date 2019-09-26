@@ -73,7 +73,7 @@ export default function Minesweeper() {
                     className={
                         (cell.hidden ? 'hidden' : '') +
                         (!cell.hidden && cellVal[cell.value] === undefined ? ` c-${cell.value}` : '') +
-                        (lost && cell.flag && cell.value === 9 ? ' flag-wrong' : '')
+                        (lost && cell.flag && cell.value !== 9 ? ' flag-wrong' : '')
                     }
                     onClick={() => {
                         if (grid[ry][rx].flag) return;
