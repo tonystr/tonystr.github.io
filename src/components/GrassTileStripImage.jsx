@@ -12,7 +12,7 @@ export default function GrassTileStripImage(props) {
     return (
         <section className='grasstilestripimage'>
             <div className='number'>{numbers.map(n => <span>{n}</span>)}</div>
-            <img src={src} />
+            <img src={src} alt='' />
             <div className='number binary'>{numbers.map(n => <span>{n.toString(2)}</span>)}</div>
         </section>
     );

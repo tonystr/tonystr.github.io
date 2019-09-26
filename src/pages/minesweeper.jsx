@@ -5,7 +5,7 @@ function gridFindValue(grid, rx, ry, rw, rh) {
     let val = 0;
     for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
         for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
-            if (x === rx && y === ry || grid[y] === undefined) continue;
+            if ((x === rx && y === ry) || grid[y] === undefined) continue;
             if (grid[y][x].value === 72) val++;
         }
     }
@@ -50,7 +50,7 @@ export default function Minesweeper() {
 
         for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
             for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
-                if (x === rx && y === ry || mutGrid[y] === undefined) continue;
+                if ((x === rx && y === ry) || mutGrid[y] === undefined) continue;
                 if (mutGrid[y][x].hidden) {
                     touchCell(mutGrid, x, y, rw, rh);
                 }
