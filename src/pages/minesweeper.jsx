@@ -6,7 +6,7 @@ function gridFindValue(grid, rx, ry, rw, rh) {
     for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
         for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
             if ((x === rx && y === ry) || grid[y] === undefined) continue;
-            if (grid[y][x].value === 72) val++;
+            if (grid[y][x].value === 9) val++;
         }
     }
     return val;
@@ -23,7 +23,7 @@ function gridGenerate(width, height) {
         { length: height }, () => Array.from(
             { length: width }, () => ({
                 ...defCell,
-                value: Math.random() < .2 ? 72 : 0
+                value: Math.random() < .2 ? 9 : 0
             })
         )
     );
@@ -42,6 +42,7 @@ export default function Minesweeper() {
     const [grid, setGrid] = useState(gridGenerate(width, height));
     const [lost, setLost] = useState(false);
     const gameRef = React.useRef();
+    const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
 
     useEffect(() => {
         gameRef.current.addEventListener('contextmenu', e => e.preventDefault() && false);
@@ -69,10 +70,20 @@ export default function Minesweeper() {
             {row.map((cell, rx) => (
                 <td
                     key={rx}
-                    className={cell.hidden ? 'hidden' : ''}
+                    className={
+                        (cell.hidden ? 'hidden' : '') +
+                        (!cell.hidden && cellVal[cell.value] === undefined ? ` c-${cell.value}` : '') +
+                        (lost && cell.flag && cell.value === 9 ? ' flag-wrong' : '')
+                    }
                     onClick={() => {
                         if (grid[ry][rx].flag) return;
-                        if (grid[ry][rx].value === 72) return setLost(true);
+                        if (grid[ry][rx].value === 9) {
+                            const mutGrid = JSON.parse(JSON.stringify(grid));
+                            mutGrid[ry][rx].value++;
+                            setGrid(mutGrid);
+                            setLost(true);
+                            return;
+                        }
                         const mutGrid = JSON.parse(JSON.stringify(grid));
                         touchCell(mutGrid, rx, ry);
                         setGrid(mutGrid);
@@ -85,8 +96,8 @@ export default function Minesweeper() {
                         return false;
                     }}
                 >
-                    {(!cell.hidden || lost) && (cell.value === 72 ? '💣' : cell.value !== 0 && cell.value)}
-                    {cell.flag && <i className='far fa-flag' />}
+                    {(cell.flag && <i className='far fa-flag' />) ||
+                    ((!cell.hidden || lost) && (cellVal[cell.value] || cell.value))}
                 </td>
             ))}
         </tr>
