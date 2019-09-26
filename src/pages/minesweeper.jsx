@@ -64,37 +64,39 @@ export default function Minesweeper() {
         });
     };
 
+    const tableContent = grid.map((row, ry) => (
+        <tr key={ry}>
+            {row.map((cell, rx) => (
+                <td
+                    key={rx}
+                    className={cell.hidden ? 'hidden' : ''}
+                    onClick={() => {
+                        if (grid[ry][rx].flag) return;
+                        if (grid[ry][rx].value === 72) return setLost(true);
+                        const mutGrid = JSON.parse(JSON.stringify(grid));
+                        touchCell(mutGrid, rx, ry);
+                        setGrid(mutGrid);
+                    }}
+                    onContextMenu={() => {
+                        if (!grid[ry][rx].hidden) return;
+                        const mutGrid = JSON.parse(JSON.stringify(grid));
+                        mutGrid[ry][rx].flag = !mutGrid[ry][rx].flag;
+                        setGrid(mutGrid);
+                        return false;
+                    }}
+                >
+                    {(!cell.hidden || lost) && (cell.value === 72 ? '💣' : cell.value !== 0 && cell.value)}
+                    {cell.flag && <i className='far fa-flag' />}
+                </td>
+            ))}
+        </tr>
+    ));
+
     return (
         <div className={'minesweeper' + (lost ? ' lost' : '')} ref={gameRef}>
             <table className='game-grid'>
                 <tbody>
-                    {grid.map((row, ry) => (
-                        <tr key={ry}>
-                            {row.map((cell, rx) => (
-                                <td
-                                    key={rx}
-                                    className={cell.hidden ? 'hidden' : ''}
-                                    onClick={() => {
-                                        if (grid[ry][rx].flag) return;
-                                        if (grid[ry][rx].value === 72) return setLost(true);
-                                        const mutGrid = JSON.parse(JSON.stringify(grid));
-                                        touchCell(mutGrid, rx, ry);
-                                        setGrid(mutGrid);
-                                    }}
-                                    onContextMenu={() => {
-                                        if (!grid[ry][rx].hidden) return;
-                                        const mutGrid = JSON.parse(JSON.stringify(grid));
-                                        mutGrid[ry][rx].flag = !mutGrid[ry][rx].flag;
-                                        setGrid(mutGrid);
-                                        return false;
-                                    }}
-                                >
-                                    {(!cell.hidden || lost) && (cell.value === 72 ? '💣' : cell.value !== 0 && cell.value)}
-                                    {cell.flag && <i className='far fa-flag' />}
-                                </td>
-                            ))}
-                        </tr>
-                    ))}
+                    {tableContent}
                 </tbody>
             </table>
         </div>
