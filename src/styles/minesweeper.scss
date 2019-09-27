@@ -15,7 +15,6 @@
             border: 4px solid $c_gray;
             border-radius: 4px;
             position: relative;
-            cursor: pointer;
             text-align: center;
 
             $cols: (
@@ -24,21 +23,18 @@
                 $c_red,
                 $c_purple,
                 $c_blue,
-                $c_gold,
-                $c_orange,
-                $c_red,
-                $c_purple,
-                $c_blue
+                $c_green
             );
 
-            @for $i from 1 through 9 {
+            @for $i from 1 through 5 {
                 &.c-#{$i} {
-                    color: nth($cols, $i); 
+                    color: nth($cols, $i);
                 }
             }
 
             &.hidden {
                 background-color: lighten($c_gray, 10%);
+                cursor: pointer;
             }
 
             &.flag-wrong {
@@ -48,15 +44,16 @@
             &::after {
                 content: '';
                 position: absolute;
-                @include absolute-fill(-3px);
+                @include absolute-fill(-4px);
                 border: 3px solid transparent;
                 transition: .08s border-color;
-                border-radius: 4px;
+                border-radius: 6px;
                 z-index: 4;
+                opacity: .8;
             }
 
-            &:hover::after {
-                border-color: $c_lightgreen;
+            &.hidden:hover::after {
+                border-color: $c_txt;
                 z-index: 6;
             }
         }

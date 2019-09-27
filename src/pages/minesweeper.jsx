@@ -45,7 +45,9 @@ export default function Minesweeper() {
     const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
 
     useEffect(() => {
-        gameRef.current.addEventListener('contextmenu', e => e.preventDefault() && false);
+        const ev = e => e.preventDefault() && false;
+        gameRef.current.addEventListener('contextmenu', ev);
+        return () => gameRef.current.removeEventListener('contextmenu', ev);
     });
 
     const aroundCell = (rx, ry, func, rw = width, rh = height) => {
