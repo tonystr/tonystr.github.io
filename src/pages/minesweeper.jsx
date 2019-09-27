@@ -12,7 +12,7 @@ function gridFindValue(grid, rx, ry, rw, rh) {
     return val;
 }
 
-function gridGenerate(width, height) {
+function gridGenerate(width, height, frac) {
     const defCell = {
         hidden: true,
         flag: false,
@@ -23,23 +23,32 @@ function gridGenerate(width, height) {
         { length: height }, () => Array.from(
             { length: width }, () => ({
                 ...defCell,
-                value: Math.random() < .2 ? 9 : 0
+                value: 0
             })
         )
     );
 
-    return grid.map((row, ry) => row.map((cell, rx) => ({
-        ...cell,
-        value: cell.value === 0 ?
-            gridFindValue(grid, rx, ry, width, height) || 0 :
-            cell.value
-    })));
+    let bombCount = Math.round(width * height * frac);
+
+    while (bombCount > 0) {
+        const x = Math.floor(Math.random() * width);
+        const y = Math.floor(Math.random() * height);
+        if (grid[y][x].value === 0) {
+            grid[y][x].value = 9;
+            bombCount--;
+        }
+    }
+
+    return grid.map((row, ry) => row.map((cell, rx) => (cell.value === 0 ?
+        { ...cell, value: gridFindValue(grid, rx, ry, width, height) } :
+        cell
+    )));
 }
 
 export default function Minesweeper() {
     const width  = 46;
     const height = 21;
-    const [grid, setGrid] = useState(gridGenerate(width, height));
+    const [grid, setGrid] = useState(gridGenerate(width, height, .2));
     const [lost, setLost] = useState(false);
     const gameRef = React.useRef();
     const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
