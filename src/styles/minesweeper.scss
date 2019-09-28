@@ -41,6 +41,14 @@
                 color: $c_orange;
             }
 
+            &.c-9 {
+                background-color: #50526f;
+            }
+
+            &.c-10 {
+                background-color: #a24557;
+            }
+
             &::after {
                 content: '';
                 position: absolute;

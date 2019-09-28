@@ -52,6 +52,7 @@ export default function Minesweeper() {
     const [lost, setLost] = useState(false);
     const gameRef = React.useRef();
     const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
+    // const cellVal = [' ', '一', '二', '三', '四', '五', '六', '七', '八', '💣', '💥'];
 
     useEffect(() => {
         const ev = e => e.preventDefault() && false;
@@ -83,7 +84,7 @@ export default function Minesweeper() {
                     key={rx}
                     className={
                         (cell.hidden ? 'hidden' : '') +
-                        (!cell.hidden && cellVal[cell.value] === undefined ? ` c-${cell.value}` : '') +
+                        ((!cell.hidden || lost) && cell.value >= 1 ? ` c-${cell.value}` : '') +
                         (lost && cell.flag && cell.value !== 9 ? ' flag-wrong' : '')
                     }
                     onClick={() => {
@@ -108,7 +109,7 @@ export default function Minesweeper() {
                     }}
                 >
                     {(cell.flag && <i className='far fa-flag' />) ||
-                    ((!cell.hidden || lost) && (cellVal[cell.value] || cell.value))}
+                    ((!cell.hidden || (lost && cell.value > 8)) && (cellVal[cell.value] || cell.value))}
                 </td>
             ))}
         </tr>
