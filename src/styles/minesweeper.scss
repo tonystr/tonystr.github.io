@@ -1,6 +1,102 @@
 @import 'global';
 
+$tdColor: lighten($c_dark, 3%);
+
 .minesweeper {
+    .infobar {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        justify-content: center;
+
+        .counter {
+            border-radius: .4rem;
+            padding: calc(.3rem + 2px);
+            color: darken($c_txt, 12%);
+            position: relative;
+            min-width: 1.3rem;
+            width: auto;
+            height: 1.3rem;
+            text-align: center;
+            font-size: 1rem;
+            transition: .24s all,
+                        .14s color;
+            overflow: hidden;
+            white-space: nowrap;
+
+            &::after {
+                position: absolute;
+                @include absolute-fill(0);
+                content: '';
+                border: 2px solid $tdColor;
+                font-family: 'Font Awesome 5 Free';
+                border-radius: .4rem;
+                font-size: 1.2rem;
+                color: transparent;
+                transition: .24s all,
+                            .08s border-color;
+            }
+
+            &.toggle {
+                color: transparent;
+                width: 1.3rem !important;
+                font-size: .2rem;
+
+                > span {
+                    opacity: 0;
+                }
+
+                &::after {
+                    color: darken($c_txt, 12%);
+                    fill: darken($c_txt, 12%);
+                    right: calc(100% - 2.1rem);
+                }
+            }
+
+            &:hover::after {
+                border-color: #66677a;
+                cursor: pointer;
+            }
+
+            &.flagcount::after {
+                content: '\f024';
+                padding: .28rem .3rem;
+            }
+
+            &.bombcount::after {
+                content: '💣';
+                padding: 0 .18rem;
+            }
+
+            &.grid-size::after {
+                content: '田';
+                padding: .13rem .28rem;
+            }
+
+            &.stopwatch::after {
+                content: '\f017';
+                padding: .28rem .3rem;
+            }
+
+            > span {
+                color: $c_txt;
+                background-color: $tdColor;
+                padding : .1rem .4rem;
+                border-radius: .4rem;
+                overflow: hidden;
+
+                &.stop {
+                    color: $c_orange;
+                }
+            }
+        }
+
+        > div {
+            margin: .6rem .8rem;
+            margin-bottom: 0;
+        }
+    }
+
     .game-grid {
         table-layout: fixed;
         border-collapse: collapse;
@@ -11,7 +107,7 @@
             $csize: 1.5rem;
             width: $csize;
             height: $csize;
-            background-color: lighten($c_dark, 3%);
+            background-color: $tdColor;
             border: 4px solid $c_gray;
             border-radius: 4px;
             position: relative;
