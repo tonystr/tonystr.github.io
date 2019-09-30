@@ -136,6 +136,14 @@ export default function Minesweeper() {
         return false;
     }
 
+    const gameRestart = () => {
+        setGrid(gridGenerate(width, height, bombCount));
+        setGameState('waiting');
+        setFlagCount(bombCount);
+        setShowCount(0);
+        setCtrl(false);
+    };
+
     const TableContent = () => grid.map((row, ry) => (
         <tr key={ry}>
             {row.map((cell, rx) => (
@@ -214,13 +222,7 @@ export default function Minesweeper() {
                 <div
                     className='counter'
                     title='restart'
-                    onClick={() => {
-                        setGrid(gridGenerate(width, height, bombCount));
-                        setGameState('waiting');
-                        setFlagCount(bombCount);
-                        setShowCount(0);
-                        setCtrl(false);
-                    }}
+                    onClick={gameRestart}
                 >
                     <i class="fas fa-redo"></i>
                 </div>
