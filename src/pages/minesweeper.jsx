@@ -64,7 +64,7 @@ function Stopwatch({ stop }) {
 export default function Minesweeper() {
     const width  = 46;
     const height = 21;
-    const bombCount = Math.round(width * height * .02);
+    const bombCount = Math.round(width * height * .2);
 
     const [grid,      setGrid     ] = useState(gridGenerate(width, height, bombCount));
     const [gameState, setGameState] = useState('waiting');
@@ -211,6 +211,20 @@ export default function Minesweeper() {
                         <Stopwatch stop={gameState !== 'playing'} />
                     </span>
                 </Counter>
+                <div
+                    className='counter'
+                    title='restart'
+                    onClick={() => {
+                        setGrid(gridGenerate(width, height, bombCount));
+                        setGameState('waiting');
+                        setFlagCount(bombCount);
+                        setShowCount(0);
+                        setCtrl(false);
+                    }}
+                >
+                    <i class="fas fa-redo"></i>
+                </div>
+                {gameState === 'won' && <div> You win! </div>}
             </div>
         </div>
     );
