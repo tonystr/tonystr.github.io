@@ -66,10 +66,11 @@ export default function Minesweeper() {
     const height = 21;
     const bombCount = Math.round(width * height * .02);
 
-    const [grid,        setGrid       ] = useState(gridGenerate(width, height, bombCount));
-    const [gameState,   setGameState  ] = useState('waiting');
-    const [flagCount,   setFlagCount  ] = useState(bombCount);
+    const [grid,      setGrid     ] = useState(gridGenerate(width, height, bombCount));
+    const [gameState, setGameState] = useState('waiting');
+    const [flagCount, setFlagCount] = useState(bombCount);
     const [showCount, setShowCount] = useState(0);
+    const [ctrl,      setCtrl     ] = useState(false);
 
     const gameRef = React.useRef();
     const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
@@ -78,7 +79,17 @@ export default function Minesweeper() {
     useEffect(() => {
         const ev = e => e.preventDefault() && false;
         gameRef.current.addEventListener('contextmenu', ev);
-        return () => gameRef.current.removeEventListener('contextmenu', ev);
+        const kde = window.addEventListener('keydown', e => (
+            e.keyCode === 17 && !ctrl && setCtrl(true)
+        ));
+        const kue = window.addEventListener('keyup', e => {
+            e.keyCode === 17 && ctrl && setCtrl(false)
+        });
+        return () => {
+            gameRef.current.removeEventListener('contextmenu', ev);
+            window.removeEventListener('keydown', kde);
+            window.removeEventListener('keyup', kue);
+        }
     });
 
     const aroundCell = (rx, ry, func, rw = width, rh = height) => {
@@ -111,6 +122,20 @@ export default function Minesweeper() {
         return true;
     };
 
+    const placeFlag = (rx, ry) => {
+        if (!grid[ry][rx].hidden) return;
+        if (!grid[ry][rx].flag && flagCount <= 0) return;
+        if (gameState !== 'playing') setGameState('playing');
+
+        setFlagCount(flagCount + grid[ry][rx].flag - !grid[ry][rx].flag);
+        setGrid(prev => prev.map((row, y) => row.map((cell, x) => x === rx && y === ry ?
+            { ...cell, flag: !cell.flag } :
+            cell
+        )));
+
+        return false;
+    }
+
     const TableContent = () => grid.map((row, ry) => (
         <tr key={ry}>
             {row.map((cell, rx) => (
@@ -122,10 +147,10 @@ export default function Minesweeper() {
                         (gameState === 'lost' && cell.flag && cell.value !== 9 ? ' flag-wrong' : '')
                     }
                     onClick={() => {
+                        if (ctrl) return placeFlag(rx, ry);
+
                         if (grid[ry][rx].flag) return;
-                        if (gameState !== 'playing') {
-                            setGameState('playing');
-                        }
+                        if (gameState !== 'playing') setGameState('playing');
 
                         if (grid[ry][rx].value === 9) {
                             const mutGrid = JSON.parse(JSON.stringify(grid));
@@ -154,21 +179,7 @@ export default function Minesweeper() {
                         }
                         setGrid(mutGrid);
                     }}
-                    onContextMenu={() => {
-                        if (!grid[ry][rx].hidden) return;
-                        if (!grid[ry][rx].flag) {
-                            if (flagCount <= 0) return;
-                        }
-                        if (gameState !== 'playing') {
-                            setGameState('playing');
-                        }
-                        setFlagCount(flagCount + grid[ry][rx].flag - !grid[ry][rx].flag);
-                        setGrid(prev => prev.map((row, y) => row.map((cell, x) => x === rx && y === ry ?
-                            { ...cell, flag: !cell.flag } :
-                            cell
-                        )));
-                        return false;
-                    }}
+                    onContextMenu={() => placeFlag(rx, ry)}
                 >
                     {(cell.flag && <i className='far fa-flag' />) ||
                     ((!cell.hidden || (gameState === 'lost' && cell.value > 8)) && (cellVal[cell.value] || cell.value))}
@@ -181,7 +192,6 @@ export default function Minesweeper() {
         <div
             className={`minesweeper ${gameState}`}
             ref={gameRef}
-            onButtonDown={e => console.log(e)}
         >
             <table className='game-grid'>
                 <tbody><TableContent /></tbody>
@@ -201,9 +211,6 @@ export default function Minesweeper() {
                         <Stopwatch stop={gameState !== 'playing'} />
                     </span>
                 </Counter>
-                <Counter className='grid-size'>
-                    HiddenCount: <span>{showCount}</span>
-                </Counter>
             </div>
         </div>
     );
@@ -215,7 +222,10 @@ function Counter(props) {
     return (
         <div
             className={(props.className || '') + ' counter' + (toggle ? ' toggle' : '')}
-            onClick={() => setToggle(!toggle)}
+            onClick={e => {
+                setToggle(!toggle)
+                if (props.onClick) props.onClick(e);
+            }}
         >
             {props.children}
         </div>
