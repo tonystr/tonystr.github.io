@@ -66,9 +66,10 @@ export default function Minesweeper() {
     const height = 21;
     const bombCount = Math.round(width * height * .02);
 
-    const [grid,      setGrid     ] = useState(gridGenerate(width, height, bombCount));
-    const [gameState, setGameState] = useState('waiting');
-    const [flagCount, setFlagCount] = useState(bombCount);
+    const [grid,        setGrid       ] = useState(gridGenerate(width, height, bombCount));
+    const [gameState,   setGameState  ] = useState('waiting');
+    const [flagCount,   setFlagCount  ] = useState(bombCount);
+    const [showCount, setShowCount] = useState(0);
 
     const gameRef = React.useRef();
     const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
@@ -91,12 +92,14 @@ export default function Minesweeper() {
     };
 
     const touchCell = (mutGrid, rx, ry, rw = width, rh = height) => {
+        let sum = mutGrid[ry][rx].hidden !== false;
         mutGrid[ry][rx].hidden = false;
         if (mutGrid[ry][rx].value < 1) aroundCell(rx, ry, (x, y) => {
             if (mutGrid[y][x].hidden && !mutGrid[y][x].flag) {
-                touchCell(mutGrid, x, y, rw, rh);
+                sum += touchCell(mutGrid, x, y, rw, rh);
             }
         });
+        return sum;
     };
 
     const gridIsSolved = gr => {
@@ -123,6 +126,7 @@ export default function Minesweeper() {
                         if (gameState !== 'playing') {
                             setGameState('playing');
                         }
+
                         if (grid[ry][rx].value === 9) {
                             const mutGrid = JSON.parse(JSON.stringify(grid));
                             mutGrid[ry][rx].value++;
@@ -130,9 +134,22 @@ export default function Minesweeper() {
                             setGameState('lost');
                             return;
                         }
-                        const mutGrid = JSON.parse(JSON.stringify(grid));
-                        touchCell(mutGrid, rx, ry);
-                        if (gridIsSolved(mutGrid)) {
+
+                        let mutGrid = grid;
+                        let newShowCount = showCount;
+                        if (grid[ry][rx].value >= 1) {
+                            mutGrid = grid.map((row, y) => row.map((cell, x) => x === rx && y === ry ?
+                                { ...cell, hidden: false } :
+                                cell
+                            ));
+                            newShowCount = showCount + 1;
+                        } else {
+                            mutGrid = JSON.parse(JSON.stringify(grid));
+                            newShowCount = showCount + touchCell(mutGrid, rx, ry);
+                        }
+
+                        setShowCount(newShowCount);
+                        if (width * height - newShowCount <= bombCount && gridIsSolved(mutGrid)) {
                             setGameState('won');
                         }
                         setGrid(mutGrid);
@@ -145,10 +162,11 @@ export default function Minesweeper() {
                         if (gameState !== 'playing') {
                             setGameState('playing');
                         }
-                        const mutGrid = JSON.parse(JSON.stringify(grid));
-                        setFlagCount(flagCount + mutGrid[ry][rx].flag - !mutGrid[ry][rx].flag);
-                        mutGrid[ry][rx].flag = !mutGrid[ry][rx].flag;
-                        setGrid(mutGrid);
+                        setFlagCount(flagCount + grid[ry][rx].flag - !grid[ry][rx].flag);
+                        setGrid(prev => prev.map((row, y) => row.map((cell, x) => x === rx && y === ry ?
+                            { ...cell, flag: !cell.flag } :
+                            cell
+                        )));
                         return false;
                     }}
                 >
@@ -160,7 +178,11 @@ export default function Minesweeper() {
     ));
 
     return (
-        <div className={`minesweeper ${gameState}`} ref={gameRef}>
+        <div
+            className={`minesweeper ${gameState}`}
+            ref={gameRef}
+            onButtonDown={e => console.log(e)}
+        >
             <table className='game-grid'>
                 <tbody><TableContent /></tbody>
             </table>
@@ -178,6 +200,9 @@ export default function Minesweeper() {
                     Time: <span className={gameState !== 'playing' ? 'stop' : ''}>
                         <Stopwatch stop={gameState !== 'playing'} />
                     </span>
+                </Counter>
+                <Counter className='grid-size'>
+                    HiddenCount: <span>{showCount}</span>
                 </Counter>
             </div>
         </div>
