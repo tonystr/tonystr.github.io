@@ -2,6 +2,7 @@ import React, { lazy } from 'react';
 import SectionTitle from '../components/SectionTitle.jsx';
 import A from '../components/A.jsx';
 import Ribbons from '../components/Ribbons.jsx';
+import { ReactComponent as NavalMine } from '../images/naval_mine.svg';
 import '../styles/home.scss';
 const WebdevPage = lazy(() => import('../components/WebdevPage.jsx'));
 
@@ -11,6 +12,14 @@ export default function Home(props) {
             <FrontPage />
             <section id='about'>
                 <SectionTitle content='About' />
+                <A to='/minesweeper' title='minesweeper'>
+                    <NavalMine style={{
+                        position: 'absolute',
+                        left: '6rem',
+                        top: '2rem',
+                        zIndex: 7
+                    }} />
+                </A>
                 <div className='description'>
                     <div className='background' />
                     <p>

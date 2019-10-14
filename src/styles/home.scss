@@ -11,6 +11,24 @@
     100% { transform: translateY(-50%); }
 }
 
+#naval-mine {
+    width: 3rem;
+    height: 3rem;
+
+    *:not(.hole) {
+        transition: .14s fill;
+        fill: lighten($c_dark, 4%) !important;
+    }
+
+    &:hover *:not(.hole) {
+        fill: $c_green !important;
+    }
+
+    .hole {
+        fill: $c_gray !important;
+    }
+}
+
 $xmarg: 4%;
 
 #frontpage {
