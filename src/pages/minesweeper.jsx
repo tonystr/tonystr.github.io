@@ -228,7 +228,7 @@ export default function Minesweeper() {
                     Flags: <span>{flagCount} <i className='far fa-flag' /></span>
                 </Counter>
                 <Counter className='bombcount'>
-                    Bombs: <span>{bombCount - flagCount} 💣</span>
+                    Bombs: <span>{bombCount - flagCount} <span role='img' aria-label='bomb'>💣</span></span>
                 </Counter>
                 <Counter className='grid-size'>
                     Grid: <span>{width} × {height}</span>

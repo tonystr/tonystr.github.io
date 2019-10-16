@@ -11,14 +11,14 @@ import PageLoading  from './components/PageLoading.jsx';
 const Header       = lazy(() => import('./components/Header.jsx'));
 const StandardPage = lazy(() => import('./components/StandardPage.jsx'));
 const ASCIITable   = lazy(() => import('./components/ASCIITable.jsx'));
-const Home         = lazy(() => import('./pages/home.jsx'));
-const Article      = lazy(() => import('./pages/article.jsx'));
-const ArticleLogin = lazy(() => import('./pages/article-login.jsx'));
-const Dracula      = lazy(() => import('./pages/dracula.jsx'));
-const Articles     = lazy(() => import('./pages/articles.jsx'));
-const Snippets     = lazy(() => import('./pages/snippets.jsx'));
-const Paint        = lazy(() => import('./pages/paint.jsx'));
-const Minesweeper  = lazy(() => import('./pages/minesweeper.jsx'));
+const Home         = lazy(() => import('./pages/Home.jsx'));
+const Article      = lazy(() => import('./pages/Article.jsx'));
+const ArticleLogin = lazy(() => import('./pages/ArticleLogin.jsx'));
+const Dracula      = lazy(() => import('./pages/Dracula.jsx'));
+const Articles     = lazy(() => import('./pages/Articles.jsx'));
+const Snippets     = lazy(() => import('./pages/Snippets.jsx'));
+const Paint        = lazy(() => import('./pages/Paint.jsx'));
+const Minesweeper  = lazy(() => import('./pages/Minesweeper.jsx'));
 
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
