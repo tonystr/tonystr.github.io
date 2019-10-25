@@ -28,6 +28,11 @@
 
 $border: 0.24vw;
 
+* {
+    scrollbar-color: #1d202a transparent;
+    scrollbar-width: thin;
+}
+
 .page-loading {
     position: fixed;
     z-index: 5000;
