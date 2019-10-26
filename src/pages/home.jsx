@@ -4,7 +4,8 @@ import A from '../components/A.jsx';
 import Ribbons from '../components/Ribbons.jsx';
 import { ReactComponent as NavalMine } from '../images/naval_mine.svg';
 import '../styles/home.scss';
-const WebdevPage = lazy(() => import('../components/WebdevPage.jsx'));
+const WebdevPage  = lazy(() => import('../components/WebdevPage.jsx'));
+const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
 export default function Home(props) {
     return (
@@ -34,6 +35,7 @@ export default function Home(props) {
                 </div>
             </section>
             <WebdevPage />
+            <GamedevPage />
         </>
     );
 }

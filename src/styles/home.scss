@@ -167,6 +167,105 @@ $xmarg: 4%;
     }
 }
 
+#gamedev {
+    padding: 7rem 0;
+
+    .gamestack {
+        list-style-type: none;
+
+        .game {
+            width: 13rem;
+            height: 1.5rem;
+            border-radius: 2px;
+            text-align:center;
+            position: relative;
+            margin-top: 2px;
+            overflow:hidden;
+            transition: .4s transform, .2s border;
+
+            $c_box: #66677a;
+            $c_theme: darken($c_box, 9%);
+            $c_bright: lighten($c_box, 8%);
+
+            background: linear-gradient(
+                90deg,
+                $c_box    0%, $c_box    11%,
+                $c_theme 11%, $c_theme  89%,
+                $c_box   89%, $c_box   100%
+            );
+            border: 1px solid $c_bright;
+
+            .title {
+                transition: .2s color;
+                color: $c_gold;
+                text-shadow: 0 0 4px rgba(0, 0, 0, .6);
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                text-align: center;
+            }
+
+            &:hover {
+                cursor: pointer;
+                transform: translateX(-20%);
+                border: 1px solid lighten($c_bright, 12%);
+
+                .title {
+                    color: $c_green;
+                }
+            }
+
+            &::after {
+                content: '';
+                position: absolute;
+                top: 49.9%;
+                left: 0;
+                right: 0;
+                height: 1px;
+
+                background: linear-gradient(
+                    90deg,
+                    $c_bright    0%, $c_bright    11%,
+                    transparent 11%, transparent  89%,
+                    $c_bright   89%, $c_bright   100%
+                );
+            }
+
+            img {
+                width: 78%;
+                margin-top: -30px;
+                filter: blur(4px);
+            }
+
+            .shade {
+                &::before, &::after {
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    right: 89%;
+                    bottom: 0;
+
+                    background: linear-gradient(
+                        180deg,
+                        $c_bright    0%,
+                        transparent 20%,
+                        transparent 85%,
+                        darken($c_box, 7%)  0%
+                    );
+                }
+
+                &::after {
+                    right: 0;
+                    left: 89%;
+                }
+            }
+        }
+    }
+}
+
 #webdev {
     display: flex;
     $gray: $c_ltgray;
