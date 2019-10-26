@@ -35,10 +35,12 @@ export default function Home(props) {
                 </div>
             </section>
             <WebdevPage />
-            <GamedevPage />
         </>
     );
 }
+
+// TODO:
+// <GamedevPage />
 
 function FrontPage() {
     const renderLines = (num = 5) => {

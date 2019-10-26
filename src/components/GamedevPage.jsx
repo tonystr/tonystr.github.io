@@ -33,8 +33,12 @@ export default function GamedevPage() {
         offset: 0
     }];
 
+    // Todo:
+    const Screen = () => <div />;
+
     return (
         <div id='gamedev' className='page'>
+            <Screen />
             <GameStack games={games} />
         </div>
     );
