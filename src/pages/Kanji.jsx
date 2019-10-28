@@ -14,6 +14,19 @@ function rad(chr, strokeCount, meaning, reading, kanji, frequency) {
     };
 }
 
+function ArrayToTable({ array, width, TDComponent, className }) {
+    let trs = [];
+    let tr = [];
+    for (let i = 0; i < array.length; i++) {
+        tr.push(<TDComponent elm={array[i]} />);
+        if (i % width === width - 1) {
+            trs.push(<tr>{tr}</tr>);
+            tr = [];
+        }
+    }
+    return <table className={className}><tbody>{trs}</tbody></table>;
+}
+
 export default function Kanji() {
     const radicals = [
         rad('⼀', 1, 'one', 'いち', '一', 42),
@@ -57,14 +70,14 @@ export default function Kanji() {
     ];
     const rads = '⼥  ⼦  ⼧ ⼨  ⼩ ⺌ ⺐ ⼫ ⼬ ⼭   ⼮ 川 ⼯  ⼰ ⼱  ⼲ ⺓ ⼴ ⼵ ⼶ ⼷ ⼸  ⼹ ⺕ ⺔ ⼺ ⼻ ⺾ ⻌ ⻏ ⻖ ⺍ ⺖ ⺘ ⺡ ⺨ ⼼ ⺗ ⼽ ⼾  ⼿ ⽀ ⽁ ⺙ ⽂ ⽃ ⽄ ⽅  ⽆ ⽇  ⽈ ⽉ ⺝  ⽊  ⽋ ⽌ ⽍  ⽎ ⽏ ⽐ ⽑ ⽒ ⽓ ⽔ ⽕  ⺣ ⽖ ⺤ 爫 ⽗ ⽘ ⽙ ⽚   ⽜  ⽝  ⺭ 㓁 ⺹ ⽞ ⽟  ⽡ ⽢ ⽣ ⽤ ⽥  ⽦ ⺪ ⽧ ⽨ ⽩  ⽪ ⽫ ⽬   ⽭  ⽮  ⽯  ⽰ ⽱ ⽲ ⽳  ⽴    氺 ⺫ 𦉰 ⻂ ⺛ ⽵ ⺮ ⽶  ⽷  ⽸ ⽹ ⽺ ⺷ 羽 ⽻ ⽼ ⽽ ⽾ ⽿  ⾀ ⾁ ⾂ ⾃ ⾄  ⾅ ⾆ ⾇ ⾈  ⾉ ⾊ ⾋ ⾌ ⾍  ⾎ ⾏ ⾐ ⾑ ⻃ ⽠ ⾒ ⾓  ⾔  ⾕  ⾖  ⾗ ⾘ ⾙  ⾚ ⾛  ⾜ ⻊ ⾝  ⾞  ⾟ ⾠ ⾡ ⾢ ⾣  ⾤  ⾥  ⾂  ⻨ ⾦  ⻑ ⾨ ⾩ ⾪ ⾫ ⾬ ⻗ ⾭ ⻘ ⾮ ⻟ ⻫ ⾯ ⾰  ⾲ ⾳ ⾴ ⾵ ⾶ ⾷ ⾸ ⾹ ⾺  ⾻  ⾼ ⾽ ⾾ ⾿ ⿀ ⿁ ⾱ ⿂  ⿃ ⿄ ⿅ ⿆ ⿇  ⻩ 黒 ⻲ ⿈ ⿉ ⿊ ⿋ ⻭ ⿌ ⿍ ⿎ ⿏ ⿐ ⿑ ⿒ ⿓ ⿔ ⿕';
     return (
-        <div id='kanjipage'>
-            <ul>
-                {radicals.map(rad => (
-                    <li key={rad.chr}>
-                        {rad.chr}
-                    </li>
-                ))}
-            </ul>
+        <div id='kanjipage' className='page'>
+            <ArrayToTable
+                array={radicals}
+                width={16}
+                TDComponent={({ elm }) => <td>{elm.chr}</td>}
+                className='radical-table'
+            />
+
         </div>
     );
 }

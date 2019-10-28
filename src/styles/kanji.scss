@@ -4,3 +4,38 @@
 #kanjipage {
     font-family: 'Japanese Radicals';
 }
+
+.radical-table {
+    border-collapse: collapse;
+    margin: 3rem;
+
+    td {
+        border: 2px solid $c_dark;
+        width: 1.8rem;
+        height: 1.4rem;
+        font-size: 1.2rem;
+        text-align: center;
+        position: relative;
+        transition: .1s color;
+
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: 3;
+            @include absolute-fill(0);
+            border: 2.4px solid transparent;
+            border-radius: 2px;
+            transition: .1s border-color, .1s margin;
+        }
+
+        &:hover {
+            color: $c_green;
+
+            &::after {
+                cursor: pointer;
+                border-color: $c_green;
+                margin: -2px;
+            }
+        }
+    }
+}
