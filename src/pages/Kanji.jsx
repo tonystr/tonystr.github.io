@@ -59,9 +59,9 @@ export default function Kanji() {
     return (
         <div id='kanjipage'>
             <ul>
-                {rads.split(' ').map(r => (
-                    <li key={r}>
-                        {r}
+                {radicals.map(rad => (
+                    <li key={rad.chr}>
+                        {rad.chr}
                     </li>
                 ))}
             </ul>
