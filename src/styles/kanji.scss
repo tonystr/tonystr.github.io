@@ -2,14 +2,66 @@
 @import 'fonts/japanese_radicals';
 
 #kanjipage {
-    font-family: 'Japanese Radicals';
+    display: flex;
+    justify-content: space-between;
+
+    > .right, > .left {
+        width: 50%;
+        margin-top: 5rem;
+    }
+}
+
+.selected-rad {
+    margin: 0 auto;
+
+    .foc {
+        display: inline-block;
+        width: 10rem;
+        position: relative;
+
+        .chr {
+            font-family: 'Japanese Radicals';
+            font-size: 5rem;
+            height: 6.4rem;
+            text-align: center;
+            padding: 1rem;
+            padding-top: 0;
+            border: 2px solid $c_dark;
+            margin: 1rem;
+            margin-top: 0;
+            border-radius: .2rem;
+
+            a {
+                color: $c_green
+            }
+        }
+
+        .reading {
+            font-size: 1.2rem;
+            text-align: center;
+        }
+
+        .meaning {
+            position: absolute;
+            top: 0;
+            left: 100%;
+        }
+
+        .chrs {
+            font-size: 1.2rem;
+            position: absolute;
+            right: 100%;
+            top: 0;
+        }
+    }
 }
 
 .radical-table {
     border-collapse: collapse;
-    margin: 3rem;
+    margin: 0 auto;
 
     td {
+        font-family: 'Japanese Radicals';
         border: 2px solid $c_dark;
         width: 1.8rem;
         height: 1.4rem;
@@ -17,6 +69,10 @@
         text-align: center;
         position: relative;
         transition: .1s color;
+
+        &.selected::after {
+            border-color: $c_blue;
+        }
 
         &::after {
             content: '';
