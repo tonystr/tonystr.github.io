@@ -3,11 +3,11 @@ import A from '../components/A.jsx';
 import '../styles/kanji.scss';
 
 const radicals = [
-    rad('⼀', 1, 'one', 'いち', '一', 42),
-    rad('⼁', 1, 'line, stick', 'ぼう', '棒', 21),
-    rad('⼂', 1, 'dot', 'てん', '点', 10),
-    rad('⼃,', 1, 'bend, possessive particle *no*', 'の', 'ノ', 33),
-    rad('⼄,⺃', 1, 'second, latter', 'おつ', '乙', 42),
+    rad('一', 1, 'one', 'いち', '一', 42),
+    rad('丨', 1, 'line, stick', 'ぼう', '棒', 21),
+    rad('丶', 1, 'dot', 'てん', '点', 10),
+    rad('丿', 1, 'bend, possessive particle *no*', 'の', 'ノ', 33),
+    rad('乙,乛,⺄,乚,乙,乀', 1, 'second, latter', 'おつ', '乙', 42),
     rad('⼅', 1, 'hook, hooked stick', 'はねぼう', '撥棒', 19),
     rad('二', 2, 'two', 'に', 'ニ', 29),
     rad('亠', 2, 'pot lid', 'なべぶた', '鍋蓋', 38),
@@ -106,7 +106,8 @@ export default function Kanji() {
                             onClick={() => setSelectedRad(elm)}
                             className={selectedRad && elm.chr === selectedRad.chr ? 'selected' : ''}
                         >
-                            {elm.chr}
+                            <div className='chr'>{elm.chr}</div>
+                            <div className='num'>{radicals.findIndex(r => r.chr === elm.chr) + 1}</div>
                         </td>
                     )}
                     className='radical-table'
@@ -117,7 +118,9 @@ export default function Kanji() {
                     <div className='selected-rad'>
                         <div className='foc'>
                             <div className='chr'>
-                                <A to='/'>{selectedRad.chr}</A>
+                                <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${selectedRad.chr}`}>
+                                    {selectedRad.chr}
+                                </A>
                             </div>
                             <div className='reading'>
                                 {selectedRad.reading}

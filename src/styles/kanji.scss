@@ -18,6 +18,8 @@
         display: inline-block;
         width: 10rem;
         position: relative;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
 
         .chr {
             font-family: 'Japanese Radicals';
@@ -61,14 +63,26 @@
     margin: 0 auto;
 
     td {
-        font-family: 'Japanese Radicals';
         border: 2px solid $c_dark;
-        width: 1.8rem;
-        height: 1.4rem;
+        width: 2.3rem;
+        height: 2.3rem;
         font-size: 1.2rem;
         text-align: center;
         position: relative;
         transition: .1s color;
+        position: relative;
+
+        .num {
+            position: absolute;
+            top: 0;
+            left: 2px;
+            font-size: .6rem;
+            color: $c_ltgray;
+        }
+
+        .chr {
+            font-family: 'Japanese Radicals';
+        }
 
         &.selected::after {
             border-color: $c_blue;
