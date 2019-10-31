@@ -89,9 +89,12 @@
 
         &.type-header-stroke {
             background-color: rgba($c_dark, .3);
+            color: lighten($c_ltgray, 3%);
 
-            .chr {
-                color: lighten($c_ltgray, 3%);
+            &:hover {
+                cursor: crosshair;
+                color: $c_orange;
+                border-bottom-color: $c_orange;
             }
         }
 
@@ -131,6 +134,12 @@
                     margin: -2px;
                 }
             }
+        }
+
+        &.hl-stroke {
+            background-color: rgba($c_dark, .3);
+            border-bottom-color: $c_orange;
+            color: $c_gold;
         }
     }
 }

@@ -80,7 +80,8 @@ function ArrayToTable({ array, width, TDComponent, className }) {
 }
 
 export default function Kanji() {
-    const [selectedRad, setSelectedRad] = useState(null);
+    const [selectedRad,     setSelectedRad    ] = useState(null);
+    const [highlightStroke, setHighlightStroke] = useState(0);
     const width = 16;
 
     // Handle keyboard radical select
@@ -113,8 +114,15 @@ export default function Kanji() {
                             onClick={() => setSelectedRad(elm)}
                             className={
                                 (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
-                                ' type-' + elm.type
+                                ' type-' + elm.type +
+                                (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
                             }
+                            onMouseEnter={elm.type === 'header-stroke' && (e => {
+                                setHighlightStroke(elm.stroke);
+                            })}
+                            onMouseLeave={elm.type === 'header-stroke' && (e => {
+                                setHighlightStroke(0);
+                            })}
                         >
                             <div className='chr'>{elm.chr || elm.stroke}</div>
                             <div className='num'>{elm.number}</div>
