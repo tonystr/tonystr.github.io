@@ -5,8 +5,13 @@
     display: flex;
     justify-content: space-between;
 
-    > .right, > .left {
-        width: 50%;
+    > .right {
+        width: 40%;
+        margin-top: 5rem;
+    }
+
+    > .left {
+        width: 60%;
         margin-top: 5rem;
     }
 }
@@ -55,6 +60,14 @@
             right: 100%;
             top: 0;
         }
+
+        .num {
+            position: absolute;
+            top: .2rem;
+            left: 1.4rem;
+            font-size: 1rem;
+            color: $c_ltgray;
+        }
     }
 }
 
@@ -64,8 +77,8 @@
 
     td {
         border: 2px solid $c_dark;
-        width: 2.3rem;
-        height: 2.3rem;
+        width: 2.6rem;
+        height: 2.6rem;
         font-size: 1.2rem;
         text-align: center;
         position: relative;

@@ -115,25 +115,26 @@ export default function Kanji() {
             </div>
             <div className='right'>
                 {selectedRad && (
-                    <div className='selected-rad'>
-                        <div className='foc'>
-                            <div className='chr'>
-                                <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${selectedRad.chr}`}>
-                                    {selectedRad.chr}
-                                </A>
-                            </div>
-                            <div className='reading'>
-                                {selectedRad.reading}
-                            </div>
-                            <div className='meaning'>
-                                {selectedRad.meaning}
-                            </div>
-                            <div className='chrs'>
-                                {selectedRad.chrs}
-                            </div>
-                        </div>
-                    </div>
+                    <RadicalPanel rad={selectedRad} />
                 )}
+            </div>
+        </div>
+    );
+}
+
+function RadicalPanel({ rad }) {
+    return (
+        <div className='selected-rad'>
+            <div className='foc'>
+                <div className='chr'>
+                    <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>
+                        {rad.chr}
+                    </A>
+                </div>
+                <div className='reading'>{rad.reading}</div>
+                <div className='meaning'>{rad.meaning}</div>
+                <div className='chrs'>{rad.chrs}</div>
+                <div className='num'>{radicals.findIndex(r => r.chr === rad.chr) + 1}</div>
             </div>
         </div>
     );
