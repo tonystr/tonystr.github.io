@@ -2,13 +2,16 @@ import React, { useState, useEffect } from 'react';
 import A from '../components/A.jsx';
 import '../styles/kanji.scss';
 
+let radNum = 1;
 const radicals = [
+    { type: 'header-stroke', stroke: 1 },
     rad('一', 1, 'one', 'いち', '一', 42),
     rad('丨', 1, 'line, stick', 'ぼう', '棒', 21),
     rad('丶', 1, 'dot', 'てん', '点', 10),
     rad('丿', 1, 'bend, possessive particle *no*', 'の', 'ノ', 33),
     rad('乙,乛,⺄,乚,乙,乀', 1, 'second, latter', 'おつ', '乙', 42),
     rad('⼅', 1, 'hook, hooked stick', 'はねぼう', '撥棒', 19),
+    { type: 'header-stroke', stroke: 2 },
     rad('二', 2, 'two', 'に', 'ニ', 29),
     rad('亠', 2, 'pot lid', 'なべぶた', '鍋蓋', 38),
     rad('⼈,⺅,𠆢', 2, 'human', 'ひと', '人', 794),
@@ -32,6 +35,7 @@ const radicals = [
     rad('⼚', 2, 'cliff', 'がんだれ', '雁垂', 129),
     rad('⼛', 2, 'private, *mu*', 'む', '', 40),
     rad('⼜', 2, 'again, right hand', 'また', '', 91),
+    { type: 'header-stroke', stroke: 3 },
     rad('⼝,', 3, 'mouth, opening', 'くち', '', 1146),
     rad('⼞', 3, 'enclosure', 'くにがまえ', '国構', 118),
     rad('⼟,', 3, 'earth', 'つち', '', 580),
@@ -42,19 +46,22 @@ const radicals = [
     rad('⼤', 3, 'big, very', 'だい', '大', 132),
     rad('⼥', 3, 'woman, female', 'おんあ', '', 681),
 ];
+
 // eslint-disable-next-line
 const rads = '⼥  ⼦  ⼧ ⼨  ⼩ ⺌ ⺐ ⼫ ⼬ ⼭   ⼮ 川 ⼯  ⼰ ⼱  ⼲ ⺓ ⼴ ⼵ ⼶ ⼷ ⼸  ⼹ ⺕ ⺔ ⼺ ⼻ ⺾ ⻌ ⻏ ⻖ ⺍ ⺖ ⺘ ⺡ ⺨ ⼼ ⺗ ⼽ ⼾  ⼿ ⽀ ⽁ ⺙ ⽂ ⽃ ⽄ ⽅  ⽆ ⽇  ⽈ ⽉ ⺝  ⽊  ⽋ ⽌ ⽍  ⽎ ⽏ ⽐ ⽑ ⽒ ⽓ ⽔ ⽕  ⺣ ⽖ ⺤ 爫 ⽗ ⽘ ⽙ ⽚   ⽜  ⽝  ⺭ 㓁 ⺹ ⽞ ⽟  ⽡ ⽢ ⽣ ⽤ ⽥  ⽦ ⺪ ⽧ ⽨ ⽩  ⽪ ⽫ ⽬   ⽭  ⽮  ⽯  ⽰ ⽱ ⽲ ⽳  ⽴    氺 ⺫ 𦉰 ⻂ ⺛ ⽵ ⺮ ⽶  ⽷  ⽸ ⽹ ⽺ ⺷ 羽 ⽻ ⽼ ⽽ ⽾ ⽿  ⾀ ⾁ ⾂ ⾃ ⾄  ⾅ ⾆ ⾇ ⾈  ⾉ ⾊ ⾋ ⾌ ⾍  ⾎ ⾏ ⾐ ⾑ ⻃ ⽠ ⾒ ⾓  ⾔  ⾕  ⾖  ⾗ ⾘ ⾙  ⾚ ⾛  ⾜ ⻊ ⾝  ⾞  ⾟ ⾠ ⾡ ⾢ ⾣  ⾤  ⾥  ⾂  ⻨ ⾦  ⻑ ⾨ ⾩ ⾪ ⾫ ⾬ ⻗ ⾭ ⻘ ⾮ ⻟ ⻫ ⾯ ⾰  ⾲ ⾳ ⾴ ⾵ ⾶ ⾷ ⾸ ⾹ ⾺  ⾻  ⾼ ⾽ ⾾ ⾿ ⿀ ⿁ ⾱ ⿂  ⿃ ⿄ ⿅ ⿆ ⿇  ⻩ 黒 ⻲ ⿈ ⿉ ⿊ ⿋ ⻭ ⿌ ⿍ ⿎ ⿏ ⿐ ⿑ ⿒ ⿓ ⿔ ⿕';
 
 function rad(chr, strokeCount, meaning, reading, kanji, frequency) {
     const chrSplit = chr.split(',');
     return {
+        type: 'radical',
         chr: chrSplit[0],
         chrs: chrSplit,
         strokeCount: strokeCount,
         meaning: meaning,
         reading: reading,
         kanji: kanji,
-        frequency: frequency
+        frequency: frequency,
+        number: radNum++
     };
 }
 
@@ -87,7 +94,7 @@ export default function Kanji() {
                 x = (d === 'R') - (d === 'L');
                 y = (d === 'D') - (d === 'U');
             }
-            const index = radicals.findIndex(r => r.chr === selectedRad.chr);
+            const index = radicals.findIndex(r => r === selectedRad);
             const ni = (index + x + y * width + radicals.length) % radicals.length;
             setSelectedRad(radicals[ni]);
         };
@@ -96,7 +103,7 @@ export default function Kanji() {
     });
 
     return (
-        <div id='kanjipage' className='page'>
+        <div id='kanjipage'>
             <div className='left'>
                 <ArrayToTable
                     array={radicals}
@@ -104,19 +111,20 @@ export default function Kanji() {
                     TDComponent={({ elm }) => (
                         <td
                             onClick={() => setSelectedRad(elm)}
-                            className={selectedRad && elm.chr === selectedRad.chr ? 'selected' : ''}
+                            className={
+                                (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
+                                ' type-' + elm.type
+                            }
                         >
-                            <div className='chr'>{elm.chr}</div>
-                            <div className='num'>{radicals.findIndex(r => r.chr === elm.chr) + 1}</div>
+                            <div className='chr'>{elm.chr || elm.stroke}</div>
+                            <div className='num'>{elm.number}</div>
                         </td>
                     )}
                     className='radical-table'
                 />
             </div>
             <div className='right'>
-                {selectedRad && (
-                    <RadicalPanel rad={selectedRad} />
-                )}
+                {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
             </div>
         </div>
     );
@@ -134,7 +142,7 @@ function RadicalPanel({ rad }) {
                 <div className='reading'>{rad.reading}</div>
                 <div className='meaning'>{rad.meaning}</div>
                 <div className='chrs'>{rad.chrs}</div>
-                <div className='num'>{radicals.findIndex(r => r.chr === rad.chr) + 1}</div>
+                <div className='num'>{rad.number}</div>
             </div>
         </div>
     );

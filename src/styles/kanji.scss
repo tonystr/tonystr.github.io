@@ -5,6 +5,8 @@
     display: flex;
     justify-content: space-between;
 
+    min-height: calc(100vh - 134px);
+
     > .right {
         width: 40%;
         margin-top: 5rem;
@@ -76,48 +78,58 @@
     margin: 0 auto;
 
     td {
-        border: 2px solid $c_dark;
+        border: 2px solid rgba($c_dark, .7);
         width: 2.6rem;
         height: 2.6rem;
-        font-size: 1.2rem;
+        font-size: 1.3rem;
         text-align: center;
         position: relative;
         transition: .1s color;
         position: relative;
 
-        .num {
-            position: absolute;
-            top: 0;
-            left: 2px;
-            font-size: .6rem;
-            color: $c_ltgray;
+        &.type-header-stroke {
+            background-color: rgba($c_dark, .3);
+
+            .chr {
+                color: lighten($c_ltgray, 3%);
+            }
         }
 
-        .chr {
-            font-family: 'Japanese Radicals';
-        }
+        &.type-radical {
+            .num {
+                position: absolute;
+                top: 0;
+                left: 2px;
+                font-size: .6rem;
+                color: rgba($c_ltgray, .6);
+            }
 
-        &.selected::after {
-            border-color: $c_blue;
-        }
+            .chr {
+                font-family: 'Japanese Radicals';
+            }
 
-        &::after {
-            content: '';
-            position: absolute;
-            z-index: 3;
-            @include absolute-fill(0);
-            border: 2.4px solid transparent;
-            border-radius: 2px;
-            transition: .1s border-color, .1s margin;
-        }
-
-        &:hover {
-            color: $c_green;
+            &.selected::after {
+                border-color: $c_blue;
+            }
 
             &::after {
-                cursor: pointer;
-                border-color: $c_green;
-                margin: -2px;
+                content: '';
+                position: absolute;
+                z-index: 3;
+                @include absolute-fill(0);
+                border: 2.4px solid transparent;
+                border-radius: 2px;
+                transition: .1s border-color, .1s margin;
+            }
+
+            &:hover {
+                color: $c_green;
+
+                &::after {
+                    cursor: pointer;
+                    border-color: $c_green;
+                    margin: -2px;
+                }
             }
         }
     }
