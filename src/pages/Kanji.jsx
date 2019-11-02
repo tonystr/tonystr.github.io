@@ -269,7 +269,7 @@ function ArrayToGrid({ array, width, ElmComponent, className }) {
 export default function Kanji() {
     const [selectedRad,     setSelectedRad    ] = useState(null);
     const [highlightStroke, setHighlightStroke] = useState(0);
-    const width = 16;
+    const [width, setWidth] = useState(16);
 
     // Handle keyboard radical select
     useEffect(() => {
@@ -293,37 +293,59 @@ export default function Kanji() {
         return () => document.removeEventListener('keydown', f);
     });
 
+    // Find rendered width
+    useEffect(() => {
+        const elm = document.querySelector('#kanjipage .left .radical-table');
+        setWidth(Math.floor((elm.offsetWidth) / 44));
+        window.addEventListener('resize', () => {
+            const elm = document.querySelector('#kanjipage .left .radical-table');
+            setWidth(Math.floor((elm.offsetWidth) / 44));
+        });
+    }, []);
+
     return (
         <div id='kanjipage'>
             <div className='left'>
                 <ArrayToGrid
+                    className='radical-table'
                     array={radicals}
                     width={width}
-                    ElmComponent={({ elm }) => (
-                        <div
-                            onClick={() => setSelectedRad(elm)}
-                            className={
-                                (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
-                                ' type-' + elm.type +
-                                (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
-                            }
-                            onMouseEnter={(elm.type === 'header-stroke' && highlightStroke !== elm.stroke) ?
-                                (e => setHighlightStroke(elm.stroke)) : null
-                            }
-                            onMouseLeave={(elm.type === 'header-stroke') ?
-                                (e => setHighlightStroke(0)) : null
-                            }
-                        >
-                            <div className='chr'>{elm.chr || elm.stroke}</div>
-                            <div className='num'>{elm.number}</div>
-                        </div>
+                    ElmComponent={props => (
+                        <RadicalCell
+                            {...props}
+                            selectedRad={selectedRad}
+                            onClick={() => setSelectedRad(props.elm)}
+                            highlightStroke={highlightStroke}
+                            setHighlightStroke={setHighlightStroke}
+                        />
                     )}
-                    className='radical-table'
                 />
             </div>
             <div className='right'>
                 {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
             </div>
+        </div>
+    );
+}
+
+function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightStroke }) {
+    return (
+        <div
+            onClick={onClick}
+            className={
+                (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
+                ' type-' + elm.type +
+                (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
+            }
+            onMouseEnter={(elm.type === 'header-stroke' && highlightStroke !== elm.stroke) ?
+                (e => setHighlightStroke(elm.stroke)) : null
+            }
+            onMouseLeave={(elm.type === 'header-stroke') ?
+                (e => setHighlightStroke(0)) : null
+            }
+        >
+            <div className='chr'>{elm.chr || elm.stroke}</div>
+            <div className='num'>{elm.number}</div>
         </div>
     );
 }

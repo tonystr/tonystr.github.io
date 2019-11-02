@@ -20,6 +20,8 @@
     > .left {
         width: 60%;
         margin-top: 5rem;
+        padding-left: 4rem;
+        padding-right: 2rem;
     }
 }
 
@@ -92,13 +94,11 @@
 
 .radical-table {
     margin: 0 auto;
-    padding-left: 5rem;
-    padding-right: 2rem;
 
     div {
         border: 2px solid rgba($c_dark, .7);
         display: inline-block;
-        width: 2.6rem;
+        width: 42px;
         height: 2.7rem;
         font-size: 1.3rem;
         text-align: center;
