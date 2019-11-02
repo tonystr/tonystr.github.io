@@ -34,7 +34,6 @@
         margin-right: 1.5rem;
 
         .chr {
-            font-family: 'Japanese Radicals';
             font-size: 5rem;
             height: 6.4rem;
             text-align: center;
@@ -92,17 +91,20 @@
 }
 
 .radical-table {
-    border-collapse: collapse;
     margin: 0 auto;
+    padding-left: 5rem;
+    padding-right: 2rem;
 
-    td {
+    div {
         border: 2px solid rgba($c_dark, .7);
+        display: inline-block;
         width: 2.6rem;
-        height: 2.6rem;
+        height: 2.7rem;
         font-size: 1.3rem;
         text-align: center;
         position: relative;
         transition: .1s all;
+        margin: -2px -2px 0 0;
 
         &.type-header-stroke {
             background-color: rgba($c_dark, .3);
@@ -115,19 +117,23 @@
             }
         }
 
+        .num {
+            position: absolute;
+            top: 1px;
+            left: 1px;
+            text-align: left;
+            font-size: .6rem;
+            color: rgba($c_ltgray, .6);
+            border: none;
+        }
+
+        .chr {
+            border: none;
+            padding-top: .7rem;
+            padding-right: 2px;
+        }
+
         &.type-radical {
-            .num {
-                position: absolute;
-                top: 0;
-                left: 2px;
-                font-size: .6rem;
-                color: rgba($c_ltgray, .6);
-            }
-
-            .chr {
-                font-family: 'Japanese Radicals';
-            }
-
             &::after {
                 content: '';
                 position: absolute;

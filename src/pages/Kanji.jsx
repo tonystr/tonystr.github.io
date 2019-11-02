@@ -237,9 +237,6 @@ const radicals = [
     rad('龠', 17, 'flute', 'やく', '', 19)
 ];
 
-// eslint-disable-next-line
-const rads = '⼥  ⼦  ⼧ ⼨  ⼩ ⺌ ⺐ ⼫ ⼬ ⼭   ⼮ 川 ⼯  ⼰ ⼱  ⼲ ⺓ ⼴ ⼵ ⼶ ⼷ ⼸  ⼹ ⺕ ⺔ ⼺ ⼻ ⺾ ⻌ ⻏ ⻖ ⺍ ⺖ ⺘ ⺡ ⺨ ⼼ ⺗ ⼽ ⼾  ⼿ ⽀ ⽁ ⺙ ⽂ ⽃ ⽄ ⽅  ⽆ ⽇  ⽈ ⽉ ⺝  ⽊  ⽋ ⽌ ⽍  ⽎ ⽏ ⽐ ⽑ ⽒ ⽓ ⽔ ⽕  ⺣ ⽖ ⺤ 爫 ⽗ ⽘ ⽙ ⽚   ⽜  ⽝  ⺭ 㓁 ⺹ ⽞ ⽟  ⽡ ⽢ ⽣ ⽤ ⽥  ⽦ ⺪ ⽧ ⽨ ⽩  ⽪ ⽫ ⽬   ⽭  ⽮  ⽯  ⽰ ⽱ ⽲ ⽳  ⽴    氺 ⺫ 𦉰 ⻂ ⺛ ⽵ ⺮ ⽶  ⽷  ⽸ ⽹ ⽺ ⺷ 羽 ⽻ ⽼ ⽽ ⽾ ⽿  ⾀ ⾁ ⾂ ⾃ ⾄  ⾅ ⾆ ⾇ ⾈  ⾉ ⾊ ⾋ ⾌ ⾍  ⾎ ⾏ ⾐ ⾑ ⻃ ⽠ ⾒ ⾓  ⾔  ⾕  ⾖  ⾗ ⾘ ⾙  ⾚ ⾛  ⾜ ⻊ ⾝  ⾞  ⾟ ⾠ ⾡ ⾢ ⾣  ⾤  ⾥  ⾂  ⻨ ⾦  ⻑ ⾨ ⾩ ⾪ ⾫ ⾬ ⻗ ⾭ ⻘ ⾮ ⻟ ⻫ ⾯ ⾰  ⾲ ⾳ ⾴ ⾵ ⾶ ⾷ ⾸ ⾹ ⾺  ⾻  ⾼ ⾽ ⾾ ⾿ ⿀ ⿁ ⾱ ⿂  ⿃ ⿄ ⿅ ⿆ ⿇  ⻩ 黒 ⻲ ⿈ ⿉ ⿊ ⿋ ⻭ ⿌ ⿍ ⿎ ⿏ ⿐ ⿑ ⿒ ⿓ ⿔ ⿕';
-
 function rad(chr, strokeCount, meaning, reading, kanji, frequency) {
     const chrSplit = chr.split(',');
     return {
@@ -255,18 +252,18 @@ function rad(chr, strokeCount, meaning, reading, kanji, frequency) {
     };
 }
 
-function ArrayToTable({ array, width, TDComponent, className }) {
+function ArrayToGrid({ array, width, ElmComponent, className }) {
     let trs = [];
     let tr = [];
     for (let i = 0; i < array.length; i++) {
-        tr.push(<TDComponent elm={array[i]} key={i} />);
+        tr.push(<ElmComponent elm={array[i]} key={i} />);
         if (i % width === width - 1) {
-            trs.push(<tr key={Math.floor(i / width)}>{tr}</tr>);
+            trs.push(<span key={Math.floor(i / width)} className='stroke-line'>{tr}</span>);
             tr = [];
         }
     }
     if (tr.length) trs.push(tr);
-    return <table className={className}><tbody>{trs}</tbody></table>;
+    return <div className={'array-table ' + className}>{trs}</div>;
 }
 
 export default function Kanji() {
@@ -299,27 +296,27 @@ export default function Kanji() {
     return (
         <div id='kanjipage'>
             <div className='left'>
-                <ArrayToTable
+                <ArrayToGrid
                     array={radicals}
                     width={width}
-                    TDComponent={({ elm }) => (
-                        <td
+                    ElmComponent={({ elm }) => (
+                        <div
                             onClick={() => setSelectedRad(elm)}
                             className={
                                 (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
                                 ' type-' + elm.type +
                                 (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
                             }
-                            onMouseEnter={elm.type === 'header-stroke' && (e => {
-                                setHighlightStroke(elm.stroke);
-                            })}
-                            onMouseLeave={elm.type === 'header-stroke' && (e => {
-                                setHighlightStroke(0);
-                            })}
+                            onMouseEnter={(elm.type === 'header-stroke' && highlightStroke !== elm.stroke) ?
+                                (e => setHighlightStroke(elm.stroke)) : null
+                            }
+                            onMouseLeave={(elm.type === 'header-stroke') ?
+                                (e => setHighlightStroke(0)) : null
+                            }
                         >
                             <div className='chr'>{elm.chr || elm.stroke}</div>
                             <div className='num'>{elm.number}</div>
-                        </td>
+                        </div>
                     )}
                     className='radical-table'
                 />
@@ -344,7 +341,7 @@ function RadicalPanel({ rad }) {
                 <div className='meaning'>
                     <ul>
                         {rad.meaning.split(/,\s+/g).map(l => (
-                            <li>{l[0].toUpperCase() + l.slice(1)}</li>
+                            <li key={l}>{l[0].toUpperCase() + l.slice(1)}</li>
                         ))}
                     </ul>
                 </div>
