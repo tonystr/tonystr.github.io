@@ -252,24 +252,29 @@ function rad(chr, strokeCount, meaning, reading, kanji, frequency) {
     };
 }
 
-function ArrayToGrid({ array, width, ElmComponent, className }) {
+function ArrayToGrid({ array, ElmComponent, className, breakOn }) {
     let trs = [];
     let tr = [];
     for (let i = 0; i < array.length; i++) {
-        tr.push(<ElmComponent elm={array[i]} key={i} />);
-        if (i % width === width - 1) {
-            trs.push(<span key={Math.floor(i / width)} className='stroke-line'>{tr}</span>);
+        if (tr.length && breakOn && breakOn(array[i])) {
+            trs.push(<div key={array[i].stroke} className='array-table'>{tr}</div>);
             tr = [];
         }
+        tr.push(<ElmComponent elm={array[i]} key={i} />);
     }
-    if (tr.length) trs.push(tr);
-    return <div className={'array-table ' + className}>{trs}</div>;
+    if (trs.length) {
+        if (tr.length) trs.push(<div key={-23} className='array-table'>{tr}</div>);
+        return <div className={className}>{trs}</div>;
+    }
+    return <div className={'array-table list ' + className}>{tr}</div>;
 }
 
 export default function Kanji() {
     const [selectedRad,     setSelectedRad    ] = useState(null);
     const [highlightStroke, setHighlightStroke] = useState(0);
-    const [width, setWidth] = useState(16);
+    const [listView,        setListView       ] = useState('grid');
+    const [width,           setWidth          ] = useState(16);
+    const [sepLines,        setSepLines       ] = useState(false);
 
     // Handle keyboard radical select
     useEffect(() => {
@@ -306,15 +311,25 @@ export default function Kanji() {
     return (
         <div id='kanjipage'>
             <div className='left'>
+                <div className='controls' style={{
+                    width: width * 44
+                }}>
+                    <i onClick={() => setListView('list')}    className='fas fa-list-ul' />
+                    <i onClick={() => setListView('grid')}    className='fas fa-grid'>田</i>
+                    <i onClick={() => setSepLines(!sepLines)} className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
+                </div>
                 <ArrayToGrid
-                    className='radical-table'
+                    className={'radical-table' + (sepLines ? ' separate-arrays' : '')}
                     array={radicals}
                     width={width}
+                    breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}
                     ElmComponent={props => (
                         <RadicalCell
                             {...props}
                             selectedRad={selectedRad}
-                            onClick={() => setSelectedRad(props.elm)}
+                            onClick={props.elm.type === 'header-stroke' && selectedRad === props.elm ?
+                                (() => setSelectedRad(null)) :
+                                (() => setSelectedRad(props.elm))}
                             highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
                             setHighlightStroke={setHighlightStroke}
                         />

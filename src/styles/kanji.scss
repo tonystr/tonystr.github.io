@@ -22,6 +22,29 @@
         margin-top: 5rem;
         padding-left: 4rem;
         padding-right: 2rem;
+
+        .controls {
+            margin-bottom: .8rem;
+            display: flex;
+            justify-content: flex-end;
+
+            i {
+                font-size: 1.2rem;
+                margin-left: 1rem;
+                color: $c_ltgray;
+                transition: .14s all;
+
+                &.disabled {
+                    color: #1d202a;
+                    cursor: not-allowed;
+                }
+
+                &:not(.disabled):hover {
+                    color: $c_green;
+                    cursor: pointer;
+                }
+            }
+        }
     }
 }
 
@@ -100,7 +123,11 @@
 }
 
 .radical-table {
-    div {
+    &.separate-arrays .array-table {
+        margin-bottom: 1rem;
+    }
+
+    div:not(.array-table) {
         border: 2px solid $c_ldark;
         display: inline-block;
         width: 42px;
@@ -118,7 +145,6 @@
             &:hover {
                 cursor: crosshair;
                 color: $c_orange;
-                border-bottom-color: $c_orange;
             }
 
             &.selected {
@@ -199,7 +225,6 @@
 
         &.hl-stroke {
             background-color: rgba($c_dark, .3);
-            border-bottom-color: $c_orange;
             color: $c_gold;
         }
     }
