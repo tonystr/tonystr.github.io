@@ -370,11 +370,11 @@ function RadicalPanel({ rad }) {
                 <div className='chrs'>{rad.chrs}</div>
                 <div className='num'>{rad.number}</div>
                 <div className='wikipedia'>
-                    Wikipedia:&nbsp;
+                    <A to={`https://en.wikipedia.org/wiki/Radical_${rad.number}`}>Wiki</A>
+                    &nbsp;&bull;&nbsp;
                     <A to={`https://en.wiktionary.org/wiki/${rad.chr}`}>{rad.chr}</A>
-                    &nbsp;(
+                    &nbsp;&bull;&nbsp;
                     <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>index</A>
-                    )
                 </div>
             </div>
         </div>
