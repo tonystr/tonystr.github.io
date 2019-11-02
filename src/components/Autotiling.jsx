@@ -226,7 +226,7 @@ function draw47(x, y, mode, tiles, setTiles) {
         306: 39, 50: 39, 274: 39, 18: 39,
         418: 38, 162: 38, 386: 38, 130: 38,
         416: 29, 304: 26, 400: 28, 176: 22,
-    }
+    };
     //////////////////////////////// Important Debug Stuff ////////////////////////////////
     // if (x === undefined || y === undefined || tiles[y] === undefined) return;
     // if (x === 0 && y === 0 && tiles[y][x].solid) console.log(JSON.stringify(tiles)
