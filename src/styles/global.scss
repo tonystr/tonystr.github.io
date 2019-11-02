@@ -10,6 +10,7 @@ $c_orange: #ef941c;
 $c_blue: #4c6aef;
 $c_purple: #b333dd;
 $c_dark: #171921;
+$c_ldark: lighten($c_dark, 3%);
 $c_txt: #cbccd6; // darken(#d9dae1, 5%);
 $c_ltgray: #56576a;
 $c_pink: #f068a3; // lighten($c_red, 14%);

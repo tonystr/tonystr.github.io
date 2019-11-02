@@ -315,7 +315,7 @@ export default function Kanji() {
                             {...props}
                             selectedRad={selectedRad}
                             onClick={() => setSelectedRad(props.elm)}
-                            highlightStroke={highlightStroke}
+                            highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
                             setHighlightStroke={setHighlightStroke}
                         />
                     )}
@@ -333,7 +333,7 @@ function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightS
         <div
             onClick={onClick}
             className={
-                (selectedRad && elm.chr === selectedRad.chr ? 'selected' : '') +
+                (selectedRad && elm === selectedRad ? 'selected' : '') +
                 ' type-' + elm.type +
                 (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
             }
@@ -369,6 +369,13 @@ function RadicalPanel({ rad }) {
                 </div>
                 <div className='chrs'>{rad.chrs}</div>
                 <div className='num'>{rad.number}</div>
+                <div className='wikipedia'>
+                    Wikipedia:&nbsp;
+                    <A to={`https://en.wiktionary.org/wiki/${rad.chr}`}>{rad.chr}</A>
+                    &nbsp;(
+                    <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>index</A>
+                    )
+                </div>
             </div>
         </div>
     );

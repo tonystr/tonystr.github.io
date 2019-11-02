@@ -42,18 +42,12 @@
             padding: 1rem;
             padding-top: 0;
             border: 2px solid $c_dark;
-            margin: 1rem;
-            margin-top: 0;
+            margin: 0 1rem;
             border-radius: .2rem;
 
             a {
                 color: $c_green
             }
-        }
-
-        .reading {
-            font-size: 1.2rem;
-            text-align: center;
         }
 
         .meaning {
@@ -75,6 +69,19 @@
             }
         }
 
+        .reading {
+            font-size: 1.2rem;
+            text-align: center;
+            padding-top: .6rem;
+        }
+
+        .wikipedia {
+            text-align: center;
+            margin-top: .5rem;
+            padding-top: .6rem;
+            border-top: 2px solid $c_dark;
+        }
+
         .chrs {
             font-size: 1.2rem;
             position: absolute;
@@ -93,10 +100,8 @@
 }
 
 .radical-table {
-    margin: 0 auto;
-
     div {
-        border: 2px solid rgba($c_dark, .7);
+        border: 2px solid $c_ldark;
         display: inline-block;
         width: 42px;
         height: 2.7rem;
@@ -107,13 +112,21 @@
         margin: -2px -2px 0 0;
 
         &.type-header-stroke {
-            background-color: rgba($c_dark, .3);
+            background-color: rgba($c_dark, .36);
             color: lighten($c_ltgray, 3%);
 
             &:hover {
                 cursor: crosshair;
                 color: $c_orange;
                 border-bottom-color: $c_orange;
+            }
+
+            &.selected {
+                color: $c_orange;
+
+                &::after {
+                    border-color: $c_blue;
+                }
             }
         }
 
@@ -125,6 +138,9 @@
             font-size: .6rem;
             color: rgba($c_ltgray, .6);
             border: none;
+            z-index: 20;
+            width: auto;
+            height: auto;
         }
 
         .chr {
@@ -133,19 +149,30 @@
             padding-right: 2px;
         }
 
-        &.type-radical {
-            &::after {
-                content: '';
-                position: absolute;
-                z-index: 3;
-                @include absolute-fill(0);
-                border: 2.4px solid transparent;
-                border-radius: 2px;
-                transition: .1s all;
-            }
+        &.selected::after {
+            border-color: $c_blue;
+        }
 
-            &.selected::after {
-                border-color: $c_blue;
+        &::after {
+            content: '';
+            position: absolute;
+            z-index: 3;
+            @include absolute-fill(0);
+            border: 2.4px solid transparent;
+            border-radius: 2px;
+            transition: .1s all;
+        }
+
+        &.type-radical {
+            &.selected .num {
+                top:  -.2rem;
+                left: -2px;
+                padding-bottom: 1px;
+                padding-right: 3px;
+                background-color: $c_gray;
+                text-align: left;
+                color: $c_blue;
+                font-size: .7rem;
             }
 
             &:hover {
@@ -155,6 +182,17 @@
                     cursor: pointer;
                     border-color: $c_green;
                     margin: -2px;
+                }
+
+                .num {
+                    top:  -.4rem;
+                    left: -4px;
+                    padding-bottom: 1px;
+                    padding-right: 3px;
+                    background-color: $c_gray;
+                    text-align: left;
+                    color: $c_green;
+                    font-size: .8rem;
                 }
             }
         }
