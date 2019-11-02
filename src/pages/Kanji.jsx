@@ -9,7 +9,7 @@ const radicals = [
     rad('丨', 1, 'line, stick', 'ぼう', '棒', 21),
     rad('丶', 1, 'dot', 'てん', '点', 10),
     rad('丿', 1, 'bend, slash, possessive particle *no*', 'の', 'ノ', 33),
-    rad('乙,乛,⺄,乚,乙,乀', 1, 'second, latter', 'おつ', '乙', 42),
+    rad('乙,乚', 1, 'second, latter', 'おつ', '乙', 42),
     rad('亅', 1, 'hook, hooked stick', 'はねぼう', '撥棒', 19),
     { type: 'header-stroke', stroke: 2 },
     rad('二', 2, 'two', 'に', 'ニ', 29),
@@ -300,13 +300,15 @@ export default function Kanji() {
 
     // Find rendered width
     useEffect(() => {
-        const elm = document.querySelector('#kanjipage .left .radical-table');
-        setWidth(Math.floor((elm.offsetWidth) / 44));
-        window.addEventListener('resize', () => {
+        const updateWidth = () => {
             const elm = document.querySelector('#kanjipage .left .radical-table');
             setWidth(Math.floor((elm.offsetWidth) / 44));
-        });
-    }, []);
+        }
+        updateWidth();
+        setTimeout(updateWidth, 10);
+        window.addEventListener('resize', updateWidth);
+        return () => window.removeEventListener('resize', updateWidth);
+    });
 
     return (
         <div id='kanjipage'>
@@ -314,9 +316,10 @@ export default function Kanji() {
                 <div className='controls' style={{
                     width: width * 44
                 }}>
-                    <i onClick={() => setListView('list')}    className='fas fa-list-ul' />
-                    <i onClick={() => setListView('grid')}    className='fas fa-grid'>田</i>
-                    <i onClick={() => setSepLines(!sepLines)} className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
+                    {listView === 'grid' ?
+                        <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
+                        <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
+                    <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
                 </div>
                 <ArrayToGrid
                     className={'radical-table' + (sepLines ? ' separate-arrays' : '')}
