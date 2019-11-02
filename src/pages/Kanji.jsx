@@ -275,6 +275,7 @@ export default function Kanji() {
     const [listView,        setListView       ] = useState('grid');
     const [width,           setWidth          ] = useState(16);
     const [sepLines,        setSepLines       ] = useState(false);
+    const [strokeHeader,    setStrokeHeader   ] = useState(true);
 
     // Handle keyboard radical select
     useEffect(() => {
@@ -288,9 +289,39 @@ export default function Kanji() {
                 y = (d === 'D') - (d === 'U');
             }
             const index = radicals.findIndex(r => r === selectedRad);
-            let ni = (index + x + y * width + radicals.length) % radicals.length;
-            while (radicals[ni].type === 'header-stroke') {
-                ni = (ni + x + y * width + radicals.length) % radicals.length;
+
+            let ni;
+            let wh = width;
+            if (listView === 'list' && y !== 0) {
+                let i = index;
+                while (i >= 0 && radicals[--i].type !== 'header-stroke') {};
+                let nyi = i + y;
+                while (nyi >= 0 && nyi < radicals.length) {
+                    if (radicals[nyi].type === 'header-stroke') {
+                        console.log('nyi', nyi);
+                        console.log('i', i);
+                        console.log('index', index);
+                        ni = nyi + Math.abs(i - index);
+                        break;
+                    }
+                    nyi += y;
+                }
+            } else if (!strokeHeader && y !== 0) {
+                let mini = Math.min(index + x + y * width, index + x);
+                let maxi = Math.max(index + x + y * width, index + x);
+                for (let i = mini; i < maxi; i++) {
+                    if (radicals[i].type === 'header-stroke') wh++;
+                }
+                ni = (index + x + y * wh + radicals.length) % radicals.length;
+                if (radicals[ni].type === 'header-stroke') {
+                    ni += x;
+                    if (radicals[ni].type === 'header-stroke') ni++;
+                }
+            } else {
+                ni = (index + x + y * wh + radicals.length) % radicals.length;
+                while (radicals[ni].type === 'header-stroke') {
+                    ni = (ni + x + y * wh + radicals.length) % radicals.length;
+                }
             }
             setSelectedRad(radicals[ni]);
         };
@@ -316,13 +347,17 @@ export default function Kanji() {
                 <div className='controls' style={{
                     width: width * 44
                 }}>
+                    <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
                     {listView === 'grid' ?
                         <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
                         <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
                     <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
                 </div>
                 <ArrayToGrid
-                    className={'radical-table' + (sepLines ? ' separate-arrays' : '')}
+                    className={
+                        'radical-table' +
+                        (sepLines ? ' separate-arrays' : '') +
+                        (strokeHeader ? ' stroke-headers' : '')}
                     array={radicals}
                     width={width}
                     breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}

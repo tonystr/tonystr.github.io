@@ -34,6 +34,11 @@
                 color: $c_ltgray;
                 transition: .14s all;
 
+                &.stroke-header {
+                    font-size: 1.3rem;
+                    transform: translateY(-6%);
+                }
+
                 &.disabled {
                     color: #1d202a;
                     cursor: not-allowed;
@@ -50,7 +55,7 @@
 
 .selected-rad {
     margin: 0 auto;
-    margin-top: 1.9rem; 
+    margin-top: 1.9rem;
 
     .foc {
         display: inline-block;
@@ -126,6 +131,10 @@
 .radical-table {
     &.separate-arrays .array-table {
         margin-bottom: 1rem;
+    }
+
+    &:not(.stroke-headers) .type-header-stroke {
+        display: none;
     }
 
     div:not(.array-table) {
