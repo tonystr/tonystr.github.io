@@ -54,7 +54,6 @@ const radicals = [
     rad('屮', 3, 'sprout', 'てつ', '', 38),
     rad('山', 3, 'mountain', 'やま', '', 636),
     rad('巛,川,巜', 3, 'river', 'かわ', '', 29),
-    rad('巛,川,巜', 3, 'river', 'かわ', '', 29),
     rad('工', 3, 'work', 'たくみ', '', 17),
     rad('已,己,巳', 3, 'oneself', 'おのれ', '', 20),
     rad('巾', 3, 'cloth, turban, scarf', 'はば', '', 295),
@@ -122,7 +121,10 @@ export default function Kanji() {
                 y = (d === 'D') - (d === 'U');
             }
             const index = radicals.findIndex(r => r === selectedRad);
-            const ni = (index + x + y * width + radicals.length) % radicals.length;
+            let ni = (index + x + y * width + radicals.length) % radicals.length;
+            while (radicals[ni].type === 'header-stroke') {
+                ni = (ni + x + y * width + radicals.length) % radicals.length;
+            }
             setSelectedRad(radicals[ni]);
         };
         document.addEventListener('keydown', f);
