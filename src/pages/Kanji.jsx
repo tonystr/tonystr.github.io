@@ -14,6 +14,7 @@ function generateRadical(number, chr, strokeCount, meaning, reading, kanji, freq
         type: 'radical',
         chr: chrSplit[0],
         chrs: chrSplit,
+        chrText: chr,
         strokeCount: strokeCount,
         meaning: meaning,
         reading: reading,
@@ -88,6 +89,44 @@ function calcNi(index, width, x, y, listView, strokeHeader) {
     return ni;
 }
 
+function Search({ setResults, setSelectedRad }) {
+    const [value, setValue] = useState('');
+
+    const handleReset = () => {
+        setValue('');
+        setResults([]);
+    };
+
+    return (
+        <div className='search-radicals'>
+            <input
+                type='text'
+                placeholder='Search Radicals...'
+                value={value}
+                onChange={e => {
+                    const val = e.target.value;
+                    setValue(val);
+                    if (val.length < 1) {
+                        setSelectedRad(null);
+                        setResults([]);
+                        return;
+                    }
+                    const results = radicals.filter(rad => rad.type === 'radical' && (
+                        rad.meaning.includes(val) ||
+                        rad.chrText.includes(val) ||
+                        rad.reading.includes(val) ||
+                        rad.kanji.includes(val) ||
+                        `${rad.number}` === val
+                    ));
+                    setResults(results);
+                    setSelectedRad(results[0]);
+                }}
+            />
+            {value.length > 0 && <div onClick={handleReset} className='cancel-text'>×</div>}
+        </div>
+    );
+}
+
 export default function Kanji() {
     const [selectedRad,     setSelectedRad    ] = useState(null);
     const [highlightStroke, setHighlightStroke] = useState(0);
@@ -95,6 +134,7 @@ export default function Kanji() {
     const [width,           setWidth          ] = useState(16);
     const [sepLines,        setSepLines       ] = useState(false);
     const [strokeHeader,    setStrokeHeader   ] = useState(true);
+    const [searchResults,   setSearchResults  ] = useState([]);
 
     // Handle keyboard radical select
     useEffect(() => {
@@ -133,7 +173,7 @@ export default function Kanji() {
         <div id='kanjipage'>
             <div className='left'>
                 <div className='controls' style={{ width: width * 44 }}>
-                    <i className='fas fa-sadasd'>部首</i>
+                    <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
                     <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
                     {listView === 'grid' ?
                         <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
@@ -157,6 +197,7 @@ export default function Kanji() {
                                 (() => setSelectedRad(props.elm))}
                             highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
                             setHighlightStroke={setHighlightStroke}
+                            searchHiglight={searchResults.find(res => res === props.elm) && true}
                         />
                     )}
                 />
@@ -168,14 +209,15 @@ export default function Kanji() {
     );
 }
 
-function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightStroke }) {
+function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightStroke, searchHiglight }) {
     return (
         <div
             onClick={onClick}
             className={
                 (selectedRad && elm === selectedRad ? 'selected' : '') +
                 ' type-' + elm.type +
-                (elm.strokeCount === highlightStroke ? ' hl-stroke' : '')
+                (elm.strokeCount === highlightStroke ? ' hl-stroke' : '') +
+                (searchHiglight ? ' hl-search' : '')
             }
             onMouseEnter={(elm.type === 'header-stroke' && highlightStroke !== elm.stroke) ?
                 (e => setHighlightStroke(elm.stroke)) : null
