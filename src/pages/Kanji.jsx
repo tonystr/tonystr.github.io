@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/Header.jsx';
 import A from '../components/A.jsx';
 import radicalSrc from '../data/radicals.js';
 import '../styles/kanji.scss';
@@ -169,6 +170,7 @@ export default function Kanji() {
 
     return (
         <>
+            <Header />
             <div id='kanjipage' className={focus ? 'blur' : ''}>
                 <div className='left'>
                     <div className='header' style={{ width: width * 44 }}>

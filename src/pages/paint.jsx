@@ -63,7 +63,7 @@ export default function Paint() {
                     window.mousePrevious.down = false;
                 }}
             />
-            <textarea id='copybox' />
         </div>
     );
+    // <textarea id='copybox' />
 }

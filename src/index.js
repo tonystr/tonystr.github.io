@@ -40,6 +40,7 @@ function ValidatePage(props) {
         );
         case 'paint': return <Paint />;
         case 'kanji': return <Kanji />;
+        case 'radicals': return <Kanji />;
         case 'dracula': return <Dracula />;
         case 'minesweeper': return <Minesweeper />;
         case '8ball':

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Header from '../components/Header.jsx';
 import '../styles/minesweeper.scss';
 
 function gridFindValue(grid, rx, ry, rw, rh) {
@@ -201,53 +202,56 @@ export default function Minesweeper() {
     };
 
     return (
-        <div
-            className={`minesweeper ${gameState}`}
-            ref={gameRef}
-        >
-            <table className='game-grid'>
-                <tbody>
-                    <TableContent
-                        grid={grid}
-                        setGrid={setGrid}
-                        flagCount={flagCount}
-                        setFlagCount={setFlagCount}
-                        gameState={gameState}
-                        setGameState={setGameState}
-                        showCount={showCount}
-                        setShowCount={setShowCount}
-                        width={width}
-                        height={height}
-                        bombCount={bombCount}
-                        ctrl={ctrl}
-                    />
-                </tbody>
-            </table>
-            <div className='infobar'>
-                <Counter className='flagcount'>
-                    Flags: <span>{flagCount} <i className='far fa-flag' /></span>
-                </Counter>
-                <Counter className='bombcount'>
-                    Bombs: <span>{bombCount - flagCount} <span role='img' aria-label='bomb'>💣</span></span>
-                </Counter>
-                <Counter className='grid-size'>
-                    Grid: <span>{width} × {height}</span>
-                </Counter>
-                <Counter className='stopwatch' toggle={true}>
-                    Time: <span className={gameState !== 'playing' ? 'stop' : ''}>
-                        <Stopwatch stop={gameState !== 'playing'} />
-                    </span>
-                </Counter>
-                <div
-                    className='counter'
-                    title='restart'
-                    onClick={gameRestart}
-                >
-                    <i class="fas fa-redo"></i>
+        <>
+            <Header />
+            <div
+                className={`minesweeper ${gameState}`}
+                ref={gameRef}
+            >
+                <table className='game-grid'>
+                    <tbody>
+                        <TableContent
+                            grid={grid}
+                            setGrid={setGrid}
+                            flagCount={flagCount}
+                            setFlagCount={setFlagCount}
+                            gameState={gameState}
+                            setGameState={setGameState}
+                            showCount={showCount}
+                            setShowCount={setShowCount}
+                            width={width}
+                            height={height}
+                            bombCount={bombCount}
+                            ctrl={ctrl}
+                        />
+                    </tbody>
+                </table>
+                <div className='infobar'>
+                    <Counter className='flagcount'>
+                        Flags: <span>{flagCount} <i className='far fa-flag' /></span>
+                    </Counter>
+                    <Counter className='bombcount'>
+                        Bombs: <span>{bombCount - flagCount} <span role='img' aria-label='bomb'>💣</span></span>
+                    </Counter>
+                    <Counter className='grid-size'>
+                        Grid: <span>{width} × {height}</span>
+                    </Counter>
+                    <Counter className='stopwatch' toggle={true}>
+                        Time: <span className={gameState !== 'playing' ? 'stop' : ''}>
+                            <Stopwatch stop={gameState !== 'playing'} />
+                        </span>
+                    </Counter>
+                    <div
+                        className='counter'
+                        title='restart'
+                        onClick={gameRestart}
+                    >
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    {gameState === 'won' && <div> You win! </div>}
                 </div>
-                {gameState === 'won' && <div> You win! </div>}
             </div>
-        </div>
+        </>
     );
 }
 

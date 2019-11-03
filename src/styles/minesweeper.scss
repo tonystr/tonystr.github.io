@@ -3,6 +3,7 @@
 $tdColor: lighten($c_dark, 3%);
 
 .minesweeper {
+    padding-top: 2.4rem;
     .infobar {
         display: flex;
         flex-direction: row;

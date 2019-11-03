@@ -11,13 +11,24 @@
     100% { transform: translateY(-50%); }
 }
 
+.mini-proj,
+.radical-page-link {
+    font-size: 2rem;
+    color: #484959;
+}
+
+.ascii-page-link,
+.radical-page-link {
+    color: #56576a;
+}
+
 #naval-mine {
     width: 3rem;
     height: 3rem;
 
     *:not(.hole) {
         transition: .14s fill;
-        fill: lighten($c_dark, 4%) !important;
+        fill: #484959 !important;
     }
 
     &:hover *:not(.hole) {
@@ -127,6 +138,7 @@ $xmarg: 4%;
 #about {
     padding: 0 $xmarg;
     margin-bottom: 4rem;
+    position: relative;
 
     .description {
         overflow: hidden;
