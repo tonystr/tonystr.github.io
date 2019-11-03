@@ -126,7 +126,11 @@ function Search({ setResults, setSelectedRad }) {
 }
 
 export default function Kanji() {
-    const [selectedRad,     setSelectedRad    ] = useState(null);
+    const hashNum = window.location.href.match(/#(\d+)/);
+    const [selectedRad, setSelectedRadInt] = useState(hashNum !== null ?
+        radicals.find(rad => rad.number === +hashNum[1]) :
+        null
+    );
     const [highlightStroke, setHighlightStroke] = useState(0);
     const [listView,        setListView       ] = useState('grid');
     const [width,           setWidth          ] = useState(16);
@@ -134,6 +138,11 @@ export default function Kanji() {
     const [strokeHeader,    setStrokeHeader   ] = useState(true);
     const [searchResults,   setSearchResults  ] = useState([]);
     const [focus,           setFocus          ] = useState(null);
+
+    const setSelectedRad = rad => {
+        setSelectedRadInt(rad);
+        document.location = rad && rad.number ? `#${rad.number}` : '#';
+    }
 
     // Handle keyboard radical select
     useEffect(() => {

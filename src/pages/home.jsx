@@ -7,9 +7,7 @@ import '../styles/home.scss';
 const WebdevPage  = lazy(() => import('../components/WebdevPage.jsx'));
 const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
-Math.clamp = Math.clamp || ((x, y, z) => {
-    return x < y ? y : (x > z ? z : x);
-});
+Math.clamp = Math.clamp || ((x, y, z) => x < y ? y : (x > z ? z : x));
 
 export default function Home(props) {
     return (
@@ -121,8 +119,17 @@ function GithubContributions() {
                     if (dataIndex >= 0) {
                         if (res[i] === '"') {
                             dataIndex = -1;
-                            console.log(data);
-                            res = res.slice(0, fillIndex + 7) + colors[Math.clamp(Math.floor(+data / 3 + (+data > 0)), 0, colors.length - 1)] + res.slice(fillIndex + 13);
+                            res = `${
+                                res.slice(0, fillIndex + 7)
+                            }${
+                                colors[Math.clamp(
+                                    Math.floor(+data / 3 + (+data > 0)),
+                                    0,
+                                    colors.length - 1
+                                )]
+                            }${
+                                res.slice(fillIndex + 13)
+                            }`;
                             data = '';
                         } else data += res[i];
                     }
