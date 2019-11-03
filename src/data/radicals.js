@@ -59,7 +59,7 @@ module.exports = [
     [55, '廾', 3, 'two hands, twenty', 'にじゅうあし', '二十脚', 50],
     [56, '弋', 3, 'ceremony, shoot, arrow', 'しきがまえ', '式構', 15],
     [57, '弓', 3, 'bow', 'ゆみ', '式構', 165],
-    [58, '彐,彑', 3, 'pig\'s head', 'けいがしら', '彑頭', 25],
+    [58, '彐,彑', 3, 'pig\'s snout', 'けいがしら', '彑頭', 25],
     [59, '彡', 3, 'hair, bristle, stubble, beard', 'さんづくり', '三旁', 62],
     [60, '彳', 3, 'step', 'ぎょうにんべん', '行人偏', 215],
     { type: 'header-stroke', stroke: 4 },

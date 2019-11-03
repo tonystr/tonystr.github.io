@@ -82,9 +82,6 @@ function calcNi(index, width, x, y, listView, strokeHeader) {
     if (addNi) ni = (index + x + y * wh + radicals.length) % radicals.length;
     if (radicals[ni].type === 'header-stroke') {
         return calcNi(ni, width, x, y, listView, strokeHeader);
-        // ni = (ni + (
-        //     !strokeHeader && y !== 0 ? y : x + y * wh
-        // ) + radicals.length) % radicals.length;
     }
     return ni;
 }
@@ -98,7 +95,7 @@ function Search({ setResults, setSelectedRad }) {
     };
 
     return (
-        <div className='search-radicals'>
+        <div className={'search-radicals' + (value.length > 0 ? ' has-text' : '')}>
             <input
                 type='text'
                 placeholder='Search Radicals...'
@@ -135,6 +132,7 @@ export default function Kanji() {
     const [sepLines,        setSepLines       ] = useState(false);
     const [strokeHeader,    setStrokeHeader   ] = useState(true);
     const [searchResults,   setSearchResults  ] = useState([]);
+    const [focus,           setFocus          ] = useState(null);
 
     // Handle keyboard radical select
     useEffect(() => {
@@ -170,41 +168,88 @@ export default function Kanji() {
     });
 
     return (
-        <div id='kanjipage'>
-            <div className='left'>
-                <div className='controls' style={{ width: width * 44 }}>
-                    <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
-                    <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
-                    {listView === 'grid' ?
-                        <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
-                        <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
-                    <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
+        <>
+            <div id='kanjipage' className={focus ? 'blur' : ''}>
+                <div className='left'>
+                    <div className='header' style={{ width: width * 44 }}>
+                        <div className='title'>
+                            Kangxi Radicals
+                        </div>
+                        <div className='controls'>
+                            <div className='help' onClick={() => setFocus(<HelpMenu dismount={() => setFocus(null)} />)}>help</div>
+                            <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
+                            <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
+                            {listView === 'grid' ?
+                                <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
+                                <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
+                            <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
+                        </div>
+                    </div>
+                    <ArrayToGrid
+                        className={
+                            'radical-table' +
+                            (sepLines ? ' separate-arrays' : '') +
+                            (strokeHeader ? ' stroke-headers' : '')}
+                        array={radicals}
+                        width={width}
+                        breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}
+                        ElmComponent={props => (
+                            <RadicalCell
+                                {...props}
+                                selectedRad={selectedRad}
+                                onClick={props.elm.type === 'header-stroke' && selectedRad === props.elm ?
+                                    (() => setSelectedRad(null)) :
+                                    (() => setSelectedRad(props.elm))}
+                                highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
+                                setHighlightStroke={setHighlightStroke}
+                                searchHiglight={searchResults.find(res => res === props.elm) && true}
+                            />
+                        )}
+                    />
                 </div>
-                <ArrayToGrid
-                    className={
-                        'radical-table' +
-                        (sepLines ? ' separate-arrays' : '') +
-                        (strokeHeader ? ' stroke-headers' : '')}
-                    array={radicals}
-                    width={width}
-                    breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}
-                    ElmComponent={props => (
-                        <RadicalCell
-                            {...props}
-                            selectedRad={selectedRad}
-                            onClick={props.elm.type === 'header-stroke' && selectedRad === props.elm ?
-                                (() => setSelectedRad(null)) :
-                                (() => setSelectedRad(props.elm))}
-                            highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
-                            setHighlightStroke={setHighlightStroke}
-                            searchHiglight={searchResults.find(res => res === props.elm) && true}
-                        />
-                    )}
-                />
+                <div className='right'>
+                    {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
+                </div>
             </div>
-            <div className='right'>
-                {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
+            {focus && <Focus dismount={() => setFocus(null)} comp={focus} />}
+        </>
+    );
+}
+
+function Focus(props) {
+    const handleClick = e => {
+        if (!document.querySelector('.focus .content').contains(e.target)) {
+            props.dismount();
+        }
+    }
+
+    return (
+        <div className='focus' onClick={handleClick}>
+            {props.comp}
+        </div>
+    );
+}
+
+function HelpMenu(props) {
+    return (
+        <div className='help-menu content'>
+            <div className='inner'>
+                <div className='title'>Help</div>
+                <h2> What are Kangxi Radicals? </h2>
+                <p>
+                    <A to='https://en.wikipedia.org/wiki/Radical_(Chinese_characters)'>Radicals</A> [部首 (ぶしゅ)] are symbols that represent objects and ideas, and can be combined to create <A to='https://en.wikipedia.org/wiki/Kanji'>Kanji</A> (Chinese characters).
+                    Japanese Kanji is based on the <A to='https://en.wikipedia.org/wiki/Kangxi_Dictionary'>Kangxi Dictionary</A>, which has a total of 213 radicals. Some radicals are also Kanji on their own, but most Kanji (over 90%) are classified as "<A to='https://en.wikipedia.org/wiki/Chinese_character_classification#Phono-semantic_compound_characters'>phono-semantic compound characters</A>".
+                    These characters consist of a <i>rebus</i> (phonetic part; approximate pronunciation) and a <i>determinative</i> (meaning). In most cases, the determinative is also the radical of a kanji. The determinative is typically either the left [偏 (へん)], upper [冠 (かんむり)] or surrounding [構え (かまえ)] part of a kanji.
+                </p>
+                <h2> How to use this tool </h2>
+                <p>
+                    This tool was designed to help look up radicals (and possibly search kanji by radical; not implemented yet). Above the Radical table, is a searchbar. This can be used to highlight radicals by reading (Hiragana), meaning (English) or number. If you wish to find a radical by its stroke count (as is more common), look for the numbered cells, and hover over one to highlight all Radicals that many strokes. The radicals are ordered (left to right, top to bottom) by the official radical numbers, which are in turn <i>mostly</i> ordered by stroke count (some characters have been simplified/changed since the original Kangxi dictionary).
+                </p>
+                <p>
+                    When you click on a radical in the grid, more details about that radical appear on the right. There you'll see the possible alternations of the radical in the top left, the radical number in a darker gray in the top left of the square, and the meaning(s) of the radical to the right. The radical itself is displayed in illustrious green right in the center of the square. Below the square is the radical's reading in <A to='https://en.wikipedia.org/wiki/Hiragana'>hiragana</A>. Below that again, are some links for more information related to that radical. The "Wiki" link directs to the radical number's page, the "厶" page (where "厶" is whatever radical you clicked on) directs to *wiktionary* for that character, and the "index" page directs to a wikipedia page that lists all Kanjis using that Radical, ordered by stroke count.
+                </p>
             </div>
+            <div onClick={() => props.dismount()} className='close'></div>
         </div>
     );
 }
