@@ -168,8 +168,9 @@ export default function Kanji() {
     // Find rendered width
     useEffect(() => {
         const updateWidth = () => {
-            const elm = document.querySelector('#kanjipage .left .radical-table');
-            setWidth(Math.floor((elm.offsetWidth) / 44));
+            const table   = document.querySelector('#kanjipage .left .radical-table');
+            const radCell = document.querySelector('#kanjipage .left .array-table > div');
+            setWidth(Math.ceil((table.offsetWidth) / (radCell.offsetWidth + 2)));
         }
         updateWidth();
         setTimeout(updateWidth, 10);
