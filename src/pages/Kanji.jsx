@@ -289,14 +289,46 @@ function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightS
     );
 }
 
+const haniCache = {};
+
 function RadicalPanel({ rad }) {
+    const [hanis, setHanis] = useState(null);
+
+    const requestHani = () => {
+        if (haniCache[rad.chr]) {
+            console.log('found hani in cache');
+            return setHanis(haniCache[rad.chr]);
+        }
+        console.log('requesting hani...');
+
+        fetch(`https://urlreq.appspot.com/req?method=GET&url=https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`).then(
+            res => res.text().then(text => {
+                if (text.bodyUsed) return;
+                const strokes = text.match(/id\s*=\s*"\+(\d+)_strokes"/gi).map(sStr => sStr.match(/\d+/)[0]);
+                let strokeIndex = 0;
+                const rHanis = text.match(/<big[^>]+?class="Hani[^>]+>.+?<\/big>/gi).map(
+                    hStr => ({
+                        chrs: hStr.match(/<a[^>]*>[^<]+<\/a>/gi).map(
+                            aStr => ({
+                                href: (aStr.match(/href\s*=\s*"([^"]+)"/i) || { 1: null })[1],
+                                chr: (aStr.match(/>([^<]+)<\/a>/i) || { 1: null })[1].trim()
+                            })
+                        ),
+                        strokes: +strokes[strokeIndex++]
+                    })
+                );
+                rHanis.radical = rad.chr;
+                setHanis(rHanis);
+                haniCache[rad.chr] = rHanis;
+            })
+        );
+    };
+
     return (
         <div className='selected-rad'>
             <div className='foc'>
                 <div className='chr'>
-                    <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>
-                        {rad.chr}
-                    </A>
+                    <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>{rad.chr}</A>
                 </div>
                 <div className='reading'>{rad.reading}</div>
                 <div className='meaning'>
@@ -316,9 +348,34 @@ function RadicalPanel({ rad }) {
                     <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>index</A>
                 </div>
                 <div className='wikipedia'>
-                    <A to='https://en.wikipedia.org/wiki/List_of_kanji_by_concept'>Kanji by concept</A>
+                    {hanis && hanis.radical === rad.chr ? (
+                        <WikiRadicalIndex hanis={hanis} />
+                    ) : (
+                        <div className='load-kanji' onClick={requestHani}>
+                            Load kanji
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
+    );
+}
+
+// <A to='https://en.wikipedia.org/wiki/List_of_kanji_by_concept'>Kanji by concept</A>
+
+function WikiRadicalIndex({ hanis }) {
+    return (
+        <ul>
+            {hanis.map(hani => (
+                <li>
+                    <h3>+{hani.strokes} Strokes</h3>
+                    <p>
+                        {hani.chrs.map(chr => (
+                            <span>{chr.chr}</span>
+                        ))}
+                    </p>
+                </li>
+            ))}
+        </ul>
     );
 }

@@ -176,6 +176,15 @@
     margin: 0 auto;
     margin-top: 1.9rem;
 
+    .load-kanji {
+        border: 1px solid $c_dark;
+        background-color: lighten($c_gray, 3%);
+        color: $c_green;
+        border-radius: .2rem;
+        padding: .3rem 0;
+        cursor: pointer;
+    }
+
     .foc {
         display: inline-block;
         width: 10rem;
