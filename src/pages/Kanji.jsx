@@ -170,7 +170,8 @@ export default function Kanji() {
         const updateWidth = () => {
             const table   = document.querySelector('#kanjipage .left .radical-table');
             const radCell = document.querySelector('#kanjipage .left .array-table > div');
-            setWidth(Math.ceil((table.offsetWidth) / (radCell.offsetWidth + 2)));
+            // Each cell has -2px margin on one side
+            setWidth(Math.floor((table.offsetWidth) / (radCell.offsetWidth - 2)));
         }
         updateWidth();
         setTimeout(updateWidth, 10);
