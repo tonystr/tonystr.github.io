@@ -2,7 +2,17 @@ import React, { useState, useEffect } from 'react';
 import Header from '../components/Header.jsx';
 import A from '../components/A.jsx';
 import radicalSrc from '../data/radicals.js';
+import kanjiSrc from '../data/kanji.js';
 import '../styles/kanji.scss';
+
+const kanji = kanjiSrc.map(kan => ({
+    number:     kan[0],
+    kanji:      kan[1],
+    radical:    kan[2],
+    stokes:     kan[3],
+    meaning:    kan[4],
+    reading:    kan[5]
+}));
 
 const radicals = radicalSrc.map(rad => Array.isArray(rad) ?
     generateRadical(...rad) :
@@ -140,6 +150,7 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
+        rad.kanjis = kanji.filter(kan => kan.radical === rad.chr);
         setSelectedRadInt(rad);
         document.location = rad && rad.number ? `#${rad.number}` : '#';
     }
@@ -295,37 +306,6 @@ const haniCache = {};
 function RadicalPanel({ rad }) {
     const [hanis, setHanis] = useState(null);
 
-    const requestHani = () => {
-        if (haniCache[rad.chr]) {
-            console.log('found hani in cache');
-            return setHanis(haniCache[rad.chr]);
-        }
-        console.log('requesting hani...');
-
-        fetch(`https://urlreq.appspot.com/req?method=GET&url=https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`).then(
-            res => res.text().then(text => {
-                if (text.bodyUsed) return;
-                const strokes = text.match(/id\s*=\s*"\+(\d+)_strokes"/gi).map(sStr => sStr.match(/\d+/)[0]);
-                let strokeIndex = 0;
-                const rHanis = text.match(/<big[^>]+?class="Hani[^>]+>.+?<\/big>/gi).map(
-                    hStr => ({
-                        chrs: hStr.match(/<a[^>]*>[^<]+<\/a>/gi).map(
-                            aStr => ({
-                                href: (aStr.match(/href\s*=\s*"([^"]+)"/i) || { 1: null })[1],
-                                chr: (aStr.match(/>([^<]+)<\/a>/i) || { 1: null })[1].trim()
-                            })
-                        ),
-                        strokes: +strokes[strokeIndex++]
-                    })
-                );
-                rHanis.radical = rad.chr;
-                rHanis.strokeCount = rad.strokeCount;
-                setHanis(rHanis);
-                haniCache[rad.chr] = rHanis;
-            })
-        );
-    };
-
     return (
         <div className='selected-rad'>
             <div className='foc'>
@@ -350,35 +330,13 @@ function RadicalPanel({ rad }) {
                     <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>index</A>
                 </div>
                 <div className='wikipedia'>
-                    {hanis && hanis.radical === rad.chr ? (
-                        <WikiRadicalIndex hanis={hanis} />
-                    ) : (
-                        <div className='load-kanji' onClick={requestHani}>
-                            Load kanji
-                        </div>
-                    )}
+                    <div className='kanji-results'>
+                        {rad.kanjis && rad.kanjis.map(kan => (
+                            <div className='kanji'>{kan.kanji}</div>
+                        ))}
+                    </div>
                 </div>
             </div>
-        </div>
-    );
-}
-
-// <A to='https://en.wikipedia.org/wiki/List_of_kanji_by_concept'>Kanji by concept</A>
-
-function WikiRadicalIndex({ hanis }) {
-    console.log(hanis.radical);
-    return (
-        <div className='kanji-results'>
-            {hanis.map(hani => (
-                <>
-                    <div className='header-stroke'>
-                        {hanis.strokeCount + hani.strokes}
-                    </div>
-                    {hani.chrs.map(chr => (
-                        <div className='kanji'>{chr.chr}</div>
-                    ))}
-                </>
-            ))}
         </div>
     );
 }
