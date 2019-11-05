@@ -323,13 +323,17 @@ function RadicalPanel({ rad }) {
     const [hanis, setHanis] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
 
+    // TODO: #34 errors
+
     return (
         <div className='selected-rad'>
             <div className='foc'>
                 <div className='chr'>
                     <A to={`https://en.wiktionary.org/wiki/Index:Chinese_radical/${rad.chr}`}>{rad.chr}</A>
                 </div>
-                <div className='reading'>{rad.reading}</div>
+                <div className='reading'>
+                    {rad.kanji ? `${rad.kanji} (${rad.reading})` : rad.reading}
+                </div>
                 <div className='meaning'>
                     <ul>
                         {rad.meaning.split(/,\s+/g).map(l => (
