@@ -319,6 +319,7 @@ function RadicalPanel({ rad }) {
                     })
                 );
                 rHanis.radical = rad.chr;
+                rHanis.strokeCount = rad.strokeCount;
                 setHanis(rHanis);
                 haniCache[rad.chr] = rHanis;
             })
@@ -365,18 +366,19 @@ function RadicalPanel({ rad }) {
 // <A to='https://en.wikipedia.org/wiki/List_of_kanji_by_concept'>Kanji by concept</A>
 
 function WikiRadicalIndex({ hanis }) {
+    console.log(hanis.radical);
     return (
-        <ul>
+        <div className='kanji-results'>
             {hanis.map(hani => (
-                <li>
-                    <h3>+{hani.strokes} Strokes</h3>
-                    <p>
-                        {hani.chrs.map(chr => (
-                            <span>{chr.chr}</span>
-                        ))}
-                    </p>
-                </li>
+                <>
+                    <div className='header-stroke'>
+                        {hanis.strokeCount + hani.strokes}
+                    </div>
+                    {hani.chrs.map(chr => (
+                        <div className='kanji'>{chr.chr}</div>
+                    ))}
+                </>
             ))}
-        </ul>
+        </div>
     );
 }
