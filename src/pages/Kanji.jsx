@@ -6,12 +6,12 @@ import kanjiSrc from '../data/kanji.js';
 import '../styles/kanji.scss';
 
 const kanji = kanjiSrc.map(kan => ({
-    number:     kan[0],
-    kanji:      kan[1],
-    radical:    kan[2],
-    stokes:     kan[3],
-    meaning:    kan[4],
-    reading:    kan[5]
+    number:  kan[0],
+    kanji:   kan[1],
+    radical: kan[2],
+    strokes: kan[3],
+    meaning: kan[4],
+    reading: kan[5]
 }));
 
 const radicals = radicalSrc.map(rad => Array.isArray(rad) ?
@@ -150,7 +150,25 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
-        rad.kanjis = kanji.filter(kan => kan.radical === rad.chr);
+        rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical));
+
+        const sortedKanjis = [rad.kanjis[0]];
+        for (let ki = 1; ki < rad.kanjis.length; ki++) {
+            const kan = rad.kanjis[ki];
+            for (let i = 0; i < sortedKanjis.length; i++) {
+                if (kan.strokes < sortedKanjis[i].strokes || (
+                    kan.strokes === sortedKanjis[i].strokes &&
+                    kan.number < sortedKanjis[i].number
+                )) {
+                    sortedKanjis.splice(i, 0, kan);
+                    break;
+                }
+            }
+        }
+        console.log(sortedKanjis);
+
+        rad.kanjis = sortedKanjis;
+
         setSelectedRadInt(rad);
         document.location = rad && rad.number ? `#${rad.number}` : '#';
     }
@@ -247,11 +265,7 @@ function Focus(props) {
         }
     }
 
-    return (
-        <div className='focus' onClick={handleClick}>
-            {props.comp}
-        </div>
-    );
+    return <div className='focus' onClick={handleClick}>{props.comp}</div>;
 }
 
 function HelpMenu(props) {
