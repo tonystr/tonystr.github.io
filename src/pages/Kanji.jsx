@@ -150,24 +150,26 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
-        rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical));
 
-        const sortedKanjis = [rad.kanjis[0]];
-        for (let ki = 1; ki < rad.kanjis.length; ki++) {
-            const kan = rad.kanjis[ki];
-            for (let i = 0; i < sortedKanjis.length; i++) {
-                if (kan.strokes < sortedKanjis[i].strokes || (
-                    kan.strokes === sortedKanjis[i].strokes &&
-                    kan.number < sortedKanjis[i].number
-                )) {
-                    sortedKanjis.splice(i, 0, kan);
-                    break;
+        if (rad.type === 'radical') {
+            rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical));
+
+            const sortedKanjis = [rad.kanjis[0]];
+            for (let ki = 1; ki < rad.kanjis.length; ki++) {
+                const kan = rad.kanjis[ki];
+                for (let i = 0; i < sortedKanjis.length; i++) {
+                    if (kan.strokes < sortedKanjis[i].strokes || (
+                        kan.strokes === sortedKanjis[i].strokes &&
+                        kan.number < sortedKanjis[i].number
+                    )) {
+                        sortedKanjis.splice(i, 0, kan);
+                        break;
+                    }
                 }
             }
-        }
-        console.log(sortedKanjis);
 
-        rad.kanjis = sortedKanjis;
+            rad.kanjis = sortedKanjis;
+        }
 
         setSelectedRadInt(rad);
         document.location = rad && rad.number ? `#${rad.number}` : '#';
@@ -319,6 +321,7 @@ const haniCache = {};
 
 function RadicalPanel({ rad }) {
     const [hanis, setHanis] = useState(null);
+    const [selectedKanji, setSelectedKanji] = useState(null);
 
     return (
         <div className='selected-rad'>
@@ -346,8 +349,22 @@ function RadicalPanel({ rad }) {
                 <div className='wikipedia'>
                     <div className='kanji-results'>
                         {rad.kanjis && rad.kanjis.map(kan => (
-                            <div className='kanji'>{kan.kanji}</div>
+                            <div
+                                className='kanji'
+                                onClick={() => setSelectedKanji(kan)}
+                            >
+                                {kan.kanji}
+                            </div>
                         ))}
+                        {selectedKanji && (
+                            <div className='selected-kanji'>
+                                <div className='number'>{selectedKanji.number}</div>
+                                <div className='chr'>{selectedKanji.kanji}</div>
+                                <div className='strokes'>{selectedKanji.strokes}</div>
+                                <div className='meaning'>{selectedKanji.meaning}</div>
+                                <div className='reading'>{selectedKanji.reading}</div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>

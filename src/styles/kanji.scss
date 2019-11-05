@@ -194,8 +194,16 @@
 
         > div {
             width: 20%;
-            height: 2.4rem;
+            height: 1.8rem;
             font-size: 1.3rem;
+            border-radius: .14rem;
+            transition: .14s all;
+
+            &:hover {
+                cursor: pointer;
+                box-shadow: 0 0 0 2px $c_green;
+                color: $c_green;
+            }
         }
     }
 
@@ -206,7 +214,7 @@
         margin-left: 3rem;
         margin-right: 1.5rem;
 
-        .chr {
+        > .chr {
             font-size: 5rem;
             height: 6.4rem;
             text-align: center;
@@ -221,7 +229,7 @@
             }
         }
 
-        .meaning {
+        > .meaning {
             position: absolute;
             top: 0;
             left: 100%;
@@ -240,32 +248,39 @@
             }
         }
 
-        .reading {
+        > .reading {
             font-size: 1.2rem;
             text-align: center;
             padding-top: .6rem;
         }
 
-        .wikipedia {
+        > .wikipedia {
+            position: relative;
             text-align: center;
             margin-top: .5rem;
             padding-top: .6rem;
             border-top: 2px solid $c_dark;
         }
 
-        .chrs {
+        > .chrs {
             font-size: 1.2rem;
             position: absolute;
             right: 100%;
             top: 0;
         }
 
-        .num {
+        > .num {
             position: absolute;
             top: .2rem;
             left: 1.4rem;
             font-size: 1rem;
             color: $c_ltgray;
+        }
+
+        .selected-kanji {
+            position: absolute;
+            top: 0;
+            left: 105%;
         }
     }
 }
