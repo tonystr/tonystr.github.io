@@ -150,25 +150,29 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
-
-        if (rad.type === 'radical') {
-            rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical));
-
-            const sortedKanjis = [rad.kanjis[0]];
-            for (let ki = 1; ki < rad.kanjis.length; ki++) {
-                const kan = rad.kanjis[ki];
-                for (let i = 0; i < sortedKanjis.length; i++) {
-                    if (kan.strokes < sortedKanjis[i].strokes || (
-                        kan.strokes === sortedKanjis[i].strokes &&
-                        kan.number < sortedKanjis[i].number
-                    )) {
-                        sortedKanjis.splice(i, 0, kan);
-                        break;
-                    }
-                }
+        if (rad) {
+            if (rad.type === 'radical') {
+                rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical)) || null;
             }
 
-            rad.kanjis = sortedKanjis;
+            if (rad.kanjis) {
+                const sortedKanjis = [rad.kanjis[0]];
+
+                for (let ki = 1; ki < rad.kanjis.length; ki++) {
+                    const kan = rad.kanjis[ki];
+                    for (let i = 0; i < sortedKanjis.length; i++) {
+                        if (kan.strokes < sortedKanjis[i].strokes || (
+                            kan.strokes === sortedKanjis[i].strokes &&
+                            kan.number < sortedKanjis[i].number
+                        )) {
+                            sortedKanjis.splice(i, 0, kan);
+                            break;
+                        }
+                    }
+                }
+
+                rad.kanjis = sortedKanjis;
+            }
         }
 
         setSelectedRadInt(rad);
@@ -216,9 +220,7 @@ export default function Kanji() {
             <div id='kanjipage' className={focus ? 'blur' : ''}>
                 <div className='left'>
                     <div className='header' style={{ width: width * 44 }}>
-                        <div className='title'>
-                            Kangxi Radicals
-                        </div>
+                        <div className='title'> Kangxi Radicals </div>
                         <div className='controls'>
                             <div className='help' onClick={() => setFocus(<HelpMenu dismount={() => setFocus(null)} />)}>help</div>
                             <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
@@ -320,7 +322,6 @@ function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightS
 const haniCache = {};
 
 function RadicalPanel({ rad }) {
-    const [hanis, setHanis] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
 
     // TODO: #34 errors
@@ -352,7 +353,7 @@ function RadicalPanel({ rad }) {
                 </div>
                 <div className='wikipedia'>
                     <div className='kanji-results'>
-                        {rad.kanjis && rad.kanjis.map(kan => (
+                        {rad.kanjis && rad.kanjis.length && rad.kanjis.map(kan => (
                             <div
                                 className='kanji'
                                 onClick={() => setSelectedKanji(kan)}
