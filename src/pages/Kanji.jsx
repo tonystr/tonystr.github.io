@@ -140,12 +140,45 @@ function Search({ setResults, setSelectedRad }) {
     );
 }
 
+function radKanjis(rad) {
+    let outKanjis = kanji.filter(kan => rad.chrs.includes(kan.radical)) || null;
+
+    if (rad.kanjis && rad.kanjis.length > 1) {
+        const sortedKanjis = [rad.kanjis[0]];
+
+        for (let ki = 1; ki < rad.kanjis.length; ki++) {
+            const kan = rad.kanjis[ki];
+            let broke = false;
+            for (let i = 0; i < sortedKanjis.length; i++) {
+                if (kan.strokes < sortedKanjis[i].strokes || (
+                    kan.strokes === sortedKanjis[i].strokes &&
+                    kan.number < sortedKanjis[i].number
+                )) {
+                    sortedKanjis.splice(i, 0, kan);
+                    broke = true;
+                    break;
+                }
+            }
+            if (!broke) {
+                sortedKanjis.push(kan);
+            }
+        }
+
+        outKanjis = sortedKanjis;
+    }
+
+    return outKanjis;
+}
+
+function initRad(hashNum) {
+    if (hashNum === null) return null;
+    const rad = radicals.find(rad => rad.number === +hashNum[1]);
+    rad.kanjis = radKanjis(rad);
+    return rad;
+}
+
 export default function Kanji() {
-    const hashNum = window.location.href.match(/#(\d+)/);
-    const [selectedRad, setSelectedRadInt] = useState(hashNum !== null ?
-        radicals.find(rad => rad.number === +hashNum[1]) :
-        null
-    );
+    const [selectedRad,     setSelectedRadInt ] = useState(initRad(window.location.href.match(/#(\d+)/)));
     const [highlightStroke, setHighlightStroke] = useState(0);
     const [listView,        setListView       ] = useState('grid');
     const [width,           setWidth          ] = useState(16);
@@ -155,34 +188,8 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
-        if (rad) {
-            if (rad.type === 'radical') {
-                rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical)) || null;
-            }
-
-            if (rad.kanjis && rad.kanjis.length > 1) {
-                const sortedKanjis = [rad.kanjis[0]];
-
-                for (let ki = 1; ki < rad.kanjis.length; ki++) {
-                    const kan = rad.kanjis[ki];
-                    let broke = false;
-                    for (let i = 0; i < sortedKanjis.length; i++) {
-                        if (kan.strokes < sortedKanjis[i].strokes || (
-                            kan.strokes === sortedKanjis[i].strokes &&
-                            kan.number < sortedKanjis[i].number
-                        )) {
-                            sortedKanjis.splice(i, 0, kan);
-                            broke = true;
-                            break;
-                        }
-                    }
-                    if (!broke) {
-                        sortedKanjis.push(kan);
-                    }
-                }
-
-                rad.kanjis = sortedKanjis;
-            }
+        if (rad && rad.type === 'radical') {
+            rad.kanjis = radKanjis(rad);
         }
 
         setSelectedRadInt(rad);
