@@ -36,6 +36,11 @@ function generateRadical(number, chr, strokeCount, meaning, reading, kanji, freq
     };
 }
 
+console.log(kanji.filter(k => k.radical === '斤'));
+const rdk = radicals.find(r => r.chr === '斤');
+console.log(rdk);
+console.log(kanji.filter(k => rdk.chrs.includes(k.radical)));
+
 function ArrayToGrid({ array, ElmComponent, className, breakOn }) {
     let trs = [];
     let tr = [];
@@ -155,19 +160,24 @@ export default function Kanji() {
                 rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical)) || null;
             }
 
-            if (rad.kanjis) {
+            if (rad.kanjis && rad.kanjis.length > 1) {
                 const sortedKanjis = [rad.kanjis[0]];
 
                 for (let ki = 1; ki < rad.kanjis.length; ki++) {
                     const kan = rad.kanjis[ki];
+                    let broke = false;
                     for (let i = 0; i < sortedKanjis.length; i++) {
                         if (kan.strokes < sortedKanjis[i].strokes || (
                             kan.strokes === sortedKanjis[i].strokes &&
                             kan.number < sortedKanjis[i].number
                         )) {
                             sortedKanjis.splice(i, 0, kan);
+                            broke = true;
                             break;
                         }
+                    }
+                    if (!broke) {
+                        sortedKanjis.push(kan);
                     }
                 }
 
@@ -319,12 +329,8 @@ function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightS
     );
 }
 
-const haniCache = {};
-
 function RadicalPanel({ rad }) {
     const [selectedKanji, setSelectedKanji] = useState(null);
-
-    // TODO: #34 errors
 
     return (
         <div className='selected-rad'>
@@ -355,6 +361,7 @@ function RadicalPanel({ rad }) {
                     <div className='kanji-results'>
                         {rad.kanjis && rad.kanjis.length && rad.kanjis.map(kan => (
                             <div
+                                key={kan.number}
                                 className='kanji'
                                 onClick={() => setSelectedKanji(kan)}
                             >
@@ -363,8 +370,8 @@ function RadicalPanel({ rad }) {
                         ))}
                         {selectedKanji && (
                             <div className='selected-kanji'>
-                                <div className='number'>{selectedKanji.number}</div>
                                 <div className='chr'>{selectedKanji.kanji}</div>
+                                <div className='number'>{selectedKanji.number}</div>
                                 <div className='strokes'>{selectedKanji.strokes}</div>
                                 <div className='meaning'>{selectedKanji.meaning}</div>
                                 <div className='reading'>{selectedKanji.reading}</div>

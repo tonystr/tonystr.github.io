@@ -5,7 +5,7 @@ import Ribbons from '../components/Ribbons.jsx';
 import { ReactComponent as NavalMine } from '../images/naval_mine.svg';
 import '../styles/home.scss';
 const WebdevPage  = lazy(() => import('../components/WebdevPage.jsx'));
-const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
+// const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
 Math.clamp = Math.clamp || ((x, y, z) => x < y ? y : (x > z ? z : x));
 
