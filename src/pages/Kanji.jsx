@@ -36,6 +36,11 @@ function generateRadical(number, chr, strokeCount, meaning, reading, kanji, freq
     };
 }
 
+console.log(kanji.filter(k => k.radical === '斤'));
+const rdk = radicals.find(r => r.chr === '斤');
+console.log(rdk);
+console.log(kanji.filter(k => rdk.chrs.includes(k.radical)));
+
 function ArrayToGrid({ array, ElmComponent, className, breakOn }) {
     let trs = [];
     let tr = [];
@@ -135,12 +140,45 @@ function Search({ setResults, setSelectedRad }) {
     );
 }
 
+function radKanjis(rad) {
+    let outKanjis = kanji.filter(kan => rad.chrs.includes(kan.radical)) || null;
+
+    if (rad.kanjis && rad.kanjis.length > 1) {
+        const sortedKanjis = [rad.kanjis[0]];
+
+        for (let ki = 1; ki < rad.kanjis.length; ki++) {
+            const kan = rad.kanjis[ki];
+            let broke = false;
+            for (let i = 0; i < sortedKanjis.length; i++) {
+                if (kan.strokes < sortedKanjis[i].strokes || (
+                    kan.strokes === sortedKanjis[i].strokes &&
+                    kan.number < sortedKanjis[i].number
+                )) {
+                    sortedKanjis.splice(i, 0, kan);
+                    broke = true;
+                    break;
+                }
+            }
+            if (!broke) {
+                sortedKanjis.push(kan);
+            }
+        }
+
+        outKanjis = sortedKanjis;
+    }
+
+    return outKanjis;
+}
+
+function initRad(hashNum) {
+    if (hashNum === null) return null;
+    const rad = radicals.find(rad => rad.number === +hashNum[1]);
+    rad.kanjis = radKanjis(rad);
+    return rad;
+}
+
 export default function Kanji() {
-    const hashNum = window.location.href.match(/#(\d+)/);
-    const [selectedRad, setSelectedRadInt] = useState(hashNum !== null ?
-        radicals.find(rad => rad.number === +hashNum[1]) :
-        null
-    );
+    const [selectedRad,     setSelectedRadInt ] = useState(initRad(window.location.href.match(/#(\d+)/)));
     const [highlightStroke, setHighlightStroke] = useState(0);
     const [listView,        setListView       ] = useState('grid');
     const [width,           setWidth          ] = useState(16);
@@ -150,25 +188,8 @@ export default function Kanji() {
     const [focus,           setFocus          ] = useState(null);
 
     const setSelectedRad = rad => {
-
-        if (rad.type === 'radical') {
-            rad.kanjis = kanji.filter(kan => rad.chrs.includes(kan.radical));
-
-            const sortedKanjis = [rad.kanjis[0]];
-            for (let ki = 1; ki < rad.kanjis.length; ki++) {
-                const kan = rad.kanjis[ki];
-                for (let i = 0; i < sortedKanjis.length; i++) {
-                    if (kan.strokes < sortedKanjis[i].strokes || (
-                        kan.strokes === sortedKanjis[i].strokes &&
-                        kan.number < sortedKanjis[i].number
-                    )) {
-                        sortedKanjis.splice(i, 0, kan);
-                        break;
-                    }
-                }
-            }
-
-            rad.kanjis = sortedKanjis;
+        if (rad && rad.type === 'radical') {
+            rad.kanjis = radKanjis(rad);
         }
 
         setSelectedRadInt(rad);
@@ -216,9 +237,7 @@ export default function Kanji() {
             <div id='kanjipage' className={focus ? 'blur' : ''}>
                 <div className='left'>
                     <div className='header' style={{ width: width * 44 }}>
-                        <div className='title'>
-                            Kangxi Radicals
-                        </div>
+                        <div className='title'> Kangxi Radicals </div>
                         <div className='controls'>
                             <div className='help' onClick={() => setFocus(<HelpMenu dismount={() => setFocus(null)} />)}>help</div>
                             <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
@@ -317,13 +336,8 @@ function RadicalCell({ elm, onClick, selectedRad, highlightStroke, setHighlightS
     );
 }
 
-const haniCache = {};
-
 function RadicalPanel({ rad }) {
-    const [hanis, setHanis] = useState(null);
     const [selectedKanji, setSelectedKanji] = useState(null);
-
-    // TODO: #34 errors
 
     return (
         <div className='selected-rad'>
@@ -352,8 +366,9 @@ function RadicalPanel({ rad }) {
                 </div>
                 <div className='wikipedia'>
                     <div className='kanji-results'>
-                        {rad.kanjis && rad.kanjis.map(kan => (
+                        {rad.kanjis && rad.kanjis.length && rad.kanjis.map(kan => (
                             <div
+                                key={kan.number}
                                 className='kanji'
                                 onClick={() => setSelectedKanji(kan)}
                             >
@@ -362,8 +377,8 @@ function RadicalPanel({ rad }) {
                         ))}
                         {selectedKanji && (
                             <div className='selected-kanji'>
-                                <div className='number'>{selectedKanji.number}</div>
                                 <div className='chr'>{selectedKanji.kanji}</div>
+                                <div className='number'>{selectedKanji.number}</div>
                                 <div className='strokes'>{selectedKanji.strokes}</div>
                                 <div className='meaning'>{selectedKanji.meaning}</div>
                                 <div className='reading'>{selectedKanji.reading}</div>
