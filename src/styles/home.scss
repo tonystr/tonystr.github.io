@@ -22,10 +22,21 @@
     color: #56576a;
 }
 
-.github-contributions {
-    margin-top: 3rem;
+.git-section {
     display: flex;
     justify-content: center;
+    margin-top: 3rem;
+
+    .text {
+        padding-right: 2rem;
+        margin-top: 1rem;
+        font-size: 1.4rem;
+        color: lighten($c_ltgray, 6%);
+        font-family: "Roboto Mono", "Source Code Pro";
+    }
+}
+
+.github-contributions {
 
     .f4 {
         font-weight: 400 !important;

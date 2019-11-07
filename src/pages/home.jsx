@@ -143,8 +143,15 @@ function GithubContributions() {
         );
     }, []);
 
+    // const gitText = `while (tony.alive()) {
+    //     tony.program();
+    // }`;
+    // <pre className='text'>{gitText}</pre>
+
     return (
-        <div className='github-contributions' dangerouslySetInnerHTML={{ __html: contributions }} />
+        <div className='git-section'>
+            <div className='github-contributions' dangerouslySetInnerHTML={{ __html: contributions }} />
+        </div>
     );
 }
 
