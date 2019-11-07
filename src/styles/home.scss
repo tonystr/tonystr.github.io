@@ -197,14 +197,26 @@ $xmarg: 4%;
     position: relative;
 
     .description {
-        overflow: hidden;
         font-size: 1.2rem;
-        padding: 0 19%;
+        padding: 1rem 19%;
         max-width: 52rem;
         margin: 0 auto;
         position: relative;
         color: $c_txt;
-        filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .5));
+
+        .bg-wrp-out {
+            position: absolute;
+            @include absolute-fill(0);
+            filter: drop-shadow(0 1px 6px rgba(0, 0, 0, .5));
+            z-index: -2;
+        }
+
+        .bg-wrp {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
 
         .background {
             position: absolute;
@@ -212,7 +224,6 @@ $xmarg: 4%;
             top: -90%;
             bottom: -90%;
             background-color: $c_dark;
-            z-index: -2;
             transform: rotate(12deg);
             border: 4px solid $c_red;
 

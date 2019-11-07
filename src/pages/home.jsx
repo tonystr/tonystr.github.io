@@ -67,16 +67,20 @@ export default function Home(props) {
                     @
                 </A>
                 <div className='description'>
-                    <div className='background' />
-                    <p>
-                        Hey. I'm a Norwegian tech geek who makes videogames and web solutions.
-                    </p><p>
-                        With a keen eye for design, and love for programming, I like to contribute to projects that may
-                        aid other developers, as a way to give back for all I've been taught.
-                    </p><p>
-                        Although I may run the risk of starting a few too many concurrent sideprojects in my free time,
-                        I am a strong believer in discipline and kanban for my more serious endeavours.
-                    </p>
+                    <div className='text'>
+                        <p>
+                            Hey ー I'm Tony Andréz Forland Strømsnæs, or TonyStr for short.
+                        </p><p>
+                            Born, rasied and residing in Norway; I spent many rainy days indoors playing games, and eventually teaching myself to make them. Programming went from hobby to passion to a goal of profession.
+                        </p><p>
+                            Since the age of 11, I have programmed games, websites, language tools, chat bots and many more concepts that have since grasphed my interest.
+                        </p>
+                    </div>
+                    <div className='bg-wrp-out'>
+                        <div className='bg-wrp'>
+                            <div className='background' />
+                        </div>
+                    </div>
                 </div>
                 <GithubContributions />
             </section>
