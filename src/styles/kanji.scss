@@ -276,6 +276,14 @@
             font-size: 1rem;
             color: $c_ltgray;
         }
+
+        > .strokes {
+            position: absolute;
+            color: $c_ltgray;
+            font-size: 1rem;
+            top: .2rem;
+            right: 1.4rem;
+        }
     }
 
     .selected-kanji {

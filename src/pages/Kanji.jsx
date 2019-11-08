@@ -357,6 +357,7 @@ function RadicalPanel({ rad }) {
                 </div>
                 <div className='chrs'>{rad.chrs}</div>
                 <div className='num'>{rad.number}</div>
+                <div className='strokes'>{rad.strokeCount}</div>
                 <div className='wikipedia'>
                     <A to={`https://en.wikipedia.org/wiki/Radical_${rad.number}`}>Wiki</A>
                     &nbsp;&bull;&nbsp;
