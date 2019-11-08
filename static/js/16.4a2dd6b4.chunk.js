@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[16],{414:function(e,t,n){},431:function(e,t,n){"use strict";n.r(t),n.d(t,"default",function(){return r});var a=n(9),c=n(0),u=n.n(c);n(414);function i(){return"You are dumb"}function r(){var e=Object(c.useState)(i),t=Object(a.a)(e,2),n=t[0];t[1];return u.a.createElement("div",{id:"eight-ball",className:"page"},u.a.createElement("div",{className:"eightball"},n))}}}]);
-//# sourceMappingURL=16.4a2dd6b4.chunk.js.map
