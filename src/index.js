@@ -20,6 +20,7 @@ const Snippets     = lazy(() => import('./pages/Snippets.jsx'));
 const Paint        = lazy(() => import('./pages/Paint.jsx'));
 const Minesweeper  = lazy(() => import('./pages/Minesweeper.jsx'));
 const Kanji        = lazy(() => import('./pages/Kanji.jsx'));
+const Radicals     = lazy(() => import('./pages/Radicals.jsx'));
 
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
@@ -39,7 +40,7 @@ function ValidatePage(props) {
         );
         case 'paint': return <Paint />;
         case 'kanji': return <Kanji />;
-        case 'radicals': return <Kanji />;
+        case 'radicals': return <Radicals />;
         case 'dracula': return <Dracula />;
         case 'minesweeper': return <Minesweeper />;
         default: return article ?
