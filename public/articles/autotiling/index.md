@@ -373,3 +373,5 @@ Notice how this tile stays the same for all three versions. Adding a tile to the
     416: 29, 304: 26, 400: 28, 176: 22,
 }
 ```
+
+While you can go looking for patterns in which tiles need to be remapped to which tiles, the end result would only be an even more confusing mess of if statements. The best solution is to simply use a map that someone has already compiled before, like the one above. With the power of scripts, we can tuck this map away and never look at it again!
