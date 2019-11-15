@@ -313,4 +313,63 @@ Everything should now be in order for 16-tile autotiling!
 
 ## 47-tile autotiling
 
-So lets look at a more advanced solution. You've seen that the 16-tile solution has a bunch of odd corners with the tileset used in this article. To solve this, you'd want to also check diagonal cells.
+So lets look at a more advanced solution. You've seen that the 16-tile solution has a bunch of odd corners with the tileset used in this article. To solve this, you'd want to also check diagonal cells. If we use the same math as before for counting how many different tile sprites we'll need, it's `1 + 2 + 4 + 8 + 16 + 32 + 64 + 128` = `255`! That's a lot of sprites to draw for single tileset. Luckily, this *can* be shortened, but it's not very beautiful. Look at the middle tile in each of the patterns below:
+
+![
+    type='47'
+    defaultTiles={`[
+        [E:0,E:6,E:5,E:36,E:1,E:1,E:1,E:3,E:0,E:5,E:0,E:7,E:36],
+        [E:0,S:14,S:44,S:9,E:12,S:14,S:44,S:9,E:0,S:14,S:44,S:9,E:12],
+        [E:11,E:32,S:6,S:3,E:45,E:7,S:6,S:3,E:15,E:6,S:6,S:36,E:10],
+        [E:9,E:15,E:15,E:30,E:15,S:15,E:0,E:0,E:7,S:15,E:12,S:7,E:6],
+        [E:8,E:15,E:39,E:15,E:3,E:21,E:15,E:0,E:0,E:12,E:15,E:11,E:39]
+    ]`}
+    grid=true
+](Autotiling.jsx)
+
+Notice how this tile stays the same for all three versions. Adding a tile to the top left, bottom left or bottom right, doesn't warrant a different tile in this case. If we find all the cases in which we want to use a tile sprite that already exists, we get a really big, ugly map...
+
+```js
+{
+    171: 11, 187: 11, 427: 11, 443: 11, 43: 11, 139: 11, 395: 11, 411: 11, 283: 11, 315: 11, 299: 11, 27: 11, 267: 11, 155: 11, 59: 11,
+    413: 13, 445: 13, 189: 13, 157: 13, 45: 13, 61: 13, 285: 13, 397: 13, 141: 13, 429: 13, 317: 13, 301: 13, 269: 13, 29: 13, 173: 13,
+    398: 14, 158: 14, 62: 14, 302: 14, 446: 14, 318: 14, 286: 14, 142: 14, 174: 14, 430: 14, 190: 14, 414: 14, 30: 14, 270: 14, 46: 14,
+    295: 7, 423: 7, 311: 7, 439: 7, 407: 7, 391: 7, 263: 7, 39: 7, 167: 7, 183: 7, 23: 7, 135: 7, 55: 7, 279: 7, 151: 7,
+    438: 33,
+    432: 30,
+    434: 40, 178: 40, 146: 40, 402: 40,
+    442: 10, 314: 10, 426: 10, 410: 10, 186: 10, 282: 10, 170: 10, 394: 10, 138: 10, 42: 10, 154: 10, 298: 10, 58: 10, 26: 10, 266: 10,
+    21: 5, 261: 5, 165: 5, 181: 5, 421: 5, 437: 5, 149: 5, 405: 5, 309: 5, 293: 5, 389: 5, 277: 5, 53: 5, 37: 5, 133: 5,
+    440: 46, 312: 46, 424: 46, 296: 46,
+    436: 43, 180: 43, 164: 43, 420: 43,
+    433: 37, 401: 37, 273: 37, 305: 37,
+    182: 33, 166: 33, 134: 33, 390: 33, 406: 33, 150: 33, 422: 33,
+    435: 34, 403: 34, 179: 34, 147: 34, 307: 34, 275: 34, 51: 34, 19: 34,
+    444: 32, 188: 32, 428: 32, 172: 32, 316: 32, 60: 32, 44: 32, 300: 32,
+    441: 31, 425: 31, 313: 31, 297: 31, 409: 31, 393: 31, 281: 31, 265: 31,
+    287: 15, 447: 15, 431: 15, 319: 15, 303: 15, 175: 15, 63: 15, 47: 15, 415: 15, 399: 15, 191: 15, 271: 15, 159: 15, 143: 15, 31: 15,
+    412: 12, 156: 12, 396: 12, 140: 12, 284: 12, 28: 12, 268: 12,
+    185: 9, 169: 9, 57: 9, 41: 9, 153: 9, 137: 9, 25: 9,
+    419: 3, 291: 3, 387: 3, 259: 3, 163: 3, 35: 3, 131: 3,
+    294: 6, 310: 6, 54: 6, 38: 6, 278: 6, 262: 6, 22: 6,
+    161: 1, 33: 1, 129: 1,
+    290: 2, 34: 2, 258: 2,
+    276: 4, 20: 4, 260: 4,
+    152: 8, 136: 8, 24: 8,
+    32: 17,
+    256: 23,
+    128: 19,
+    384: 27,
+    48: 18,
+    404: 42, 148: 42, 132: 42, 388: 42,
+    144: 20, 160: 21, 288: 25, 272: 24,
+    177: 35, 49: 35, 145: 35, 17: 35,
+    417: 36, 289: 36, 385: 36, 257: 36,
+    308: 41, 292: 41, 52: 41, 36: 41,
+    184: 45, 168: 45, 56: 45, 40: 45,
+    408: 44, 392: 44, 280: 44, 264: 44,
+    306: 39, 50: 39, 274: 39, 18: 39,
+    418: 38, 162: 38, 386: 38, 130: 38,
+    416: 29, 304: 26, 400: 28, 176: 22,
+}
+```

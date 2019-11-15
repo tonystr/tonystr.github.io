@@ -36,11 +36,6 @@ function generateRadical(number, chr, strokeCount, meaning, reading, kanji, freq
     };
 }
 
-console.log(kanji.filter(k => k.radical === '斤'));
-const rdk = radicals.find(r => r.chr === '斤');
-console.log(rdk);
-console.log(kanji.filter(k => rdk.chrs.includes(k.radical)));
-
 function ArrayToGrid({ array, ElmComponent, className, breakOn }) {
     let trs = [];
     let tr = [];
@@ -177,7 +172,7 @@ function initRad(hashNum) {
     return rad;
 }
 
-export default function Kanji() {
+export default function Radicals() {
     const [selectedRad,     setSelectedRadInt ] = useState(initRad(window.location.href.match(/#(\d+)/)));
     const [highlightStroke, setHighlightStroke] = useState(0);
     const [listView,        setListView       ] = useState('grid');

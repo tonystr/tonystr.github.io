@@ -459,7 +459,7 @@
             transition: .1s all;
         }
 
-        &.type-radical {
+        &.type-radical, &.type-kanji {
             &.selected .num {
                 top:  -.2rem;
                 left: -2px;
