@@ -2,11 +2,11 @@ import React, { lazy } from 'react';
 import SectionTitle from '../components/SectionTitle.jsx';
 import A from '../components/A.jsx';
 import Ribbons from '../components/Ribbons.jsx';
-import { ReactComponent as NavalMine } from '../images/naval_mine.svg';
+import MiniProjAbout from '../components/MiniProjAbout.jsx';
 import '../styles/home.scss';
 const WebdevPage = lazy(() => import('../components/WebdevPage.jsx'));
 const GithubContributions = lazy(() => import('../components/GithubContributions.jsx'));
-// const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
+const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
 Math.clamp = Math.clamp || ((x, y, z) => x < y ? y : (x > z ? z : x));
 
@@ -16,57 +16,7 @@ export default function Home(props) {
             <FrontPage />
             <section id='about'>
                 <SectionTitle content='About' />
-                <A
-                    to='/minesweeper'
-                    title='minesweeper'
-                    style={{
-                        position: 'absolute',
-                        left: '9%',
-                        top: '6rem',
-                        zIndex: 7
-                    }}
-                >
-                    <NavalMine  />
-                </A>
-                <A
-                    className='paint-page-link mini-proj'
-                    to='/paint'
-                    title='paint'
-                    style={{
-                        position: 'absolute',
-                        left: '7%',
-                        top: '13rem',
-                        zIndex: 7
-                    }}
-                >
-                    <i className='fas fa-paint-brush' />
-                </A>
-                <A
-                    className='radical-page-link mini-proj'
-                    to='/radicals'
-                    title='radicals'
-                    style={{
-                        position: 'absolute',
-                        right: '7%',
-                        top: '14rem',
-                        zIndex: 7
-                    }}
-                >
-                    部首
-                </A>
-                <A
-                    className='ascii-page-link mini-proj'
-                    to='/ascii'
-                    title='ascii table'
-                    style={{
-                        position: 'absolute',
-                        right: '5%',
-                        top: '7rem',
-                        zIndex: 7
-                    }}
-                >
-                    @
-                </A>
+                <MiniProjAbout />
                 <div className='description'>
                     <div className='text'>
                         <p>
@@ -86,6 +36,7 @@ export default function Home(props) {
                 <GithubContributions />
             </section>
             <WebdevPage />
+            <GamedevPage />
         </>
     );
 }

@@ -258,7 +258,18 @@ $xmarg: 4%;
 }
 
 #gamedev {
-    padding: 7rem 0;
+    width: 92% !important;
+    padding: 2rem 4%;
+
+    .gamegrid {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        > div {
+        }
+    }
 
     .gamestack {
         list-style-type: none;

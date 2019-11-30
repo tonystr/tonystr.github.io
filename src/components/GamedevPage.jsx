@@ -1,7 +1,7 @@
 import React from 'react';
+import SectionTitle from '../components/SectionTitle.jsx';
 
 function GameStack(props) {
-
     return (
         <ul className='gamestack'>
             {props.games.map(g => (
@@ -38,8 +38,7 @@ export default function GamedevPage() {
 
     return (
         <div id='gamedev' className='page'>
-            <Screen />
-            <GameStack games={games} />
+            <SectionTitle content='Game development' />
         </div>
     );
 }
