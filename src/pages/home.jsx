@@ -22,7 +22,7 @@ export default function Home(props) {
                         <p>
                             Hey ー I'm Tony Andréz Forland Strømsnæs, or TonyStr for short.
                         </p><p>
-                            Born, rasied and residing in Norway; I spent many rainy days indoors playing games, and eventually teaching myself to make them. Programming went from hobby to passion to a goal of profession.
+                            Born, rasied and living in Norway; I've spent many rainy days indoors playing games, and eventually teaching myself to make them. Programming went from hobby to passion to a goal of profession.
                         </p><p>
                             Since the age of 11, I have programmed games, websites, language tools, chat bots and many more concepts that have since grasphed my interest.
                         </p>
@@ -36,7 +36,6 @@ export default function Home(props) {
                 <GithubContributions />
             </section>
             <WebdevPage />
-            <GamedevPage />
         </>
     );
 }

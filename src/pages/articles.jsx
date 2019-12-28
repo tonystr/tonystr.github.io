@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import ArticleTitle from '../components/ArticleTitle.jsx';
 import Header       from '../components/Header.jsx'
 import StandardPage from '../components/StandardPage.jsx';
+import articlesJSON from '../data/articles.json';
 import '../styles/articles.scss';
 
 function ArticleList(props) {
@@ -10,7 +11,7 @@ function ArticleList(props) {
     const location = `${window.location.protocol}//${window.location.hostname}:${window.location.port}/articles/`;
     const skipHidden = window.location.port !== '3001' || window.location.search.includes('release');
 
-    for (const article of props.json.reverse()) {
+    for (const article of articlesJSON.reverse()) {
         if (skipHidden && article.password) continue;
 
         let tags = article.tags.map(tag => <span key={tag}>{tag}</span>);
@@ -84,7 +85,7 @@ export default function Articles(props) {
             <Header />
             <StandardPage className='article-list'>
                 <ArticleTitle> Articles </ArticleTitle>
-                <ArticleList json={props.json} />
+                <ArticleList json={articlesJSON} />
             </StandardPage>
         </>
     );

@@ -24,27 +24,21 @@ const Radicals     = lazy(() => import('./pages/Radicals.jsx'));
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
-    switch (location) {
-        case 'articles': return <Articles json={articlesJSON} />;
-        case 'snippets': return <Snippets />;
-        case 'page_loading': return <PageLoading />;
-        case 'ascii': return (
-            <>
-                <Header />
-                <StandardPage>
-                    <ASCIITable />
-                </StandardPage>
-            </>
-        );
-        case 'paint': return <Paint />;
-        case 'kanji': return <Radicals />;
-        case 'radicals': return <Radicals />;
-        case 'dracula': return <Dracula />;
-        case 'minesweeper': return <Minesweeper />;
-        default: return article ?
-            <ValidateArticle loc={location} article={article} /> :
-            <WindowCenter> 404! Could not find any page or article by the name "{location}" </WindowCenter>;
-    }
+
+    return article ? (
+        <ValidateArticle loc={location} article={article} />
+    ) : <></>;
+}
+
+function ASCIIPage() {
+    return (
+        <>
+            <Header />
+            <StandardPage>
+                <ASCIITable />
+            </StandardPage>
+        </>
+    );
 }
 
 function ValidateArticle(props) {
@@ -69,10 +63,19 @@ ReactDOM.render(
     <BrowserRouter>
         <div>
             <Suspense fallback={<PageLoading />}>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/:page' component={ValidatePage} />
-                <Route exact path='/a/:article' component={ValidateArticle} />
-                <Route exact path='/article/:article' component={ValidateArticle} />
+                <Route exact path='/'                  component={Home} />
+                <Route       path='/articles'          component={Articles} />
+                <Route       path='/snippets'          component={Snippets} />
+                <Route       path='/minesweeper'       component={Minesweeper} />
+                <Route       path='/page_loading'      component={PageLoading} />
+                <Route       path='/dracula'           component={Dracula} />
+                <Route       path='/ascii'             component={ASCIIPage} />
+                <Route       path='/paint'             component={Paint} />
+                <Route       path='/kanji'             component={Radicals} />
+                <Route       path='/radicals'          component={Radicals} />
+                <Route exact path='/:page'             component={ValidatePage} />
+                <Route exact path='/a/:article'        component={ValidateArticle} />
+                <Route exact path='/article/:article'  component={ValidateArticle} />
                 <Route exact path='/articles/:article' component={ValidateArticle} />
                 <Footer />
             </Suspense>
