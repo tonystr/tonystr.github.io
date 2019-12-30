@@ -20,8 +20,8 @@ self.__precacheManifest = [
     "url": "/static/js/main.df638fa4.chunk.js"
   },
   {
-    "revision": "5b778b4838a3c37cbef7",
-    "url": "/static/js/runtime~main.5b778b48.js"
+    "revision": "a7d1b017e39422044a46",
+    "url": "/static/js/runtime~main.a7d1b017.js"
   },
   {
     "revision": "80340ae557f492db8ae6",
@@ -52,8 +52,8 @@ self.__precacheManifest = [
     "url": "/static/media/JapaneseRadicals-Regular.8ed9e764.woff2"
   },
   {
-    "revision": "85a886a0cf863a079275",
-    "url": "/static/js/8.85a886a0.chunk.js"
+    "revision": "51a8f6f9d830af840f32",
+    "url": "/static/js/8.51a8f6f9.chunk.js"
   },
   {
     "revision": "9be5f3f81bf0fe380184836220ee99b3",
@@ -100,12 +100,12 @@ self.__precacheManifest = [
     "url": "/static/js/14.e56b8f04.chunk.js"
   },
   {
-    "revision": "2de8b7f46915c5b6f5e84ad15d9d7f4b",
-    "url": "/static/media/L0x5DF4xlVMF-BfR8bXMIjhIq3-OXg.2de8b7f4.woff2"
-  },
-  {
     "revision": "6ab8af9bb9b13bfbb43261cbb10d3e43",
     "url": "/static/media/L0x5DF4xlVMF-BfR8bXMIjhHq3-OXg.6ab8af9b.woff2"
+  },
+  {
+    "revision": "2de8b7f46915c5b6f5e84ad15d9d7f4b",
+    "url": "/static/media/L0x5DF4xlVMF-BfR8bXMIjhIq3-OXg.2de8b7f4.woff2"
   },
   {
     "revision": "be88b4fc2cd2e8fd167c9fdd1a4e4a3e",
@@ -180,8 +180,8 @@ self.__precacheManifest = [
     "url": "/static/css/7.e9852e16.chunk.css"
   },
   {
-    "revision": "85a886a0cf863a079275",
-    "url": "/static/css/8.e7adbc98.chunk.css"
+    "revision": "51a8f6f9d830af840f32",
+    "url": "/static/css/8.d6d65527.chunk.css"
   },
   {
     "revision": "3d6480c6d76683a24430",
@@ -208,7 +208,7 @@ self.__precacheManifest = [
     "url": "/static/css/1.c607f0cc.chunk.css"
   },
   {
-    "revision": "b98d40b81f1fe58be631893e22ecf4a0",
+    "revision": "1f8113c912b4d45e3217c181b75ac06e",
     "url": "/index.html"
   }
 ];
