@@ -193,6 +193,19 @@
 
     grid-area: selected;
 
+    @media(max-width: 942px) {
+        position: fixed;
+        overflow-y: scroll;
+        bottom: 0;
+        max-height: 50%;
+        background-color: $c_gray;
+        z-index: 20;
+        left: 0;
+        right: 0;
+        padding-top: 1rem;
+        border-top: 2px solid $c_dark;
+    }
+
     .load-kanji {
         border: 2px solid $c_dark;
         background-color: lighten($c_dark, 15%);
@@ -379,6 +392,9 @@
         transition: .14s all;
         margin-top: -.2rem;
 
+        @media(max-width: 386px) {
+            width: 6.5rem;
+        }
 
         &::placeholder {
             opacity: 1;
@@ -424,7 +440,7 @@
         text-align: center;
         position: relative;
         transition: .1s all;
-        margin: -2px -2px 0 0;
+        margin: -6px -2px 0 0;
 
         &.type-header-stroke {
             background-color: rgba($c_dark, .36);
@@ -447,7 +463,7 @@
 
         .num {
             position: absolute;
-            top: 1px;
+            top: 5px;
             left: 1px;
             text-align: left;
             font-size: .6rem;
@@ -460,8 +476,9 @@
 
         .chr {
             border: none;
-            padding-top: .7rem;
-            padding-right: 2px;
+            position: absolute;
+            left: 0;
+            top: 15px;
         }
 
         &.selected::after {
@@ -480,7 +497,7 @@
 
         &.type-radical, &.type-kanji {
             &.selected .num {
-                top:  -.2rem;
+                top:  0;
                 left: -2px;
                 padding-bottom: 1px;
                 padding-right: 3px;
@@ -500,7 +517,7 @@
                 }
 
                 .num {
-                    top:  -.4rem;
+                    top:  -3px;
                     left: -4px;
                     padding-bottom: 1px;
                     padding-right: 3px;
