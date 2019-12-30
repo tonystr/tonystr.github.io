@@ -217,8 +217,8 @@ export default function Radicals() {
     // Find rendered width
     useEffect(() => {
         const updateWidth = () => {
-            const table   = document.querySelector('#kanjipage .left .radical-table');
-            const radCell = document.querySelector('#kanjipage .left .array-table > div');
+            const table   = document.querySelector('#kanjipage .radical-table');
+            const radCell = document.querySelector('#kanjipage .array-table > div');
             // Each cell has -2px margin on one side
             setWidth(Math.floor((table.offsetWidth) / (radCell.offsetWidth - 2)));
         }
@@ -232,44 +232,40 @@ export default function Radicals() {
         <>
             <Header />
             <div id='kanjipage' className={focus ? 'blur' : ''}>
-                <div className='left'>
-                    <div className='header' style={{ width: width * 44 }}>
-                        <div className='title'> Kangxi Radicals </div>
-                        <div className='controls'>
-                            <div className='help' onClick={() => setFocus(<HelpMenu dismount={() => setFocus(null)} />)}>help</div>
-                            <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
-                            <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
-                            {listView === 'grid' ?
-                                <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
-                                <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
-                            <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
-                        </div>
+                <div className='header' style={{ width: width * 44 }}>
+                    <div className='title'> Kangxi Radicals </div>
+                    <div className='controls'>
+                        <div className='help' onClick={() => setFocus(<HelpMenu dismount={() => setFocus(null)} />)}>help</div>
+                        <Search setSelectedRad={setSelectedRad} setResults={setSearchResults} />
+                        <i onClick={() => setStrokeHeader(!strokeHeader)} title='Toggle stroke-count headers' className='fas stroke-header'>S</i>
+                        {listView === 'grid' ?
+                            <i onClick={() => setListView('list')} title='View as list'  className='fas fa-list-ul' /> :
+                            <i onClick={() => setListView('grid')} title='View as grid'  className='fas fa-grid'>田</i>}
+                        <i onClick={() => setSepLines(!sepLines)}  title='Separate lines' className={'fas fa-grip-lines' + (listView !== 'list' ? ' disabled' : '')} />
                     </div>
-                    <ArrayToGrid
-                        className={
-                            'radical-table' +
-                            (sepLines ? ' separate-arrays' : '') +
-                            (strokeHeader ? ' stroke-headers' : '')}
-                        array={radicals}
-                        width={width}
-                        breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}
-                        ElmComponent={props => (
-                            <RadicalCell
-                                {...props}
-                                selectedRad={selectedRad}
-                                onClick={props.elm.type === 'header-stroke' && selectedRad === props.elm ?
-                                    (() => setSelectedRad(null)) :
-                                    (() => setSelectedRad(props.elm))}
-                                highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
-                                setHighlightStroke={setHighlightStroke}
-                                searchHiglight={searchResults.find(res => res === props.elm) && true}
-                            />
-                        )}
-                    />
                 </div>
-                <div className='right'>
-                    {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
-                </div>
+                <ArrayToGrid
+                    className={
+                        'radical-table' +
+                        (sepLines ? ' separate-arrays' : '') +
+                        (strokeHeader ? ' stroke-headers' : '')}
+                    array={radicals}
+                    width={width}
+                    breakOn={listView === 'list' ? (e => e.type === 'header-stroke') : null}
+                    ElmComponent={props => (
+                        <RadicalCell
+                            {...props}
+                            selectedRad={selectedRad}
+                            onClick={props.elm.type === 'header-stroke' && selectedRad === props.elm ?
+                                (() => setSelectedRad(null)) :
+                                (() => setSelectedRad(props.elm))}
+                            highlightStroke={(selectedRad && selectedRad.stroke) || highlightStroke}
+                            setHighlightStroke={setHighlightStroke}
+                            searchHiglight={searchResults.find(res => res === props.elm) && true}
+                        />
+                    )}
+                />
+                {selectedRad && selectedRad.type === 'radical' && <RadicalPanel rad={selectedRad} />}
             </div>
             {focus && <Focus dismount={() => setFocus(null)} comp={focus} />}
         </>

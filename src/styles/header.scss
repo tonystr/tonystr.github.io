@@ -19,12 +19,19 @@ header {
         position: relative;
 
         img {
-            height: 2.44vw;
-            position: absolute;
-            bottom: 0;
-            left: -3.2vw;
-            border: 3px solid $c_dark;
-            border-radius: 50%;
+            display: none;
+        }
+
+        @media(min-width: 634px) {
+            img {
+                display: block;
+                height: 2.44vw;
+                position: absolute;
+                bottom: 0;
+                left: -3.2vw;
+                border: 3px solid $c_dark;
+                border-radius: 50%;
+            }
         }
     }
 
