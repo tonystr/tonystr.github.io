@@ -11,7 +11,8 @@
     "react-markdown": "^4.0.6",
     "react-router-dom": "^4.3.1",
     "react-scripts": "2.1.5",
-    "react-syntax-highlighter": "^10.2.1"
+    "react-syntax-highlighter": "^10.2.1",
+    "romaji": "^0.2.21"
   },
   "scripts": {
     "start": "set PORT=3001 && react-scripts start",

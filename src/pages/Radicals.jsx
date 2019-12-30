@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import romaji from 'romaji';
 import Header from '../components/Header.jsx';
 import A from '../components/A.jsx';
 import radicalSrc from '../data/radicals.js';
@@ -123,6 +124,7 @@ function Search({ setResults, setSelectedRad }) {
                         rad.meaning.includes(val) ||
                         rad.chrText.includes(val) ||
                         rad.reading.includes(val) ||
+                        rad.reading.includes(romaji.toHiragana(val)) ||
                         rad.kanji.includes(val) ||
                         `${rad.number}` === val
                     ));
