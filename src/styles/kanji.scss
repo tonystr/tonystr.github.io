@@ -98,6 +98,7 @@
     margin: 0 auto;
 
     padding-bottom: 4rem;
+    padding-top: 4rem;
 
     // min-height: calc(100vh - 134px);
 
@@ -122,17 +123,17 @@
         justify-content: space-between;
         height: 1.4rem;
 
-        @media(max-width: 660px) {
-            flex-direction: column;
-            justify-content: flex-start;
-            height: 3.5rem;
-            padding-top: .6rem;
+                @media(max-width: 660px) {
+                    flex-direction: column;
+                    justify-content: flex-start;
+                    height: 3.5rem;
+                    padding-top: .6rem;
 
-            .controls {
-                justify-content: flex-start;
-                padding-top: .5rem;
-            }
-        }
+                    .controls {
+                        justify-content: flex-start;
+                        padding-top: .5rem;
+                    }
+                }
 
         .title {
             font-family: 'Josefin Sans', sans-serif;
@@ -189,9 +190,8 @@
 
 .selected-rad {
     margin: 0 auto;
-    margin-top: 1.9rem;
-
     grid-area: selected;
+    align-items: center;
 
     @media(max-width: 942px) {
         position: fixed;
@@ -243,6 +243,11 @@
         position: relative;
         margin-left: 3rem;
         margin-right: 1.5rem;
+
+        @media(max-width: 942px) {
+            display: block;
+            margin: 0 auto;
+        }
 
         > .chr {
             font-size: 5rem;
