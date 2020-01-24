@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{455:function(e,n,a){"use strict";a.r(n),a.d(n,"default",function(){return i});var t=a(0),c=a.n(t);function i(e){return c.a.createElement("div",{id:"theme-dracula"},c.a.createElement("div",{className:"window"},c.a.createElement("img",{src:"./images/dracula_window.png",alt:""})))}}}]);
+//# sourceMappingURL=20.0cee9ef4.chunk.js.map
