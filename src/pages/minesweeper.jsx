@@ -99,16 +99,88 @@ function TableContent(props) {
     };
 
     const aroundCell = (rx, ry, func, rw = props.width, rh = props.height) => {
-        for (let y = Math.max(ry - 1, 0); y < Math.min(ry + 2, rh); y++) {
-            for (let x = Math.max(rx - 1, 0); x < Math.min(rx + 2, rw); x++) {
-                if ((x !== rx || y !== ry)) {
+        const ym = Math.min(ry + 2, rh);
+        const xm = Math.min(rx + 2, rw);
+        for (let y = Math.max(ry - 1, 0); y < ym; y++) {
+            for (let x = Math.max(rx - 1, 0); x < xm; x++) {
+                if (x !== rx || y !== ry) {
                     func(x, y);
                 }
             }
         }
     };
 
-    const cellVal = [' ', ...(new Array(8)), '💣', '💥'];
+    const special = { 0: ' ', 9: '💣', 10: '💥' };
+    const cellVal = new Array(11).fill().map((a, i) => special[i] || i);
+
+    const createHandleClick = (rx, ry, cell) => {
+        if (props.gameState === 'lost') return undefined;
+        if (props.ctrl) return () => placeFlag(rx, ry);
+        if (cell.flag) return undefined;
+
+        const handleSuccess = () => {
+            if (props.gameState === 'waiting') props.setGameState('playing');
+
+            props.setGrid(mutGrid => {
+                let newShowCount = props.showCount;
+                if (cell.value >= 1) {
+                    mutGrid = props.grid.map((row, y) => row.map((mgc, x) => x === rx && y === ry ?
+                        { ...mgc, hidden: false } :
+                        mgc
+                    ));
+                    newShowCount = props.showCount + 1;
+                } else {
+                    mutGrid = JSON.parse(JSON.stringify(props.grid));
+                    newShowCount = props.showCount + touchCell(mutGrid, rx, ry);
+                }
+
+                props.setShowCount(newShowCount);
+                if (props.width * props.height - newShowCount <= props.bombCount && gridIsSolved(mutGrid)) {
+                    props.setGameState('won');
+                }
+                return mutGrid;
+            });
+        };
+
+        if (cell.value === 9) return () => {
+            if (props.gameState === 'waiting') {
+                props.setGameState('playing');
+                props.setGrid(mutGrid => {
+                    mutGrid[ry][rx].value = 0;
+                    aroundCell(rx, ry, (x, y) => {
+                        const val = mutGrid[y][x].value;
+                        if (val > 0 && val < 9) mutGrid[y][x].value--
+                        return mutGrid;
+                    });
+                    while (true) {
+                        const x = Math.floor(Math.random() * props.width);
+                        const y = Math.floor(Math.random() * props.height);
+                        if (mutGrid[y][x].value > 8 || (x === rx && y === ry)) continue;
+                        mutGrid[y][x].value = 9;
+                        aroundCell(x, y, (ax, ay) => {
+                            if (mutGrid[ay][ax].value < 9) mutGrid[ay][ax].value++
+                            return mutGrid;
+                        });
+
+                        let sum = 0;
+                        aroundCell(rx, ry, (x, y) => {
+                            sum += mutGrid[y][x].value === 9;
+                        });
+                        mutGrid[ry][rx].value = sum;
+                        return mutGrid;
+                    }
+                });
+                return handleSuccess();
+            }
+            props.setGrid(mutGrid => {
+                mutGrid[ry][rx].value++;
+                return mutGrid;
+            });
+            props.setGameState('lost');
+        };
+
+        return handleSuccess;
+    }
 
     return props.grid.map((row, ry) => (
         <tr key={ry}>
@@ -120,40 +192,8 @@ function TableContent(props) {
                         ((!cell.hidden || props.gameState === 'lost') && cell.value >= 1 ? ` c-${cell.value}` : '') +
                         (props.gameState === 'lost' && cell.flag && cell.value !== 9 ? ' flag-wrong' : '')
                     }
-                    onClick={props.gameState !== 'lost' && (
-                        props.ctrl ? (
-                            () => placeFlag(rx, ry)
-                        ) : (
-                            !cell.flag && (cell.value === 9 ? () => {
-                                const mutGrid = JSON.parse(JSON.stringify(props.grid));
-                                mutGrid[ry][rx].value++;
-                                props.setGrid(mutGrid);
-                                props.setGameState('lost');
-                            } : () => {
-                                if (props.gameState === 'waiting') props.setGameState('playing');
-
-                                let mutGrid = props.grid;
-                                let newShowCount = props.showCount;
-                                if (cell.value >= 1) {
-                                    mutGrid = props.grid.map((row, y) => row.map((mgc, x) => x === rx && y === ry ?
-                                        { ...mgc, hidden: false } :
-                                        mgc
-                                    ));
-                                    newShowCount = props.showCount + 1;
-                                } else {
-                                    mutGrid = JSON.parse(JSON.stringify(props.grid));
-                                    newShowCount = props.showCount + touchCell(mutGrid, rx, ry);
-                                }
-
-                                props.setShowCount(newShowCount);
-                                if (props.width * props.height - newShowCount <= props.bombCount && gridIsSolved(mutGrid)) {
-                                    props.setGameState('won');
-                                }
-                                props.setGrid(mutGrid);
-                            })
-                        )
-                    )}
-                    onContextMenu={props.gameState !== 'lost' && (() => placeFlag(rx, ry))}
+                    onClick={createHandleClick(rx, ry, cell)}
+                    onContextMenu={props.gameState !== 'lost' ? (() => placeFlag(rx, ry)) : undefined}
                 >
                     {(cell.flag && <i className='far fa-flag' />) ||
                     ((!cell.hidden || (props.gameState === 'lost' && cell.value > 8)) && (cellVal[cell.value] || cell.value))}
@@ -180,18 +220,14 @@ export default function Minesweeper() {
     useEffect(() => {
         const ev = e => e.preventDefault() && false;
         gameRef.current.addEventListener('contextmenu', ev);
-        const kde = window.addEventListener('keydown', e => (
-            e.keyCode === 17 && !ctrl && setCtrl(true)
-        ));
-        const kue = window.addEventListener('keyup', e => {
-            e.keyCode === 17 && ctrl && setCtrl(false)
-        });
+        const kde = window.addEventListener('keydown', e => e.keyCode === 17 && setCtrl(true));
+        const kue = window.addEventListener('keyup',   e => e.keyCode === 17 && setCtrl(false));
         return () => {
             gameRef.current.removeEventListener('contextmenu', ev);
             window.removeEventListener('keydown', kde);
             window.removeEventListener('keyup', kue);
         }
-    });
+    }, []);
 
     const gameRestart = () => {
         setGrid(gridGenerate(width, height, bombCount));
@@ -246,7 +282,7 @@ export default function Minesweeper() {
                         title='restart'
                         onClick={gameRestart}
                     >
-                        <i class="fas fa-redo"></i>
+                        <i className="fas fa-redo"/>
                     </div>
                     {gameState === 'won' && <div> You win! </div>}
                 </div>

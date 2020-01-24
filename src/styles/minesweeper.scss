@@ -151,15 +151,15 @@ $tdColor: lighten($c_dark, 3%);
                 position: absolute;
                 @include absolute-fill(-4px);
                 border: 3px solid transparent;
-                transition: .08s border-color;
+                transition: .03s opacity;
                 border-radius: 6px;
                 z-index: 4;
-                opacity: .8;
+                border-color: $c_txt;
+                opacity: 0;
             }
 
             &.hidden:hover::after {
-                border-color: $c_txt;
-                z-index: 6;
+                opacity: .8;
             }
         }
     }

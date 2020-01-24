@@ -59,10 +59,12 @@ function ValidateArticle(props) {
     ) : <WindowCenter> 404! Could not find any article by the name "{location}" </WindowCenter>;
 }
 
+const fallback = <PageLoading />;
+
 ReactDOM.render(
     <BrowserRouter>
         <div>
-            <Suspense fallback={<PageLoading />}>
+            <Suspense fallback={fallback}>
                 <Route exact path='/'                  component={Home} />
                 <Route       path='/articles'          component={Articles} />
                 <Route       path='/snippets'          component={Snippets} />
