@@ -34,4 +34,12 @@
     "thumbnail": "autotiling.thumbnail.png",
     "summary": "Learn to autotile in code",
     "timestamp": 1567288800000
+},{
+    "name": "source_control_gms2",
+    "displayName": "Source Control in GMS2",
+    "tags": ["scm", "git", "programming", "gms2"],
+    "password": "git",
+    "thumbnail": "source_control.thumbnail.png",
+    "summary": "Learn to autotile in code",
+    "timestamp": null
 }]
