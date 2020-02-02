@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import classNames from 'class-names';
 import Header from '../components/Header.jsx';
 import '../styles/minesweeper.scss';
 
@@ -187,16 +188,19 @@ function TableContent(props) {
             {row.map((cell, rx) => (
                 <td
                     key={rx}
-                    className={
-                        (cell.hidden ? 'hidden' : '') +
-                        ((!cell.hidden || props.gameState === 'lost') && cell.value >= 1 ? ` c-${cell.value}` : '') +
-                        (props.gameState === 'lost' && cell.flag && cell.value !== 9 ? ' flag-wrong' : '')
-                    }
+                    className={classNames({
+                        'hidden':            cell.hidden,
+                        [`c-${cell.value}`]: cell.value >= 1 && (!cell.hidden || props.gameState === 'lost'),
+                        'flag-wrong':        props.gameState === 'lost' && cell.flag && cell.value !== 9
+                    })}
                     onClick={createHandleClick(rx, ry, cell)}
-                    onContextMenu={props.gameState !== 'lost' ? (() => placeFlag(rx, ry)) : undefined}
+                    onContextMenu={() => props.gameState !== 'lost' && placeFlag(rx, ry)}
                 >
-                    {(cell.flag && <i className='far fa-flag' />) ||
-                    ((!cell.hidden || (props.gameState === 'lost' && cell.value > 8)) && (cellVal[cell.value] || cell.value))}
+                    {(
+                        cell.flag && <i className='far fa-flag' />
+                    ) || (
+                        (!cell.hidden || (props.gameState === 'lost' && cell.value > 8)) && (cellVal[cell.value] || cell.value)
+                    )}
                 </td>
             ))}
         </tr>
@@ -296,7 +300,7 @@ function Counter(props) {
 
     return (
         <div
-            className={(props.className || '') + ' counter' + (toggle ? ' toggle' : '')}
+            className={classNames(props.className, 'counter', { toggle: toggle })}
             onClick={e => {
                 setToggle(!toggle)
                 if (props.onClick) props.onClick(e);
