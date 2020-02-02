@@ -4,7 +4,7 @@ import Header from '../components/Header.jsx';
 import A from '../components/A.jsx';
 import radicalSrc from '../data/radicals.js';
 import kanjiSrc from '../data/kanji.js';
-import '../styles/kanji.scss';
+import '../styles/radicals.scss';
 
 const kanji = kanjiSrc.map(kan => ({
     number:  kan[0],
@@ -217,8 +217,8 @@ export default function Radicals() {
     // Find rendered width
     useEffect(() => {
         const updateWidth = () => {
-            const table   = document.querySelector('#kanjipage .radical-table');
-            const radCell = document.querySelector('#kanjipage .array-table > div');
+            const table   = document.querySelector('#radicalpage .radical-table');
+            const radCell = document.querySelector('#radicalpage .array-table > div');
             // Each cell has -2px margin on one side
             setWidth(Math.floor((table.offsetWidth) / (radCell.offsetWidth - 2)));
         }
@@ -231,7 +231,7 @@ export default function Radicals() {
     return (
         <>
             <Header />
-            <div id='kanjipage' className={focus ? 'blur' : ''}>
+            <div id='radicalpage' className={focus ? 'blur' : ''}>
                 <div className='header' style={{ width: width * 44 }}>
                     <div className='title'> Kangxi Radicals </div>
                     <div className='controls'>

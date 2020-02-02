@@ -20,14 +20,13 @@ const Snippets     = lazy(() => import('./pages/Snippets.jsx'));
 const Paint        = lazy(() => import('./pages/Paint.jsx'));
 const Minesweeper  = lazy(() => import('./pages/Minesweeper.jsx'));
 const Radicals     = lazy(() => import('./pages/Radicals.jsx'));
+const Kanji        = lazy(() => import('./pages/Kanji.jsx'));
 
 function ValidatePage(props) {
     const location = (window.location.pathname.match(/\/([^/]*)\/?$/)[1] || '').toLowerCase();
     const article = articlesJSON.find(article => article.name.toLowerCase() === location);
 
-    return article ? (
-        <ValidateArticle loc={location} article={article} />
-    ) : <></>;
+    return article ? <ValidateArticle loc={location} article={article} /> : null;
 }
 
 function ASCIIPage() {
@@ -73,7 +72,7 @@ ReactDOM.render(
                 <Route       path='/dracula'           component={Dracula} />
                 <Route       path='/ascii'             component={ASCIIPage} />
                 <Route       path='/paint'             component={Paint} />
-                <Route       path='/kanji'             component={Radicals} />
+                <Route       path='/kanji'             component={Kanji} />
                 <Route       path='/radicals'          component={Radicals} />
                 <Route exact path='/:page'             component={ValidatePage} />
                 <Route exact path='/a/:article'        component={ValidateArticle} />
