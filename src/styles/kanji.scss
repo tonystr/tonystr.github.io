@@ -7,14 +7,51 @@
     padding-bottom: 2.7rem;
 }
 
+.canvas-container {
+    position: relative;
+    $control-width: 2.6rem;
+    padding-right: $control-width;
+
+    .controls {
+        position: absolute;
+        top: .5rem;
+        right: 0;
+        bottom: 0;
+        width: $control-width;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.2rem;
+        color: $c_ltgray;
+
+        i {
+            margin-bottom: 1.3rem;
+            transition: .14s color;
+
+            &:hover {
+                color: $c_green;
+                cursor: pointer;
+            }
+        }
+    }
+}
+
 .kanji-canvas {
-    box-shadow: 0 1px 10px rgba(0, 0, 0, .4);
-    background-color: $c_dark;
+    background-color: rgba($c_dark, .12);
+    border-radius: .4rem;
+    border: 4px solid #1d202a;
+    cursor: crosshair;
 }
 
 .results {
     font-size: 3rem;
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap-reverse;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin-left: 2rem;
+    align-content: flex-start;
+
+    span {
+        margin-right: 2rem;
+    }
 }

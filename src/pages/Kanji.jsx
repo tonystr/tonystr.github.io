@@ -7,25 +7,31 @@ const CANVAS_SIZE = 36 * 36;
 window.mousePrevious = { x: null, y: null, down: false };
 
 function canvasDraw(e, setCoords) {
+    const target = e.target;
     const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
 
-    if (e.target === undefined || e.target.tagName !== 'CANVAS') {
+    console.log(e);
+
+    const clientX = e.clientX !== undefined ? e.clientX : e.touches[0].clientX;
+    const clientY = e.clientY !== undefined ? e.clientY : e.touches[0].clientY;
+
+    if (target === undefined || target.tagName !== 'CANVAS') {
         // document.removeEventListener('mousemove', canvasDraw);
         // window.mousePrevious.down = false;
         return false;
     }
 
-    const rect = e.target.getBoundingClientRect();
+    const rect = target.getBoundingClientRect();
 
-    const x = e.clientX - rect.x;
-    const y = e.clientY - rect.y;
+    const x = clientX - rect.x;
+    const y = clientY - rect.y;
     const px = window.mousePrevious.down ? window.mousePrevious.x : x;
     const py = window.mousePrevious.down ? window.mousePrevious.y : y;
     // const dis = Math.sqrt(Math.pow(x - px, 2) + Math.pow(y - py, 2));
 
     ctx.beginPath();
-    ctx.lineWidth = 12;
+    ctx.lineWidth = 8;
     ctx.strokeStyle = '#ffffff';
     ctx.lineCap = 'round';
     ctx.moveTo(px, py);
@@ -53,9 +59,9 @@ function canvasDraw(e, setCoords) {
 }
 
 function base36(coord) {
-    if (isNaN(coord) || coord < 0 || coord >= CANVAS_SIZE) {
-        throw 'bad coordinate ' + coord;
-    }
+    // if (isNaN(coord) || coord < 0 || coord >= CANVAS_SIZE) {
+    //     throw 'bad coordinate ' + coord;
+    // }
     let str = coord.toString(36);
     return str.length === 1 ? '0' + str : str;
 }
@@ -68,6 +74,7 @@ export default function KanjiPage() {
     const [coords,  setCoords ] = useState([]);
     const [strokes, setStrokes] = useState(0);
     const [results, setResults] = useState([]);
+    const [strokeBased, setStrokeBased] = useState(false);
 
     useEffect(() => {
         const updateCanvasSize = () => setCanvasSize({
@@ -83,9 +90,11 @@ export default function KanjiPage() {
     useEffect(() => {
         if (strokes <= 0) return;
 
-        let req = coords.reduce((req, list) =>
-            list.length ? req + list.reduce((acc, coord) => acc + base36(coord.x) + base36(coord.y), '') + '\n' : req,
-            'hL '
+        let req = coords.reduce(
+            (req, list) => list.length ?
+                req + list.reduce((acc, coord) => acc + base36(coord.x) + base36(coord.y), '') + '\n' :
+                req,
+            strokeBased ? 'HL ' : 'hL '
         );
 
         // Another scary API request, but omg the results are amazing
@@ -94,48 +103,78 @@ export default function KanjiPage() {
                 console.log(res);
                 try {
                     let out = JSON.parse(res);
+                    if (!out.results || !out.results.length) throw 'No results';
                     setResults(out.results);
                 } catch (e) {
                     console.error(e);
                 }
             })
         );
-    }, [strokes]);
+    }, [strokes, strokeBased]);
+
+    const clearCanvas = () => {
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        setCoords([]);
+        setStrokes(0);
+    }
 
     const draw = e => canvasDraw(e, setCoords);
+
+    const clearMouseListener = () => {
+        window.mousePrevious.down = false;
+        setStrokes(prev => prev + 1);
+        document.removeEventListener('mousemove', draw);
+        document.removeEventListener('mouseup', clearMouseListener);
+    }
 
     return (
         <>
             <Header />
             <div className='kanji-page'>
+                <div className='canvas-container'>
+                    <canvas
+                        width={canvasSize.width}
+                        height={canvasSize.height}
+                        id='canvas'
+                        className='kanji-canvas'
+                        onMouseDown={e => {
+                            setCoords(prev => [...prev.map(list => list.slice()), []]);
+                            canvasDraw(e, setCoords);
+                            document.addEventListener('mousemove', draw);
+                            document.addEventListener('mouseup', clearMouseListener);
+                        }}
+                        onTouchStart={e => {
+                            setCoords(prev => [...prev.map(list => list.slice()), []]);
+                            canvasDraw(e, setCoords);
+                            document.addEventListener('touchmove', draw);
+                            document.addEventListener('touchend', clearMouseListener);
+                        }}
+                        onClick={e => {
+                            canvasDraw(e, setCoords);
+                            window.mousePrevious.down = false;
+                        }}
+                    />
+                    <div className='controls'>
+                        <i
+                            title='Clear'
+                            className='fas fa-redo'
+                            onClick={clearCanvas}
+                        />
+                        <i
+                            title={strokeBased ? 'Match by image' : 'Match by stroke'}
+                            className={`fas fa-${strokeBased ? 'random' : 'paint-brush'}`}
+                            onClick={() => setStrokeBased(prev => !prev)}
+                        />
+                    </div>
+                </div>
                 <div className='results' style={{
                     width:  Math.min(window.innerWidth - canvasSize.width, 500),
-                    height: canvasSize.height 
+                    height: canvasSize.height
                 }}>
-                    {results.map(kanji => <span>{kanji}</span>)}
+                    {results.map((kanji, i) => <span key={i}>{kanji}</span>)}
                 </div>
-                <canvas
-                    width={canvasSize.width}
-                    height={canvasSize.height}
-                    id='canvas'
-                    className='kanji-canvas'
-                    onMouseDown={e => {
-                        setCoords(prev => [...prev.map(list => list.slice()), []]);
-                        canvasDraw(e, setCoords);
-                        document.addEventListener('mousemove', draw);
-                        const clearMouseListener = () => {
-                            window.mousePrevious.down = false;
-                            setStrokes(prev => prev + 1);
-                            document.removeEventListener('mousemove', draw);
-                            document.removeEventListener('mouseup', clearMouseListener);
-                        }
-                        document.addEventListener('mouseup', clearMouseListener);
-                    }}
-                    onClick={e => {
-                        canvasDraw(e, setCoords);
-                        window.mousePrevious.down = false;
-                    }}
-                />
             </div>
         </>
     );
