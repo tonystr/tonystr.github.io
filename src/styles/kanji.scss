@@ -37,21 +37,81 @@
 }
 
 .kanji-canvas {
-    background-color: rgba($c_dark, .12);
+    background-color: rgba($c_dark, .36);
     border-radius: .4rem;
-    border: 4px solid #1d202a;
+    border: 4px solid $c_dark;
     cursor: crosshair;
 }
 
 .results {
-    font-size: 3rem;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    margin-left: 2rem;
-    align-content: flex-start;
+    position: relative;
 
-    span {
-        margin-right: 2rem;
+    .search-results {
+        font-size: 2.5rem;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding-left: 2rem;
+        align-content: flex-start;
+        overflow-y: scroll;
+        transition: .14s all;
+        transition: 0s border-top-color, 0s border-bottom-color;
+        border-top: 4px solid transparent;
+        border-bottom: 4px solid transparent;
+
+        &.small {
+            width: 5rem;
+            color: lighten($c_ltgray, 8%);
+            border-top-color: $c_dark;
+            border-bottom-color: $c_dark;
+            transition: .14s border-top-color, .14s border-bottom-color;
+            scrollbar-color: transparent transparent;
+
+            :last-child {
+                padding-bottom: 1rem;
+            }
+
+            &::after {
+                content: '';
+                background: linear-gradient(180deg, transparent 0%, $c_gray 90%, $c_gray 90%);
+                position: absolute;
+                bottom: 4px;
+                height: 2rem;
+                left: 0;
+                width: 7rem;
+            }
+
+            &:hover {
+                scrollbar-color: #1d202a transparent;
+            }
+        }
+
+        span {
+            margin-right: 2rem;
+        }
+    }
+
+    .inspector {
+        font-size: 2.5rem;
+        width: 80%;
+        overflow-y: scroll;
+
+        .foc {
+            position: relative;
+            padding: .4rem;
+            margin: 1rem;
+            border: 4px solid $c_dark;
+            border-radius: .4rem;
+
+            .number {
+                font-size: 1rem;
+                color: $c_ltgray;
+                position: absolute;
+                top: 0;
+                right: 0;
+            }
+        }
     }
 }
