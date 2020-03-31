@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Header from '../components/Header.jsx';
+import classNames from 'class-names';
 import '../styles/kanji.scss';
+import kanjis from '../data/kanji.js';
 
 const CANVAS_SIZE = 36 * 36;
 
@@ -66,6 +68,18 @@ function base36(coord) {
     return str.length === 1 ? '0' + str : str;
 }
 
+function KanjiInspector({ kanji }) {
+    return (
+        <div className='inspector'>
+            <div className='foc'>
+                {['number', 'character', 'radical', 'stroke-count', 'meaning', 'reading'].map(
+                    (type, index) => <div className={type} key={type}>{kanji[index]}</div>
+                )}
+            </div>
+        </div>
+    );
+}
+
 export default function KanjiPage() {
     const [canvasSize, setCanvasSize] = useState({
         width:  window.innerHeight - 374,
@@ -74,6 +88,7 @@ export default function KanjiPage() {
     const [coords,  setCoords ] = useState([]);
     const [strokes, setStrokes] = useState(0);
     const [results, setResults] = useState([]);
+    const [inspect, setInspect] = useState(null);
     const [strokeBased, setStrokeBased] = useState(false);
 
     useEffect(() => {
@@ -133,12 +148,16 @@ export default function KanjiPage() {
         <>
             <Header />
             <div className='kanji-page'>
-                <div className='canvas-container'>
+                <div
+                    className='canvas-container'
+                    width={canvasSize.width}
+                    height={canvasSize.height}
+                >
                     <canvas
-                        width={canvasSize.width}
-                        height={canvasSize.height}
                         id='canvas'
                         className='kanji-canvas'
+                        width={canvasSize.width - 11}
+                        height={canvasSize.height - 11}
                         onMouseDown={e => {
                             setCoords(prev => [...prev.map(list => list.slice()), []]);
                             canvasDraw(e, setCoords);
@@ -173,7 +192,17 @@ export default function KanjiPage() {
                     width:  Math.min(window.innerWidth - canvasSize.width, 500),
                     height: canvasSize.height
                 }}>
-                    {results.map((kanji, i) => <span key={i}>{kanji}</span>)}
+                <div className={classNames('search-results', { 'small': !!inspect })}>
+                        {results.map((kanji, i) => (
+                            <span
+                                key={i}
+                                onClick={() => setInspect(kanjis.find(k => k[1] === kanji))}
+                            >
+                                {kanji}
+                            </span>
+                        ))}
+                    </div>
+                    {inspect && <KanjiInspector kanji={inspect} />}
                 </div>
             </div>
         </>
