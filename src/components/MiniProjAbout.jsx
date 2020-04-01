@@ -56,6 +56,19 @@ export default function MiniProjAbout() {
             >
                 @
             </A>
+            <A
+                className='corona-page-link mini-proj'
+                to='https://corona.tonystr.net'
+                title='corona statistics'
+                style={{
+                    position: 'absolute',
+                    left: '5%',
+                    top: '7rem',
+                    zIndex: 7
+                }}
+            >
+                <i className='far fa-dizzy' />
+            </A>
         </>
     );
 }
