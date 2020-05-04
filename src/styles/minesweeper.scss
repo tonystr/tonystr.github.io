@@ -97,70 +97,74 @@ $tdColor: lighten($c_dark, 3%);
             margin-bottom: 0;
         }
     }
+}
 
-    .game-grid {
-        table-layout: fixed;
-        border-collapse: collapse;
-        margin: 0 auto;
-        margin-top: 2rem;
+.game-grid {
+    table-layout: fixed;
+    border-collapse: collapse;
+    margin: 0 auto;
+    margin-top: 2rem;
 
-        td {
-            $csize: 1.5rem;
-            width: $csize;
-            height: $csize;
-            background-color: $tdColor;
-            border: 4px solid $c_gray;
-            border-radius: 4px;
-            position: relative;
-            text-align: center;
+    td {
+        $csize: 1.5rem;
+        width: $csize;
+        height: $csize;
+        background-color: $tdColor;
+        border: 4px solid $c_gray;
+        border-radius: 4px;
+        position: relative;
+        text-align: center;
 
-            $cols: (
-                $c_gold,
-                $c_orange,
-                $c_red,
-                $c_purple,
-                $c_blue,
-                $c_green
-            );
+        $cols: (
+            $c_gold,
+            $c_orange,
+            $c_red,
+            $c_purple,
+            $c_blue,
+            $c_green
+        );
 
-            @for $i from 1 through 5 {
-                &.c-#{$i} {
-                    color: nth($cols, $i);
-                }
+        @for $i from 1 through 5 {
+            &.c-#{$i} {
+                color: nth($cols, $i);
             }
+        }
 
-            &.hidden {
-                background-color: lighten($c_gray, 10%);
-                cursor: pointer;
-            }
+        &.hidden {
+            background-color: lighten($c_gray, 10%);
+            cursor: pointer;
+        }
 
-            &.flag-wrong {
-                color: $c_orange;
-            }
+        &.flag-wrong {
+            color: $c_orange;
+        }
 
-            &.c-9 {
-                background-color: #50526f;
-            }
+        &.snake {
+            background-color: $c_green;
+        }
 
-            &.c-10 {
-                background-color: #a24557;
-            }
+        &.c-9 {
+            background-color: #50526f;
+        }
 
-            &::after {
-                content: '';
-                position: absolute;
-                @include absolute-fill(-4px);
-                border: 3px solid transparent;
-                transition: .03s opacity;
-                border-radius: 6px;
-                z-index: 4;
-                border-color: $c_txt;
-                opacity: 0;
-            }
+        &.c-10 {
+            background-color: #a24557;
+        }
 
-            &.hidden:hover::after {
-                opacity: .8;
-            }
+        &::after {
+            content: '';
+            position: absolute;
+            @include absolute-fill(-4px);
+            border: 3px solid transparent;
+            transition: .03s opacity;
+            border-radius: 6px;
+            z-index: 4;
+            border-color: $c_txt;
+            opacity: 0;
+        }
+
+        &.hidden:hover::after {
+            opacity: .8;
         }
     }
 }

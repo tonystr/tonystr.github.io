@@ -19,6 +19,7 @@ const Articles     = lazy(() => import('./pages/Articles.jsx'));
 const Snippets     = lazy(() => import('./pages/Snippets.jsx'));
 const Paint        = lazy(() => import('./pages/Paint.jsx'));
 const Minesweeper  = lazy(() => import('./pages/Minesweeper.jsx'));
+const Snake        = lazy(() => import('./pages/Snake.jsx'));
 const Radicals     = lazy(() => import('./pages/Radicals.jsx'));
 const Kanji        = lazy(() => import('./pages/Kanji.jsx'));
 
@@ -68,6 +69,7 @@ ReactDOM.render(
                 <Route       path='/articles'          component={Articles} />
                 <Route       path='/snippets'          component={Snippets} />
                 <Route       path='/minesweeper'       component={Minesweeper} />
+                <Route       path='/snake'             component={Snake} />
                 <Route       path='/page_loading'      component={PageLoading} />
                 <Route       path='/dracula'           component={Dracula} />
                 <Route       path='/ascii'             component={ASCIIPage} />
