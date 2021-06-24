@@ -5,13 +5,12 @@
   "homepage": "https://tonystr.net",
   "dependencies": {
     "class-names": "^1.0.0",
-    "node-sass": "^4.11.0",
     "prismjs": "^1.15.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-markdown": "^4.0.6",
     "react-router-dom": "^4.4.0-beta.6",
-    "react-scripts": "2.1.5",
+    "react-scripts": "4.0.3",
     "react-syntax-highlighter": "^10.2.1",
     "romaji": "^0.2.21"
   },
@@ -32,6 +31,8 @@
   ],
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "raw-loader": "^1.0.0"
+    "node-sass": "^6.0.1",
+    "raw-loader": "^1.0.0",
+    "sass-loader": "^12.1.0"
   }
 }

@@ -4,13 +4,9 @@ import styleOneDark from "react-syntax-highlighter/dist/styles/hljs/atom-one-dar
 import '../styles/codeblock.scss';
 
 export default function CodeBlock(props) {
-    if (props.inline) return (
-        <pre className={`code lang-${props.language || 'auto'} inline`}>
-            <code>{props.value}</code>
-        </pre>
-    );
 
     useEffect(() => {
+        if (props.inline) return
         const block = document.querySelector('.codeblock-full:not(.fixed)');
         if (!block) return;
         block.innerHTML = block.innerHTML.replace(
@@ -19,6 +15,12 @@ export default function CodeBlock(props) {
         );
         block.classList.add('fixed');
     });
+
+    if (props.inline) return (
+        <pre className={`code lang-${props.language || 'auto'} inline`}>
+            <code>{props.value}</code>
+        </pre>
+    );
 
     const transJSToGML = props.value.includes('#lang=gml');
 
