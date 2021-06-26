@@ -285,7 +285,7 @@ function createExecMenu(cb, copyBox) {
     return spanRun;
 }
 
-function ArticleContent(props) {
+function ArticleContent({ article, setSections, ...props }) {
     const [markdown, setMarkdown] = useState(null);
     const [status,   setStatus  ] = useState('loading');
 
@@ -294,7 +294,7 @@ function ArticleContent(props) {
             `${window.location.protocol}//` +
             `${window.location.hostname}:` +
             `${window.location.port}/articles/` +
-            `${props.article.name.toLowerCase()}/index.md`,
+            `${article.name.toLowerCase()}/index.md`,
             res => {
                 if (res.startsWith('<!DOCTYPE html>')) return setStatus('article_not_found');
                 setMarkdown(res);
@@ -314,10 +314,10 @@ function ArticleContent(props) {
                     }
                 });
                 sects.push({ text: 'Comments', level: 2, ttt: 'ttt-comments' });
-                props.setSections(sects);
+                setSections(sects);
             }
         );
-    }, []);
+    }, [article, setSections]);
 
     useEffect(() => setTimeout(() => {
         Array.from(document.getElementsByClassName('codeblock-full')).forEach(cb => {
@@ -400,22 +400,22 @@ export default function Article(props) {
     const [currentTOC,  setCurrentTOC ] = useState('');
     const [focus,       setFocus      ] = useState(null);
 
-    const handleScroll = e => {
-        const sectionTitles = document.getElementsByClassName('section-title');
-        for (const section of sectionTitles) {
-            const rect = section.getBoundingClientRect();
-            if (rect.top > 0 && rect.top < window.innerHeight / 2) {
-                const text = section.innerText;
-                if (currentTOC !== text) setCurrentTOC(text);
-                break;
-            }
-        }
-    }
-
     useEffect(() => {
         const check = e => {
             let isEnough = window.innerWidth > 16 * 83;
             if (showTOC !== isEnough) setShowTOC(isEnough);
+        }
+
+        const handleScroll = e => {
+            const sectionTitles = document.getElementsByClassName('section-title');
+            for (const section of sectionTitles) {
+                const rect = section.getBoundingClientRect();
+                if (rect.top > 0 && rect.top < window.innerHeight / 2) {
+                    const text = section.innerText;
+                    if (currentTOC !== text) setCurrentTOC(text);
+                    break;
+                }
+            }
         }
 
         window.addEventListener('resize', check);
@@ -425,7 +425,7 @@ export default function Article(props) {
             window.removeEventListener('resize', check)
             window.removeEventListener('scroll', handleScroll)
         };
-    }, []);
+    }, [showTOC, currentTOC]);
 
     return (
         <>
