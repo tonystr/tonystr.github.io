@@ -6,7 +6,7 @@ import MiniProjAbout from '../components/MiniProjAbout.jsx';
 import '../styles/home.scss';
 const WebdevPage = lazy(() => import('../components/WebdevPage.jsx'));
 const GithubContributions = lazy(() => import('../components/GithubContributions.jsx'));
-const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
+// const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
 Math.clamp = Math.clamp || ((x, y, z) => x < y ? y : (x > z ? z : x));
 

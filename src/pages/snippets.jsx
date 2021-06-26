@@ -21,7 +21,7 @@ function SnippetList(props) {
                 if (list.length >= snippetsJSON.length - 1) setSnips(list);
             });
         }
-    }, []);
+    }, [snipRoot]);
 
     let list = [];
 
