@@ -5,7 +5,7 @@
   "homepage": "https://tonystr.net",
   "dependencies": {
     "class-names": "^1.0.0",
-    "prismjs": "^1.15.0",
+    "prismjs": "^1.24.0",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
     "react-markdown": "^4.0.6",
