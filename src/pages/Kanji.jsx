@@ -118,7 +118,7 @@ export default function KanjiPage() {
                 console.log(res);
                 try {
                     let out = JSON.parse(res);
-                    if (!out.results || !out.results.length) throw 'No results';
+                    if (!out.results || !out.results.length) throw new Error('No results');
                     setResults(out.results);
                 } catch (e) {
                     console.error(e);
