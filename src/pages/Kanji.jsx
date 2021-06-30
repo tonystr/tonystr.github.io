@@ -109,7 +109,7 @@ export default function KanjiPage() {
             (req, list) => list.length ?
                 req + list.reduce((acc, coord) => acc + base36(coord.x) + base36(coord.y), '') + '\n' :
                 req,
-            strokeBased ? 'HL ' : 'hL '
+            strokeBased ? /* based on what */ 'HL ' : 'hL '
         );
 
         // Another scary API request, but omg the results are amazing
