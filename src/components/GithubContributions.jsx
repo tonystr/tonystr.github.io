@@ -51,9 +51,11 @@ export default function GithubContributions() {
         );
     }, []);
 
+    // <div className='github-contributions' dangerouslySetInnerHTML={{ __html: contributions }} />
+
     return (
         <div className='git-section'>
-            <div className='github-contributions' dangerouslySetInnerHTML={{ __html: contributions }} />
+
         </div>
     );
 }
