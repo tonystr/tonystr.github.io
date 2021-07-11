@@ -223,11 +223,12 @@ export default function Minesweeper() {
 
     useEffect(() => {
         const ev = e => e.preventDefault() && false;
-        gameRef.current.addEventListener('contextmenu', ev);
+        const gameRefCurrent = gameRef.current;
+        gameRefCurrent.addEventListener('contextmenu', ev);
         const kde = window.addEventListener('keydown', e => e.keyCode === 17 && setCtrl(true));
         const kue = window.addEventListener('keyup',   e => e.keyCode === 17 && setCtrl(false));
         return () => {
-            gameRef.current.removeEventListener('contextmenu', ev);
+            gameRefCurrent.removeEventListener('contextmenu', ev);
             window.removeEventListener('keydown', kde);
             window.removeEventListener('keyup', kue);
         }
