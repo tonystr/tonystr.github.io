@@ -2,18 +2,25 @@ import React, { useState, useEffect } from 'react';
 import SectionTitle from '../components/SectionTitle.jsx';
 import websites from '../data/websites';
 import requestRawText from '../functions/requestRawText.jsx';
+import { useWindowSize } from '@burst/react-use-window-size';
 import A from '../components/A.jsx';
 
 export default function WebDevPage() {
-
     const [codePreview, setCodePreview] = useState('loading...');
+    const { viewportWidth } = useWindowSize();
+
+    const mobile = viewportWidth <= 1162;
 
     useEffect(() => {
-        requestRawText('https://raw.githubusercontent.com/tonystr/tonystr.github.io/master/src/pages/home.jsx', res => {
-            setCodePreview(`${res}\n${res}`);
+        if (!mobile && codePreview === 'loading...') {
+            requestRawText('https://raw.githubusercontent.com/tonystr/tonystr.github.io/master/src/pages/home.jsx', res => {
+                setCodePreview(`${res}\n${res}`);
+                import('./../prism.js').then(Prism => Prism.highlightAll());
+            });
+        } else if (!mobile) {
             import('./../prism.js').then(Prism => Prism.highlightAll());
-        });
-    }, []);
+        }
+    }, [mobile, codePreview]);
 
     const renderWebsites = () => {
         const list = [];
@@ -35,12 +42,12 @@ export default function WebDevPage() {
     }
 
     return (
-        <section className='page' id='webdev'>
-            <div className='left'>
+        <section className={'page' + (mobile ? ' mobile' : '')} id='webdev'>
+            {!mobile && (<div className='left'>
                 <div className='codeWrapper'>
                     {codePreview && <pre><code className='prism language-jsx'>{codePreview}</code></pre>}
                 </div>
-            </div>
+            </div>)}
             <div className='right'>
                 <div className='wrapper'>
                     <SectionTitle className='title' content='Web development' />

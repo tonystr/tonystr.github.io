@@ -372,6 +372,18 @@ $xmarg: 4%;
     $gray: $c_ltgray;
     $dkgray: darken($gray, 6%);
 
+    &.mobile {
+        min-height: 0;
+
+        .right {
+            margin: 1rem $xmarg 1rem $xmarg;
+        }
+
+        .wrapper {
+            min-height: 0;
+        }
+    }
+
     .left {
         width: 28%;
         flex-shrink: 0;
@@ -448,7 +460,7 @@ $xmarg: 4%;
         }
 
         .title {
-            padding: 2rem 0 0;
+            padding: 2rem 0;
             margin: 0 2rem;
         }
 
