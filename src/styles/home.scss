@@ -486,6 +486,10 @@ $xmarg: 4%;
             .window {
                 background-color: $dkgray;
 
+                @media(max-width: 806px) {
+                    display: none;
+                }
+
                 .name {
                     position: absolute;
                     bottom: .34rem;
@@ -519,6 +523,11 @@ $xmarg: 4%;
                 background-color: $dkgray;
                 z-index: 0;
 
+                @media(max-width: 806px) {
+                    margin-left: 0;
+                    font-size: 1rem;
+                }
+
                 &::before {
                     content: '';
                     position: absolute;
@@ -527,6 +536,10 @@ $xmarg: 4%;
                     border: 4rem solid transparent;
                     border-top-color: $dkgray;
                     z-index: -22;
+
+                    @media(max-width: 806px) {
+                        display: none;
+                    }
                 }
             }
         }
@@ -577,6 +590,10 @@ $xmarg: 4%;
                     width: 30%;
                     margin: 1.5%;
                     position: relative;
+
+                    @media(max-width: 806px) {
+                        width: 100%;
+                    }
 
                     img {
                         width: 100%;
