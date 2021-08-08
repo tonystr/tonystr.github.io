@@ -339,8 +339,8 @@ $xmarg: 4%;
 
             &:hover {
                 cursor: pointer;
-                transform: translateX(-20%);
-                border: 1px solid lighten($c_bright, 12%);
+                //transform: translateX(-20%);
+                border: 1px solid $c_green; //lighten($c_bright, 12%);
 
                 .title {
                     color: $c_green;

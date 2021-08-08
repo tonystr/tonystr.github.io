@@ -6,7 +6,7 @@ import MiniProjAbout from '../components/MiniProjAbout.jsx';
 import '../styles/home.scss';
 const WebdevPage = lazy(() => import('../components/WebdevPage.jsx'));
 const GithubContributions = lazy(() => import('../components/GithubContributions.jsx'));
-// const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
+const GamedevPage = lazy(() => import('../components/GamedevPage.jsx'));
 
 Math.clamp = Math.clamp || ((x, y, z) => x < y ? y : (x > z ? z : x));
 
@@ -15,6 +15,7 @@ export default function Home(props) {
         <>
             <FrontPage />
             <WebdevPage />
+            <GamedevPage />
         </>
     );
 }
@@ -25,28 +26,11 @@ export default function Home(props) {
     <SectionTitle content='About' />
     <MiniProjAbout />
     <div className='description'>
-        <div className='text'>
-            <p>
-                Hey ー I'm Tony Andréz Forland Strømsnæs, or TonyStr for short.
-            </p><p>
-                Born, rasied and living in Norway; I've spent many rainy days indoors playing games, and eventually teaching myself to make them. Programming went from hobby to passion to a goal of profession.
-            </p><p>
-                Since the age of 11, I have programmed games, websites, language tools, chat bots and many more concepts that have since grasphed my interest.
-            </p>
-        </div>
-        <div className='bg-wrp-out'>
-            <div className='bg-wrp'>
-                <div className='background' />
-            </div>
-        </div>
     </div>
     <GithubContributions />
 </section>
 
 */
-
-// TODO:
-// <GamedevPage />
 
 function FrontPage() {
     const renderLines = (num = 5) => {
