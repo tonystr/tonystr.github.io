@@ -22,7 +22,7 @@ header {
             display: none;
         }
 
-        @media(min-width: 634px) {
+        @media(min-width: 1001px) {
             img {
                 display: block;
                 height: 2.44vw;
@@ -40,19 +40,6 @@ header {
     }
 
     @media(max-width:1000px) {
-        $border: 3px;
-        border-top: $border solid $c_dark;
-
-        .ribbons {
-            top: $border * .22;
-        }
-
-        .tony {
-            font-size: 2.2rem;
-        }
-    }
-
-    @media(max-width:640px) {
         $border: 3px;
         border-top: none;
         border-bottom: $border solid $c_dark;
