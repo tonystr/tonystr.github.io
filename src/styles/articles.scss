@@ -7,6 +7,10 @@
         padding: 0 2rem;
         list-style-type: none;
 
+        @media(max-width: 1000px) {
+            padding: 0;
+        }
+
         li {
             font-family: $josefin;
             border: 2px solid $c_dark;
