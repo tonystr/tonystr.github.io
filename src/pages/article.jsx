@@ -371,7 +371,7 @@ function ArticleContent({ article, setSections, ...props }) {
                                     ArticleTitle(ps),
                                 image: ps => (<ArticleMedia
                                     {...ps}
-                                    article={props.article}
+                                    article={article}
                                     setFocus={props.setFocus}
                                 />),
                                 paragraph: ps => <div className='p'>{ps.children}</div>
