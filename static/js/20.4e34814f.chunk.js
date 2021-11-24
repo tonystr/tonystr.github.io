@@ -1,2 +1,0 @@
-(window.webpackJsonp=window.webpackJsonp||[]).push([[20],{466:function(e,n,t){"use strict";t.r(n),t.d(n,"default",function(){return r});var a=t(0),c=t.n(a),o=t(50);function r(){return c.a.createElement("div",{id:"gamedev",className:"page"},c.a.createElement(o.a,{content:"Game development"}))}}}]);
-//# sourceMappingURL=20.4e34814f.chunk.js.map

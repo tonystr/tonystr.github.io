@@ -1,0 +1,2 @@
+(this["webpackJsonptonystr.github.io"]=this["webpackJsonptonystr.github.io"]||[]).push([[25],{467:function(t,i,n){"use strict";n.r(i),n.d(i,"default",(function(){return c}));n(0);var s=n(1);function c(t){return Object(s.jsx)("div",{id:"theme-dracula",children:Object(s.jsx)("div",{className:"window",children:Object(s.jsx)("img",{src:"./images/dracula_window.png",alt:""})})})}}}]);
+//# sourceMappingURL=25.071f22f8.chunk.js.map
