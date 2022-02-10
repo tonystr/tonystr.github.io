@@ -32,7 +32,7 @@
   ],
   "devDependencies": {
     "gh-pages": "^2.0.1",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "raw-loader": "^1.0.0",
     "sass-loader": "^12.1.0"
   }
