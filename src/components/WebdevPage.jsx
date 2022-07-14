@@ -60,10 +60,9 @@ export default function WebDevPage() {
                             <span className='name'>TonyStr</span>
                         </div>
                         <div className='inner'>
-                            I specialize in <A to='https://reactjs.org/'>React.js</A> and <A to='https://sass-lang.com/'>SCSS</A> for
-                            front-end web development, though I also have experience
-                            with <A to='https://vuejs.org'>Vue.js</A> and <A to='https://www.styled-components.com/'>styled-components</A>, because
-                            I love trying out new technologies. Some of the websites displayed above are also written in plain html/css/js
+                            I am a full stack webdeveloper with an affinity for color and design. Above are some of the websites I've worked on.
+                            My favorite tools are <A to='https://reactjs.org/'>React.js</A>, <A to='https://sass-lang.com/'>SCSS</A>, 
+                            <A to='https://vuejs.org'>Vue.js</A>, and whatever tool im currently learning.
                         </div>
                     </div>
                 </div>

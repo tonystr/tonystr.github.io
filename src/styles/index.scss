@@ -36,19 +36,7 @@ $border: 0.24vw;
 .page-loading {
     position: fixed;
     z-index: 5000;
-    background-color: $c_gray;
     @include absolute-fill(0);
-
-    &::before {
-        position: absolute;
-        z-index: -2;
-        content: '';
-        top:  50%;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background-color: $c_dark;
-    }
 
     .window-center {
         position: relative;
@@ -56,20 +44,6 @@ $border: 0.24vw;
 
         .cener {
             z-index: 5002;
-        }
-
-        .loader {
-            z-index: -1;
-            position: absolute;
-            left: calc(50% - 4rem - 12px);
-            top:  calc(50% - 4rem - 8px);
-            width:  8rem;
-            height: 8rem;
-            border-radius: 50%;
-            border: 10px dotted $c_green;
-            animation: rotate 2s infinite;
-            background-color: $c_gray;
-            box-shadow: 0 0 0px 5px $c_dark;
         }
     }
 }

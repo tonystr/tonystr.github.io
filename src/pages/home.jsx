@@ -15,10 +15,11 @@ export default function Home(props) {
         <>
             <FrontPage />
             <WebdevPage />
-            <GamedevPage />
         </>
     );
 }
+
+//             <GamedevPage />
 
 /*
 
